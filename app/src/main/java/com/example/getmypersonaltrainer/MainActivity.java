@@ -1,4 +1,4 @@
-package com.example.getmypersonaltrainer;
+   package com.example.getmypersonaltrainer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,5 @@ public class MainActivity extends AppCompatActivity {
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
-      System.out.println("Jorge");
    }
 }
