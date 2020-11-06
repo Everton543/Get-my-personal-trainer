@@ -6,4 +6,124 @@
     android:layout_height="match_parent"
     tools:context=".CreateExerciseActivity">
 
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="90dp"
+        android:layout_marginLeft="90dp"
+        android:layout_marginEnd="90dp"
+        android:layout_marginRight="90dp"
+        android:text="Create Exercise"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Exercise Name"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="14dp"
+        tools:layout_editor_absoluteY="117dp" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Weight"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="178dp"
+        tools:layout_editor_absoluteY="120dp" />
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Emphasis"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="333dp"
+        tools:layout_editor_absoluteY="117dp" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="78dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:width="50sp"
+        android:text="Day of the week"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="275dp" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Number of Repetition"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="127dp"
+        tools:layout_editor_absoluteY="268dp" />
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Interval between Exercise"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="346dp"
+        tools:layout_editor_absoluteY="268dp" />
+
+    <TextView
+        android:id="@+id/textView31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Video Link"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="383dp" />
+
+    <TextView
+        android:id="@+id/textView32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time of the Exercise"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="149dp"
+        tools:layout_editor_absoluteY="383dp" />
+
+    <TextView
+        android:id="@+id/textView33"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Interval etween Series"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="333dp"
+        tools:layout_editor_absoluteY="383dp" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginRight="100dp"
+        android:text="Confirm"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="507dp" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="173dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
