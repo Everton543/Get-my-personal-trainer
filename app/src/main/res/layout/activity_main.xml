@@ -19,11 +19,11 @@
 
     <TextView
         android:id="@+id/textView35"
-        android:layout_width="108dp"
-        android:layout_height="30dp"
+        android:layout_width="191dp"
+        android:layout_height="54dp"
         android:layout_marginTop="48dp"
-        android:text="Password"
-        android:textSize="18sp"
+        android:text="PASSWORD"
+        android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName18" />
