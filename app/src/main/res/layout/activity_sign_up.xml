@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextPhone"
+        android:id="@+id/et_su_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -31,10 +31,10 @@
         android:ems="10"
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView2" />
+        app:layout_constraintTop_toTopOf="@+id/tv_su_username" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tv_su_username"
         android:layout_width="149dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
@@ -46,7 +46,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_su_title" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tv_su_password"
         android:layout_width="147dp"
         android:layout_height="39dp"
         android:layout_marginStart="16dp"
@@ -55,10 +55,10 @@
         android:text="Password"
         android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_su_username" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tv_su_passwordverify"
         android:layout_width="154dp"
         android:layout_height="44dp"
         android:layout_marginStart="16dp"
@@ -67,10 +67,10 @@
         android:text="Password Verify"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_su_password" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tv_su_nickname"
         android:layout_width="145dp"
         android:layout_height="44dp"
         android:layout_marginStart="16dp"
@@ -79,10 +79,10 @@
         android:text="Nickname"
         android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_su_passwordverify" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/tv_su_cellphone"
         android:layout_width="124dp"
         android:layout_height="42dp"
         android:layout_marginStart="24dp"
@@ -92,22 +92,23 @@
         android:layout_marginRight="41dp"
         android:text="Cellphone"
         android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/editTextPhone2"
+        app:layout_constraintEnd_toStartOf="@+id/et_su_cellphone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_su_nickname" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/bt_su_confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:text="CONFIRM"
         android:textSize="36sp"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
-        tools:layout_editor_absoluteX="123dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_su_cellphone" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName27"
+        android:id="@+id/et_su_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -116,10 +117,10 @@
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView3" />
+        app:layout_constraintTop_toTopOf="@+id/tv_su_password" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName30"
+        android:id="@+id/et_su_passwordverify"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -128,10 +129,10 @@
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView4" />
+        app:layout_constraintTop_toTopOf="@+id/tv_su_passwordverify" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName31"
+        android:id="@+id/et_su_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -140,10 +141,10 @@
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView5" />
+        app:layout_constraintTop_toTopOf="@+id/tv_su_nickname" />
 
     <EditText
-        android:id="@+id/editTextPhone2"
+        android:id="@+id/et_su_cellphone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -151,6 +152,6 @@
         android:ems="10"
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView6" />
+        app:layout_constraintTop_toTopOf="@+id/tv_su_cellphone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
