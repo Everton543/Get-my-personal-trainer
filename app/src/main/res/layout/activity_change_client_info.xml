@@ -7,7 +7,7 @@
     tools:context=".ChangeClientInfoActivity">
 
     <TextView
-        android:id="@+id/textView55"
+        android:id="@+id/tv_cci_title"
         android:layout_width="319dp"
         android:layout_height="37dp"
         android:layout_marginStart="32dp"
@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView56"
+        android:id="@+id/tv_cci_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
@@ -31,10 +31,10 @@
         android:text="Nickname"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView55" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_cci_title" />
 
     <TextView
-        android:id="@+id/textView57"
+        android:id="@+id/tv_cci_cellphone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="66dp"
@@ -43,10 +43,10 @@
         android:text="Cellphone"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView56" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_cci_nickname" />
 
     <TextView
-        android:id="@+id/textView58"
+        android:id="@+id/tv_cci_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
@@ -55,10 +55,10 @@
         android:text="Pasword"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView57" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_cci_cellphone" />
 
     <TextView
-        android:id="@+id/textView59"
+        android:id="@+id/tv_cci_password2"
         android:layout_width="131dp"
         android:layout_height="28dp"
         android:layout_marginStart="28dp"
@@ -67,10 +67,10 @@
         android:text="Confirm password"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView58" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_cci_password" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName32"
+        android:id="@+id/et_cci_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -80,10 +80,10 @@
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView55" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_cci_title" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName33"
+        android:id="@+id/et_cci_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
@@ -93,10 +93,10 @@
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView57" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_cci_cellphone" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/bt_cci_confirm"
         android:layout_width="171dp"
         android:layout_height="68dp"
         android:layout_marginStart="100dp"
@@ -108,10 +108,10 @@
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView59" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_cci_password2" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName36"
+        android:id="@+id/et_cci_password2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -121,10 +121,10 @@
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView58" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_cci_password" />
 
     <EditText
-        android:id="@+id/editTextPhone3"
+        android:id="@+id/ep_cci_cellphone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -133,5 +133,5 @@
         android:ems="10"
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView56" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_cci_nickname" />
 </androidx.constraintlayout.widget.ConstraintLayout>

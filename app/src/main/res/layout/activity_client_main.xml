@@ -7,7 +7,7 @@
     tools:context=".ClientMainActivity">
 
     <TextView
-        android:id="@+id/textView48"
+        android:id="@+id/tv_cm_title"
         android:layout_width="277dp"
         android:layout_height="47dp"
         android:layout_marginStart="32dp"
@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/bt_cm_changeinfor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -30,10 +30,10 @@
         android:layout_marginTop="60dp"
         android:text="Change My Information"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView48" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_cm_title" />
 
     <Button
-        android:id="@+id/button9"
+        android:id="@+id/bt_cm_personaltrainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
@@ -41,60 +41,60 @@
         android:layout_marginRight="8dp"
         android:text="My Personal Trainer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView48" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_cm_title" />
 
     <TextView
-        android:id="@+id/textView49"
+        android:id="@+id/tv_cm_monday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
         android:text="Monday"
-        app:layout_constraintTop_toBottomOf="@+id/button6"
+        app:layout_constraintTop_toBottomOf="@+id/bt_cm_changeinfor"
         tools:layout_editor_absoluteX="38dp" />
 
     <TextView
-        android:id="@+id/textView50"
+        android:id="@+id/tv_cm_tuesday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
         android:text="Tuesday"
-        app:layout_constraintTop_toBottomOf="@+id/button6"
+        app:layout_constraintTop_toBottomOf="@+id/bt_cm_changeinfor"
         tools:layout_editor_absoluteX="179dp" />
 
     <TextView
-        android:id="@+id/textView51"
+        android:id="@+id/tv_cm_wednesday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
         android:text="Wednesday"
-        app:layout_constraintTop_toBottomOf="@+id/button6"
+        app:layout_constraintTop_toBottomOf="@+id/bt_cm_changeinfor"
         tools:layout_editor_absoluteX="308dp" />
 
     <TextView
-        android:id="@+id/textView52"
+        android:id="@+id/tv_cm_exercise_mon_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Exercise Name"
-        app:layout_constraintTop_toBottomOf="@+id/textView49"
+        app:layout_constraintTop_toBottomOf="@+id/tv_cm_monday"
         tools:layout_editor_absoluteX="25dp" />
 
     <TextView
-        android:id="@+id/textView53"
+        android:id="@+id/tv_cm_exercise_tue_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Exercise Name"
-        app:layout_constraintTop_toBottomOf="@+id/textView49"
+        app:layout_constraintTop_toBottomOf="@+id/tv_cm_monday"
         tools:layout_editor_absoluteX="158dp" />
 
     <TextView
-        android:id="@+id/textView54"
+        android:id="@+id/tv_cm_exercise_wed_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Exercise Name"
-        app:layout_constraintTop_toBottomOf="@+id/textView49"
+        app:layout_constraintTop_toBottomOf="@+id/tv_cm_monday"
         tools:layout_editor_absoluteX="301dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,7 +7,7 @@
     tools:context=".PersonalTrainerInfoActivity">
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/tv_pti_title"
         android:layout_width="0dp"
         android:layout_height="53dp"
         android:layout_marginStart="8dp"
@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/tv_pti_name"
         android:layout_width="327dp"
         android:layout_height="49dp"
         android:layout_marginStart="32dp"
@@ -33,14 +33,14 @@
         android:layout_marginBottom="16dp"
         android:text="Personal Trainer Name"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/et_pti_multiline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_pti_title" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
+        android:id="@+id/et_pti_multiline"
         android:layout_width="317dp"
         android:layout_height="204dp"
         android:layout_marginStart="24dp"
@@ -53,11 +53,11 @@
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/tv_pti_name"
         tools:text="Personal trainer text that he rights about himself, it should not matter the length of the text. So we use a View that an scroll down" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/bt_pti_unsubscibe"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -69,5 +69,5 @@
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine" />
+        app:layout_constraintTop_toBottomOf="@+id/et_pti_multiline" />
 </androidx.constraintlayout.widget.ConstraintLayout>
