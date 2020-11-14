@@ -9,6 +9,7 @@
     <string name="exercise_information_title">Exercise Information</string>
     <string name="personal_trainer_info_title">Personal Trainer</string>
     <string name="client_main_activity_title">My Exercises</string>
+    <string name="create_exercise_title">Create New Exercise</string>
 
     //Hints
     <string name="hint_name">Name</string>
@@ -21,7 +22,14 @@
     <string name="hint_password">Password</string>
     <string name="hint_confirm_password">Confirm Password</string>
     <string name="hint_score_vote">Score from 0 to 10</string>
-
+    <string name="hint_exercise_name">Exercise Name</string>
+    <string name="hint_exercise_emphasis">Exercise Objective</string>
+    <string name="hint_exercise_number_repetition">Repetitions/Time</string>
+    <string name="hint_exercise_number_series">Number Series</string>
+    <string name="hint_exercise_interval_between_series">Interval for Series</string>
+    <string name="hint_exercise_interval_between_exercise">Interval for Exercise</string>
+    <string name="hint_exercise_video">Video Link</string>
+    <string name="hint_day_of_week">Exercise Day</string>
 
     //Tags
     <string name="phone_tag">Phone: </string>
@@ -37,12 +45,14 @@
     <string name="exercise_number_series_tag">Series: </string>
     <string name="exercise_interval_between_series_tag">Interval for Series: </string>
     <string name="exercise_interval_between_exercise_tag">Interval for Exercise: </string>
+    <string name="exercise_video_tag">Video Link: </string>
     <string name="day_of_week_tag">Exercise Day: </string>
     <string name="score_tag">Score</string>
 
+
     //Menu
     <string name="item_change_client_info">Change My Info</string>
-    <string name="item_my_personal_trainner">My Personal Trainer</string>
+    <string name="item_my_personal_trainer">My Personal Trainer</string>
 
     //Buttons
     <string name="button_client_info_remove_client">Remove Client</string>

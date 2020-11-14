@@ -245,7 +245,29 @@
                         android:textColor="@color/font_light"
                         android:textSize="20sp" />
                 </TableRow>
+
             </TableLayout>
+
+            <TextView
+                android:id="@+id/tag_exercise_video_exercise_info_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:text="@string/exercise_video_tag"
+                android:textColor="@color/font_light"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/text_exercise_video_exercise_info_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:text="@string/unknown_info"
+                android:textColor="@color/font_light"
+                android:textSize="20sp" />
+
         </LinearLayout>
     </ScrollView>
 

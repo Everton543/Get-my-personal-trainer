@@ -6,5 +6,5 @@
         android:title="@string/item_change_client_info" />
     <item
         android:id="@+id/client_menu_item_see_personal_trainer"
-        android:title="@string/item_my_personal_trainner" />
+        android:title="@string/item_my_personal_trainer" />
 </menu>
