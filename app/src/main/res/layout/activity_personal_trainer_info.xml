@@ -65,6 +65,38 @@
                         android:textSize="30sp" />
 
                 </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center">
+
+
+                    <EditText
+                        android:id="@+id/edit_text_score_vote_personal_trainer_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:hint="@string/hint_score_vote"
+                        android:inputType="number"
+                        android:textSize="18sp"
+                        android:autofillHints="0" />
+
+                    <Button
+                        android:id="@+id/button_confirm_personal_trainer_info_activity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/good_button_background"
+                        android:gravity="center"
+                        android:text="@string/button_confirm"
+                        android:textColor="@color/font_dark"
+                        android:textSize="30sp" />
+
+                </TableRow>
             </TableLayout>
 
             <TextView
@@ -73,6 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:layout_marginBottom="30dp"
                 android:text="@string/text_personal_trainer_info"
                 android:textColor="@color/font_light"
                 android:textSize="30sp" />
@@ -81,9 +114,9 @@
                 android:id="@+id/button_unsubscribe_personal_trainer_info_activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/good_button_background"
+                android:background="@color/bad_button_background"
                 android:gravity="center"
-                android:text = "@string/button_confirm"
+                android:text="@string/button_unsubscribe"
                 android:textColor="@color/font_dark"
                 android:textSize="30sp" />
         </LinearLayout>

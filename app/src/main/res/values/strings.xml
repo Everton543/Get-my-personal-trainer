@@ -8,6 +8,7 @@
     <string name="login_activity_title">Login</string>
     <string name="exercise_information_title">Exercise Information</string>
     <string name="personal_trainer_info_title">Personal Trainer</string>
+    <string name="client_main_activity_title">My Exercises</string>
 
     //Hints
     <string name="hint_name">Name</string>
@@ -19,6 +20,7 @@
     <string name="hint_size">Size</string>
     <string name="hint_password">Password</string>
     <string name="hint_confirm_password">Confirm Password</string>
+    <string name="hint_score_vote">Score from 0 to 10</string>
 
 
     //Tags
@@ -38,11 +40,16 @@
     <string name="day_of_week_tag">Exercise Day: </string>
     <string name="score_tag">Score</string>
 
+    //Menu
+    <string name="item_change_client_info">Change My Info</string>
+    <string name="item_my_personal_trainner">My Personal Trainer</string>
+
     //Buttons
     <string name="button_client_info_remove_client">Remove Client</string>
     <string name="button_confirm">Confirm</string>
     <string name="button_login">Login</string>
     <string name="button_sign_in">Sign in</string>
+    <string name="button_unsubscribe">Unsubscribe</string>
 
     //Text
     <string name="unknown_info">Unknown</string>
@@ -51,4 +58,10 @@
     <string name="text_personal_trainer_info">
         The personal trainer did not wrote about himself/herself yet.
     </string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
 </resources>
