@@ -17,7 +17,7 @@
 
     //Hints
     <string name="hint_name">Name</string>
-    <string name="hint_id">User Name</string>
+    <string name="hint_id">Login ID</string>
     <string name="hint_phone">Phone</string>
     <string name="hint_birth_date">Birth Date</string>
     <string name="hint_weight">Weight</string>
@@ -44,6 +44,7 @@
     <string name="name_tag">Name: </string>
     <string name="age_tag">Age: </string>
     <string name="weight_tag">Weight: </string>
+    <string name="body_mass_tag">Body Mass: </string>
     <string name="size_tag">Size: </string>
     <string name="password_tag">Password: </string>
     <string name="confirm_password_tag">Confirm password: </string>

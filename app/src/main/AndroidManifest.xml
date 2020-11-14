@@ -10,12 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".PersonalTrainerSingUpActivity"></activity>
-        <activity android:name=".ChooseSignInType" />
+        <activity android:name=".ChooseSignUpType" />
         <activity android:name=".AllPersonalTrainerListResultActivity" />
-        <activity android:name=".Main2Activity" />
+        <activity android:name=".PersonalTrainerMainActivity" />
         <activity android:name=".ClientMainActivity" />
         <activity android:name=".PersonalTrainerInfoActivity" />
-        <activity android:name=".SignUpActivity" />
+        <activity android:name=".ClientSignUpActivity" />
         <activity android:name=".ChangeClientInfoActivity" />
         <activity android:name=".ExerciseInfoActivity" />
         <activity android:name=".ClientInfoActivity" />

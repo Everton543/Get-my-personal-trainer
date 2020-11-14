@@ -114,7 +114,7 @@
                         android:layout_marginRight="20dp"
                         android:layout_marginBottom="20dp"
                         android:gravity="center_vertical"
-                        android:text="@string/weight_tag"
+                        android:text="@string/body_mass_tag"
                         android:textColor="@color/font_light"
                         android:textSize="30sp" />
 

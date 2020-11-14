@@ -1,5 +1,9 @@
 package com.example.getmypersonaltrainer;
 
+import android.app.Activity;
+import android.content.Context;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -10,10 +14,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Model {
+public class Model implements Serializable {
    private FirebaseDatabase database = null;
    private DatabaseReference databaseReference = null;
    final static String stringReference = "https://get-my-personal-trainer.firebaseio.com/";
@@ -21,9 +26,6 @@ public class Model {
    private ChildEventListener childEventListener;
    boolean logged = false;
    String databasePassword = null;
-
-
-
 
    public Model(){
       database = FirebaseDatabase.getInstance();
@@ -95,7 +97,7 @@ public class Model {
    }
 
 
-   private boolean checkIfPasswordAreEqual(String databasePassword, String password){
+   public boolean checkIfPasswordAreEqual(String databasePassword, String password){
       return databasePassword.equals(password);
    }
 
@@ -103,9 +105,59 @@ public class Model {
 
    }
 
-   /*public void addNewClient(){
-      databaseReference.child("Clients").setValue("NewUser");
-   }*/
+   public void addNewClient(Client client, Activity activity){
+      databaseReference = database.getReference("Clients");
+
+      if(validatePassword(client.getPassword()) == true) {
+
+         if (client.getUserId() != null ) {
+            databaseReference.child(client.getUserId()).setValue(client);
+         }
+      } else{
+         Context context = activity.getApplicationContext();
+         CharSequence text = "Invalid password, Must have 8 digits, 1 capital letter, 1 lower case letter, 1 number";
+         int duration = Toast.LENGTH_LONG;
+
+         Toast toast = Toast.makeText(context, text, duration);
+         toast.show();
+      }
+   }
+
+   public boolean addNewPersonalTrainer(PersonalTrainer personalTrainer, Activity activity){
+      databaseReference = database.getReference("Personal_Trainer");
+
+      if(validatePassword(personalTrainer.getPassword()) == true) {
+
+         if (personalTrainer.getUserId() != null) {
+            databaseReference.child(personalTrainer.getUserId()).setValue(personalTrainer);
+            Context context = activity.getApplicationContext();
+            CharSequence text = "Sign Up Successfully";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+            return true;
+         }
+      } else{
+         Context context = activity.getApplicationContext();
+         CharSequence text = "Invalid password, Must have 8 digits, 1 capital letter, 1 lower case letter, 1 number";
+         int duration = Toast.LENGTH_LONG;
+
+         Toast toast = Toast.makeText(context, text, duration);
+         toast.show();
+      }
+
+      return false;
+   }
+
+   public void passwordNotEqualError(Activity activity){
+      Context context = activity.getApplicationContext();
+      CharSequence text = "Password not equal";
+      int duration = Toast.LENGTH_SHORT;
+
+      Toast toast = Toast.makeText(context, text, duration);
+      toast.show();
+   }
 
    public void updateUser(User user){
 

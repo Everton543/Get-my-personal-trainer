@@ -3,6 +3,7 @@
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -10,16 +11,22 @@ import android.widget.EditText;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
+
+import java.io.Serializable;
 
    public class MainActivity extends AppCompatActivity {
    final static String PREFERENCES = "SharedPreference";
    final static String USER_ID = "userId";
    final static String NOT_FOUND = "notFound";
-   private Model model = new Model();
+   final static String PRESENTER = "Presenter";
+
+   public final static Presenter presenter = new Presenter();
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
+
       //model = new Model();
 /*      SharedPreferences sharedPreferences;
       sharedPreferences = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
@@ -41,7 +48,7 @@ import com.google.firebase.database.FirebaseDatabase;
       String password = editText.getText().toString();
 
 
-      boolean loginResult = model.checkLogin(id, password);
+      boolean loginResult = presenter.getModel().checkLogin(id, password);
       if(loginResult == valid){
          System.out.println("Valid login");
       } else{
@@ -58,19 +65,9 @@ import com.google.firebase.database.FirebaseDatabase;
       preferencesEditor.apply();
    }
 
-   //test
-   public void addNewClient(View view){
-      EditText editText = (EditText) findViewById(R.id.edit_text_user_id_login_activity);
-      String id = editText.getText().toString();
-
-      editText = (EditText) findViewById(R.id.edit_text_password_login_activity);
-      String password = editText.getText().toString();
-
-      NewClient newClient = new NewClient(id, password);
-
-
-
-
-      model.saveNewClient(newClient);
+   public void singUp(View view){
+      Intent intent = new Intent(this, ChooseSignUpType.class);
+      //intent.putExtra(PRESENTER, new Gson().toJson(presenter));
+      startActivity(intent);
    }
 }

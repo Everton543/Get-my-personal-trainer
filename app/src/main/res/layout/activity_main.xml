@@ -97,7 +97,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/light_menu_background"
-                        android:onClick="addNewClient"
+                        android:onClick="singUp"
                         android:text="@string/button_sign_in"
                         android:textColor="@color/font_dark"
                         android:textSize="24sp" />

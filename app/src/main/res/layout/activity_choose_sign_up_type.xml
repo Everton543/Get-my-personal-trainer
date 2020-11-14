@@ -53,6 +53,7 @@
                 android:layout_marginBottom="30dp"
                 android:background="@color/good_button_background"
                 android:gravity="center"
+                android:onClick="personalTrainerSignUp"
                 android:text="@string/button_personal_trainer_sign_in"
                 android:textColor="@color/font_dark"
                 android:textSize="30sp" />
@@ -63,6 +64,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/good_button_background"
                 android:gravity="center"
+                android:onClick="clientSignUp"
                 android:text="@string/button_client_sign_in"
                 android:textColor="@color/font_dark"
                 android:textSize="30sp" />

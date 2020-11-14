@@ -2,10 +2,11 @@ package com.example.getmypersonaltrainer;
 
 public interface ClientInterface {
    float getBodyMass();
-   String getBirthDay();
-   float getHeight();
+   String getBirthDate();
+   float getSize();
    String getPhone();
-   void setHeight(float height);
+   void setBirthDate(String birthDate);
+   void setSize(float size);
    void setBodyMass(float bodyMass);
    void setPhone(String phone);
 }
