@@ -27,7 +27,6 @@ import java.io.Serializable;
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
 
-      //model = new Model();
 /*      SharedPreferences sharedPreferences;
       sharedPreferences = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
 
@@ -48,7 +47,7 @@ import java.io.Serializable;
       String password = editText.getText().toString();
 
 
-      boolean loginResult = presenter.getModel().checkLogin(id, password);
+      boolean loginResult = presenter.getModel().checkLogin(id, password, this);
       if(loginResult == valid){
          System.out.println("Valid login");
       } else{

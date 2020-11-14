@@ -15,6 +15,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,6 +26,8 @@ public class Model implements Serializable {
    final static String mainTable = "get-my-personal-trainer";
    private ChildEventListener childEventListener;
    String databasePassword = null;
+
+   List<Client> clientList = new ArrayList<Client>(); //test
 
    public Model(){
       database = FirebaseDatabase.getInstance();
@@ -35,6 +39,7 @@ public class Model implements Serializable {
       database = FirebaseDatabase.getInstance();
       databaseReference = database.getReference("Clients");
 
+
       //String data = "{\"id\" : \"" + client.getId() + "\", \"password\" : \"" + client.getPassword() + "\" }";
 
       if(client != null && client.getId() != null && client.getPassword() != null) {
@@ -44,13 +49,23 @@ public class Model implements Serializable {
       }
    }
 
-   public boolean checkLogin(String userId, String password){
-      databaseReference = database.getReference(mainTable).child("Clients").child(userId);
+   public boolean checkLogin(String userId , String password, final Activity activity){
+      databaseReference = database.getReference(mainTable).child("Clients");
 
       databaseReference.addValueEventListener(new ValueEventListener() {
          @Override
          public void onDataChange(@NonNull DataSnapshot snapshot) {
-            databasePassword = snapshot.getValue(String.class);
+            clientList.clear();
+            if(snapshot.exists()){
+               for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                  Client client = dataSnapshot.getValue(Client.class);
+                  clientList.add(client);
+               }
+
+               passwordNotEqualError(activity);
+            }
+
+            passwordNotEqualError(activity);
          }
 
          @Override
@@ -58,39 +73,11 @@ public class Model implements Serializable {
 
          }
       });
-      /*childEventListener = new ChildEventListener() {
-         @Override
-         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-            databasePassword = snapshot.getValue(String.class);
-         }
-
-         @Override
-         public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-            databasePassword = snapshot.getValue(String.class);
-         }
-
-         @Override
-         public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-         }
-
-         @Override
-         public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-         }
-
-         @Override
-         public void onCancelled(@NonNull DatabaseError error) {
-
-         }
-      };
-
-      databaseReference.addChildEventListener(childEventListener);
-*/
 
       if(databasePassword == null){
          databasePassword = "something";
       }
+
       return checkIfPasswordAreEqual(databasePassword, password);
    }
 
@@ -175,6 +162,9 @@ public class Model implements Serializable {
    }
 
    public boolean login(String logId, String password){
+
+
+
       return false;
    }
 
