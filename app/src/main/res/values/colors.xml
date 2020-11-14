@@ -3,4 +3,23 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    //Fixed colors
+    <color name="good_button_background">#004eeb</color>
+    <color name="bad_button_background">#B10B0B</color>
+    <color name="info_error_font">#B10B0B</color>
+    <color name="info_not_checked_font">#bababa</color>
+    <color name="info_good_font">#004eeb</color>
+
+    //light mode colors
+    <color name="light_background">#f2f6fc</color>
+    <color name="light_menu_background">#ff9100</color>
+    <color name="font_light">#4d4b48</color>
+    <color name="title_light">#f58b18</color>
+
+    //dark mode colors
+    <color name="title_dark">#ff9100</color>
+    <color name="font_dark">#cad2eb</color>
+    <color name="dark_background">#373f4a</color>
+    <color name="dark_menu_background">#f58b18</color>
 </resources>

@@ -1,3 +1,54 @@
 <resources>
     <string name="app_name">GetMyPersonalTrainer</string>
+
+    //Titles
+    <string name="client_info_activity_title">Client Information</string>
+    <string name="change_client_info_activity_title">Change Information</string>
+    <string name="personal_trainer_list_title">Personal Trainers: </string>
+    <string name="login_activity_title">Login</string>
+    <string name="exercise_information_title">Exercise Information</string>
+    <string name="personal_trainer_info_title">Personal Trainer</string>
+
+    //Hints
+    <string name="hint_name">Name</string>
+    <string name="hint_id">User Name</string>
+    <string name="hint_phone">Phone</string>
+    <string name="hint_birth_date">Birth Date</string>
+    <string name="hint_weight">Weight</string>
+    <string name="hint_height">Height</string>
+    <string name="hint_size">Size</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+
+
+    //Tags
+    <string name="phone_tag">Phone: </string>
+    <string name="name_tag">Name: </string>
+    <string name="age_tag">Age: </string>
+    <string name="weight_tag">Weight: </string>
+    <string name="size_tag">Size: </string>
+    <string name="password_tag">Password: </string>
+    <string name="confirm_password_tag">Confirm password: </string>
+    <string name="exercise_name_tag">Exercise Name: </string>
+    <string name="exercise_emphasis_tag">Objective: </string>
+    <string name="exercise_number_repetition_tag">Repetitions/Time: </string>
+    <string name="exercise_number_series_tag">Series: </string>
+    <string name="exercise_interval_between_series_tag">Interval for Series: </string>
+    <string name="exercise_interval_between_exercise_tag">Interval for Exercise: </string>
+    <string name="day_of_week_tag">Exercise Day: </string>
+    <string name="score_tag">Score</string>
+
+    //Buttons
+    <string name="button_client_info_remove_client">Remove Client</string>
+    <string name="button_confirm">Confirm</string>
+    <string name="button_login">Login</string>
+    <string name="button_sign_in">Sign in</string>
+
+    //Text
+    <string name="unknown_info">Unknown</string>
+    <string name="blank"> </string>
+    <string name="or">OR</string>
+    <string name="text_personal_trainer_info">
+        The personal trainer did not wrote about himself/herself yet.
+    </string>
 </resources>

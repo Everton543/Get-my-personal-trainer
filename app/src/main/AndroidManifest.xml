@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Main2Activity"></activity>
+        <activity android:name=".AllPersonalTrainerListResultActivity"></activity>
+        <activity android:name=".Main2Activity" />
         <activity android:name=".ClientMainActivity" />
         <activity android:name=".PersonalTrainerInfoActivity" />
         <activity android:name=".SignUpActivity" />
@@ -25,6 +26,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
