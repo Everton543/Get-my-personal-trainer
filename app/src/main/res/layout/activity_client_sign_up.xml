@@ -92,7 +92,7 @@
                 android:layout_marginBottom="20dp"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="@string/hint_weight"
+                android:hint="@string/hint_body_mass"
                 android:inputType="numberDecimal"
                 android:textSize="24sp" />
 
@@ -136,6 +136,7 @@
                 android:background="@color/good_button_background"
                 android:gravity="center"
                 android:text="@string/button_confirm"
+                android:onClick="ClientSignUp"
                 android:textColor="@color/font_dark"
                 android:textSize="30sp" />
 

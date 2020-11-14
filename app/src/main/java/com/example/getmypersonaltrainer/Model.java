@@ -21,10 +21,8 @@ import java.util.regex.Pattern;
 public class Model implements Serializable {
    private FirebaseDatabase database = null;
    private DatabaseReference databaseReference = null;
-   final static String stringReference = "https://get-my-personal-trainer.firebaseio.com/";
    final static String mainTable = "get-my-personal-trainer";
    private ChildEventListener childEventListener;
-   boolean logged = false;
    String databasePassword = null;
 
    public Model(){
@@ -105,22 +103,19 @@ public class Model implements Serializable {
 
    }
 
-   public void addNewClient(Client client, Activity activity){
+   public boolean addNewClient(Client client, Activity activity){
       databaseReference = database.getReference("Clients");
 
       if(validatePassword(client.getPassword()) == true) {
-
          if (client.getUserId() != null ) {
             databaseReference.child(client.getUserId()).setValue(client);
+            signUpSuccessfully(activity);
+            return true;
          }
       } else{
-         Context context = activity.getApplicationContext();
-         CharSequence text = "Invalid password, Must have 8 digits, 1 capital letter, 1 lower case letter, 1 number";
-         int duration = Toast.LENGTH_LONG;
-
-         Toast toast = Toast.makeText(context, text, duration);
-         toast.show();
+         invalidPassword(activity);
       }
+      return false;
    }
 
    public boolean addNewPersonalTrainer(PersonalTrainer personalTrainer, Activity activity){
@@ -130,24 +125,32 @@ public class Model implements Serializable {
 
          if (personalTrainer.getUserId() != null) {
             databaseReference.child(personalTrainer.getUserId()).setValue(personalTrainer);
-            Context context = activity.getApplicationContext();
-            CharSequence text = "Sign Up Successfully";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
+            signUpSuccessfully(activity);
             return true;
          }
       } else{
-         Context context = activity.getApplicationContext();
-         CharSequence text = "Invalid password, Must have 8 digits, 1 capital letter, 1 lower case letter, 1 number";
-         int duration = Toast.LENGTH_LONG;
-
-         Toast toast = Toast.makeText(context, text, duration);
-         toast.show();
+         invalidPassword(activity);
       }
 
       return false;
+   }
+
+   public void invalidPassword(Activity activity){
+      Context context = activity.getApplicationContext();
+      CharSequence text = "Invalid password, Must have 8 digits, 1 capital letter, 1 lower case letter, 1 number";
+      int duration = Toast.LENGTH_LONG;
+
+      Toast toast = Toast.makeText(context, text, duration);
+      toast.show();
+   }
+
+   public void signUpSuccessfully(Activity activity){
+      Context context = activity.getApplicationContext();
+      CharSequence text = "Sign Up Successfully";
+      int duration = Toast.LENGTH_SHORT;
+
+      Toast toast = Toast.makeText(context, text, duration);
+      toast.show();
    }
 
    public void passwordNotEqualError(Activity activity){
