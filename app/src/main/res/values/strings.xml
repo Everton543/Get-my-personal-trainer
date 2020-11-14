@@ -10,6 +10,10 @@
     <string name="personal_trainer_info_title">Personal Trainer</string>
     <string name="client_main_activity_title">My Exercises</string>
     <string name="create_exercise_title">Create New Exercise</string>
+    <string name="client_sign_up_activity_title">Client Sign Up</string>
+    <string name="personal_trainer_main_title">Clients List</string>
+    <string name="choose_sign_in_type_title">Choose Your Account Type</string>
+    <string name="personal_trainer_sign_up_title">Personal Trainer Sign Up</string>
 
     //Hints
     <string name="hint_name">Name</string>
@@ -30,6 +34,10 @@
     <string name="hint_exercise_interval_between_exercise">Interval for Exercise</string>
     <string name="hint_exercise_video">Video Link</string>
     <string name="hint_day_of_week">Exercise Day</string>
+    <string name="hint_about_my_self">
+        Write about yourself, for example how many years you are working
+        as a personal trainer, where you are from, etc.
+    </string>
 
     //Tags
     <string name="phone_tag">Phone: </string>
@@ -58,8 +66,10 @@
     <string name="button_client_info_remove_client">Remove Client</string>
     <string name="button_confirm">Confirm</string>
     <string name="button_login">Login</string>
-    <string name="button_sign_in">Sign in</string>
+    <string name="button_sign_in">Sign Up</string>
     <string name="button_unsubscribe">Unsubscribe</string>
+    <string name="button_personal_trainer_sign_in">Sign Up as a Personal Trainer</string>
+    <string name="button_client_sign_in">Sign Up as a Client</string>
 
     //Text
     <string name="unknown_info">Unknown</string>

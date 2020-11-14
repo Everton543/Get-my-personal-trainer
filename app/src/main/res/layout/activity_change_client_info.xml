@@ -2,8 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/background_change_client_info_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_background"
     tools:context=".ChangeClientInfoActivity">
 
 
@@ -24,7 +26,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/light_background"
             android:orientation="vertical">
 
             <TextView
@@ -118,12 +119,12 @@
                 android:textSize="24sp" />
 
             <Button
-                android:id="@+id/button_confirm_change_client_info_activity"
+                android:id="@+id/button_personal_trainer_sign_in_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/good_button_background"
                 android:gravity="center"
-                android:text= "@string/button_confirm"
+                android:text="@string/button_confirm"
                 android:textColor="@color/font_dark"
                 android:textSize="30sp" />
 

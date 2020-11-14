@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/background_personal_trainer_main_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_background"
+    tools:context=".PersonalTrainerMainActivity">
+
+
+    <TextView
+        android:id="@+id/title_personal_trainer_main_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/abril_fatface"
+        android:gravity="center"
+        android:text="@string/personal_trainer_main_title"
+        android:textColor="@color/title_light"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="411dp"
+        android:layout_height="635dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_personal_trainer_main_activity">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ListView
+                android:id="@+id/client_1_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_2_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_3_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_4_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_5_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_6_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_7_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_8_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_9_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_10_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_11_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_12_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_13_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_14_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_15_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_16_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_17_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_18_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_19_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_20_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_21_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_22_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_23_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_24_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_25_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_26_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_27_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_28_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_29_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_30_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_31_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_32_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_33_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_34_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_35_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_36_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_37_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_38_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_39_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+            <ListView
+                android:id="@+id/client_40_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:divider="@color/dark_background"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="false"
+                android:gravity="center"
+                android:listSelector="@color/light_menu_background"
+                android:layout_marginStart="20dp" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,12 @@
 package com.example.getmypersonaltrainer;
 
-public class User {
+import java.util.HashMap;
+
+public interface User {
+   UserTypes getUserType();
+   HashMap<String,Exercise> getExerciseList();
+   String getPassword();
+   void setPassword(String password);
+   void setName(String name);
+   void setUserType(UserTypes type);
 }
