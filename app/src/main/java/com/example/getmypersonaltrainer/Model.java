@@ -61,8 +61,7 @@ public class Model implements Serializable {
                   Client client = dataSnapshot.getValue(Client.class);
                   clientList.add(client);
                }
-
-               passwordNotEqualError(activity);
+               signUpSuccessfully(activity);
             }
 
             passwordNotEqualError(activity);
