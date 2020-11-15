@@ -2,6 +2,7 @@
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -67,17 +68,13 @@ import java.io.Serializable;
       @Override
       public void loginUserType(UserTypes userType, boolean goodLoginResult) {
          if(goodLoginResult){
-            System.out.println("Valid login UHUUUUUUU");
-            System.out.println("THE USER TYPE IS " + userType);
-         } else{
-            System.out.println("Wrong id or password AGAIN");
+            if(userType == UserTypes.PERSONAL_TRAINER){
+               Intent intent = new Intent(this, PersonalTrainerMainActivity.class);
+               startActivity(intent);
+            } else if(userType == UserTypes.CLIENT){
+               Intent intent = new Intent(this, ClientMainActivity.class);
+               startActivity(intent);
+            }
          }
-
-         Context context = getApplicationContext();
-         CharSequence text = "USER TYPE: " + userType;
-         int duration = Toast.LENGTH_LONG;
-
-         Toast toast = Toast.makeText(context, text, duration);
-         toast.show();
       }
    }
