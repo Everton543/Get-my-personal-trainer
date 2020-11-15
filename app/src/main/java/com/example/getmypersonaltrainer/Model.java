@@ -12,6 +12,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
@@ -26,33 +27,23 @@ public class Model implements Serializable {
    final static String mainTable = "get-my-personal-trainer";
    private ChildEventListener childEventListener;
    String databasePassword = null;
+   UserTypes userType = null;
+   User user = null;
 
-   List<Client> clientList = new ArrayList<Client>(); //test
+   List<User> clientList = new ArrayList<User>(); //test
 
    public Model(){
       database = FirebaseDatabase.getInstance();
       databaseReference = database.getReference();
    }
 
-//Test
-   public void saveNewClient(NewClient client){
-      database = FirebaseDatabase.getInstance();
-      databaseReference = database.getReference("Clients");
+   public void checkLogin(String userId , final String password, final Activity activity){
+      //databaseReference = database.getReference("Users");
+      Query query = database.getReference("Users")
+            .orderByChild("userId")
+            .equalTo(userId);
 
-
-      //String data = "{\"id\" : \"" + client.getId() + "\", \"password\" : \"" + client.getPassword() + "\" }";
-
-      if(client != null && client.getId() != null && client.getPassword() != null) {
-         //databaseReference.child(client.getId()).setValue(client);
-         databaseReference.child(client.getId()).setValue(client);
-         //databaseReference.child(client.getId()).setValue("trying");
-      }
-   }
-
-   public boolean checkLogin(String userId , String password, final Activity activity){
-      databaseReference = database.getReference(mainTable).child("Clients");
-
-      databaseReference.addValueEventListener(new ValueEventListener() {
+      query.addValueEventListener(new ValueEventListener() {
          @Override
          public void onDataChange(@NonNull DataSnapshot snapshot) {
             clientList.clear();
@@ -61,10 +52,30 @@ public class Model implements Serializable {
                   Client client = dataSnapshot.getValue(Client.class);
                   clientList.add(client);
                }
-               signUpSuccessfully(activity);
-            }
 
-            passwordNotEqualError(activity);
+               System.out.println("NUMBER OF QUERY RESULTS: " + clientList.size());
+
+               if(checkIfPasswordAreEqual(clientList.get(0).getPassword(), password)){
+                  signUpSuccessfully(activity);
+                  if(activity instanceof LoginInterface){
+                     ((LoginInterface) activity).loginUserType(
+                           clientList.get(0).getUserType(),
+                           true);
+                  }
+               }else {
+                  passwordNotEqualError(activity);
+               }
+            }else {
+
+               writeInfo(snapshot.child("Over").child("password").getValue(String.class));
+               if (activity instanceof LoginInterface) {
+                  ((LoginInterface) activity).loginUserType(
+                        UserTypes.NONE,
+                        false);
+               }
+
+               wrongPasswordOrUserId(activity);
+            }
          }
 
          @Override
@@ -72,12 +83,6 @@ public class Model implements Serializable {
 
          }
       });
-
-      if(databasePassword == null){
-         databasePassword = "something";
-      }
-
-      return checkIfPasswordAreEqual(databasePassword, password);
    }
 
 
@@ -85,12 +90,8 @@ public class Model implements Serializable {
       return databasePassword.equals(password);
    }
 
-   public void addNewUser(User user){
-
-   }
-
    public boolean addNewClient(Client client, Activity activity){
-      databaseReference = database.getReference("Clients");
+      databaseReference = database.getReference("Users");
 
       if(validatePassword(client.getPassword()) == true) {
          if (client.getUserId() != null ) {
@@ -105,7 +106,7 @@ public class Model implements Serializable {
    }
 
    public boolean addNewPersonalTrainer(PersonalTrainer personalTrainer, Activity activity){
-      databaseReference = database.getReference("Personal_Trainer");
+      databaseReference = database.getReference("Users");
 
       if(validatePassword(personalTrainer.getPassword()) == true) {
 
@@ -195,5 +196,18 @@ public class Model implements Serializable {
       return ((passwordHasNumber == true)
             && (passwordHasLowercaseLetter == true)
             && (passwordHasUppercaseLetter == true ));
+   }
+
+   public void wrongPasswordOrUserId(Activity activity){
+      Context context = activity.getApplicationContext();
+      CharSequence text = "Wrong Password or User Id";
+      int duration = Toast.LENGTH_SHORT;
+
+      Toast toast = Toast.makeText(context, text, duration);
+      toast.show();
+   }
+
+   public void writeInfo(String info){
+      System.out.println("HEEEEEEREEEEEE " + info);
    }
 }

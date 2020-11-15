@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -15,15 +16,15 @@ import com.google.gson.Gson;
 
 import java.io.Serializable;
 
-   public class MainActivity extends AppCompatActivity {
-   final static String PREFERENCES = "SharedPreference";
-   final static String USER_ID = "userId";
-   final static String NOT_FOUND = "notFound";
-   final static String PRESENTER = "Presenter";
+   public class MainActivity extends AppCompatActivity implements LoginInterface{
+      final static String PREFERENCES = "SharedPreference";
+      final static String USER_ID = "userId";
+      final static String NOT_FOUND = "notFound";
+      final static String PRESENTER = "Presenter";
 
-   public final static Presenter presenter = new Presenter();
-   @Override
-   protected void onCreate(Bundle savedInstanceState) {
+      public final static Presenter presenter = new Presenter();
+      @Override
+      protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
 
@@ -38,8 +39,7 @@ import java.io.Serializable;
       }*/
    }
 
-   public void login(View view){
-      boolean valid = true;
+      public void login(View view){
       EditText editText = (EditText) findViewById(R.id.edit_text_user_id_login_activity);
       String id = editText.getText().toString();
 
@@ -47,26 +47,37 @@ import java.io.Serializable;
       String password = editText.getText().toString();
 
 
-      boolean loginResult = presenter.getModel().checkLogin(id, password, this);
-      if(loginResult == valid){
-         System.out.println("Valid login");
-      } else{
-         System.out.println("Wrong id or password");
+      presenter.getModel().checkLogin(id, password, this);
+   }
+
+      public void saveLoginId(String loginId){
+         SharedPreferences sharedPreferences;
+         sharedPreferences = getSharedPreferences(PREFERENCES,
+            Context.MODE_PRIVATE);
+         SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
+         preferencesEditor.putString(USER_ID, loginId);
+         preferencesEditor.apply();
+      }
+
+      public void singUp(View view){
+         Intent intent = new Intent(this, ChooseSignUpType.class);
+         startActivity(intent);
+      }
+
+      @Override
+      public void loginUserType(UserTypes userType, boolean goodLoginResult) {
+         if(goodLoginResult){
+            System.out.println("Valid login UHUUUUUUU");
+            System.out.println("THE USER TYPE IS " + userType);
+         } else{
+            System.out.println("Wrong id or password AGAIN");
+         }
+
+         Context context = getApplicationContext();
+         CharSequence text = "USER TYPE: " + userType;
+         int duration = Toast.LENGTH_LONG;
+
+         Toast toast = Toast.makeText(context, text, duration);
+         toast.show();
       }
    }
-
-   public void saveLoginId(String loginId){
-      SharedPreferences sharedPreferences;
-      sharedPreferences = getSharedPreferences(PREFERENCES,
-            Context.MODE_PRIVATE);
-      SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
-      preferencesEditor.putString(USER_ID, loginId);
-      preferencesEditor.apply();
-   }
-
-   public void singUp(View view){
-      Intent intent = new Intent(this, ChooseSignUpType.class);
-      //intent.putExtra(PRESENTER, new Gson().toJson(presenter));
-      startActivity(intent);
-   }
-}
