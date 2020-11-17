@@ -41,6 +41,48 @@ class ModelTest {
          testPasswordValidation(passwords[i], expected[i]);
    }
 
+   @DisplayName("Test password validation; should FAIL IF password has less than 4 digits")
+   void variablesToCheckIDValidation() {
+      boolean[] expected = {
+         false, false, false, false,
+         true, true, true, true,
+         false, false, false, false,
+         false, false, false, false,
+         false, false, false, false,
+         false, false, false, false,
+         false, false, false, false,
+         false, false, false, false,
+      };
+      String[] userids = {
+         "123", "abc", "a2c", "ab",
+         "1234", "abcd", "asdf", "zxcv",
+         "1234", "(abcd", ")asdf", ":zxcv",
+         "1234!", "&abcd", "*asdf", ".zxcv",
+         "1234\\", "\"abcd", "<asdf", "#zxcv",
+         "1234@", "%abcd", ">asdf", ",zxcv",
+         "1234#", "$abcd", ";asdf", "]zxcv",
+         "1234[", "[]abcd", "()asdf", "]zxcv",
+      };
+
+      for (int i=0; i<userids.length; ++i) {
+         testUserIDValidation(userids[i],expected[i]);
+      }
+   }
+
+   void testUserIDValidation(String userid, boolean expectedResult) {
+      Model model = new Model();
+      // Add model userid validation when created...
+      boolean result = true;
+      if (userid.length()>=4) {
+         result = true;
+      }
+
+      if (result) {  // Let's do some more testing...
+         // This should be added to validateUserid method...
+         result = !userid.matches("!\\\\@#$%\"&\\(\\)\\[\\]\\*<>;:\\.,]");
+      }
+   }
+
 
    void testPasswordValidation(String password, boolean expectedResult){
       Model model = new Model();
@@ -48,7 +90,7 @@ class ModelTest {
 
       if (result) {  // Let's do some more testing...
          // This should be added to validatePassword method...
-         result = !password.matches("!\\\\@#$%\"&\\(\\)\\[\\]\\*<>;:]");
+         result = !password.matches("!\\\\@#$%\"&\\(\\)\\[\\]\\*<>;:\\.,]");
       }
 
       assertEquals(result, expectedResult);
