@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import static com.example.getmypersonaltrainer.UserTypes.PERSONAL_TRAINER;
       final static String USER_ID = "userId";
       final static String NOT_FOUND = "notFound";
       final static String PRESENTER = "Presenter";
+      private static final String TAG = "MyActivity";
 
       private boolean logged = false;
       private String logId = null;
@@ -48,15 +50,16 @@ import static com.example.getmypersonaltrainer.UserTypes.PERSONAL_TRAINER;
       }
    }
 
-      public void login(View view){
+   public void login(View view){
+      Log.i(TAG, "login function called");
       EditText editText = (EditText) findViewById(R.id.edit_text_user_id_login_activity);
       logId = editText.getText().toString();
 
       editText = (EditText) findViewById(R.id.edit_text_password_login_activity);
       String password = editText.getText().toString();
 
-
       presenter.getModel().checkLogin(logId, password, this);
+      Log.i(TAG, "login function finished");
    }
 
       public void saveLoginId(){

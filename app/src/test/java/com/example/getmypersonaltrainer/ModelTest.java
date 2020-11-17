@@ -10,13 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ModelTest {
 
    //Password must have 8 digits, at least 1 number, and 1 capital letter and 1 lowercase letter
-
-
-   @DisplayName("Add new client")
-   void addNewClientTest(){
-      Model model = new Model();
-      //model.addNewClient(Client client, Activity activity);
-   }
+   private Model model = new Model("test");
 
    @Test
    @DisplayName("Test password validation; should FAIL IF password has less than 8 digits, doesn't has an lowercase letter, doesn't has an uppercase letter ")
@@ -24,9 +18,10 @@ class ModelTest {
       boolean[] expected = {
          false, false, false, false, false, false, true,
          true, true, true, true, true, true, true,
-         false, false, false, false, false, false, false,
-         false, false, false, false, false, false, false,
-         false, false, false, false, false, false, false,
+         false, false, true, true, true, true, true,
+         false, true, false, false, false, false, false,
+         false, false, false, true, false, false, false,
+            false,
       };
       String[] passwords = {
          "123", "1ag", "12345678", "1234567a", "asdfghjk", "adfhjkkJ", "asdfght8K",
@@ -34,6 +29,7 @@ class ModelTest {
          "1234Ja12)", "1aBcDeFg(", "0a1b2c3D!", "A234567a@", "Asdfghj0#", "9dfhjkkJ$", "asdfght8K%",
          "1234Ja12\"", "1aBcDeFg&", "0a1b2c3D\\", "A234567a/", "Asdfghj0<", "9dfhjkkJ>", "asdfght8K;",
          "1234Ja12:", "1aBcDeFg[", "0a1b2c3D]", "A234567a*", "Asdfghj0[]", "9dfhjkkJ()", "asdfght8K<>",
+            "abd Anj125",
       };
 
       // Run all our tests...
@@ -41,6 +37,7 @@ class ModelTest {
          testPasswordValidation(passwords[i], expected[i]);
    }
 
+   @Test
    @DisplayName("Test password validation; should FAIL IF password has less than 4 digits")
    void variablesToCheckIDValidation() {
       boolean[] expected = {
@@ -70,7 +67,7 @@ class ModelTest {
    }
 
    void testUserIDValidation(String userid, boolean expectedResult) {
-      Model model = new Model();
+
       // Add model userid validation when created...
       boolean result = true;
       if (userid.length()>=4) {
@@ -85,14 +82,7 @@ class ModelTest {
 
 
    void testPasswordValidation(String password, boolean expectedResult){
-      Model model = new Model();
       boolean result = model.validatePassword(password);
-
-      if (result) {  // Let's do some more testing...
-         // This should be added to validatePassword method...
-         result = !password.matches("!\\\\@#$%\"&\\(\\)\\[\\]\\*<>;:\\.,]");
-      }
-
       assertEquals(result, expectedResult);
    }
 

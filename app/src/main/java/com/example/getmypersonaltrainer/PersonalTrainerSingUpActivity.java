@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 import com.google.gson.Gson;
 
-public class PersonalTrainerSingUpActivity extends AppCompatActivity {
+public class PersonalTrainerSingUpActivity extends AppCompatActivity implements SignUpInterface{
 
    //private Presenter presenter = null;
 
@@ -42,18 +42,19 @@ public class PersonalTrainerSingUpActivity extends AppCompatActivity {
 
       if(MainActivity.presenter.getModel().checkIfPasswordAreEqual(password, confirmPassword)){
          PersonalTrainer personalTrainer = new PersonalTrainer(UserTypes.PERSONAL_TRAINER, password, name, id, aboutMyselfText);
-         result = MainActivity.presenter.getModel().addNewPersonalTrainer(personalTrainer, this);
+    //     result = MainActivity.presenter.getModel().addNewPersonalTrainer(personalTrainer, this);
+         MainActivity.presenter.getModel().saveUser(personalTrainer, this);
 
       }else{
          MainActivity.presenter.getModel().passwordNotEqualError(this);
       }
 
-      if(result == true){
-         signUpSuccessfully();
-      }
+    //  if(result == true){
+//         signUpSuccessfully();
+  //    }
    }
 
-   private void signUpSuccessfully(){
+   public void signUpSuccessfully(){
       Intent intent = new Intent(this, MainActivity.class);
       startActivity(intent);
    }

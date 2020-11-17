@@ -30,6 +30,7 @@ public class Model implements Serializable {
    private DatabaseReference databaseReference = null;
    final static String mainTable = "get-my-personal-trainer";
    private ChildEventListener childEventListener;
+   private static final String TAG = "Model";
 
    List<User> clientList = new ArrayList<User>(); //test
 
@@ -38,25 +39,56 @@ public class Model implements Serializable {
       databaseReference = database.getReference();
    }
 
-   private void getIdFromDatabase(String logId){
-      Log.i("Model", "Call getIdFromDatabase with the id = " + logId);
+   public Model(String Test){
+
+   }
+
+   @RequiresApi(api = Build.VERSION_CODES.O)
+   private boolean addUserToDatabase(final User user, final Activity activity){
+      databaseReference = database.getReference("Users");
+
+      if(validatePassword(user.getPassword()) == true) {
+         try {
+            Encrypt.hashUserPassword(user);
+         } catch (Exception e) {
+            e.printStackTrace();
+         }
+         if (user.getUserId() != null) {
+            databaseReference.child(user.getUserId()).setValue(user);
+            signUpSuccessfully(activity);
+            return true;
+         }
+      } else{
+         invalidPassword(activity);
+      }
+
+      return false;
+   }
+
+   public void saveUser(final User user, final Activity activity){
+      Log.i("Model", "Call getIdFromDatabase with the id = " + user.getUserId());
       Query query = database.getReference("Users")
             .orderByChild("userId")
-            .equalTo(logId);
+            .equalTo(user.getUserId());
 
       query.addValueEventListener(new ValueEventListener() {
          @RequiresApi(api = Build.VERSION_CODES.O)
          @Override
          public void onDataChange(@NonNull DataSnapshot snapshot) {
             clientList.clear();
-            Log.i("Model", "onDataChange from getIdFromDatabase called");
-            if(snapshot.exists()){
-               for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                  Client client = dataSnapshot.getValue(Client.class);
-                  clientList.add(client);
+            Log.i(TAG, "onDataChange from getIdFromDatabase called");
+           if(snapshot.exists()){
+               Log.i(TAG, "User " + user.getUserId() + " already exist");
+               errorUserIdAlreadyExists(activity);
+            }
+            else{
+               if(checkIfLoginIdIsValid(user.getUserId())) {
+                  if(addUserToDatabase(user, activity)){
+                     if(activity instanceof SignUpInterface){
+                        ((SignUpInterface) activity).signUpSuccessfully();
+                     }
+                  }
                }
-
-               System.out.println("NUMBER OF QUERY RESULTS: " + clientList.size());
             }
          }
 
@@ -65,19 +97,18 @@ public class Model implements Serializable {
 
          }
       });
-
    }
 
-   public boolean checkIfLoginIdExists(String logId){
-      //Invalid values #, $, . , /, \, |
-      getIdFromDatabase(logId);
+   public boolean checkIfLoginIdIsValid(String loginId){
+      if (loginId.length() < 4) {
+         return  false;
+      }
 
-      //check if there's already exists the user Id.
-      return clientList.size() > 0;
+      return !loginId.matches("!\\\\@#$%\"&\\(\\)\\[\\]\\*<>;:\\.,]");
    }
 
-   public void checkLogin(String userId , final String password, final Activity activity){
-      //databaseReference = database.getReference("Users");
+   public void checkLogin(final String userId , final String password, final Activity activity){
+      Log.i(TAG, "checkLogin function called");
       Query query = database.getReference("Users")
             .orderByChild("userId")
             .equalTo(userId);
@@ -86,6 +117,7 @@ public class Model implements Serializable {
          @RequiresApi(api = Build.VERSION_CODES.O)
          @Override
          public void onDataChange(@NonNull DataSnapshot snapshot) {
+            Log.i(TAG, "Reading from database now");
             clientList.clear();
             if(snapshot.exists()){
                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
@@ -93,14 +125,14 @@ public class Model implements Serializable {
                   clientList.add(client);
                }
 
-               System.out.println("NUMBER OF QUERY RESULTS: " + clientList.size());
+               Log.v(TAG, "Number of users with the id " + userId + " = " + clientList.size());
                clientList.get(0).setPassword(password);
 
-               //if(checkIfPasswordAreEqual(clientList.get(0).getPassword(), password)){
                boolean verifyPasswordResult = false;
                try {
                   verifyPasswordResult = Encrypt.verifyPassword(clientList.get(0));
                } catch (Exception e) {
+                  Log.e(TAG, "Was not able to decrypt password");
                   e.printStackTrace();
                }
 
@@ -117,7 +149,6 @@ public class Model implements Serializable {
             }
             else {
 
-               writeInfo(snapshot.child("Over").child("password").getValue(String.class));
                if (activity instanceof LoginInterface) {
                   ((LoginInterface) activity).loginUserType(
                         UserTypes.NONE,
@@ -137,6 +168,7 @@ public class Model implements Serializable {
 
 
    public boolean checkIfPasswordAreEqual(String databasePassword, String password){
+      Log.i(TAG, "Checking if password are equal");
       return databasePassword.equals(password);
    }
 
@@ -184,6 +216,7 @@ public class Model implements Serializable {
    }
 
    public void invalidPassword(Activity activity){
+      Log.e(TAG, "Invalid password");
       Context context = activity.getApplicationContext();
       CharSequence text = "Invalid password, Must have 8 digits, 1 capital letter, 1 lower case letter, 1 number";
       int duration = Toast.LENGTH_LONG;
@@ -202,6 +235,7 @@ public class Model implements Serializable {
    }
 
    public void passwordNotEqualError(Activity activity){
+      Log.e(TAG, "Password not equal");
       Context context = activity.getApplicationContext();
       CharSequence text = "Password not equal";
       int duration = Toast.LENGTH_SHORT;
@@ -254,9 +288,14 @@ public class Model implements Serializable {
       matcher = pattern.matcher(password);
       boolean passwordHasUppercaseLetter = matcher.find();
 
+      pattern = Pattern.compile("[\\\\.\\]\\[<\\s>\"';:,()/]");
+      matcher = pattern.matcher(password);
+      boolean passwordHasBadSymbols = matcher.find();
+
       return ((passwordHasNumber == true)
             && (passwordHasLowercaseLetter == true)
-            && (passwordHasUppercaseLetter == true ));
+            && (passwordHasUppercaseLetter == true )
+            && (passwordHasBadSymbols == false));
    }
 
    public void wrongPasswordOrUserId(Activity activity){
@@ -268,7 +307,14 @@ public class Model implements Serializable {
       toast.show();
    }
 
-   public void writeInfo(String info){
-      System.out.println("HEEEEEEREEEEEE " + info);
+   public void errorUserIdAlreadyExists(Activity activity){
+      Context context = activity.getApplicationContext();
+      CharSequence text = "User Id Already exists";
+      int duration = Toast.LENGTH_SHORT;
+
+      Toast toast = Toast.makeText(context, text, duration);
+      toast.show();
    }
+
+
 }

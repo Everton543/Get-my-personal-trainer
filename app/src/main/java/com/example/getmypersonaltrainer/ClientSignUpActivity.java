@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-public class ClientSignUpActivity extends AppCompatActivity {
+public class ClientSignUpActivity extends AppCompatActivity implements SignUpInterface {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,18 +45,19 @@ public class ClientSignUpActivity extends AppCompatActivity {
 
         if(MainActivity.presenter.getModel().checkIfPasswordAreEqual(password, confirmPassword)){
             Client client = new Client(UserTypes.CLIENT, password, name, id, phone, birthDate, bodyMass, size);
-            result = MainActivity.presenter.getModel().addNewClient(client, this);
+            //result = MainActivity.presenter.getModel().addNewClient(client, this);
+            MainActivity.presenter.getModel().saveUser(client, this);
 
         }else{
             MainActivity.presenter.getModel().passwordNotEqualError(this);
         }
 
-        if(result == true){
-            signUpSuccessfully();
-        }
+        //if(result == true){
+          //  signUpSuccessfully();
+        //}
     }
 
-    private void signUpSuccessfully(){
+    public void signUpSuccessfully(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
