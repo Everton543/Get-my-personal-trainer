@@ -12,6 +12,8 @@ public class Client implements User, ClientInterface{
    private float bodyMass;
    private float size;
    private HashMap<String, Exercise> exerciseList = null;
+   private String hashedPassword;
+   private String salt;
 
    public Client(){}
 
@@ -50,6 +52,26 @@ public class Client implements User, ClientInterface{
    @Override
    public String getName() {
       return name;
+   }
+
+   @Override
+   public String getSalt() {
+      return salt;
+   }
+
+   @Override
+   public String getHashedPassword() {
+      return hashedPassword;
+   }
+
+   @Override
+   public void setSalt(String salt) {
+      this.salt = salt;
+   }
+
+   @Override
+   public void setHashedPassword(String hashedPassword) {
+      this.hashedPassword = hashedPassword;
    }
 
    @Override

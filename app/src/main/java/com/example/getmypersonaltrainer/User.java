@@ -8,6 +8,11 @@ public interface User {
    String getPassword();
    String getUserId();
    String getName();
+   String getSalt();
+   String getHashedPassword();
+
+   void setSalt(String salt);
+   void setHashedPassword(String hashedPassword);
    void setUserId(String userId);
    void setPassword(String password);
    void setName(String name);

@@ -1,5 +1,7 @@
 package com.example.getmypersonaltrainer;
 
+import android.widget.EditText;
+
 import java.io.Serializable;
 
 public class Presenter implements Serializable {

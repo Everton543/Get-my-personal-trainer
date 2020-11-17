@@ -2,10 +2,12 @@ package com.example.getmypersonaltrainer;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -21,20 +23,57 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+
 public class Model implements Serializable {
    private FirebaseDatabase database = null;
    private DatabaseReference databaseReference = null;
    final static String mainTable = "get-my-personal-trainer";
    private ChildEventListener childEventListener;
-   String databasePassword = null;
-   UserTypes userType = null;
-   User user = null;
 
    List<User> clientList = new ArrayList<User>(); //test
 
    public Model(){
       database = FirebaseDatabase.getInstance();
       databaseReference = database.getReference();
+   }
+
+   private void getIdFromDatabase(String logId){
+      Log.i("Model", "Call getIdFromDatabase with the id = " + logId);
+      Query query = database.getReference("Users")
+            .orderByChild("userId")
+            .equalTo(logId);
+
+      query.addValueEventListener(new ValueEventListener() {
+         @RequiresApi(api = Build.VERSION_CODES.O)
+         @Override
+         public void onDataChange(@NonNull DataSnapshot snapshot) {
+            clientList.clear();
+            Log.i("Model", "onDataChange from getIdFromDatabase called");
+            if(snapshot.exists()){
+               for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                  Client client = dataSnapshot.getValue(Client.class);
+                  clientList.add(client);
+               }
+
+               System.out.println("NUMBER OF QUERY RESULTS: " + clientList.size());
+            }
+         }
+
+         @Override
+         public void onCancelled(@NonNull DatabaseError error) {
+
+         }
+      });
+
+   }
+
+   public boolean checkIfLoginIdExists(String logId){
+      //Invalid values #, $, . , /, \, |
+      getIdFromDatabase(logId);
+
+      //check if there's already exists the user Id.
+      return clientList.size() > 0;
    }
 
    public void checkLogin(String userId , final String password, final Activity activity){
@@ -44,6 +83,7 @@ public class Model implements Serializable {
             .equalTo(userId);
 
       query.addValueEventListener(new ValueEventListener() {
+         @RequiresApi(api = Build.VERSION_CODES.O)
          @Override
          public void onDataChange(@NonNull DataSnapshot snapshot) {
             clientList.clear();
@@ -54,8 +94,17 @@ public class Model implements Serializable {
                }
 
                System.out.println("NUMBER OF QUERY RESULTS: " + clientList.size());
+               clientList.get(0).setPassword(password);
 
-               if(checkIfPasswordAreEqual(clientList.get(0).getPassword(), password)){
+               //if(checkIfPasswordAreEqual(clientList.get(0).getPassword(), password)){
+               boolean verifyPasswordResult = false;
+               try {
+                  verifyPasswordResult = Encrypt.verifyPassword(clientList.get(0));
+               } catch (Exception e) {
+                  e.printStackTrace();
+               }
+
+               if(verifyPasswordResult){
                   signUpSuccessfully(activity);
                   if(activity instanceof LoginInterface){
                      ((LoginInterface) activity).loginUserType(
@@ -65,7 +114,8 @@ public class Model implements Serializable {
                }else {
                   passwordNotEqualError(activity);
                }
-            }else {
+            }
+            else {
 
                writeInfo(snapshot.child("Over").child("password").getValue(String.class));
                if (activity instanceof LoginInterface) {
@@ -90,10 +140,16 @@ public class Model implements Serializable {
       return databasePassword.equals(password);
    }
 
-   public boolean addNewClient(Client client, Activity activity){
+   @RequiresApi(api = Build.VERSION_CODES.O)
+   public boolean addNewClient(Client client, Activity activity) {
       databaseReference = database.getReference("Users");
 
       if(validatePassword(client.getPassword()) == true) {
+         try {
+            Encrypt.hashUserPassword(client);
+         } catch (Exception e) {
+            e.printStackTrace();
+         }
          if (client.getUserId() != null ) {
             databaseReference.child(client.getUserId()).setValue(client);
             signUpSuccessfully(activity);
@@ -105,11 +161,16 @@ public class Model implements Serializable {
       return false;
    }
 
+   @RequiresApi(api = Build.VERSION_CODES.O)
    public boolean addNewPersonalTrainer(PersonalTrainer personalTrainer, Activity activity){
       databaseReference = database.getReference("Users");
 
       if(validatePassword(personalTrainer.getPassword()) == true) {
-
+         try {
+            Encrypt.hashUserPassword(personalTrainer);
+         } catch (Exception e) {
+            e.printStackTrace();
+         }
          if (personalTrainer.getUserId() != null) {
             databaseReference.child(personalTrainer.getUserId()).setValue(personalTrainer);
             signUpSuccessfully(activity);

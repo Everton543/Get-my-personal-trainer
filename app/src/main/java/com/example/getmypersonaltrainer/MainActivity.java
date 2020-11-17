@@ -17,11 +17,16 @@ import com.google.gson.Gson;
 
 import java.io.Serializable;
 
+import static com.example.getmypersonaltrainer.UserTypes.PERSONAL_TRAINER;
+
    public class MainActivity extends AppCompatActivity implements LoginInterface{
       final static String PREFERENCES = "SharedPreference";
       final static String USER_ID = "userId";
       final static String NOT_FOUND = "notFound";
       final static String PRESENTER = "Presenter";
+
+      private boolean logged = false;
+      private String logId = null;
 
       public final static Presenter presenter = new Presenter();
       @Override
@@ -29,35 +34,40 @@ import java.io.Serializable;
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
 
-/*      SharedPreferences sharedPreferences;
+      SharedPreferences sharedPreferences;
       sharedPreferences = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
 
-      String userId = sharedPreferences.getString(USER_ID, NOT_FOUND);
-      if(userId.equals(NOT_FOUND)){
-         //To-do: leave the user login id blank
+      logId = sharedPreferences.getString(USER_ID, NOT_FOUND);
+      if(logId.equals(NOT_FOUND)){
+         //If not found Put the text as blank
+         eraseText(R.id.edit_text_user_id_login_activity);
       } else{
          //To-do: Put the userId in the login information
-      }*/
+         EditText editText = (EditText) findViewById(R.id.edit_text_user_id_login_activity);
+         editText.setText(logId);
+      }
    }
 
       public void login(View view){
       EditText editText = (EditText) findViewById(R.id.edit_text_user_id_login_activity);
-      String id = editText.getText().toString();
+      logId = editText.getText().toString();
 
       editText = (EditText) findViewById(R.id.edit_text_password_login_activity);
       String password = editText.getText().toString();
 
 
-      presenter.getModel().checkLogin(id, password, this);
+      presenter.getModel().checkLogin(logId, password, this);
    }
 
-      public void saveLoginId(String loginId){
-         SharedPreferences sharedPreferences;
-         sharedPreferences = getSharedPreferences(PREFERENCES,
-            Context.MODE_PRIVATE);
-         SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
-         preferencesEditor.putString(USER_ID, loginId);
-         preferencesEditor.apply();
+      public void saveLoginId(){
+         if(logged) {
+            SharedPreferences sharedPreferences;
+            sharedPreferences = getSharedPreferences(PREFERENCES,
+                  Context.MODE_PRIVATE);
+            SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
+            preferencesEditor.putString(USER_ID, logId);
+            preferencesEditor.apply();
+         }
       }
 
       public void singUp(View view){
@@ -68,13 +78,36 @@ import java.io.Serializable;
       @Override
       public void loginUserType(UserTypes userType, boolean goodLoginResult) {
          if(goodLoginResult){
-            if(userType == UserTypes.PERSONAL_TRAINER){
-               Intent intent = new Intent(this, PersonalTrainerMainActivity.class);
-               startActivity(intent);
-            } else if(userType == UserTypes.CLIENT){
-               Intent intent = new Intent(this, ClientMainActivity.class);
-               startActivity(intent);
+            switch (userType){
+               case PERSONAL_TRAINER:{
+                  logged = true;
+                  saveLoginId();
+                  Intent intent = new Intent(this, PersonalTrainerMainActivity.class);
+                  startActivity(intent);
+                  break;
+               }
+
+               case CLIENT:{
+                  logged = true;
+                  saveLoginId();
+                  Intent intent = new Intent(this, ClientMainActivity.class);
+                  startActivity(intent);
+                  break;
+               }
             }
          }
       }
+
+      public void eraseText(int textId){
+         EditText editText = (EditText) findViewById(textId);
+         editText.setText(R.string.blank);
+      }
+
+      @Override
+      protected void onStop() {
+         super.onStop();
+         eraseText(R.id.edit_text_password_login_activity);
+
+      }
+
    }

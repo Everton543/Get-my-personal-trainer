@@ -11,6 +11,8 @@ public class PersonalTrainer implements User, PersonalTrainerInterface{
    private String aboutMyselfText;
    private List<Client> clientList = null;
    private HashMap<String, Exercise> exerciseList = null;
+   private String hashedPassword;
+   private String salt;
 
    public PersonalTrainer(){}
 
@@ -46,6 +48,26 @@ public class PersonalTrainer implements User, PersonalTrainerInterface{
    @Override
    public String getName() {
       return name;
+   }
+
+   @Override
+   public String getSalt() {
+      return salt;
+   }
+
+   @Override
+   public String getHashedPassword() {
+      return hashedPassword;
+   }
+
+   @Override
+   public void setSalt(String salt) {
+      this.salt = salt;
+   }
+
+   @Override
+   public void setHashedPassword(String hashedPassword) {
+      this.hashedPassword = hashedPassword;
    }
 
    @Override
