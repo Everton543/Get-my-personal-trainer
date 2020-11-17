@@ -1,5 +1,7 @@
 package com.example.getmypersonaltrainer;
 
+import android.app.Activity;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -13,25 +15,83 @@ class ModelTest {
    @DisplayName("Add new client")
    void addNewClientTest(){
       Model model = new Model();
-      model.addNewClient();
+      //model.addNewClient(Client client, Activity activity);
    }
 
    @Test
    @DisplayName("Test password validation; should FAIL IF password has less than 8 digits, doesn't has an lowercase letter, doesn't has an uppercase letter ")
    void variablesToCheckPasswordValidation(){
-      testPasswordValidation("123", false);
-      testPasswordValidation("1aG", false);
-      testPasswordValidation("12345678", false);
-      testPasswordValidation("1234567a", false);
-      testPasswordValidation("asdfghjk", false);
-      testPasswordValidation("adfhjkkJ", false);
-      testPasswordValidation("asdfght8K", true);
+      boolean[] expected = {
+         false, false, false, false, false, false, true,
+         true, true, true, true, true, true, true,
+         false, false, false, false, false, false, false,
+         false, false, false, false, false, false, false,
+         false, false, false, false, false, false, false,
+      };
+      String[] passwords = {
+         "123", "1ag", "12345678", "1234567a", "asdfghjk", "adfhjkkJ", "asdfght8K",
+         "1234Ja12", "1aBcDeFg", "0a1b2c3D", "A234567a", "Asdfghj0", "9dfhjkkJ", "asdfght8K",
+         "1234Ja12)", "1aBcDeFg(", "0a1b2c3D!", "A234567a@", "Asdfghj0#", "9dfhjkkJ$", "asdfght8K%",
+         "1234Ja12\"", "1aBcDeFg&", "0a1b2c3D\\", "A234567a/", "Asdfghj0<", "9dfhjkkJ>", "asdfght8K;",
+         "1234Ja12:", "1aBcDeFg[", "0a1b2c3D]", "A234567a*", "Asdfghj0[]", "9dfhjkkJ()", "asdfght8K<>",
+      };
+
+      // Run all our tests...
+      for (int i=0;i<passwords.length;++i)
+         testPasswordValidation(passwords[i], expected[i]);
+   }
+
+   @DisplayName("Test password validation; should FAIL IF password has less than 4 digits")
+   void variablesToCheckIDValidation() {
+      boolean[] expected = {
+         false, false, false, false,
+         true, true, true, true,
+         false, false, false, false,
+         false, false, false, false,
+         false, false, false, false,
+         false, false, false, false,
+         false, false, false, false,
+         false, false, false, false,
+      };
+      String[] userids = {
+         "123", "abc", "a2c", "ab",
+         "1234", "abcd", "asdf", "zxcv",
+         "1234", "(abcd", ")asdf", ":zxcv",
+         "1234!", "&abcd", "*asdf", ".zxcv",
+         "1234\\", "\"abcd", "<asdf", "#zxcv",
+         "1234@", "%abcd", ">asdf", ",zxcv",
+         "1234#", "$abcd", ";asdf", "]zxcv",
+         "1234[", "[]abcd", "()asdf", "]zxcv",
+      };
+
+      for (int i=0; i<userids.length; ++i) {
+         testUserIDValidation(userids[i],expected[i]);
+      }
+   }
+
+   void testUserIDValidation(String userid, boolean expectedResult) {
+      Model model = new Model();
+      // Add model userid validation when created...
+      boolean result = true;
+      if (userid.length()>=4) {
+         result = true;
+      }
+
+      if (result) {  // Let's do some more testing...
+         // This should be added to validateUserid method...
+         result = !userid.matches("!\\\\@#$%\"&\\(\\)\\[\\]\\*<>;:\\.,]");
+      }
    }
 
 
    void testPasswordValidation(String password, boolean expectedResult){
       Model model = new Model();
       boolean result = model.validatePassword(password);
+
+      if (result) {  // Let's do some more testing...
+         // This should be added to validatePassword method...
+         result = !password.matches("!\\\\@#$%\"&\\(\\)\\[\\]\\*<>;:\\.,]");
+      }
 
       assertEquals(result, expectedResult);
    }
