@@ -172,49 +172,6 @@ public class Model implements Serializable {
       return databasePassword.equals(password);
    }
 
-   @RequiresApi(api = Build.VERSION_CODES.O)
-   public boolean addNewClient(Client client, Activity activity) {
-      databaseReference = database.getReference("Users");
-
-      if(validatePassword(client.getPassword()) == true) {
-         try {
-            Encrypt.hashUserPassword(client);
-         } catch (Exception e) {
-            e.printStackTrace();
-         }
-         if (client.getUserId() != null ) {
-            databaseReference.child(client.getUserId()).setValue(client);
-            signUpSuccessfully(activity);
-            return true;
-         }
-      } else{
-         invalidPassword(activity);
-      }
-      return false;
-   }
-
-   @RequiresApi(api = Build.VERSION_CODES.O)
-   public boolean addNewPersonalTrainer(PersonalTrainer personalTrainer, Activity activity){
-      databaseReference = database.getReference("Users");
-
-      if(validatePassword(personalTrainer.getPassword()) == true) {
-         try {
-            Encrypt.hashUserPassword(personalTrainer);
-         } catch (Exception e) {
-            e.printStackTrace();
-         }
-         if (personalTrainer.getUserId() != null) {
-            databaseReference.child(personalTrainer.getUserId()).setValue(personalTrainer);
-            signUpSuccessfully(activity);
-            return true;
-         }
-      } else{
-         invalidPassword(activity);
-      }
-
-      return false;
-   }
-
    public void invalidPassword(Activity activity){
       Log.e(TAG, "Invalid password");
       Context context = activity.getApplicationContext();
@@ -267,9 +224,6 @@ public class Model implements Serializable {
       return false;
    }
 
-   private String encryptPassword(String password){
-      return null;
-   }
 
    public boolean validatePassword(String password) {
       if(password.length() < 8){
