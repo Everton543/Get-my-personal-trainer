@@ -11,15 +11,10 @@ import com.google.gson.Gson;
 
 public class PersonalTrainerSingUpActivity extends AppCompatActivity implements SignUpInterface{
 
-   //private Presenter presenter = null;
-
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_personal_trainer_sing_up);
-
-     // String jsonPresenter = getIntent().getStringExtra(MainActivity.PRESENTER);
-      //presenter = new Gson().fromJson(jsonPresenter, Presenter.class);
    }
 
    public void signUp(View view){
@@ -42,16 +37,12 @@ public class PersonalTrainerSingUpActivity extends AppCompatActivity implements 
 
       if(MainActivity.presenter.getModel().checkIfPasswordAreEqual(password, confirmPassword)){
          PersonalTrainer personalTrainer = new PersonalTrainer(UserTypes.PERSONAL_TRAINER, password, name, id, aboutMyselfText);
-    //     result = MainActivity.presenter.getModel().addNewPersonalTrainer(personalTrainer, this);
          MainActivity.presenter.getModel().saveUser(personalTrainer, this);
 
       }else{
          MainActivity.presenter.getModel().passwordNotEqualError(this);
       }
 
-    //  if(result == true){
-//         signUpSuccessfully();
-  //    }
    }
 
    public void signUpSuccessfully(){

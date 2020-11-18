@@ -40,7 +40,7 @@
                 android:textSize="40sp" />
 
 
-            <EditText
+            <AutoCompleteTextView
                 android:id="@+id/edit_text_exercise_name_create_exercise"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,6 +50,7 @@
                 android:hint="@string/hint_exercise_name"
                 android:inputType="text"
                 android:textSize="24sp" />
+
 
             <EditText
                 android:id="@+id/edit_text_day_of_week_create_exercise"

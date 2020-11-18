@@ -103,8 +103,15 @@ public class Model implements Serializable {
       if (loginId.length() < 4) {
          return  false;
       }
+      Pattern pattern = Pattern.compile("[\\\\.\\]\\[<\\s>\"@#$%&*!';:,()/]");
+      Matcher matcher = pattern.matcher(loginId);
+      boolean passwordHasBadSymbols = matcher.find();
 
-      return !loginId.matches("!\\\\@#$%\"&\\(\\)\\[\\]\\*<>;:\\.,]");
+      if(passwordHasBadSymbols){
+         return false;
+      }
+
+      return true;
    }
 
    public void checkLogin(final String userId , final String password, final Activity activity){

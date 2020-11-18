@@ -45,16 +45,11 @@ public class ClientSignUpActivity extends AppCompatActivity implements SignUpInt
 
         if(MainActivity.presenter.getModel().checkIfPasswordAreEqual(password, confirmPassword)){
             Client client = new Client(UserTypes.CLIENT, password, name, id, phone, birthDate, bodyMass, size);
-            //result = MainActivity.presenter.getModel().addNewClient(client, this);
             MainActivity.presenter.getModel().saveUser(client, this);
 
         }else{
             MainActivity.presenter.getModel().passwordNotEqualError(this);
         }
-
-        //if(result == true){
-          //  signUpSuccessfully();
-        //}
     }
 
     public void signUpSuccessfully(){
