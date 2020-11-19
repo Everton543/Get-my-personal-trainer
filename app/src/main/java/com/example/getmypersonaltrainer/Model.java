@@ -32,6 +32,10 @@ public class Model implements Serializable {
    private ChildEventListener childEventListener;
    private static final String TAG = "Model";
 
+   //To-do: get these values in database to use in the CreateExerciseActivity
+   private String[] exerciseNameList;
+   private Exercise exercise;
+
    List<User> clientList = new ArrayList<User>(); //test
 
    public Model(){
@@ -171,6 +175,10 @@ public class Model implements Serializable {
 
          }
       });
+   }
+
+   public void getExerciseNameList(final Activity activity){
+      //TO_DO: create logic
    }
 
 

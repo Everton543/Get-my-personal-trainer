@@ -51,8 +51,7 @@
                 android:inputType="text"
                 android:textSize="24sp" />
 
-
-            <EditText
+            <AutoCompleteTextView
                 android:id="@+id/edit_text_day_of_week_create_exercise"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
