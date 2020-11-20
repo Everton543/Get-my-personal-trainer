@@ -36,7 +36,7 @@ public class Model implements Serializable {
    private String[] exerciseNameList;
    private Exercise exercise;
 
-   List<User> clientList = new ArrayList<User>(); //test
+   List<User> userList = new ArrayList<User>(); //test
 
    public Model(){
       database = FirebaseDatabase.getInstance();
@@ -79,7 +79,7 @@ public class Model implements Serializable {
          @RequiresApi(api = Build.VERSION_CODES.O)
          @Override
          public void onDataChange(@NonNull DataSnapshot snapshot) {
-            clientList.clear();
+            userList.clear();
             Log.i(TAG, "onDataChange from getIdFromDatabase called");
            if(snapshot.exists()){
                Log.i(TAG, "User " + user.getUserId() + " already exist");
@@ -129,19 +129,19 @@ public class Model implements Serializable {
          @Override
          public void onDataChange(@NonNull DataSnapshot snapshot) {
             Log.i(TAG, "Reading from database now");
-            clientList.clear();
+            userList.clear();
             if(snapshot.exists()){
                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                  Client client = dataSnapshot.getValue(Client.class);
-                  clientList.add(client);
+                  User user = dataSnapshot.getValue(User.class);
+                  userList.add(user);
                }
 
-               Log.v(TAG, "Number of users with the id " + userId + " = " + clientList.size());
-               clientList.get(0).setPassword(password);
+               Log.v(TAG, "Number of users with the id " + userId + " = " + userList.size());
+               userList.get(0).setPassword(password);
 
                boolean verifyPasswordResult = false;
                try {
-                  verifyPasswordResult = Encrypt.verifyPassword(clientList.get(0));
+                  verifyPasswordResult = Encrypt.verifyPassword(userList.get(0));
                } catch (Exception e) {
                   Log.e(TAG, "Was not able to decrypt password");
                   e.printStackTrace();
@@ -150,8 +150,10 @@ public class Model implements Serializable {
                if(verifyPasswordResult){
                   signUpSuccessfully(activity);
                   if(activity instanceof LoginInterface){
+                     ((LoginInterface) activity).setPresenterUser(userList.get(0));
+
                      ((LoginInterface) activity).loginUserType(
-                           clientList.get(0).getUserType(),
+                           userList.get(0).getUserType(),
                            true);
                   }
                }else {
@@ -177,8 +179,34 @@ public class Model implements Serializable {
       });
    }
 
-   public void getExerciseNameList(final Activity activity){
-      //TO_DO: create logic
+   public void getExerciseNameList(final PersonalTrainer personalTrainer){
+      //TO-do: Correct bug here
+      Log.i(TAG, "getExerciseNameList function called");
+      Query query = database.getReference("Exercise")
+            .orderByChild("free")
+            .equalTo(true);
+
+      query.addValueEventListener(new ValueEventListener() {
+         @Override
+         public void onDataChange(@NonNull DataSnapshot snapshot) {
+            Log.i(TAG, "Reading from database now");
+            userList.clear();
+            if(snapshot.exists()){
+               for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                  personalTrainer.addNewExerciseName(dataSnapshot.child("name").getValue(String.class));
+               }
+            }
+            else {
+               Log.i(TAG, "Didn't found any exercise");
+            }
+         }
+
+         @Override
+         public void onCancelled(@NonNull DatabaseError error) {
+
+         }
+      });
+
    }
 
 

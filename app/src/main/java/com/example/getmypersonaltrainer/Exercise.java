@@ -9,6 +9,8 @@ public class Exercise {
    private String intervalBetweenSeries;
    private String intervalBetweenExercises;
    private String videoLink;
+   private String exerciseId;
+   private boolean free = false;
 
    public Exercise(){   }
 
@@ -29,9 +31,13 @@ public class Exercise {
       return name;
    }
 
+   public boolean getFree(){return free;}
+
    public void setName(String name) {
       this.name = name;
    }
+
+   public void setFree(boolean free) { this.free = free;}
 
    public DaysOfWeek getDaysOfWeek() {
       return dayOfWeek;
@@ -87,5 +93,13 @@ public class Exercise {
 
    public void setVideoLink(String videoLink) {
       this.videoLink = videoLink;
+   }
+
+   public String getExerciseId() {
+      return exerciseId;
+   }
+
+   public void setExerciseId(String exerciseId) {
+      this.exerciseId = exerciseId;
    }
 }

@@ -44,7 +44,7 @@ public class ClientSignUpActivity extends AppCompatActivity implements SignUpInt
         float size = Float.parseFloat(editText.getText().toString());
 
         if(MainActivity.presenter.getModel().checkIfPasswordAreEqual(password, confirmPassword)){
-            Client client = new Client(UserTypes.CLIENT, password, name, id, phone, birthDate, bodyMass, size);
+            User client = new User(UserTypes.CLIENT, password, name, id, phone, birthDate, bodyMass, size);
             MainActivity.presenter.getModel().saveUser(client, this);
 
         }else{

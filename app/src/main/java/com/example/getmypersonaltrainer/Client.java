@@ -1,8 +1,9 @@
 package com.example.getmypersonaltrainer;
 
 import java.util.HashMap;
+import java.util.List;
 
-public class Client implements User, ClientInterface{
+public class Client implements UserInterface, ClientInterface{
    private UserTypes userType;
    private String password;
    private String name;
@@ -35,11 +36,6 @@ public class Client implements User, ClientInterface{
    }
 
    @Override
-   public HashMap<String, Exercise> getExerciseList() {
-      return exerciseList;
-   }
-
-   @Override
    public String getPassword() {
       return password;
    }
@@ -62,6 +58,16 @@ public class Client implements User, ClientInterface{
    @Override
    public String getHashedPassword() {
       return hashedPassword;
+   }
+
+   @Override
+   public HashMap<String, Exercise> getExerciseList() {
+      return exerciseList;
+   }
+
+   @Override
+   public void setExerciseList(HashMap<String, Exercise> exerciseList) {
+      this.exerciseList = exerciseList;
    }
 
    @Override

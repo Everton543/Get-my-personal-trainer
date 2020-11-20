@@ -27,7 +27,6 @@ import static com.example.getmypersonaltrainer.UserTypes.PERSONAL_TRAINER;
       final static String PRESENTER = "Presenter";
       private static final String TAG = "MyActivity";
 
-      private boolean logged = false;
       private String logId = null;
 
       public final static Presenter presenter = new Presenter();
@@ -63,7 +62,7 @@ import static com.example.getmypersonaltrainer.UserTypes.PERSONAL_TRAINER;
    }
 
       public void saveLoginId(){
-         if(logged) {
+         if(presenter.isLogged()) {
             SharedPreferences sharedPreferences;
             sharedPreferences = getSharedPreferences(PREFERENCES,
                   Context.MODE_PRIVATE);
@@ -83,7 +82,20 @@ import static com.example.getmypersonaltrainer.UserTypes.PERSONAL_TRAINER;
          if(goodLoginResult){
             switch (userType){
                case PERSONAL_TRAINER:{
-                  logged = true;
+                  presenter.setLogged(true);
+                  PersonalTrainer personalTrainer = null;
+                  if(presenter.getUser() instanceof  PersonalTrainerInterface) {
+                     personalTrainer = new PersonalTrainer(presenter.getUser().getUserType(),
+                     presenter.getUser().getHashedPassword(),
+                     presenter.getUser().getSalt(),
+                     presenter.getUser().getName(),
+                     presenter.getUser().getUserId(),
+                     ((PersonalTrainerInterface) presenter.getUser()).getAboutMyselfText(),
+                     presenter.getUser().getExerciseList());
+                  }
+                  presenter.setUser(personalTrainer);
+
+                  presenter.getModel().getExerciseNameList((PersonalTrainer) presenter.getUser());
                   saveLoginId();
                   Intent intent = new Intent(this, PersonalTrainerMainActivity.class);
                   startActivity(intent);
@@ -91,7 +103,7 @@ import static com.example.getmypersonaltrainer.UserTypes.PERSONAL_TRAINER;
                }
 
                case CLIENT:{
-                  logged = true;
+                  presenter.setLogged(true);
                   saveLoginId();
                   Intent intent = new Intent(this, ClientMainActivity.class);
                   startActivity(intent);
@@ -99,6 +111,11 @@ import static com.example.getmypersonaltrainer.UserTypes.PERSONAL_TRAINER;
                }
             }
          }
+      }
+
+      @Override
+      public void setPresenterUser(User user) {
+         presenter.setUser(user);
       }
 
       public void eraseText(int textId){

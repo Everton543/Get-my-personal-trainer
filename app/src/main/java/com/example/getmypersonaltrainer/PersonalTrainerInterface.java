@@ -8,8 +8,8 @@ public interface PersonalTrainerInterface {
    void addNewClient(Client newClient);
    void removeClient(String clientId);
    String getAboutMyselfText();
-   HashMap<String, Exercise> getExerciseList();
+   String[] getExerciseNameList();
+
    void setAboutMyselfText(String aboutMyselfText);
    void setClients(List<Client> clientList);
-   void setExerciseList(HashMap<String, Exercise> exerciseList);
 }

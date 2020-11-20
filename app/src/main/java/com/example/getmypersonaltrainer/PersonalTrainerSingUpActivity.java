@@ -36,7 +36,7 @@ public class PersonalTrainerSingUpActivity extends AppCompatActivity implements 
       String aboutMyselfText = editText.getText().toString();
 
       if(MainActivity.presenter.getModel().checkIfPasswordAreEqual(password, confirmPassword)){
-         PersonalTrainer personalTrainer = new PersonalTrainer(UserTypes.PERSONAL_TRAINER, password, name, id, aboutMyselfText);
+         User personalTrainer = new User(UserTypes.PERSONAL_TRAINER, password, name, id, aboutMyselfText);
          MainActivity.presenter.getModel().saveUser(personalTrainer, this);
 
       }else{

@@ -10,5 +10,8 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_trainer_main);
+
+        PersonalTrainer personalTrainer = (PersonalTrainer) MainActivity.presenter.getUser();
+        String[] exerciseList = personalTrainer.getExerciseNameList();
     }
 }

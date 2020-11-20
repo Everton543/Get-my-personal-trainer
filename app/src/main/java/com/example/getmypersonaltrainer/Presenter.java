@@ -1,12 +1,10 @@
 package com.example.getmypersonaltrainer;
 
-import android.widget.EditText;
-
-import java.io.Serializable;
-
-public class Presenter implements Serializable {
+public class Presenter {
    private Model model;
    private boolean logged;
+   private UserInterface user;
+
 
    Presenter(){
       model = new Model();
@@ -27,5 +25,13 @@ public class Presenter implements Serializable {
 
    public void setLogged(boolean logged) {
       this.logged = logged;
+   }
+
+   public UserInterface getUser() {
+      return user;
+   }
+
+   public void setUser(UserInterface user) {
+      this.user = user;
    }
 }
