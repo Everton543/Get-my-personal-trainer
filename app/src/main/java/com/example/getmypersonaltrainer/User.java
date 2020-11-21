@@ -17,6 +17,10 @@ public class User implements UserInterface, ClientInterface, PersonalTrainerInte
    private String salt;
    private String aboutMyselfText;
    private List<Client> clientList = null;
+   private String personalTrainerId;
+   private String invitationMessage;
+   private List<String> exerciseNameList;
+   private boolean receivedInvitation;
 
 
    User(){}
@@ -76,6 +80,26 @@ public class User implements UserInterface, ClientInterface, PersonalTrainerInte
    }
 
    @Override
+   public String getInvitationMessage() {
+      return invitationMessage;
+   }
+
+   @Override
+   public boolean getReceivedInvitation() {
+      return false;
+   }
+
+   @Override
+   public void setReceivedInvitation(boolean invitation) {
+      this.receivedInvitation = invitation;
+   }
+
+   @Override
+   public void setInvitationMessage(String invitationMessage) {
+      this.invitationMessage = invitationMessage;
+   }
+
+   @Override
    public void setSalt(String salt) {
       this.salt = salt;
    }
@@ -127,7 +151,7 @@ public class User implements UserInterface, ClientInterface, PersonalTrainerInte
 
    @Override
    public List<String> getExerciseNameList() {
-      return null;
+      return exerciseNameList;
    }
 
    @Override
@@ -164,6 +188,16 @@ public class User implements UserInterface, ClientInterface, PersonalTrainerInte
    @Override
    public String getPhone() {
       return phone;
+   }
+
+   @Override
+   public String getPersonalTrainerId() {
+      return personalTrainerId;
+   }
+
+   @Override
+   public void setPersonalTrainerId(String trainerId) {
+      personalTrainerId = trainerId;
    }
 
    @Override

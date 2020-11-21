@@ -15,6 +15,9 @@ public class Client implements UserInterface, ClientInterface{
    private HashMap<String, Exercise> exerciseList = null;
    private String hashedPassword;
    private String salt;
+   private String invitationMessage;
+   private boolean receivedInvitation = false;
+   private String personalTrainerId;
 
    public Client(){}
 
@@ -27,6 +30,55 @@ public class Client implements UserInterface, ClientInterface{
       this.userId = userId;
       this.size = size;
       this.phone = phone;
+   }
+
+   public Client(UserTypes userType,
+                 String password,
+                 String name,
+                 String userId,
+                 String phone,
+                 String birthDate,
+                 float bodyMass,
+                 float size,
+                 String personalTrainerId,
+                 boolean receivedInvitation,
+                 String invitationMessage,
+                 String hashedPassword,
+                 String salt){
+      this.userType = userType;
+      this.password = password;
+      this.birthDate = birthDate;
+      this.bodyMass = bodyMass;
+      this.name = name;
+      this.userId = userId;
+      this.size = size;
+      this.phone = phone;
+      this.personalTrainerId = personalTrainerId;
+      this.receivedInvitation = receivedInvitation;
+      this.invitationMessage = invitationMessage;
+      this.hashedPassword = hashedPassword;
+      this.salt = salt;
+   }
+
+
+   @Override
+   public String getInvitationMessage() {
+      return invitationMessage;
+   }
+
+   @Override
+   public boolean getReceivedInvitation() {
+      return receivedInvitation;
+   }
+
+   @Override
+   public void setReceivedInvitation(boolean invitation) {
+      this.receivedInvitation = invitation;
+   }
+
+   @Override
+   public void setInvitationMessage(String invitationMessage) {
+      this.invitationMessage = invitationMessage;
    }
 
 
@@ -118,6 +170,16 @@ public class Client implements UserInterface, ClientInterface{
    @Override
    public String getPhone() {
       return phone;
+   }
+
+   @Override
+   public String getPersonalTrainerId() {
+      return personalTrainerId;
+   }
+
+   @Override
+   public void setPersonalTrainerId(String trainerId) {
+      this.personalTrainerId = trainerId;
    }
 
    @Override

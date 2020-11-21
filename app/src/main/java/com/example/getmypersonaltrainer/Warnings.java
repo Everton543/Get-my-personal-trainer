@@ -36,6 +36,21 @@ public class Warnings {
       sendWarning(Toast.LENGTH_SHORT, text, activity);
    }
 
+   public void errorClientDoesNotExists(Activity activity){
+      CharSequence text = "Client does not exists";
+      sendWarning(Toast.LENGTH_SHORT, text, activity);
+   }
+
+   public void errorClientHasAlreadyReceivedAnInvitation(Activity activity){
+      CharSequence text = "Client has already received an invitation";
+      sendWarning(Toast.LENGTH_SHORT, text, activity);
+   }
+
+   public void invitationGotSend(Activity activity){
+      CharSequence text = "Client received yours invitation";
+      sendWarning(Toast.LENGTH_SHORT, text, activity);
+   }
+
    public void errorExerciseAlreadyExists(Activity activity){
       CharSequence text = "Exercise Already exists";
       sendWarning(Toast.LENGTH_SHORT, text, activity);

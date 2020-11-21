@@ -85,6 +85,9 @@ public class Encrypt {
       char[] password = user.getPassword().toCharArray();
       byte[] salt = Base64.getDecoder().decode(user.getSalt());
 
+      //Erase User password again
+      user.setPassword("");
+
       // Generate the new hash, and retrieve the user's hash
       byte[] expectedHash = getHash(password, salt);
       byte[] userHash = Base64.getDecoder().decode(user.getHashedPassword());

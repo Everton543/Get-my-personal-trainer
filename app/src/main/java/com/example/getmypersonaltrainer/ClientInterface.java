@@ -7,7 +7,9 @@ public interface ClientInterface {
    String getBirthDate();
    float getSize();
    String getPhone();
+   String getPersonalTrainerId();
 
+   void setPersonalTrainerId(String trainerId);
    void setBirthDate(String birthDate);
    void setSize(float size);
    void setBodyMass(float bodyMass);

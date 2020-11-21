@@ -26,20 +26,14 @@ public class Model {
    private static final String TAG = "Model";
    private Warnings warnings = new Warnings();
    private ValidateInfo validateInfo = new ValidateInfo();
+   private List<Client> clientToInvite = new ArrayList<Client>();
 
-   //To-do: get these values in database to use in the CreateExerciseActivity
-   private String[] exerciseNameList;
-   private Exercise exercise;
 
    List<User> userList = new ArrayList<User>(); //test
 
    public Model(){
       database = FirebaseDatabase.getInstance();
       databaseReference = database.getReference();
-   }
-
-   public Model(String Test){
-
    }
 
    ValidateInfo getValidateInfo(){
@@ -116,6 +110,11 @@ public class Model {
       return false;
    }
 
+   public void updateClient(final Client client){
+      databaseReference = database.getReference("Users");
+      databaseReference.child(client.getUserId()).setValue(client);
+   }
+
    public void saveUser(final User user, final Activity activity){
       Log.i("Model", "Call getIdFromDatabase with the id = " + user.getUserId());
       Query query = database.getReference("Users")
@@ -149,6 +148,59 @@ public class Model {
          }
       });
    }
+
+   public void sendInvitationToClient(final String clientId, final Activity activity){
+      Log.i(TAG, "Call sendInvitationToClient with the id = " + clientId);
+      if(validateInfo.checkId(clientId)) {
+         Query query = database.getReference("Users")
+               .orderByChild("userId")
+               .equalTo(clientId);
+
+         query.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+               userList.clear();
+               Log.i(TAG, "onDataChange from sendInvitationToClient");
+               if (snapshot.exists()) {
+                  for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                     Client client = dataSnapshot.getValue(Client.class);
+                     clientToInvite.add(client);
+                  }
+
+                  if(clientToInvite.get(0).getReceivedInvitation() == false) {
+
+                     if (MainActivity.presenter.getUser() instanceof PersonalTrainer) {
+                        String invitationMessage = "The personal trainer " + MainActivity.presenter.getUser().getName();
+                        invitationMessage += " that has the ID: " + MainActivity.presenter.getUser().getUserId();
+                        invitationMessage += " wants to be your personal trainer. Will you accept?";
+
+                        clientToInvite.get(0).setPersonalTrainerId(MainActivity.presenter.getUser().getUserId());
+                        clientToInvite.get(0).setReceivedInvitation(true);
+                        clientToInvite.get(0).setInvitationMessage(invitationMessage);
+
+                        updateClient(clientToInvite.get(0));
+
+                        warnings.invitationGotSend(activity);
+                     }
+                  }
+                  else{
+                     warnings.errorClientHasAlreadyReceivedAnInvitation(activity);
+                  }
+               }
+               else{
+                  warnings.errorClientDoesNotExists(activity);
+               }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+         });
+      }
+   }
+
 
    public void checkLogin(final String userId , final String password, final Activity activity){
       Log.i(TAG, "checkLogin function called");

@@ -21,6 +21,8 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
    private String hashedPassword;
    private String salt;
    private List<String> exerciseNameList = new ArrayList<String>();
+   private String invitationMessage;
+   private boolean receivedInvitation;
 
    public PersonalTrainer(){
    }
@@ -135,6 +137,26 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
    @Override
    public HashMap<String, Exercise> getExerciseList() {
       return exerciseList;
+   }
+
+   @Override
+   public String getInvitationMessage() {
+      return invitationMessage;
+   }
+
+   @Override
+   public boolean getReceivedInvitation() {
+      return receivedInvitation;
+   }
+
+   @Override
+   public void setReceivedInvitation(boolean invitation) {
+      this.receivedInvitation = invitation;
+   }
+
+   @Override
+   public void setInvitationMessage(String invitationMessage) {
+      this.invitationMessage = invitationMessage;
    }
 
    @Override

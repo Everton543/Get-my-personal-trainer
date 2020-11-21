@@ -91,6 +91,7 @@ import static com.example.getmypersonaltrainer.UserTypes.PERSONAL_TRAINER;
 
                case CLIENT:{
                   presenter.setLogged(true);
+                  setUserAsClient();
                   saveLoginId();
                   Intent intent = new Intent(this, ClientMainActivity.class);
                   startActivity(intent);
@@ -104,6 +105,28 @@ import static com.example.getmypersonaltrainer.UserTypes.PERSONAL_TRAINER;
       public void setPresenterUser(User user) {
          presenter.setUser(user);
       }
+
+      public void setUserAsClient(){
+         if(presenter.getUser() instanceof ClientInterface) {
+            Client client = new Client(
+                  presenter.getUser().getUserType(),
+                  "",
+                  presenter.getUser().getName(),
+                  presenter.getUser().getUserId(),
+                  ((ClientInterface) presenter.getUser()).getPhone(),
+                  ((ClientInterface) presenter.getUser()).getBirthDate(),
+                  ((ClientInterface) presenter.getUser()).getBodyMass(),
+                  ((ClientInterface) presenter.getUser()).getSize(),
+                  ((ClientInterface) presenter.getUser()).getPersonalTrainerId(),
+                  presenter.getUser().getReceivedInvitation(),
+                  presenter.getUser().getInvitationMessage(),
+                  presenter.getUser().getHashedPassword(),
+                  presenter.getUser().getSalt());
+
+            presenter.setUser(client);
+         }
+      }
+
 
       @Override
       public void setPersonalTrainerExerciseNameList() {

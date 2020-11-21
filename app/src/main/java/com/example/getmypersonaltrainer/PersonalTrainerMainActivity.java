@@ -38,10 +38,15 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
+        Intent intent = null;
         switch (item.getItemId()){
             case R.id.item_create_public_exercise:
-                Intent intent = new Intent(this, CreatePublicExerciseActivity.class);
+                intent = new Intent(this, CreatePublicExerciseActivity.class);
+                startActivity(intent);
+                return true;
+
+            case R.id.item_invite_client:
+                intent = new Intent(this, SendInvitationActivity.class);
                 startActivity(intent);
                 return true;
             default:

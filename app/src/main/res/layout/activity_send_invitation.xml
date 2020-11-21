@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/background_send_invitation_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_background"
+    tools:context=".SendInvitationActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title_create_public_exercise_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:fontFamily="@font/abril_fatface"
+                android:gravity="center"
+                android:text="@string/send_invitation_title"
+                android:textColor="@color/title_light"
+                android:textSize="40sp" />
+
+
+            <EditText
+                android:id="@+id/edit_text_client_id_send_invitation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/hint_invitation_id"
+                android:inputType="text"
+                android:textSize="24sp" />
+
+
+            <Button
+                android:id="@+id/button_confirm_public_exercise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/good_button_background"
+                android:gravity="center"
+                android:onClick="sendInvitation"
+                android:text="@string/button_confirm"
+                android:textColor="@color/font_dark"
+                android:textSize="30sp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
