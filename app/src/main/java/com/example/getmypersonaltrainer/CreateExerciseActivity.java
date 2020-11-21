@@ -18,6 +18,11 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
 
         String[] weekDays = getResources().getStringArray(R.array.weekDays);
 
+        String[] exerciseNames = new String[0];
+        if(MainActivity.presenter.getUser() instanceof PersonalTrainer){
+
+            exerciseNames = ((PersonalTrainer) MainActivity.presenter.getUser()).getExerciseNameList().toArray(new String[0]);
+        }
 
         AutoCompleteTextView editTextWeekDays = findViewById(R.id.edit_text_day_of_week_create_exercise);
         ArrayAdapter<String> weekDaysAdapter = new ArrayAdapter<String>(this,

@@ -126,7 +126,7 @@ public class User implements UserInterface, ClientInterface, PersonalTrainerInte
    }
 
    @Override
-   public String[] getExerciseNameList() {
+   public List<String> getExerciseNameList() {
       return null;
    }
 

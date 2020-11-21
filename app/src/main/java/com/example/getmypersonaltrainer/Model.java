@@ -152,6 +152,10 @@ public class Model implements Serializable {
                   if(activity instanceof LoginInterface){
                      ((LoginInterface) activity).setPresenterUser(userList.get(0));
 
+                     if(userList.get(0).getUserType() == UserTypes.PERSONAL_TRAINER){
+                        ((LoginInterface) activity).setPersonalTrainerExerciseNameList();
+                     }
+
                      ((LoginInterface) activity).loginUserType(
                            userList.get(0).getUserType(),
                            true);
@@ -192,8 +196,10 @@ public class Model implements Serializable {
             Log.i(TAG, "Reading from database now");
             userList.clear();
             if(snapshot.exists()){
+               Log.i(TAG, "Found some exercises");
+
                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                  personalTrainer.addNewExerciseName(dataSnapshot.child("name").getValue(String.class));
+                  personalTrainer.getExerciseNameList().add(dataSnapshot.child("name").getValue(String.class));
                }
             }
             else {

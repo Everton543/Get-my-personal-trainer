@@ -83,19 +83,6 @@ import static com.example.getmypersonaltrainer.UserTypes.PERSONAL_TRAINER;
             switch (userType){
                case PERSONAL_TRAINER:{
                   presenter.setLogged(true);
-                  PersonalTrainer personalTrainer = null;
-                  if(presenter.getUser() instanceof  PersonalTrainerInterface) {
-                     personalTrainer = new PersonalTrainer(presenter.getUser().getUserType(),
-                     presenter.getUser().getHashedPassword(),
-                     presenter.getUser().getSalt(),
-                     presenter.getUser().getName(),
-                     presenter.getUser().getUserId(),
-                     ((PersonalTrainerInterface) presenter.getUser()).getAboutMyselfText(),
-                     presenter.getUser().getExerciseList());
-                  }
-                  presenter.setUser(personalTrainer);
-
-                  presenter.getModel().getExerciseNameList((PersonalTrainer) presenter.getUser());
                   saveLoginId();
                   Intent intent = new Intent(this, PersonalTrainerMainActivity.class);
                   startActivity(intent);
@@ -116,6 +103,24 @@ import static com.example.getmypersonaltrainer.UserTypes.PERSONAL_TRAINER;
       @Override
       public void setPresenterUser(User user) {
          presenter.setUser(user);
+      }
+
+      @Override
+      public void setPersonalTrainerExerciseNameList() {
+         PersonalTrainer personalTrainer = null;
+         if(presenter.getUser() instanceof  PersonalTrainerInterface) {
+            personalTrainer = new PersonalTrainer(presenter.getUser().getUserType(),
+                  presenter.getUser().getHashedPassword(),
+                  presenter.getUser().getSalt(),
+                  presenter.getUser().getName(),
+                  presenter.getUser().getUserId(),
+                  ((PersonalTrainerInterface) presenter.getUser()).getAboutMyselfText(),
+                  presenter.getUser().getExerciseList());
+         }
+         presenter.setUser(personalTrainer);
+
+         Log.i(TAG, "setPersonalTrainerExerciseNameList function called");
+         presenter.getModel().getExerciseNameList((PersonalTrainer) presenter.getUser());
       }
 
       public void eraseText(int textId){

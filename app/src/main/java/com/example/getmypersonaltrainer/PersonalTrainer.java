@@ -1,8 +1,14 @@
 package com.example.getmypersonaltrainer;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import java.util.function.BiConsumer;
+import java.util.Map;
+import java.util.Set;
 
 public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
    private UserTypes userType;
@@ -10,13 +16,14 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
    private String name;
    private String userId;
    private String aboutMyselfText;
-   private List<Client> clientList = null;
-   private HashMap<String, Exercise> exerciseList = null;
+   private List<Client> clientList = new ArrayList<Client>();
+   private HashMap<String, Exercise> exerciseList;
    private String hashedPassword;
    private String salt;
-   private String[] exerciseNameList = null;
+   private List<String> exerciseNameList = new ArrayList<String>();
 
-   public PersonalTrainer(){}
+   public PersonalTrainer(){
+   }
 
    public PersonalTrainer(UserTypes userType, String password, String name, String userId, String aboutMyselfText){
       this.aboutMyselfText = aboutMyselfText;
@@ -24,6 +31,83 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
       this.userId = userId;
       this.password = password;
       this.userType = userType;
+      exerciseList = new HashMap<String, Exercise>() {
+         @Override
+         public int size() {
+            return 0;
+         }
+
+         @Override
+         public boolean isEmpty() {
+            return false;
+         }
+
+         @Override
+         public boolean containsKey(@Nullable Object key) {
+            return false;
+         }
+
+         @Override
+         public boolean containsValue(@Nullable Object value) {
+            return false;
+         }
+
+         @Nullable
+         @Override
+         public Exercise get(@Nullable Object key) {
+            return null;
+         }
+
+         @Nullable
+         @Override
+         public Exercise put(String key, Exercise value) {
+            return null;
+         }
+
+         @Nullable
+         @Override
+         public Exercise remove(@Nullable Object key) {
+            return null;
+         }
+
+         @Override
+         public void putAll(@NonNull Map<? extends String, ? extends Exercise> m) {
+
+         }
+
+         @Override
+         public void clear() {
+
+         }
+
+         @NonNull
+         @Override
+         public Set<String> keySet() {
+            return null;
+         }
+
+         @NonNull
+         @Override
+         public Collection<Exercise> values() {
+            return null;
+         }
+
+         @NonNull
+         @Override
+         public Set<Entry<String, Exercise>> entrySet() {
+            return null;
+         }
+
+         @Override
+         public boolean equals(@Nullable Object o) {
+            return false;
+         }
+
+         @Override
+         public int hashCode() {
+            return 0;
+         }
+      };
    }
 
    public PersonalTrainer(UserTypes userType,
@@ -134,24 +218,12 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
    }
 
    @Override
-   public String[] getExerciseNameList() {
-      if(exerciseNameList.length == 0) {
-         int i = 0;
-         for (String exerciseName : exerciseList.keySet()) {
-            exerciseNameList[i] = exerciseName;
-            ++i;
-         }
-      }
-
+   public List<String> getExerciseNameList() {
       return exerciseNameList;
    }
 
    public void addNewExerciseName(String exerciseName){
-      if(exerciseNameList.length > 0) {
-         exerciseNameList[exerciseNameList.length] = exerciseName;
-      } else{
-         exerciseNameList[0] = exerciseName;
-      }
+      exerciseNameList.add(exerciseName);
    }
 
    @Override
@@ -164,7 +236,7 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
       this.clientList = clientList;
    }
 
-   public void setExerciseNameList(String[] exerciseNameList){
+   public void setExerciseNameList(List<String> exerciseNameList){
       this.exerciseNameList = exerciseNameList;
    }
 }
