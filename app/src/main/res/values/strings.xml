@@ -63,6 +63,8 @@
     //Menu
     <string name="item_change_client_info">Change My Info</string>
     <string name="item_my_personal_trainer">My Personal Trainer</string>
+    <string name="item_create_public_exercise">Create public exercise</string>
+    <string name="switch_mode">Light/Dark mode</string>
 
     //Buttons
     <string name="button_client_info_remove_client">Remove Client</string>

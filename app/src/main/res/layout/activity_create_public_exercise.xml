@@ -2,12 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/background_create_exercise_activity"
+    android:id="@+id/background_create_public_exercise_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_background"
-    tools:context=".CreateExerciseActivity">
-
+    tools:context=".CreatePublicExerciseActivity">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,7 +27,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/title_create_exercise_activity"
+                android:id="@+id/title_create_public_exercise_activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
@@ -41,7 +40,7 @@
 
 
             <AutoCompleteTextView
-                android:id="@+id/edit_text_exercise_name_create_exercise"
+                android:id="@+id/edit_text_exercise_name_create_public_exercise"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
@@ -51,19 +50,8 @@
                 android:inputType="text"
                 android:textSize="24sp" />
 
-            <AutoCompleteTextView
-                android:id="@+id/edit_text_day_of_week_create_exercise"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="@string/hint_day_of_week"
-                android:inputType="text"
-                android:textSize="24sp" />
-
             <EditText
-                android:id="@+id/edit_text_emphasis_create_exercise"
+                android:id="@+id/edit_text_emphasis_create_public_exercise"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
@@ -73,53 +61,9 @@
                 android:inputType="text"
                 android:textSize="24sp" />
 
-            <EditText
-                android:id="@+id/edit_text_repetition_create_exercise"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="@string/hint_exercise_number_repetition"
-                android:inputType="text"
-                android:textSize="24sp" />
 
             <EditText
-                android:id="@+id/edit_text_series_create_exercise"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="@string/hint_exercise_number_series"
-                android:inputType="number"
-                android:textSize="24sp" />
-
-            <EditText
-                android:id="@+id/edit_text_interval_series_create_exercise"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="@string/hint_exercise_interval_between_series"
-                android:inputType="text"
-                android:textSize="24sp" />
-
-            <EditText
-                android:id="@+id/edit_text_interval_exercise_create_exercise"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="@string/hint_exercise_interval_between_exercise"
-                android:inputType="text"
-                android:textSize="24sp" />
-
-
-            <EditText
-                android:id="@+id/edit_text_video_link_create_exercise"
+                android:id="@+id/edit_text_video_link_create_public_exercise"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
@@ -130,7 +74,7 @@
                 android:textSize="24sp" />
 
             <Button
-                android:id="@+id/button_confirm_new_exercise"
+                android:id="@+id/button_confirm_public_exercise"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/good_button_background"
@@ -142,4 +86,6 @@
 
         </LinearLayout>
     </ScrollView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

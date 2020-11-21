@@ -30,6 +30,9 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
         editTextWeekDays.setAdapter(weekDaysAdapter);
 
         AutoCompleteTextView editTextExerciseName = findViewById(R.id.edit_text_exercise_name_create_exercise);
+        ArrayAdapter<String> exerciseName = new ArrayAdapter<>(this,
+              android.R.layout.simple_list_item_1, exerciseNames);
+        editTextExerciseName.setAdapter(exerciseName);
 
         //function called when the user finish writing the exercise name
         editTextExerciseName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
