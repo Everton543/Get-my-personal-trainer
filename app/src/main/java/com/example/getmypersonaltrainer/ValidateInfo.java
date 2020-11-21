@@ -22,7 +22,7 @@ public class ValidateInfo {
       if (id.length() < 4) {
          return  false;
       }
-      Pattern pattern = Pattern.compile("[\\\\.\\]\\[<\\s>\"@#$%&*!';:,()/]");
+      Pattern pattern = Pattern.compile("[\\\\.\\]\\[<>\"@#$%&*!';:,()/]");
       Matcher matcher = pattern.matcher(id);
       boolean passwordHasBadSymbols = matcher.find();
 

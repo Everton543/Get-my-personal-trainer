@@ -18,7 +18,7 @@ public class CreatePublicExerciseActivity extends AppCompatActivity implements S
    }
 
    public void sendExercise(View view){
-      AutoCompleteTextView autoCompleteTextView = findViewById(R.id.edit_text_exercise_name_create_exercise);
+      AutoCompleteTextView autoCompleteTextView = findViewById(R.id.edit_text_exercise_name_create_public_exercise);
       String exerciseName = autoCompleteTextView.getText().toString();
 
       EditText editText = findViewById(R.id.edit_text_emphasis_create_public_exercise);
