@@ -1,10 +1,8 @@
 package com.example.getmypersonaltrainer;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Build;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -17,20 +15,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-
-
-public class Model implements Serializable {
+public class Model {
    private FirebaseDatabase database = null;
    private DatabaseReference databaseReference = null;
    final static String mainTable = "get-my-personal-trainer";
    private ChildEventListener childEventListener;
    private static final String TAG = "Model";
+   private Warnings warnings = new Warnings();
+   private ValidateInfo validateInfo = new ValidateInfo();
 
    //To-do: get these values in database to use in the CreateExerciseActivity
    private String[] exerciseNameList;
@@ -47,23 +42,75 @@ public class Model implements Serializable {
 
    }
 
+   ValidateInfo getValidateInfo(){
+      return validateInfo;
+   }
+
+   Warnings getWarnings(){
+      return warnings;
+   }
+
    @RequiresApi(api = Build.VERSION_CODES.O)
    private boolean addUserToDatabase(final User user, final Activity activity){
       databaseReference = database.getReference("Users");
 
-      if(validatePassword(user.getPassword()) == true) {
+      if(validateInfo.password(user.getPassword()) == true) {
          try {
             Encrypt.hashUserPassword(user);
          } catch (Exception e) {
             e.printStackTrace();
          }
-         if (user.getUserId() != null) {
-            databaseReference.child(user.getUserId()).setValue(user);
-            signUpSuccessfully(activity);
-            return true;
-         }
+         databaseReference.child(user.getUserId()).setValue(user);
+         warnings.signUpSuccessfully(activity);
+         return true;
+
       } else{
-         invalidPassword(activity);
+         warnings.invalidPassword(activity);
+      }
+
+      return false;
+   }
+
+
+   public void savePublicExercise(final Exercise exercise, final Activity activity){
+      Log.i(TAG, "Call savePublicExercise with the id = " + exercise.getExerciseId());
+      if(validateInfo.checkId(exercise.getExerciseId())) {
+         Query query = database.getReference("Exercise")
+               .orderByChild("exerciseId")
+               .equalTo(exercise.getExerciseId());
+
+         query.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+               userList.clear();
+               Log.i(TAG, "onDataChange from savePublicExercise");
+               if (snapshot.exists()) {
+                  Log.i(TAG, "Exercise " + exercise.getExerciseId() + " already exist");
+                  warnings.errorExerciseAlreadyExists(activity);
+               } else if(addPublicExerciseToDatabase(exercise, activity)){
+                  if (activity instanceof SignUpInterface) {
+                     ((SignUpInterface) activity).signUpSuccessfully();
+                  }
+               }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+         });
+      }
+   }
+
+   private boolean addPublicExerciseToDatabase(final Exercise exercise, final Activity activity){
+      databaseReference = database.getReference("Exercise");
+      if(validateInfo.checkId(exercise.getExerciseId()) == true) {
+            databaseReference.child(exercise.getExerciseId()).setValue(exercise);
+            warnings.createdNewExerciseSuccessfully(activity);
+            return true;
+      } else{
+         warnings.invalidExerciseName(activity);
       }
 
       return false;
@@ -83,10 +130,10 @@ public class Model implements Serializable {
             Log.i(TAG, "onDataChange from getIdFromDatabase called");
            if(snapshot.exists()){
                Log.i(TAG, "User " + user.getUserId() + " already exist");
-               errorUserIdAlreadyExists(activity);
+               warnings.errorUserIdAlreadyExists(activity);
             }
             else{
-               if(checkIfLoginIdIsValid(user.getUserId())) {
+               if(validateInfo.checkId(user.getUserId())) {
                   if(addUserToDatabase(user, activity)){
                      if(activity instanceof SignUpInterface){
                         ((SignUpInterface) activity).signUpSuccessfully();
@@ -101,21 +148,6 @@ public class Model implements Serializable {
 
          }
       });
-   }
-
-   public boolean checkIfLoginIdIsValid(String loginId){
-      if (loginId.length() < 4) {
-         return  false;
-      }
-      Pattern pattern = Pattern.compile("[\\\\.\\]\\[<\\s>\"@#$%&*!';:,()/]");
-      Matcher matcher = pattern.matcher(loginId);
-      boolean passwordHasBadSymbols = matcher.find();
-
-      if(passwordHasBadSymbols){
-         return false;
-      }
-
-      return true;
    }
 
    public void checkLogin(final String userId , final String password, final Activity activity){
@@ -148,7 +180,7 @@ public class Model implements Serializable {
                }
 
                if(verifyPasswordResult){
-                  signUpSuccessfully(activity);
+                  warnings.signUpSuccessfully(activity);
                   if(activity instanceof LoginInterface){
                      ((LoginInterface) activity).setPresenterUser(userList.get(0));
 
@@ -161,7 +193,7 @@ public class Model implements Serializable {
                            true);
                   }
                }else {
-                  passwordNotEqualError(activity);
+                  warnings.wrongPasswordOrUserId(activity);
                }
             }
             else {
@@ -172,7 +204,7 @@ public class Model implements Serializable {
                         false);
                }
 
-               wrongPasswordOrUserId(activity);
+               warnings.wrongPasswordOrUserId(activity);
             }
          }
 
@@ -212,42 +244,6 @@ public class Model implements Serializable {
 
          }
       });
-
-   }
-
-
-   public boolean checkIfPasswordAreEqual(String databasePassword, String password){
-      Log.i(TAG, "Checking if password are equal");
-      return databasePassword.equals(password);
-   }
-
-   public void invalidPassword(Activity activity){
-      Log.e(TAG, "Invalid password");
-      Context context = activity.getApplicationContext();
-      CharSequence text = "Invalid password, Must have 8 digits, 1 capital letter, 1 lower case letter, 1 number";
-      int duration = Toast.LENGTH_LONG;
-
-      Toast toast = Toast.makeText(context, text, duration);
-      toast.show();
-   }
-
-   public void signUpSuccessfully(Activity activity){
-      Context context = activity.getApplicationContext();
-      CharSequence text = "Sign Up Successfully";
-      int duration = Toast.LENGTH_SHORT;
-
-      Toast toast = Toast.makeText(context, text, duration);
-      toast.show();
-   }
-
-   public void passwordNotEqualError(Activity activity){
-      Log.e(TAG, "Password not equal");
-      Context context = activity.getApplicationContext();
-      CharSequence text = "Password not equal";
-      int duration = Toast.LENGTH_SHORT;
-
-      Toast toast = Toast.makeText(context, text, duration);
-      toast.show();
    }
 
    public void updateUser(User user){
@@ -262,62 +258,9 @@ public class Model implements Serializable {
 
    }
 
-   public boolean login(String logId, String password){
-
-
-
-      return false;
-   }
 
    public boolean logout(){
       return false;
    }
-
-
-   public boolean validatePassword(String password) {
-      if(password.length() < 8){
-         return false;
-      }
-
-      Pattern pattern = Pattern.compile("[0-9]", Pattern.CASE_INSENSITIVE);
-      Matcher matcher = pattern.matcher(password);
-      boolean passwordHasNumber = matcher.find();
-
-      pattern = Pattern.compile("[a-z]", Pattern.CASE_INSENSITIVE);
-      matcher = pattern.matcher(password);
-      boolean passwordHasLowercaseLetter = matcher.find();
-
-      pattern = Pattern.compile("[A-Z]", Pattern.UNICODE_CASE);
-      matcher = pattern.matcher(password);
-      boolean passwordHasUppercaseLetter = matcher.find();
-
-      pattern = Pattern.compile("[\\\\.\\]\\[<\\s>\"';:,()/]");
-      matcher = pattern.matcher(password);
-      boolean passwordHasBadSymbols = matcher.find();
-
-      return ((passwordHasNumber == true)
-            && (passwordHasLowercaseLetter == true)
-            && (passwordHasUppercaseLetter == true )
-            && (passwordHasBadSymbols == false));
-   }
-
-   public void wrongPasswordOrUserId(Activity activity){
-      Context context = activity.getApplicationContext();
-      CharSequence text = "Wrong Password or User Id";
-      int duration = Toast.LENGTH_SHORT;
-
-      Toast toast = Toast.makeText(context, text, duration);
-      toast.show();
-   }
-
-   public void errorUserIdAlreadyExists(Activity activity){
-      Context context = activity.getApplicationContext();
-      CharSequence text = "User Id Already exists";
-      int duration = Toast.LENGTH_SHORT;
-
-      Toast toast = Toast.makeText(context, text, duration);
-      toast.show();
-   }
-
 
 }

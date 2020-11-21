@@ -79,6 +79,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/good_button_background"
                 android:gravity="center"
+                android:onClick="sendExercise"
                 android:text="@string/button_confirm"
                 android:textColor="@color/font_dark"
                 android:textSize="30sp" />

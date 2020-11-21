@@ -14,6 +14,14 @@ public class Exercise {
 
    public Exercise(){   }
 
+   public Exercise(String name, String exerciseId, String emphasis, String videoLink, boolean free){
+      this.name = name;
+      this.exerciseId = exerciseId;
+      this.emphasis = emphasis;
+      this.videoLink = videoLink;
+      this.free = free;
+   }
+
    public Exercise(String name, DaysOfWeek dayOfWeek, String emphasis, String repetitionTime,
                    int series, String intervalBetweenSeries,
                    String intervalBetweenExercises, String videoLink) {

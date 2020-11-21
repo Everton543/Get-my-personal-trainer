@@ -35,12 +35,12 @@ public class PersonalTrainerSingUpActivity extends AppCompatActivity implements 
       editText = (EditText) findViewById(R.id.edit_text_about_myself_personal_trainer_sign_up_activity);
       String aboutMyselfText = editText.getText().toString();
 
-      if(MainActivity.presenter.getModel().checkIfPasswordAreEqual(password, confirmPassword)){
+      if(MainActivity.presenter.getModel().getValidateInfo().checkIfPasswordAreEqual(password, confirmPassword)){
          User personalTrainer = new User(UserTypes.PERSONAL_TRAINER, password, name, id, aboutMyselfText);
          MainActivity.presenter.getModel().saveUser(personalTrainer, this);
 
       }else{
-         MainActivity.presenter.getModel().passwordNotEqualError(this);
+         MainActivity.presenter.getModel().getWarnings().passwordNotEqualError(this);
       }
 
    }

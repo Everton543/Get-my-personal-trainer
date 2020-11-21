@@ -1,16 +1,13 @@
 package com.example.getmypersonaltrainer;
 
-import android.app.Activity;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ModelTest {
+class ValidateInfoTest {
 
-   //Password must have 8 digits, at least 1 number, and 1 capital letter and 1 lowercase letter
-   private Model model = new Model("test");
+   private ValidateInfo validateInfo = new ValidateInfo();
 
    @Test
    @DisplayName("Test password validation; should FAIL IF password has less than 8 digits, doesn't has an lowercase letter, doesn't has an uppercase letter ")
@@ -67,13 +64,13 @@ class ModelTest {
    }
 
    void testUserIDValidation(String userId, boolean expectedResult) {
-      boolean result = model.checkIfLoginIdIsValid(userId);
+      boolean result = validateInfo.checkId(userId);
       assertEquals(result, expectedResult);
    }
 
 
    void testPasswordValidation(String password, boolean expectedResult){
-      boolean result = model.validatePassword(password);
+      boolean result = validateInfo.password(password);
       assertEquals(result, expectedResult);
    }
 
