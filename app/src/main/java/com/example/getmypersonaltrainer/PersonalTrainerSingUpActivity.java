@@ -9,12 +9,13 @@ import android.widget.EditText;
 
 import com.google.gson.Gson;
 
-public class PersonalTrainerSingUpActivity extends AppCompatActivity implements SignUpInterface{
+public class PersonalTrainerSingUpActivity extends AppCompatActivity{
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_personal_trainer_sing_up);
+      MainActivity.presenter.setActualActivity(this);
    }
 
    public void signUp(View view){
@@ -35,18 +36,22 @@ public class PersonalTrainerSingUpActivity extends AppCompatActivity implements 
       editText = (EditText) findViewById(R.id.edit_text_about_myself_personal_trainer_sign_up_activity);
       String aboutMyselfText = editText.getText().toString();
 
-      if(MainActivity.presenter.getModel().getValidateInfo().checkIfPasswordAreEqual(password, confirmPassword)){
+      boolean passwordsAreEqual = MainActivity.presenter
+            .getModel()
+            .getValidateInfo()
+            .checkIfPasswordAreEqual(password, confirmPassword);
+
+      if(passwordsAreEqual == true){
          User personalTrainer = new User(UserTypes.PERSONAL_TRAINER, password, name, id, aboutMyselfText);
-         MainActivity.presenter.getModel().saveUser(personalTrainer, this);
+         MainActivity.presenter.getModel().saveUser(personalTrainer);
+         MainActivity.presenter.setGoingTo(MainActivity.class);
+         MainActivity.presenter.setGoBack(PersonalTrainerSingUpActivity.class);
+         Intent intent = new Intent(this, LoadingActivity.class);
+         startActivity(intent);
 
       }else{
-         MainActivity.presenter.getModel().getWarnings().passwordNotEqualError(this);
+         MainActivity.presenter.getModel().getWarnings().passwordNotEqualError();
       }
 
-   }
-
-   public void signUpSuccessfully(){
-      Intent intent = new Intent(this, MainActivity.class);
-      startActivity(intent);
    }
 }

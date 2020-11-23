@@ -21,15 +21,13 @@ import java.util.List;
 public class Model {
    private FirebaseDatabase database = null;
    private DatabaseReference databaseReference = null;
-   final static String mainTable = "get-my-personal-trainer";
    private ChildEventListener childEventListener;
    private static final String TAG = "Model";
    private Warnings warnings = new Warnings();
    private ValidateInfo validateInfo = new ValidateInfo();
    private List<Client> clientToInvite = new ArrayList<Client>();
+   List<User> userList = new ArrayList<User>();
 
-
-   List<User> userList = new ArrayList<User>(); //test
 
    public Model(){
       database = FirebaseDatabase.getInstance();
@@ -45,7 +43,7 @@ public class Model {
    }
 
    @RequiresApi(api = Build.VERSION_CODES.O)
-   private boolean addUserToDatabase(final User user, final Activity activity){
+   private boolean addUserToDatabase(final User user){
       databaseReference = database.getReference("Users");
 
       if(validateInfo.password(user.getPassword()) == true) {
@@ -55,18 +53,18 @@ public class Model {
             e.printStackTrace();
          }
          databaseReference.child(user.getUserId()).setValue(user);
-         warnings.signUpSuccessfully(activity);
+         warnings.signUpSuccessfully();
          return true;
 
       } else{
-         warnings.invalidPassword(activity);
+         warnings.invalidPassword();
       }
 
       return false;
    }
 
 
-   public void savePublicExercise(final Exercise exercise, final Activity activity){
+   public void savePublicExercise(final Exercise exercise){
       Log.i(TAG, "Call savePublicExercise with the id = " + exercise.getExerciseId());
       if(validateInfo.checkId(exercise.getExerciseId())) {
          Query query = database.getReference("Exercise")
@@ -81,10 +79,14 @@ public class Model {
                Log.i(TAG, "onDataChange from savePublicExercise");
                if (snapshot.exists()) {
                   Log.i(TAG, "Exercise " + exercise.getExerciseId() + " already exist");
-                  warnings.errorExerciseAlreadyExists(activity);
-               } else if(addPublicExerciseToDatabase(exercise, activity)){
-                  if (activity instanceof SignUpInterface) {
-                     ((SignUpInterface) activity).signUpSuccessfully();
+                  warnings.errorExerciseAlreadyExists();
+                  if (MainActivity.presenter.getActualActivity() instanceof LoadingActivity) {
+                     ((LoadingActivity) MainActivity.presenter.getActualActivity()).loadingError();
+                  }
+
+               } else if(addPublicExerciseToDatabase(exercise)){
+                  if (MainActivity.presenter.getActualActivity() instanceof LoadingActivity) {
+                     ((LoadingActivity) MainActivity.presenter.getActualActivity()).finishedCharge();
                   }
                }
             }
@@ -97,14 +99,14 @@ public class Model {
       }
    }
 
-   private boolean addPublicExerciseToDatabase(final Exercise exercise, final Activity activity){
+   private boolean addPublicExerciseToDatabase(final Exercise exercise){
       databaseReference = database.getReference("Exercise");
       if(validateInfo.checkId(exercise.getExerciseId()) == true) {
             databaseReference.child(exercise.getExerciseId()).setValue(exercise);
-            warnings.createdNewExerciseSuccessfully(activity);
+            warnings.createdNewExerciseSuccessfully();
             return true;
       } else{
-         warnings.invalidExerciseName(activity);
+         warnings.invalidExerciseName();
       }
 
       return false;
@@ -115,7 +117,7 @@ public class Model {
       databaseReference.child(client.getUserId()).setValue(client);
    }
 
-   public void saveUser(final User user, final Activity activity){
+   public void saveUser(final User user){
       Log.i("Model", "Call getIdFromDatabase with the id = " + user.getUserId());
       Query query = database.getReference("Users")
             .orderByChild("userId")
@@ -129,13 +131,16 @@ public class Model {
             Log.i(TAG, "onDataChange from getIdFromDatabase called");
            if(snapshot.exists()){
                Log.i(TAG, "User " + user.getUserId() + " already exist");
-               warnings.errorUserIdAlreadyExists(activity);
+               warnings.errorUserIdAlreadyExists();
+              if (MainActivity.presenter.getActualActivity() instanceof LoadingActivity) {
+                 ((LoadingActivity) MainActivity.presenter.getActualActivity()).loadingError();
+              }
             }
             else{
                if(validateInfo.checkId(user.getUserId())) {
-                  if(addUserToDatabase(user, activity)){
-                     if(activity instanceof SignUpInterface){
-                        ((SignUpInterface) activity).signUpSuccessfully();
+                  if(addUserToDatabase(user)){
+                     if (MainActivity.presenter.getActualActivity() instanceof LoadingActivity) {
+                        ((LoadingActivity) MainActivity.presenter.getActualActivity()).finishedCharge();
                      }
                   }
                }
@@ -149,7 +154,7 @@ public class Model {
       });
    }
 
-   public void sendInvitationToClient(final String clientId, final Activity activity){
+   public void sendInvitationToClient(final String clientId){
       Log.i(TAG, "Call sendInvitationToClient with the id = " + clientId);
       if(validateInfo.checkId(clientId)) {
          Query query = database.getReference("Users")
@@ -181,15 +186,15 @@ public class Model {
 
                         updateClient(clientToInvite.get(0));
 
-                        warnings.invitationGotSend(activity);
+                        warnings.invitationGotSend();
                      }
                   }
                   else{
-                     warnings.errorClientHasAlreadyReceivedAnInvitation(activity);
+                     warnings.errorClientHasAlreadyReceivedAnInvitation();
                   }
                }
                else{
-                  warnings.errorClientDoesNotExists(activity);
+                  warnings.errorClientDoesNotExists();
                }
             }
 
@@ -201,6 +206,40 @@ public class Model {
       }
    }
 
+   public void checkMyPersonalTrainer(){
+      if(MainActivity.presenter.getUser() instanceof Client) {
+         Query query = database.getReference("Users")
+               .orderByChild("userId")
+               .equalTo(((Client) MainActivity.presenter.getUser()).getPersonalTrainerId());
+
+         query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+               if (snapshot.exists()) {
+                  MainActivity.presenter.setMyPersonalTrainer(
+                        snapshot.getValue(PersonalTrainer.class)
+                  );
+
+                  if(MainActivity.presenter.getActualActivity() instanceof LoadingActivity){
+                     ((LoadingActivity) MainActivity.presenter.getActualActivity()).finishedCharge();
+                  }
+               }else{
+                  warnings.errorClientWithOutPersonalTrainer();
+
+                  if(MainActivity.presenter.getActualActivity() instanceof LoadingActivity){
+                     ((LoadingActivity) MainActivity.presenter.getActualActivity()).loadingError();
+                  }
+               }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+         });
+      }
+
+   }
 
    public void checkLogin(final String userId , final String password, final Activity activity){
       Log.i(TAG, "checkLogin function called");
@@ -232,7 +271,7 @@ public class Model {
                }
 
                if(verifyPasswordResult){
-                  warnings.signUpSuccessfully(activity);
+                  warnings.signUpSuccessfully();
                   if(activity instanceof LoginInterface){
                      ((LoginInterface) activity).setPresenterUser(userList.get(0));
 
@@ -245,7 +284,7 @@ public class Model {
                            true);
                   }
                }else {
-                  warnings.wrongPasswordOrUserId(activity);
+                  warnings.wrongPasswordOrUserId();
                }
             }
             else {
@@ -256,7 +295,7 @@ public class Model {
                         false);
                }
 
-               warnings.wrongPasswordOrUserId(activity);
+               warnings.wrongPasswordOrUserId();
             }
          }
 

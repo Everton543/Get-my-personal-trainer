@@ -24,10 +24,6 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
         Log.i(TAG, "Started Personal Trainer main Activity");
     }
 
-    public void createPublicExercise(View view){
-        Intent intent = new Intent(this, CreatePublicExerciseActivity.class);
-        startActivity(intent);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

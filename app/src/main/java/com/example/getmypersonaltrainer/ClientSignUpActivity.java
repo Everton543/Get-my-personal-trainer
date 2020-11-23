@@ -7,16 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-public class ClientSignUpActivity extends AppCompatActivity implements SignUpInterface {
+public class ClientSignUpActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_sign_up);
+        MainActivity.presenter.setActualActivity(this);
     }
 
     public void ClientSignUp(View view){
-        boolean result = false;
 
         EditText editText = (EditText) findViewById(R.id.edit_text_id_client_sign_up_activity);
         String id = editText.getText().toString();
@@ -43,18 +43,20 @@ public class ClientSignUpActivity extends AppCompatActivity implements SignUpInt
         editText = (EditText) findViewById(R.id.edit_text_size_client_sign_up_activity);
         float size = Float.parseFloat(editText.getText().toString());
 
-        if(MainActivity.presenter.getModel().getValidateInfo().checkIfPasswordAreEqual(password, confirmPassword)){
-            User client = new User(UserTypes.CLIENT, password, name, id, phone, birthDate, bodyMass, size);
-            MainActivity.presenter.getModel().saveUser(client, this);
+        boolean passwordsAreEqual = MainActivity.presenter
+              .getModel()
+              .getValidateInfo()
+              .checkIfPasswordAreEqual(password, confirmPassword);
 
+        if(passwordsAreEqual == true){
+            User client = new User(UserTypes.CLIENT, password, name, id, phone, birthDate, bodyMass, size);
+            MainActivity.presenter.getModel().saveUser(client);
+            MainActivity.presenter.setGoingTo(MainActivity.class);
+            MainActivity.presenter.setGoBack(PersonalTrainerSingUpActivity.class);
+            Intent intent = new Intent(this, LoadingActivity.class);
+            startActivity(intent);
         }else{
-            MainActivity.presenter.getModel().getWarnings().passwordNotEqualError(this);
+            MainActivity.presenter.getModel().getWarnings().passwordNotEqualError();
         }
     }
-
-    public void signUpSuccessfully(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
 }

@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
-public class CreatePublicExerciseActivity extends AppCompatActivity implements SignUpInterface {
+public class CreatePublicExerciseActivity extends AppCompatActivity {
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +30,11 @@ public class CreatePublicExerciseActivity extends AppCompatActivity implements S
       String exerciseId = exerciseName + "Free";
       Exercise publicExercise = new Exercise(exerciseName, exerciseId, emphasis, videoLink, true);
 
-      MainActivity.presenter.getModel().savePublicExercise(publicExercise, this);
-   }
-
-   @Override
-   public void signUpSuccessfully() {
-      Intent intent = new Intent(this, PersonalTrainerMainActivity.class);
+      MainActivity.presenter.getModel().savePublicExercise(publicExercise);
+      MainActivity.presenter.setGoingTo(PersonalTrainerInfoActivity.class);
+      MainActivity.presenter.setGoBack(ClientMainActivity.class);
+      Intent intent = new Intent(this, LoadingActivity.class);
       startActivity(intent);
    }
+
 }

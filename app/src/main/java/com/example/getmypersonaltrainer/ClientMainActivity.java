@@ -1,10 +1,13 @@
 package com.example.getmypersonaltrainer;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -58,7 +61,22 @@ public class ClientMainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void confirmInvitation(View view){
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent intent = null;
+        switch (item.getItemId()){
+            case R.id.client_menu_item_see_personal_trainer:
+                MainActivity.presenter.getModel().checkMyPersonalTrainer();
+                MainActivity.presenter.setGoingTo(PersonalTrainerInfoActivity.class);
+                MainActivity.presenter.setGoBack(ClientMainActivity.class);
+                intent = new Intent(this, LoadingActivity.class);
+                startActivity(intent);
+                return true;
 
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
+
+
 }
