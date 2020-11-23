@@ -26,6 +26,7 @@ public class Model {
    private Warnings warnings = new Warnings();
    private ValidateInfo validateInfo = new ValidateInfo();
    private List<Client> clientToInvite = new ArrayList<Client>();
+   private List<PersonalTrainer> personalTrainers = new ArrayList<PersonalTrainer>();
    List<User> userList = new ArrayList<User>();
 
 
@@ -215,10 +216,14 @@ public class Model {
          query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+               personalTrainers.clear();
                if (snapshot.exists()) {
-                  MainActivity.presenter.setMyPersonalTrainer(
-                        snapshot.getValue(PersonalTrainer.class)
-                  );
+                  for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                     PersonalTrainer personalTrainer = dataSnapshot.getValue(PersonalTrainer.class);
+                     personalTrainers.add(personalTrainer);
+                  }
+
+                  MainActivity.presenter.setMyPersonalTrainer(personalTrainers.get(0));
 
                   if(MainActivity.presenter.getActualActivity() instanceof LoadingActivity){
                      ((LoadingActivity) MainActivity.presenter.getActualActivity()).finishedCharge();

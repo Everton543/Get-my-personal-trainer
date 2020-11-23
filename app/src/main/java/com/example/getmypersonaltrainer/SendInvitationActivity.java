@@ -12,6 +12,7 @@ public class SendInvitationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_invitation);
+        MainActivity.presenter.setActualActivity(this);
     }
 
     public void sendInvitation(View view){
@@ -19,9 +20,9 @@ public class SendInvitationActivity extends AppCompatActivity {
         String clientId = editText.getText().toString();
 
         if(clientId.length() > 3) {
-            MainActivity.presenter.getModel().sendInvitationToClient(clientId, this);
+            MainActivity.presenter.getModel().sendInvitationToClient(clientId);
         } else {
-            MainActivity.presenter.getModel().getWarnings().errorClientDoesNotExists(this);
+            MainActivity.presenter.getModel().getWarnings().errorClientDoesNotExists();
         }
 
     }

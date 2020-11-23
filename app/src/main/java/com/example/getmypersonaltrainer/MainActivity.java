@@ -35,6 +35,7 @@ import static com.example.getmypersonaltrainer.UserTypes.PERSONAL_TRAINER;
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
 
+      presenter.setActualActivity(this);
       SharedPreferences sharedPreferences;
       sharedPreferences = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
 

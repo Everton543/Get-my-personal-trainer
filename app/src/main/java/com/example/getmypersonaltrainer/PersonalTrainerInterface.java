@@ -9,7 +9,9 @@ public interface PersonalTrainerInterface {
    void removeClient(String clientId);
    String getAboutMyselfText();
    List<String> getExerciseNameList();
+   int getScore();
 
+   void setScore(int score);
    void setAboutMyselfText(String aboutMyselfText);
    void setClients(List<Client> clientList);
 }

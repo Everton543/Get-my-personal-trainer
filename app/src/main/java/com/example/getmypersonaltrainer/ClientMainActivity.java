@@ -18,6 +18,7 @@ public class ClientMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_main);
+        MainActivity.presenter.setActualActivity(this);
 
         if(MainActivity.presenter.getUser() instanceof Client){
             if(MainActivity.presenter.getUser().getInvitationMessage() != null){

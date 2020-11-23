@@ -23,6 +23,7 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
    private List<String> exerciseNameList = new ArrayList<String>();
    private String invitationMessage;
    private boolean receivedInvitation;
+   private int score;
 
    public PersonalTrainer(){
    }
@@ -242,6 +243,16 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
    @Override
    public List<String> getExerciseNameList() {
       return exerciseNameList;
+   }
+
+   @Override
+   public int getScore() {
+      return score;
+   }
+
+   @Override
+   public void setScore(int score) {
+      this.score = score;
    }
 
    public void addNewExerciseName(String exerciseName){
