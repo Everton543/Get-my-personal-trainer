@@ -24,7 +24,6 @@ import static com.example.getmypersonaltrainer.UserTypes.PERSONAL_TRAINER;
       final static String PREFERENCES = "SharedPreference";
       final static String USER_ID = "userId";
       final static String NOT_FOUND = "notFound";
-      final static String PRESENTER = "Presenter";
       private static final String TAG = "MyActivity";
 
       private String logId = null;

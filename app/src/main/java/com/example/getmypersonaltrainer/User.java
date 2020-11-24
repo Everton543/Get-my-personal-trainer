@@ -23,6 +23,7 @@ public class User implements UserInterface, ClientInterface, PersonalTrainerInte
    private boolean receivedInvitation;
    private int score;
    private int voteQuantity;
+   private boolean voted;
 
 
    User(){}
@@ -223,6 +224,11 @@ public class User implements UserInterface, ClientInterface, PersonalTrainerInte
    }
 
    @Override
+   public boolean getVoted() {
+      return voted;
+   }
+
+   @Override
    public void setPersonalTrainerId(String trainerId) {
       personalTrainerId = trainerId;
    }
@@ -245,6 +251,11 @@ public class User implements UserInterface, ClientInterface, PersonalTrainerInte
    @Override
    public void setPhone(String phone) {
       this.phone = phone;
+   }
+
+   @Override
+   public void setVoted(boolean voted) {
+      this.voted = voted;
    }
 
 }

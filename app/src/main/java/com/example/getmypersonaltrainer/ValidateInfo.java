@@ -33,6 +33,15 @@ public class ValidateInfo {
       return true;
    }
 
+   public boolean validScore(int score){
+      if(score < 0 || score > 10){
+         MainActivity.presenter.getModel().getWarnings().invalidScoreRange();
+         return false;
+      }
+
+      return true;
+   }
+
    public boolean password(String password) {
       if(password.length() < 8){
          return false;

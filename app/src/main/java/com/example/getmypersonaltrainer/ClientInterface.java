@@ -8,10 +8,12 @@ public interface ClientInterface {
    float getSize();
    String getPhone();
    String getPersonalTrainerId();
+   boolean getVoted();
 
    void setPersonalTrainerId(String trainerId);
    void setBirthDate(String birthDate);
    void setSize(float size);
    void setBodyMass(float bodyMass);
    void setPhone(String phone);
+   void setVoted(boolean voted);
 }

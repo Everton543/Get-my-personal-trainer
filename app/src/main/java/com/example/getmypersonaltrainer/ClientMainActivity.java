@@ -67,11 +67,16 @@ public class ClientMainActivity extends AppCompatActivity {
         Intent intent = null;
         switch (item.getItemId()){
             case R.id.client_menu_item_see_personal_trainer:
-                MainActivity.presenter.getModel().checkMyPersonalTrainer();
-                MainActivity.presenter.setGoingTo(PersonalTrainerInfoActivity.class);
-                MainActivity.presenter.setGoBack(ClientMainActivity.class);
-                intent = new Intent(this, LoadingActivity.class);
-                startActivity(intent);
+                if(MainActivity.presenter.getMyPersonalTrainer() == null) {
+                    MainActivity.presenter.getModel().checkMyPersonalTrainer();
+                    MainActivity.presenter.setGoingTo(PersonalTrainerInfoActivity.class);
+                    MainActivity.presenter.setGoBack(ClientMainActivity.class);
+                    intent = new Intent(this, LoadingActivity.class);
+                    startActivity(intent);
+                } else{
+                    intent = new Intent(this, PersonalTrainerInfoActivity.class);
+                    startActivity(intent);
+                }
                 return true;
 
             default:

@@ -20,6 +20,11 @@ public class Warnings {
       sendWarning(Toast.LENGTH_SHORT, text);
    }
 
+   public void alreadyVoted(){
+      CharSequence text = "You already evaluated this personal trainer";
+      sendWarning(Toast.LENGTH_SHORT, text);
+   }
+
    public void invalidScoreRange(){
       CharSequence text = "Score must be bellow 11 and greater then or equal to 0.";
       sendWarning(Toast.LENGTH_SHORT, text);

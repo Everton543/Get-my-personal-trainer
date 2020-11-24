@@ -1,6 +1,7 @@
 package com.example.getmypersonaltrainer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
@@ -119,6 +120,11 @@ public class Model {
       databaseReference.child(client.getUserId()).setValue(client);
    }
 
+   public void updatePersonalTrainer(final PersonalTrainer personalTrainer){
+      databaseReference = database.getReference("Users");
+      databaseReference.child(personalTrainer.getUserId()).setValue(personalTrainer);
+   }
+
    public void saveUser(final User user){
       Log.i("Model", "Call getIdFromDatabase with the id = " + user.getUserId());
       Query query = database.getReference("Users")
@@ -156,6 +162,25 @@ public class Model {
       });
    }
 
+   public boolean saveVoteInfo(int score){
+      if(MainActivity.presenter.getModel().getValidateInfo().validScore(score)) {
+         MainActivity.presenter.getMyPersonalTrainer().newVote(score);
+
+         updatePersonalTrainer(MainActivity.presenter.getMyPersonalTrainer());
+
+         if (MainActivity.presenter.getUser() instanceof Client) {
+            ((Client) MainActivity.presenter.getUser()).setVoted(true);
+
+            updateClient((Client) MainActivity.presenter.getUser());
+
+            return true;
+         }
+      }
+
+      warnings.invalidScoreRange();
+      return false;
+   }
+
    public void sendInvitationToClient(final String clientId){
       Log.i(TAG, "Call sendInvitationToClient with the id = " + clientId);
       if(validateInfo.checkId(clientId)) {
@@ -185,6 +210,7 @@ public class Model {
                         clientToInvite.get(0).setPersonalTrainerId(MainActivity.presenter.getUser().getUserId());
                         clientToInvite.get(0).setReceivedInvitation(true);
                         clientToInvite.get(0).setInvitationMessage(invitationMessage);
+                        clientToInvite.get(0).setVoted(false);
 
                         updateClient(clientToInvite.get(0));
 

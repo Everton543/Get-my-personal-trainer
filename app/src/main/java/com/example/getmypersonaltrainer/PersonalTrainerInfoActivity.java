@@ -32,14 +32,22 @@ public class PersonalTrainerInfoActivity extends AppCompatActivity {
 
 
         if(personalTrainer.getVoteQuantity() > invalidInput){
-            TextView score = findViewById(R.id.text_score_personal_trainer_info_activity);
-            score.setText(personalTrainer.getAverageScore());
+            TextView textViewScore = findViewById(R.id.text_score_personal_trainer_info_activity);
+            String score = String.valueOf(personalTrainer.getAverageScore());
+            textViewScore.setText(score);
         }
     }
 
     public void evaluateTrainer(View view){
-        Intent intent = new Intent(this, EvaluatePersonalTrainerActivity.class);
-        startActivity(intent);
+        if(MainActivity.presenter.getUser() instanceof Client) {
+
+            if(((Client) MainActivity.presenter.getUser()).getVoted() == false) {
+                Intent intent = new Intent(this, EvaluatePersonalTrainerActivity.class);
+                startActivity(intent);
+            } else{
+                MainActivity.presenter.getModel().getWarnings().alreadyVoted();
+            }
+        }
     }
 
 }

@@ -18,6 +18,7 @@ public class Client implements UserInterface, ClientInterface{
    private String invitationMessage;
    private boolean receivedInvitation = false;
    private String personalTrainerId;
+   private boolean voted = false;
 
    public Client(){}
 
@@ -178,6 +179,11 @@ public class Client implements UserInterface, ClientInterface{
    }
 
    @Override
+   public boolean getVoted() {
+      return voted;
+   }
+
+   @Override
    public void setPersonalTrainerId(String trainerId) {
       this.personalTrainerId = trainerId;
    }
@@ -200,5 +206,10 @@ public class Client implements UserInterface, ClientInterface{
    @Override
    public void setPhone(String phone) {
       this.phone = phone;
+   }
+
+   @Override
+   public void setVoted(boolean voted) {
+      this.voted = voted;
    }
 }
