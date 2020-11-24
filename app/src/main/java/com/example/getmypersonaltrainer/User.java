@@ -21,6 +21,8 @@ public class User implements UserInterface, ClientInterface, PersonalTrainerInte
    private String invitationMessage;
    private List<String> exerciseNameList;
    private boolean receivedInvitation;
+   private int score;
+   private int voteQuantity;
 
 
    User(){}
@@ -152,6 +154,31 @@ public class User implements UserInterface, ClientInterface, PersonalTrainerInte
    @Override
    public List<String> getExerciseNameList() {
       return exerciseNameList;
+   }
+
+   @Override
+   public int getScore() {
+      return score;
+   }
+
+   @Override
+   public int getVoteQuantity() {
+      return voteQuantity;
+   }
+
+   @Override
+   public void setVoteQuantity(int voteQuantity) {
+      this.voteQuantity = voteQuantity;
+   }
+
+   @Override
+   public void setExerciseNameList(List<String> exerciseNameList) {
+      this.exerciseNameList = exerciseNameList;
+   }
+
+   @Override
+   public void setScore(int score) {
+      this.score = score;
    }
 
    @Override

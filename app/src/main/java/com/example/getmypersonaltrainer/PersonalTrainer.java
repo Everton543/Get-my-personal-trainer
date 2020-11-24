@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.IllegalFormatPrecisionException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -22,8 +23,9 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
    private String salt;
    private List<String> exerciseNameList = new ArrayList<String>();
    private String invitationMessage;
-   private boolean receivedInvitation;
-   private int score;
+   private boolean receivedInvitation = false;
+   private int score = 0;
+   private int voteQuantity = 0;
 
    public PersonalTrainer(){
    }
@@ -269,7 +271,22 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
       this.clientList = clientList;
    }
 
+   @Override
    public void setExerciseNameList(List<String> exerciseNameList){
       this.exerciseNameList = exerciseNameList;
+   }
+
+   @Override
+   public int getVoteQuantity() {
+      return voteQuantity;
+   }
+
+   @Override
+   public void setVoteQuantity(int voteQuantity) {
+      this.voteQuantity = voteQuantity;
+   }
+
+   public int getAverageScore(){
+      return  score / voteQuantity;
    }
 }

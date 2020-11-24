@@ -10,7 +10,10 @@ public interface PersonalTrainerInterface {
    String getAboutMyselfText();
    List<String> getExerciseNameList();
    int getScore();
+   int getVoteQuantity();
 
+   void setVoteQuantity(int voteQuantity);
+   void setExerciseNameList(List<String> exerciseNameList);
    void setScore(int score);
    void setAboutMyselfText(String aboutMyselfText);
    void setClients(List<Client> clientList);

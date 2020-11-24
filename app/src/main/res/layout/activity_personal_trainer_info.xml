@@ -99,7 +99,7 @@
                 android:textSize="30sp" />
 
             <TextView
-                android:id="@+id/text_personal_trainer_info_activity"
+                android:id="@+id/text_about_self_personal_trainer_info_activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
