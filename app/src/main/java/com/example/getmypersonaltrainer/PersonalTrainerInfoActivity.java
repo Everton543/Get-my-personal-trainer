@@ -2,8 +2,10 @@ package com.example.getmypersonaltrainer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 public class PersonalTrainerInfoActivity extends AppCompatActivity {
@@ -33,6 +35,11 @@ public class PersonalTrainerInfoActivity extends AppCompatActivity {
             TextView score = findViewById(R.id.text_score_personal_trainer_info_activity);
             score.setText(personalTrainer.getAverageScore());
         }
-
     }
+
+    public void evaluateTrainer(View view){
+        Intent intent = new Intent(this, EvaluatePersonalTrainerActivity.class);
+        startActivity(intent);
+    }
+
 }

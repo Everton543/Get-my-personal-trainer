@@ -94,6 +94,7 @@
                 android:layout_marginBottom="30dp"
                 android:background="@color/good_button_background"
                 android:gravity="center"
+                android:onClick="evaluateTrainer"
                 android:text="@string/button_evaluate"
                 android:textColor="@color/font_dark"
                 android:textSize="30sp" />

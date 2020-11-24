@@ -289,4 +289,9 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
    public int getAverageScore(){
       return  score / voteQuantity;
    }
+
+   public void newVote(int score){
+      this.score += score;
+      this.voteQuantity += 1;
+   }
 }
