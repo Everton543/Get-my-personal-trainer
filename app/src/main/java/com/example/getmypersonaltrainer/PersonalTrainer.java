@@ -291,7 +291,21 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
    }
 
    public void newVote(int score){
-      this.score += score;
-      this.voteQuantity += 1;
+      if(score < 0 || score > 10){
+         MainActivity.presenter.getModel().getWarnings().invalidScoreRange();
+         return;
+      }
+
+      if(this.score + score < Integer.MAX_VALUE) {
+         this.score += score;
+         this.voteQuantity += 1;
+      }else{
+         this.score = getAverageScore();
+         this.score += score;
+
+         //Setting vote Quantity to 2 because 1 is the vote from the Average score
+         //and the second is the given score.
+         this.voteQuantity = 2;
+      }
    }
 }

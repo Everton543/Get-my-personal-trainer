@@ -1,10 +1,9 @@
 package com.example.getmypersonaltrainer;
 
-
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
+
 
 public class Warnings {
    private final static String TAG = "Warning";
@@ -18,6 +17,11 @@ public class Warnings {
    public void passwordNotEqualError(){
       Log.e(TAG, "Password not equal");
       CharSequence text = "Password not equal";
+      sendWarning(Toast.LENGTH_SHORT, text);
+   }
+
+   public void invalidScoreRange(){
+      CharSequence text = "Score must be bellow 11 and greater then or equal to 0.";
       sendWarning(Toast.LENGTH_SHORT, text);
    }
 
