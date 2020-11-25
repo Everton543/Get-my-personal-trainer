@@ -83,15 +83,19 @@ import static com.example.getmypersonaltrainer.UserTypes.PERSONAL_TRAINER;
             switch (userType){
                case PERSONAL_TRAINER:{
                   presenter.setLogged(true);
+                  presenter.setUserAsPersonalTrainer();
                   saveLoginId();
-                  Intent intent = new Intent(this, PersonalTrainerMainActivity.class);
+                  presenter.setGoingTo(PersonalTrainerMainActivity.class);
+                  presenter.setGoBack(MainActivity.class);
+                  presenter.getModel().getPersonalTrainerInfo();
+                  Intent intent = new Intent(this, LoadingActivity.class);
                   startActivity(intent);
                   break;
                }
 
                case CLIENT:{
                   presenter.setLogged(true);
-                  setUserAsClient();
+                  presenter.setUserAsClient();
                   saveLoginId();
                   Intent intent = new Intent(this, ClientMainActivity.class);
                   startActivity(intent);
@@ -104,46 +108,6 @@ import static com.example.getmypersonaltrainer.UserTypes.PERSONAL_TRAINER;
       @Override
       public void setPresenterUser(User user) {
          presenter.setUser(user);
-      }
-
-      public void setUserAsClient(){
-         if(presenter.getUser() instanceof ClientInterface) {
-            Client client = new Client(
-                  presenter.getUser().getUserType(),
-                  "",
-                  presenter.getUser().getName(),
-                  presenter.getUser().getUserId(),
-                  ((ClientInterface) presenter.getUser()).getPhone(),
-                  ((ClientInterface) presenter.getUser()).getBirthDate(),
-                  ((ClientInterface) presenter.getUser()).getBodyMass(),
-                  ((ClientInterface) presenter.getUser()).getSize(),
-                  ((ClientInterface) presenter.getUser()).getPersonalTrainerId(),
-                  presenter.getUser().getReceivedInvitation(),
-                  presenter.getUser().getInvitationMessage(),
-                  presenter.getUser().getHashedPassword(),
-                  presenter.getUser().getSalt());
-
-            presenter.setUser(client);
-         }
-      }
-
-
-      @Override
-      public void setPersonalTrainerExerciseNameList() {
-         PersonalTrainer personalTrainer = null;
-         if(presenter.getUser() instanceof  PersonalTrainerInterface) {
-            personalTrainer = new PersonalTrainer(presenter.getUser().getUserType(),
-                  presenter.getUser().getHashedPassword(),
-                  presenter.getUser().getSalt(),
-                  presenter.getUser().getName(),
-                  presenter.getUser().getUserId(),
-                  ((PersonalTrainerInterface) presenter.getUser()).getAboutMyselfText(),
-                  presenter.getUser().getExerciseList());
-         }
-         presenter.setUser(personalTrainer);
-
-         Log.i(TAG, "setPersonalTrainerExerciseNameList function called");
-         presenter.getModel().getExerciseNameList((PersonalTrainer) presenter.getUser());
       }
 
       public void eraseText(int textId){

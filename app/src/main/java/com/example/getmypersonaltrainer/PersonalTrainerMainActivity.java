@@ -2,6 +2,9 @@ package com.example.getmypersonaltrainer;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -11,16 +14,31 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 
 
 public class PersonalTrainerMainActivity extends AppCompatActivity {
     private static final String TAG = "TrainerMainActivity";
-
+    RecyclerView recyclerView;
+    @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_trainer_main);
 
+        recyclerView = findViewById(R.id.recycler_view_client_1);
+
+        if(MainActivity.presenter.getUser() instanceof  PersonalTrainer) {
+            ClientListViewAdapter clientListViewAdapter =
+                  new ClientListViewAdapter(this,
+                        (PersonalTrainer) MainActivity
+                        .presenter
+                        .getUser()
+                  );
+            recyclerView.setAdapter(clientListViewAdapter);
+            recyclerView.setLayoutManager(new GridLayoutManager(this, ((PersonalTrainer) MainActivity.presenter.getUser()).getClients().size()));
+        }
         Log.i(TAG, "Started Personal Trainer main Activity");
     }
 

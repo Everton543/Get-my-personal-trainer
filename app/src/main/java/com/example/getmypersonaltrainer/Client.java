@@ -212,4 +212,8 @@ public class Client implements UserInterface, ClientInterface{
    public void setVoted(boolean voted) {
       this.voted = voted;
    }
+
+   public int getAge(){
+      return 100;
+   }
 }

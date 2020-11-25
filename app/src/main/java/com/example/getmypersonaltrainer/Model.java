@@ -19,6 +19,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.getmypersonaltrainer.MainActivity.presenter;
+
 
 public class Model {
    private FirebaseDatabase database = null;
@@ -83,13 +85,13 @@ public class Model {
                if (snapshot.exists()) {
                   Log.i(TAG, "Exercise " + exercise.getExerciseId() + " already exist");
                   warnings.errorExerciseAlreadyExists();
-                  if (MainActivity.presenter.getActualActivity() instanceof LoadingActivity) {
-                     ((LoadingActivity) MainActivity.presenter.getActualActivity()).loadingError();
+                  if (presenter.getActualActivity() instanceof LoadingActivity) {
+                     ((LoadingActivity) presenter.getActualActivity()).loadingError();
                   }
 
                } else if(addPublicExerciseToDatabase(exercise)){
-                  if (MainActivity.presenter.getActualActivity() instanceof LoadingActivity) {
-                     ((LoadingActivity) MainActivity.presenter.getActualActivity()).finishedCharge();
+                  if (presenter.getActualActivity() instanceof LoadingActivity) {
+                     ((LoadingActivity) presenter.getActualActivity()).finishedCharge();
                   }
                }
             }
@@ -140,15 +142,15 @@ public class Model {
            if(snapshot.exists()){
                Log.i(TAG, "User " + user.getUserId() + " already exist");
                warnings.errorUserIdAlreadyExists();
-              if (MainActivity.presenter.getActualActivity() instanceof LoadingActivity) {
-                 ((LoadingActivity) MainActivity.presenter.getActualActivity()).loadingError();
+              if (presenter.getActualActivity() instanceof LoadingActivity) {
+                 ((LoadingActivity) presenter.getActualActivity()).loadingError();
               }
             }
             else{
                if(validateInfo.checkId(user.getUserId())) {
                   if(addUserToDatabase(user)){
-                     if (MainActivity.presenter.getActualActivity() instanceof LoadingActivity) {
-                        ((LoadingActivity) MainActivity.presenter.getActualActivity()).finishedCharge();
+                     if (presenter.getActualActivity() instanceof LoadingActivity) {
+                        ((LoadingActivity) presenter.getActualActivity()).finishedCharge();
                      }
                   }
                }
@@ -163,15 +165,15 @@ public class Model {
    }
 
    public boolean saveVoteInfo(int score){
-      if(MainActivity.presenter.getModel().getValidateInfo().validScore(score)) {
-         MainActivity.presenter.getMyPersonalTrainer().newVote(score);
+      if(getValidateInfo().validScore(score)) {
+         presenter.getMyPersonalTrainer().newVote(score);
 
-         updatePersonalTrainer(MainActivity.presenter.getMyPersonalTrainer());
+         updatePersonalTrainer(presenter.getMyPersonalTrainer());
 
-         if (MainActivity.presenter.getUser() instanceof Client) {
-            ((Client) MainActivity.presenter.getUser()).setVoted(true);
+         if (presenter.getUser() instanceof Client) {
+            ((Client) presenter.getUser()).setVoted(true);
 
-            updateClient((Client) MainActivity.presenter.getUser());
+            updateClient((Client) presenter.getUser());
 
             return true;
          }
@@ -202,12 +204,12 @@ public class Model {
 
                   if(clientToInvite.get(0).getReceivedInvitation() == false) {
 
-                     if (MainActivity.presenter.getUser() instanceof PersonalTrainer) {
-                        String invitationMessage = "The personal trainer " + MainActivity.presenter.getUser().getName();
-                        invitationMessage += " that has the ID: " + MainActivity.presenter.getUser().getUserId();
+                     if (presenter.getUser() instanceof PersonalTrainer) {
+                        String invitationMessage = "The personal trainer " + presenter.getUser().getName();
+                        invitationMessage += " that has the ID: " + presenter.getUser().getUserId();
                         invitationMessage += " wants to be your personal trainer. Will you accept?";
 
-                        clientToInvite.get(0).setPersonalTrainerId(MainActivity.presenter.getUser().getUserId());
+                        clientToInvite.get(0).setPersonalTrainerId(presenter.getUser().getUserId());
                         clientToInvite.get(0).setReceivedInvitation(true);
                         clientToInvite.get(0).setInvitationMessage(invitationMessage);
                         clientToInvite.get(0).setVoted(false);
@@ -235,10 +237,10 @@ public class Model {
    }
 
    public void checkMyPersonalTrainer(){
-      if(MainActivity.presenter.getUser() instanceof Client) {
+      if(presenter.getUser() instanceof Client) {
          Query query = database.getReference("Users")
                .orderByChild("userId")
-               .equalTo(((Client) MainActivity.presenter.getUser()).getPersonalTrainerId());
+               .equalTo(((Client) presenter.getUser()).getPersonalTrainerId());
 
          query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -250,16 +252,16 @@ public class Model {
                      personalTrainers.add(personalTrainer);
                   }
 
-                  MainActivity.presenter.setMyPersonalTrainer(personalTrainers.get(0));
+                  presenter.setMyPersonalTrainer(personalTrainers.get(0));
 
-                  if(MainActivity.presenter.getActualActivity() instanceof LoadingActivity){
-                     ((LoadingActivity) MainActivity.presenter.getActualActivity()).finishedCharge();
+                  if(presenter.getActualActivity() instanceof LoadingActivity){
+                     ((LoadingActivity) presenter.getActualActivity()).finishedCharge();
                   }
                }else{
                   warnings.errorClientWithOutPersonalTrainer();
 
-                  if(MainActivity.presenter.getActualActivity() instanceof LoadingActivity){
-                     ((LoadingActivity) MainActivity.presenter.getActualActivity()).loadingError();
+                  if(presenter.getActualActivity() instanceof LoadingActivity){
+                     ((LoadingActivity) presenter.getActualActivity()).loadingError();
                   }
                }
             }
@@ -272,6 +274,51 @@ public class Model {
       }
 
    }
+
+   public void getPersonalTrainerInfo(){
+      if(presenter.getUser() instanceof PersonalTrainerInterface){
+         getExerciseNameList((PersonalTrainer) presenter.getUser());
+         getClientList((PersonalTrainer) presenter.getUser());
+      }
+   }
+
+   public void getClientList(final PersonalTrainer personalTrainer){
+      Log.i(TAG, "getClientList function called");
+      Query query = database.getReference("Users")
+            .orderByChild("personalTrainerId")
+            .equalTo(personalTrainer.getUserId());
+
+      query.addValueEventListener(new ValueEventListener() {
+         @Override
+         public void onDataChange(@NonNull DataSnapshot snapshot) {
+            Log.i(TAG, "Reading from database now");
+            userList.clear();
+            if(snapshot.exists()){
+               Log.i(TAG, "Found some clients");
+
+               for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                  personalTrainer.getClients().add(dataSnapshot.getValue(Client.class));
+               }
+
+               if(presenter.getActualActivity() instanceof LoadingActivity){
+                  ((LoadingActivity) presenter.getActualActivity()).finishedCharge();
+               }
+            }
+            else {
+               Log.i(TAG, "Found 0 client");
+               if(presenter.getActualActivity() instanceof LoadingActivity){
+                  ((LoadingActivity) presenter.getActualActivity()).loadingError();
+               }
+            }
+         }
+
+         @Override
+         public void onCancelled(@NonNull DatabaseError error) {
+
+         }
+      });
+   }
+
 
    public void checkLogin(final String userId , final String password, final Activity activity){
       Log.i(TAG, "checkLogin function called");
@@ -306,10 +353,6 @@ public class Model {
                   warnings.signUpSuccessfully();
                   if(activity instanceof LoginInterface){
                      ((LoginInterface) activity).setPresenterUser(userList.get(0));
-
-                     if(userList.get(0).getUserType() == UserTypes.PERSONAL_TRAINER){
-                        ((LoginInterface) activity).setPersonalTrainerExerciseNameList();
-                     }
 
                      ((LoginInterface) activity).loginUserType(
                            userList.get(0).getUserType(),

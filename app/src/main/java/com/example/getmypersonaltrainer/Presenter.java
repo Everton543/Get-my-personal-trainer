@@ -1,6 +1,7 @@
 package com.example.getmypersonaltrainer;
 
 import android.app.Activity;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,43 @@ public class Presenter {
    Presenter(){
       model = new Model();
       logged = false;
+   }
+
+   public void setUserAsClient(){
+      if(getUser() instanceof ClientInterface) {
+         Client client = new Client(
+               getUser().getUserType(),
+               "",
+               getUser().getName(),
+               getUser().getUserId(),
+               ((ClientInterface) getUser()).getPhone(),
+               ((ClientInterface) getUser()).getBirthDate(),
+               ((ClientInterface) getUser()).getBodyMass(),
+               ((ClientInterface) getUser()).getSize(),
+               ((ClientInterface) getUser()).getPersonalTrainerId(),
+               getUser().getReceivedInvitation(),
+               getUser().getInvitationMessage(),
+               getUser().getHashedPassword(),
+               getUser().getSalt()
+         );
+
+         setUser(client);
+      }
+   }
+
+
+   public void setUserAsPersonalTrainer() {
+      PersonalTrainer personalTrainer = null;
+      if(getUser() instanceof  PersonalTrainerInterface) {
+         personalTrainer = new PersonalTrainer(getUser().getUserType(),
+               getUser().getHashedPassword(),
+               getUser().getSalt(),
+               getUser().getName(),
+               getUser().getUserId(),
+               ((PersonalTrainerInterface) getUser()).getAboutMyselfText(),
+               getUser().getExerciseList());
+      }
+      setUser(personalTrainer);
    }
 
    public PersonalTrainer getMyPersonalTrainer() {
