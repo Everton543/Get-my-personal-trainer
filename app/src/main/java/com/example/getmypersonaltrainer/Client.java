@@ -1,7 +1,9 @@
 package com.example.getmypersonaltrainer;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Client implements UserInterface, ClientInterface{
    private UserTypes userType;
@@ -12,7 +14,7 @@ public class Client implements UserInterface, ClientInterface{
    private String birthDate;
    private float bodyMass;
    private float size;
-   private HashMap<String, Exercise> exerciseList = null;
+   private List<Exercise> exerciseList = new ArrayList<Exercise>();
    private String hashedPassword;
    private String salt;
    private String invitationMessage;
@@ -45,7 +47,8 @@ public class Client implements UserInterface, ClientInterface{
                  boolean receivedInvitation,
                  String invitationMessage,
                  String hashedPassword,
-                 String salt){
+                 String salt,
+                 List<Exercise> exerciseList){
       this.userType = userType;
       this.password = password;
       this.birthDate = birthDate;
@@ -59,6 +62,7 @@ public class Client implements UserInterface, ClientInterface{
       this.invitationMessage = invitationMessage;
       this.hashedPassword = hashedPassword;
       this.salt = salt;
+      this.exerciseList = exerciseList;
    }
 
 
@@ -114,12 +118,12 @@ public class Client implements UserInterface, ClientInterface{
    }
 
    @Override
-   public HashMap<String, Exercise> getExerciseList() {
+   public List<Exercise> getExerciseList() {
       return exerciseList;
    }
 
    @Override
-   public void setExerciseList(HashMap<String, Exercise> exerciseList) {
+   public void setExerciseList(List<Exercise> exerciseList) {
       this.exerciseList = exerciseList;
    }
 

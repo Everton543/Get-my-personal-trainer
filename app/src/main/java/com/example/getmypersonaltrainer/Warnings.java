@@ -14,6 +14,8 @@ public class Warnings {
       toast.show();
    }
 
+
+
    public void passwordNotEqualError(){
       Log.e(TAG, "Password not equal");
       CharSequence text = "Password not equal";
@@ -22,6 +24,11 @@ public class Warnings {
 
    public void alreadyVoted(){
       CharSequence text = "You already evaluated this personal trainer";
+      sendWarning(Toast.LENGTH_SHORT, text);
+   }
+
+   public void invalidDayOfWeek(){
+      CharSequence text = "Invalid day of week";
       sendWarning(Toast.LENGTH_SHORT, text);
    }
 

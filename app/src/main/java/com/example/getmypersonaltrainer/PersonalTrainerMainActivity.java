@@ -42,6 +42,42 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
         Log.i(TAG, "Started Personal Trainer main Activity");
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        recyclerView = findViewById(R.id.recycler_view_client_1);
+
+        if(MainActivity.presenter.getUser() instanceof  PersonalTrainer) {
+            ClientListViewAdapter clientListViewAdapter =
+                  new ClientListViewAdapter(this,
+                        (PersonalTrainer) MainActivity
+                              .presenter
+                              .getUser()
+                  );
+            recyclerView.setAdapter(clientListViewAdapter);
+            recyclerView.setLayoutManager(new GridLayoutManager(this, ((PersonalTrainer) MainActivity.presenter.getUser()).getClients().size()));
+        }
+        Log.i(TAG, "On restart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        recyclerView = findViewById(R.id.recycler_view_client_1);
+
+        if(MainActivity.presenter.getUser() instanceof  PersonalTrainer) {
+            ClientListViewAdapter clientListViewAdapter =
+                  new ClientListViewAdapter(this,
+                        (PersonalTrainer) MainActivity
+                              .presenter
+                              .getUser()
+                  );
+            recyclerView.setAdapter(clientListViewAdapter);
+            recyclerView.setLayoutManager(new GridLayoutManager(this, ((PersonalTrainer) MainActivity.presenter.getUser()).getClients().size()));
+        }
+        Log.i(TAG, "On resume");
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

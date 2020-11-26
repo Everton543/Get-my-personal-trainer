@@ -35,7 +35,8 @@ public class Presenter {
                getUser().getReceivedInvitation(),
                getUser().getInvitationMessage(),
                getUser().getHashedPassword(),
-               getUser().getSalt()
+               getUser().getSalt(),
+               getUser().getExerciseList()
          );
 
          setUser(client);

@@ -421,31 +421,40 @@ public class Model {
    }
 
    public boolean saveClientExercise(Client client, Exercise exercise){
-      databaseReference = database.getReference("Users").child(client.getUserId()).child("exerciseList");
-      String exerciseId = databaseReference.push().getKey();
-      exercise.setExerciseId(exerciseId);
+      Log.i(TAG, "save Client Exercise");
+      databaseReference = database.getReference("Users");
+      Log.i(TAG, "Creating Exercise ID");
+      exercise.setExerciseId(String.valueOf(client.getExerciseList().size()));
+      client.getExerciseList().add(exercise);
       if(validateInfo.checkId(exercise.getName()) == true) {
-         databaseReference.child(exercise.getExerciseId()).setValue(exercise);
+         updateClient(client);
+         Log.i(TAG, "Client Updated with new Exercise");
          warnings.createdNewExerciseSuccessfully();
          return true;
       } else{
          warnings.invalidExerciseName();
+         Log.i(TAG, "Invalid Exercise Name");
+         if(presenter.getActualActivity() instanceof LoadingActivity){
+            ((LoadingActivity) presenter.getActualActivity()).loadingError();
+         }
       }
 
-      if(presenter.getActualActivity() instanceof LoadingActivity){
-         ((LoadingActivity) presenter.getActualActivity()).loadingError();
-      }
       return false;
    }
 
-   public void savePersonalPrivateExercise(Exercise exercise, String personalId){
-      databaseReference = database.getReference("Users").child(personalId).child("exerciseList");
-      databaseReference.child(exercise.getName()).setValue(exercise);
+   public void savePersonalPrivateExercise(Exercise exercise){
+      Log.i(TAG, "save Personal Trainer Exercise");
+      if (presenter.getUser() instanceof PersonalTrainer) {
+         presenter.getUser().getExerciseList().add(exercise);
+         Log.i(TAG, "Personal trainer added exercises : " + presenter.getUser().getExerciseList());
+         updatePersonalTrainer((PersonalTrainer) presenter.getUser());
+      }
    }
 
    public void addClientExercise(final Client client, final Exercise exercise){
-      Log.i(TAG, "Call saveClientExercise with the id = " + exercise.getExerciseId());
-      if(saveClientExercise(client, exercise)) {
+      Log.i(TAG, "Call addClientExercise with the id = " + exercise.getExerciseId());
+      boolean goodResult = saveClientExercise(client, exercise);
+      if(goodResult) {
          Query query = database.getReference("Users")
                .child(client.getPersonalTrainerId())
                .child("exerciseList")
@@ -462,8 +471,7 @@ public class Model {
                }
                else {
                   Log.i(TAG, "Didn't found any exercise with this name");
-                  savePersonalPrivateExercise(exercise, client.getPersonalTrainerId());
-
+                  savePersonalPrivateExercise(exercise);
                   if(presenter.getActualActivity() instanceof LoadingActivity){
                      ((LoadingActivity) presenter.getActualActivity()).finishedCharge();
                   }
@@ -475,11 +483,9 @@ public class Model {
 
             }
          });
-
-
-         //TO-DO: Create query to check if the exercise name is unique
-         //If it's save the Exercise in the Personal Trainer
       }
+
+      Log.i(TAG, "Bad Result");
    }
 
 

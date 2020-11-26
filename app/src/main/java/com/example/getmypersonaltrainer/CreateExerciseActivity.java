@@ -19,6 +19,9 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
 
     private String[] EXERCISE_NAMES = null;
     private int clientIndex = -1;
+    private static String TAG = "CreateExercise";
+    private String[] weekDays;
+    private DayOfWeek dayOfWeek = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +32,13 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
         MainActivity.presenter.setGoBack(CreateExerciseActivity.class);
         MainActivity.presenter.setGoingTo(PersonalTrainerMainActivity.class);
 
+        Log.i(TAG, "Oncreate Create Exercise");
+
         if(getIntent().hasExtra("index")){
             if(MainActivity.presenter.getUser() instanceof PersonalTrainer) {
                 clientIndex = Integer.parseInt(getIntent().getStringExtra("index"));
 
-                Log.i("CREATE", "Changing client " +
+                Log.i(TAG, "Changing client " +
                       ((PersonalTrainer) MainActivity.presenter.getUser())
                             .getClients()
                             .get(clientIndex)
@@ -42,7 +47,7 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
             }
         }
 
-        String[] weekDays = getResources().getStringArray(R.array.weekDays);
+        weekDays = getResources().getStringArray(R.array.weekDays);
 
         String[] exerciseNames = new String[0];
         if(MainActivity.presenter.getUser() instanceof PersonalTrainer){
@@ -87,48 +92,82 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
+    private boolean getDayOfWeek(String week){
+        Log.i(TAG, "Called getDayOfWeek");
+        for(int i = 0; i < weekDays.length; i++){
+            if(week.equals(weekDays[i])){
+                dayOfWeek = DayOfWeek.of(i + 1);
+                Log.i(TAG, "DayOfWeek : " + dayOfWeek);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void sendExercise(View view){
+        Log.i(TAG, "Send Exercise Called");
         //To-do: fix bug
         AutoCompleteTextView textExerciseName = findViewById(R.id.edit_text_exercise_name_create_exercise);
         String exerciseName = String.valueOf(textExerciseName.getText());
+        Log.i(TAG, "Exercise name: " + exerciseName);
+        AutoCompleteTextView editTextDayOfWeek = findViewById(R.id.edit_text_day_of_week_create_exercise);
+        String textDayOfWeek = String.valueOf(editTextDayOfWeek.getText());
+        Log.i(TAG, "Week day string : " + textDayOfWeek);
 
-        AutoCompleteTextView textDayOfWeek = findViewById(R.id.edit_text_day_of_week_create_exercise);
-        int id = textDayOfWeek.getId();
-        id += 1;
-        DayOfWeek dayOfWeek = DayOfWeek.of(id);
+        boolean validDayOfWeek = getDayOfWeek(textDayOfWeek);
+        Log.i(TAG, "Valide day of week : " + validDayOfWeek);
+        if (validDayOfWeek) {
+            EditText editTextEmphasis = findViewById(R.id.edit_text_emphasis_create_exercise);
+            String emphasis = String.valueOf(editTextEmphasis.getText());
 
-        EditText editTextEmphasis = findViewById(R.id.edit_text_emphasis_create_exercise);
-        String emphasis = String.valueOf(editTextEmphasis.getText());
+            Log.i(TAG, "emphasis: " + emphasis);
 
-        EditText editTextRepetition = findViewById(R.id.edit_text_repetition_create_exercise);
-        String repetition = String.valueOf(editTextRepetition.getText());
+            EditText editTextRepetition = findViewById(R.id.edit_text_repetition_create_exercise);
+            String repetition = String.valueOf(editTextRepetition.getText());
 
-        EditText editTextSeries = findViewById(R.id.edit_text_series_create_exercise);
-        int series = Integer.getInteger(String.valueOf(editTextSeries.getText()));
+            Log.i(TAG, "Repetition :" + repetition);
 
-        EditText editTextIntervalSeries = findViewById(R.id.edit_text_interval_series_create_exercise);
-        String seriesInterval = String.valueOf(editTextIntervalSeries.getText());
+            EditText editTextSeries = findViewById(R.id.edit_text_series_create_exercise);
+            String seriesText = String.valueOf(editTextSeries.getText());
+            Log.i(TAG, "Series text: " + seriesText);
+            int series = Integer.parseInt(seriesText);
 
-        EditText editTextIntervalExercise = findViewById(R.id.edit_text_interval_exercise_create_exercise);
-        String exerciseInterval = String.valueOf(editTextIntervalExercise.getText());
+            Log.i(TAG, "Series number: " + series);
 
-        EditText editTextVideoLink = findViewById(R.id.edit_text_video_link_create_exercise);
-        String videoLink = String.valueOf(editTextVideoLink.getText());
+            EditText editTextIntervalSeries = findViewById(R.id.edit_text_interval_series_create_exercise);
+            String seriesInterval = String.valueOf(editTextIntervalSeries.getText());
+            Log.i(TAG, "Series interval: " + seriesInterval);
 
-        Exercise exercise = new Exercise(exerciseName, dayOfWeek, emphasis,repetition,
-            series, seriesInterval, exerciseInterval,videoLink);
+            EditText editTextIntervalExercise = findViewById(R.id.edit_text_interval_exercise_create_exercise);
+            String exerciseInterval = String.valueOf(editTextIntervalExercise.getText());
 
-        if(MainActivity.presenter.getUser() instanceof PersonalTrainer) {
-            MainActivity.presenter.getModel().addClientExercise(
-                        ((PersonalTrainer) MainActivity.presenter
-                        .getUser())
-                        .getClients()
-                        .get(clientIndex), exercise
-            );
+            Log.i(TAG, "Exercise interval: " + exerciseInterval);
+
+            EditText editTextVideoLink = findViewById(R.id.edit_text_video_link_create_exercise);
+            String videoLink = String.valueOf(editTextVideoLink.getText());
+
+            Log.i(TAG, "Video link : " + videoLink);
+
+            Exercise exercise = new Exercise(exerciseName, dayOfWeek, emphasis, repetition,
+                series, seriesInterval, exerciseInterval, videoLink);
+
+            if (MainActivity.presenter.getUser() instanceof PersonalTrainer) {
+                MainActivity.presenter.getModel().addClientExercise(
+                      ((PersonalTrainer) MainActivity.presenter
+                            .getUser())
+                            .getClients()
+                            .get(clientIndex), exercise
+                );
+            }
+
+            Intent intent = new Intent(this, LoadingActivity.class);
+            startActivity(intent);
+        }else {
+            MainActivity.presenter.getModel().getWarnings().invalidDayOfWeek();
         }
-
-        Intent intent = new Intent(this, LoadingActivity.class);
-        startActivity(intent);
     }
 
 }

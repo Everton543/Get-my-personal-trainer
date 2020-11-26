@@ -2,6 +2,7 @@ package com.example.getmypersonaltrainer;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface UserInterface {
 
@@ -11,13 +12,13 @@ public interface UserInterface {
    String getName();
    String getSalt();
    String getHashedPassword();
-   HashMap<String, Exercise> getExerciseList();
+   List<Exercise> getExerciseList();
    String getInvitationMessage();
    boolean getReceivedInvitation();
 
    void setReceivedInvitation(boolean invitation);
    void setInvitationMessage(String invitationMessage);
-   void setExerciseList(HashMap<String, Exercise> exerciseList);
+   void setExerciseList(List<Exercise> exerciseList);
    void setSalt(String salt);
    void setHashedPassword(String hashedPassword);
    void setUserId(String userId);

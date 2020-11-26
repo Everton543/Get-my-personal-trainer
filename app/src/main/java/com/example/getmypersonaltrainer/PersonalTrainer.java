@@ -1,15 +1,7 @@
 package com.example.getmypersonaltrainer;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.IllegalFormatPrecisionException;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
    private UserTypes userType;
@@ -18,7 +10,7 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
    private String userId;
    private String aboutMyselfText;
    private List<Client> clientList = new ArrayList<Client>();
-   private HashMap<String, Exercise> exerciseList;
+   private List<Exercise> exerciseList = new ArrayList<Exercise>();
    private String hashedPassword;
    private String salt;
    private List<String> exerciseNameList = new ArrayList<String>();
@@ -36,83 +28,6 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
       this.userId = userId;
       this.password = password;
       this.userType = userType;
-      exerciseList = new HashMap<String, Exercise>() {
-         @Override
-         public int size() {
-            return 0;
-         }
-
-         @Override
-         public boolean isEmpty() {
-            return false;
-         }
-
-         @Override
-         public boolean containsKey(@Nullable Object key) {
-            return false;
-         }
-
-         @Override
-         public boolean containsValue(@Nullable Object value) {
-            return false;
-         }
-
-         @Nullable
-         @Override
-         public Exercise get(@Nullable Object key) {
-            return null;
-         }
-
-         @Nullable
-         @Override
-         public Exercise put(String key, Exercise value) {
-            return null;
-         }
-
-         @Nullable
-         @Override
-         public Exercise remove(@Nullable Object key) {
-            return null;
-         }
-
-         @Override
-         public void putAll(@NonNull Map<? extends String, ? extends Exercise> m) {
-
-         }
-
-         @Override
-         public void clear() {
-
-         }
-
-         @NonNull
-         @Override
-         public Set<String> keySet() {
-            return null;
-         }
-
-         @NonNull
-         @Override
-         public Collection<Exercise> values() {
-            return null;
-         }
-
-         @NonNull
-         @Override
-         public Set<Entry<String, Exercise>> entrySet() {
-            return null;
-         }
-
-         @Override
-         public boolean equals(@Nullable Object o) {
-            return false;
-         }
-
-         @Override
-         public int hashCode() {
-            return 0;
-         }
-      };
    }
 
    public PersonalTrainer(UserTypes userType,
@@ -121,7 +36,7 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
                           String name,
                           String userId,
                           String aboutMyselfText,
-                          HashMap<String,Exercise> exerciseList){
+                          List<Exercise> exerciseList){
       this.aboutMyselfText = aboutMyselfText;
       this.name = name;
       this.userId = userId;
@@ -138,7 +53,7 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
    }
 
    @Override
-   public HashMap<String, Exercise> getExerciseList() {
+   public List<Exercise> getExerciseList() {
       return exerciseList;
    }
 
@@ -163,7 +78,7 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
    }
 
    @Override
-   public void setExerciseList(HashMap<String, Exercise> exerciseList) {
+   public void setExerciseList(List<Exercise> exerciseList) {
       this.exerciseList = exerciseList;
    }
 
