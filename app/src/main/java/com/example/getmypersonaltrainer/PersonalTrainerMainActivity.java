@@ -15,32 +15,14 @@ import android.view.MenuItem;
 
 public class PersonalTrainerMainActivity extends AppCompatActivity {
     private static final String TAG = "TrainerMainActivity";
-    RecyclerView recyclerView;
-    @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_trainer_main);
-
-        recyclerView = findViewById(R.id.recycler_view_client_1);
-
-        if(MainActivity.presenter.getUser() instanceof  PersonalTrainer) {
-            ClientListViewAdapter clientListViewAdapter =
-                  new ClientListViewAdapter(this,
-                        (PersonalTrainer) MainActivity
-                        .presenter
-                        .getUser()
-                  );
-            recyclerView.setAdapter(clientListViewAdapter);
-            recyclerView.setLayoutManager(new GridLayoutManager(this, ((PersonalTrainer) MainActivity.presenter.getUser()).getClients().size()));
-        }
         Log.i(TAG, "Started Personal Trainer main Activity");
-    }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        recyclerView = findViewById(R.id.recycler_view_client_1);
+        //saved in MainActivity trying to solve the BUG
+        MainActivity.personalTrainerRecyclerView = findViewById(R.id.recycler_view_client_1);
 
         if(MainActivity.presenter.getUser() instanceof  PersonalTrainer) {
             ClientListViewAdapter clientListViewAdapter =
@@ -49,29 +31,17 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
                               .presenter
                               .getUser()
                   );
-            recyclerView.setAdapter(clientListViewAdapter);
-            recyclerView.setLayoutManager(new GridLayoutManager(this, ((PersonalTrainer) MainActivity.presenter.getUser()).getClients().size()));
+            MainActivity.personalTrainerRecyclerView .setAdapter(clientListViewAdapter);
+            MainActivity.personalTrainerRecyclerView .setLayoutManager(new GridLayoutManager(this,
+                  ((PersonalTrainer) MainActivity.presenter.getUser()).getClients().size()));
         }
-        Log.i(TAG, "On restart");
     }
+
 
     @Override
     protected void onResume() {
         super.onResume();
- /*       recyclerView = findViewById(R.id.recycler_view_client_1);
-
-       if(MainActivity.presenter.getUser() instanceof  PersonalTrainer) {
-            ClientListViewAdapter clientListViewAdapter =
-                  new ClientListViewAdapter(this,
-                        (PersonalTrainer) MainActivity
-                              .presenter
-                              .getUser()
-                  );
-            recyclerView.setAdapter(clientListViewAdapter);
-            recyclerView.setLayoutManager(new GridLayoutManager(this, ((PersonalTrainer) MainActivity.presenter.getUser()).getClients().size()));
-        }*/
         Log.i(TAG, "On resume");
-
     }
 
     @Override

@@ -26,6 +26,7 @@ public class ClientListViewAdapter extends RecyclerView.Adapter<
       Button addExercise;
       Button changeExercise;
       Button removeClient;
+
       public ClientListViewHolder(@NonNull View itemView) {
          super(itemView);
          userID = itemView.findViewById(R.id.client_id_my_client);
@@ -74,6 +75,17 @@ public class ClientListViewAdapter extends RecyclerView.Adapter<
             String index = String.valueOf(position);
             intent.putExtra("index", index);
             context.startActivity(intent);
+         }
+      });
+
+      holder.removeClient.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            //BUG: After removing client in the place of the gone client is a copy of another one
+            //The same happens when adding a new client.
+            personalTrainer.getClients().get(position).setPersonalTrainerId(null);
+            MainActivity.presenter.getModel().updateClient(personalTrainer.getClients().get(position));
+            personalTrainer.getClients().remove(position);
          }
       });
 

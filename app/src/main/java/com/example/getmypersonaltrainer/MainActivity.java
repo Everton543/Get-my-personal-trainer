@@ -1,6 +1,7 @@
    package com.example.getmypersonaltrainer;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Context;
@@ -25,6 +26,7 @@ import static com.example.getmypersonaltrainer.UserTypes.PERSONAL_TRAINER;
       final static String USER_ID = "userId";
       final static String NOT_FOUND = "notFound";
       private static final String TAG = "MyActivity";
+      static RecyclerView personalTrainerRecyclerView = null;
 
       private String logId = null;
 
