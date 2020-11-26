@@ -1,12 +1,15 @@
 package com.example.getmypersonaltrainer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ClientListViewAdapter extends RecyclerView.Adapter<
@@ -21,6 +24,9 @@ public class ClientListViewAdapter extends RecyclerView.Adapter<
       TextView userBodyMass;
       TextView userName;
       TextView userPhone;
+      Button addExercise;
+      Button changeExercise;
+      Button removeClient;
       public ClientListViewHolder(@NonNull View itemView) {
          super(itemView);
          userID = itemView.findViewById(R.id.client_id_my_client);
@@ -28,6 +34,10 @@ public class ClientListViewAdapter extends RecyclerView.Adapter<
          userBodyMass = itemView.findViewById(R.id.client_body_mass_my_client);
          userName = itemView.findViewById(R.id.client_name_my_client);
          userPhone = itemView.findViewById(R.id.client_phone_my_client);
+
+         addExercise = itemView.findViewById(R.id.button_add_new_exercise_client_list);
+         changeExercise = itemView.findViewById(R.id.button_change_exercise_client_list);
+         removeClient = itemView.findViewById(R.id.button_remove_client_client_list);
       }
    }
 
@@ -45,7 +55,7 @@ public class ClientListViewAdapter extends RecyclerView.Adapter<
    }
 
    @Override
-   public void onBindViewHolder(@NonNull ClientListViewHolder holder, int position) {
+   public void onBindViewHolder(@NonNull ClientListViewHolder holder, final int position) {
       String bodyMass = String.valueOf(personalTrainer.getClients().get(position).getBodyMass());
       String age = String.valueOf(personalTrainer.getClients().get(position).getAge());
       String phone = personalTrainer.getClients().get(position).getPhone();
@@ -57,6 +67,17 @@ public class ClientListViewAdapter extends RecyclerView.Adapter<
       holder.userAge.setText(age);
       holder.userPhone.setText(phone);
       holder.userName.setText(name);
+
+      holder.addExercise.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            Intent intent = new Intent(context, CreateExerciseActivity.class);
+            String index = String.valueOf(position);
+            intent.putExtra("index", index);
+            context.startActivity(intent);
+         }
+      });
+
    }
 
    @Override

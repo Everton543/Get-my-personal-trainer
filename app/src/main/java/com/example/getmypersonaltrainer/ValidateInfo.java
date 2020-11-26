@@ -5,6 +5,9 @@ import android.util.Log;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * @author Everton Alves
+ */
 public class ValidateInfo {
 
    private final static String TAG = "Validate Info";
@@ -41,6 +44,27 @@ public class ValidateInfo {
 
       return true;
    }
+
+   public boolean exerciseId(String id){
+      if(id == null){
+         return false;
+      }
+
+      if(id.length() < 1){
+         return false;
+      }
+
+      Pattern pattern = Pattern.compile("[A-Z|a-z]", Pattern.UNICODE_CASE);
+      Matcher matcher = pattern.matcher(id);
+      boolean idHasLetter = matcher.find();
+
+      pattern = Pattern.compile("[\\\\.\\]\\[<>\"'()/]");
+      matcher = pattern.matcher(id);
+      boolean idDoNotHasBadSymbols = !matcher.find();
+
+      return idDoNotHasBadSymbols && idHasLetter;
+   }
+
 
    public boolean password(String password) {
       if(password.length() < 8){

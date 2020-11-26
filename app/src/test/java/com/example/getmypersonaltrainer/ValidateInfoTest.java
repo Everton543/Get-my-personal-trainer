@@ -9,6 +9,39 @@ class ValidateInfoTest {
 
    private ValidateInfo validateInfo = new ValidateInfo();
 
+
+   @Test
+   @DisplayName("Test Exercise ID; Should FAIL IF id equals null, id is empty, id has any of these symbols <>\"'([].)/")
+   void variablesToCheckExerciseID(){
+      boolean[] expected = {
+            false, false, false,
+            false, false, false,
+            false, false, false,
+            false, false, false,
+            false, true, true,
+            true, true, true,
+      };
+      String[] ids = {
+            null, "", "/",
+            "1", "12", "a<",
+            "b>", "f\\", "m(",
+            "n)", "a.", "k[",
+            "l]", "ar", "run2",
+            "F9", "0D", "Run"
+      };
+
+      for (int i = 0; i < expected.length; i++){
+         testExerciseId(ids[i], expected[i]);
+      }
+   }
+
+   void testExerciseId(String id, boolean expected){
+      boolean result = validateInfo.exerciseId(id);
+      assertEquals(result, expected);
+   }
+
+
+
    @Test
    @DisplayName("Test password validation; should FAIL IF password has less than 8 digits, doesn't has an lowercase letter, doesn't has an uppercase letter ")
    void variablesToCheckPasswordValidation(){

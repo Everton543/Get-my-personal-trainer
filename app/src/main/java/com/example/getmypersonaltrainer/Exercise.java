@@ -1,8 +1,10 @@
 package com.example.getmypersonaltrainer;
 
+import java.time.DayOfWeek;
+
 public class Exercise {
    private String name;
-   private DaysOfWeek dayOfWeek;
+   private DayOfWeek dayOfWeek;
    private String emphasis;
    private String repetitionTime;
    private int series;
@@ -22,7 +24,7 @@ public class Exercise {
       this.free = free;
    }
 
-   public Exercise(String name, DaysOfWeek dayOfWeek, String emphasis, String repetitionTime,
+   public Exercise(String name, DayOfWeek dayOfWeek, String emphasis, String repetitionTime,
                    int series, String intervalBetweenSeries,
                    String intervalBetweenExercises, String videoLink) {
       this.name = name;
@@ -47,11 +49,11 @@ public class Exercise {
 
    public void setFree(boolean free) { this.free = free;}
 
-   public DaysOfWeek getDaysOfWeek() {
+   public DayOfWeek getDaysOfWeek() {
       return dayOfWeek;
    }
 
-   public void setDayOfWeek(DaysOfWeek dayOfWeek) {
+   public void setDayOfWeek(DayOfWeek dayOfWeek) {
       this.dayOfWeek = dayOfWeek;
    }
 

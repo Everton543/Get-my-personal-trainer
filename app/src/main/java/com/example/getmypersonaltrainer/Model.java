@@ -420,8 +420,66 @@ public class Model {
 
    }
 
-   public void addNewExercise(Exercise exercise){
+   public boolean saveClientExercise(Client client, Exercise exercise){
+      databaseReference = database.getReference("Users").child(client.getUserId()).child("exerciseList");
+      String exerciseId = databaseReference.push().getKey();
+      exercise.setExerciseId(exerciseId);
+      if(validateInfo.checkId(exercise.getName()) == true) {
+         databaseReference.child(exercise.getExerciseId()).setValue(exercise);
+         warnings.createdNewExerciseSuccessfully();
+         return true;
+      } else{
+         warnings.invalidExerciseName();
+      }
 
+      if(presenter.getActualActivity() instanceof LoadingActivity){
+         ((LoadingActivity) presenter.getActualActivity()).loadingError();
+      }
+      return false;
+   }
+
+   public void savePersonalPrivateExercise(Exercise exercise, String personalId){
+      databaseReference = database.getReference("Users").child(personalId).child("exerciseList");
+      databaseReference.child(exercise.getName()).setValue(exercise);
+   }
+
+   public void addClientExercise(final Client client, final Exercise exercise){
+      Log.i(TAG, "Call saveClientExercise with the id = " + exercise.getExerciseId());
+      if(saveClientExercise(client, exercise)) {
+         Query query = database.getReference("Users")
+               .child(client.getPersonalTrainerId())
+               .child("exerciseList")
+               .orderByChild("exerciseId")
+               .equalTo(exercise.getName());
+
+         query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+               Log.i(TAG, "Reading from database now");
+               userList.clear();
+               if(snapshot.exists()){
+                  Log.i(TAG, "Found some exercises");
+               }
+               else {
+                  Log.i(TAG, "Didn't found any exercise with this name");
+                  savePersonalPrivateExercise(exercise, client.getPersonalTrainerId());
+
+                  if(presenter.getActualActivity() instanceof LoadingActivity){
+                     ((LoadingActivity) presenter.getActualActivity()).finishedCharge();
+                  }
+               }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+         });
+
+
+         //TO-DO: Create query to check if the exercise name is unique
+         //If it's save the Exercise in the Personal Trainer
+      }
    }
 
 

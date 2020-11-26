@@ -1,20 +1,46 @@
 package com.example.getmypersonaltrainer;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
+
+import java.time.DayOfWeek;
+import java.util.Objects;
 
 public class CreateExerciseActivity extends AppCompatActivity implements AutoFillExerciseInfoInterface, CreateExerciseInterface{
 
     private String[] EXERCISE_NAMES = null;
+    private int clientIndex = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_exercise);
+        MainActivity.presenter.setActualActivity(this);
+
+        MainActivity.presenter.setGoBack(CreateExerciseActivity.class);
+        MainActivity.presenter.setGoingTo(PersonalTrainerMainActivity.class);
+
+        if(getIntent().hasExtra("index")){
+            if(MainActivity.presenter.getUser() instanceof PersonalTrainer) {
+                clientIndex = Integer.parseInt(getIntent().getStringExtra("index"));
+
+                Log.i("CREATE", "Changing client " +
+                      ((PersonalTrainer) MainActivity.presenter.getUser())
+                            .getClients()
+                            .get(clientIndex)
+                            .getUserId()
+                );
+            }
+        }
 
         String[] weekDays = getResources().getStringArray(R.array.weekDays);
 
@@ -59,4 +85,50 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
               android.R.layout.simple_list_item_1, EXERCISE_NAMES);
         editTextExerciseName.setAdapter(exerciseNameAdapter);
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void sendExercise(View view){
+        //To-do: fix bug
+        AutoCompleteTextView textExerciseName = findViewById(R.id.edit_text_exercise_name_create_exercise);
+        String exerciseName = String.valueOf(textExerciseName.getText());
+
+        AutoCompleteTextView textDayOfWeek = findViewById(R.id.edit_text_day_of_week_create_exercise);
+        int id = textDayOfWeek.getId();
+        id += 1;
+        DayOfWeek dayOfWeek = DayOfWeek.of(id);
+
+        EditText editTextEmphasis = findViewById(R.id.edit_text_emphasis_create_exercise);
+        String emphasis = String.valueOf(editTextEmphasis.getText());
+
+        EditText editTextRepetition = findViewById(R.id.edit_text_repetition_create_exercise);
+        String repetition = String.valueOf(editTextRepetition.getText());
+
+        EditText editTextSeries = findViewById(R.id.edit_text_series_create_exercise);
+        int series = Integer.getInteger(String.valueOf(editTextSeries.getText()));
+
+        EditText editTextIntervalSeries = findViewById(R.id.edit_text_interval_series_create_exercise);
+        String seriesInterval = String.valueOf(editTextIntervalSeries.getText());
+
+        EditText editTextIntervalExercise = findViewById(R.id.edit_text_interval_exercise_create_exercise);
+        String exerciseInterval = String.valueOf(editTextIntervalExercise.getText());
+
+        EditText editTextVideoLink = findViewById(R.id.edit_text_video_link_create_exercise);
+        String videoLink = String.valueOf(editTextVideoLink.getText());
+
+        Exercise exercise = new Exercise(exerciseName, dayOfWeek, emphasis,repetition,
+            series, seriesInterval, exerciseInterval,videoLink);
+
+        if(MainActivity.presenter.getUser() instanceof PersonalTrainer) {
+            MainActivity.presenter.getModel().addClientExercise(
+                        ((PersonalTrainer) MainActivity.presenter
+                        .getUser())
+                        .getClients()
+                        .get(clientIndex), exercise
+            );
+        }
+
+        Intent intent = new Intent(this, LoadingActivity.class);
+        startActivity(intent);
+    }
+
 }
