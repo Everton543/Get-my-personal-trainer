@@ -12,13 +12,13 @@ public interface UserInterface {
    String getName();
    String getSalt();
    String getHashedPassword();
-   List<Exercise> getExerciseList();
+   Map<String, Exercise> getExerciseList();
    String getInvitationMessage();
    boolean getReceivedInvitation();
 
    void setReceivedInvitation(boolean invitation);
    void setInvitationMessage(String invitationMessage);
-   void setExerciseList(List<Exercise> exerciseList);
+   void setExerciseList(Map<String, Exercise> exerciseList);
    void setSalt(String salt);
    void setHashedPassword(String hashedPassword);
    void setUserId(String userId);

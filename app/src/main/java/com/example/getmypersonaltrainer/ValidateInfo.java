@@ -1,6 +1,7 @@
 package com.example.getmypersonaltrainer;
 
 import android.util.Log;
+import android.widget.EditText;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,14 +18,24 @@ public class ValidateInfo {
       return databasePassword.equals(password);
    }
 
+   public boolean checkIfPersonalTrainerHasGivenExercise(PersonalTrainer personalTrainer, Exercise exercise){
+      if(personalTrainer.getExerciseList() == null){
+         return false;
+      }
+
+      return personalTrainer.getExerciseList().containsKey(exercise.getName());
+   }
+
+
    public boolean checkId(String id){
       if(id == null){
          return false;
       }
 
-      if (id.length() < 4) {
+      if (id.length() < 1) {
          return  false;
       }
+
       Pattern pattern = Pattern.compile("[\\\\.\\]\\[<>\"@#$%&*!';:,()/]");
       Matcher matcher = pattern.matcher(id);
       boolean passwordHasBadSymbols = matcher.find();

@@ -14,14 +14,14 @@ public class User implements UserInterface, ClientInterface, PersonalTrainerInte
    private String birthDate;
    private float bodyMass;
    private float size;
-   private List<Exercise> exerciseList = new ArrayList<Exercise>();
+   private Map<String, Exercise> exerciseList = new HashMap<String, Exercise>();
    private String hashedPassword;
    private String salt;
    private String aboutMyselfText;
-   private List<Client> clientList = null;
+   private List<Client> clientList = new ArrayList<Client>();
    private String personalTrainerId;
    private String invitationMessage;
-   private List<String> exerciseNameList;
+   private List<String> exerciseNameList = new ArrayList<String>();
    private boolean receivedInvitation;
    private int score;
    private int voteQuantity;
@@ -80,7 +80,7 @@ public class User implements UserInterface, ClientInterface, PersonalTrainerInte
    }
 
    @Override
-   public List<Exercise> getExerciseList() {
+   public Map<String, Exercise> getExerciseList() {
       return exerciseList;
    }
 
@@ -211,7 +211,7 @@ public class User implements UserInterface, ClientInterface, PersonalTrainerInte
    }
 
    @Override
-   public void setExerciseList(List<Exercise> exerciseList) {
+   public void setExerciseList(Map<String, Exercise> exerciseList) {
       this.exerciseList = exerciseList;
    }
 

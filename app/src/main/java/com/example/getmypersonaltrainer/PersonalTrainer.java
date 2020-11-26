@@ -1,7 +1,9 @@
 package com.example.getmypersonaltrainer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
    private UserTypes userType;
@@ -10,7 +12,7 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
    private String userId;
    private String aboutMyselfText;
    private List<Client> clientList = new ArrayList<Client>();
-   private List<Exercise> exerciseList = new ArrayList<Exercise>();
+   private Map<String, Exercise> exerciseList = new HashMap<String, Exercise>();
    private String hashedPassword;
    private String salt;
    private List<String> exerciseNameList = new ArrayList<String>();
@@ -36,7 +38,7 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
                           String name,
                           String userId,
                           String aboutMyselfText,
-                          List<Exercise> exerciseList){
+                          Map<String, Exercise> exerciseList){
       this.aboutMyselfText = aboutMyselfText;
       this.name = name;
       this.userId = userId;
@@ -44,6 +46,12 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
       this.hashedPassword = hashedPassword;
       this.userType = userType;
       this.exerciseList = exerciseList;
+
+      if(this.exerciseList != null){
+         for (Map.Entry mapEntry : exerciseList.entrySet()) {
+            exerciseNameList.add((String) mapEntry.getKey());
+         }
+      }
    }
 
 
@@ -53,7 +61,7 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
    }
 
    @Override
-   public List<Exercise> getExerciseList() {
+   public Map<String, Exercise> getExerciseList() {
       return exerciseList;
    }
 
@@ -78,8 +86,13 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
    }
 
    @Override
-   public void setExerciseList(List<Exercise> exerciseList) {
+   public void setExerciseList(Map<String, Exercise> exerciseList) {
       this.exerciseList = exerciseList;
+      if(exerciseList != null) {
+         for (Map.Entry mapEntry : exerciseList.entrySet()) {
+            exerciseNameList.add((String) mapEntry.getKey());
+         }
+      }
    }
 
    @Override

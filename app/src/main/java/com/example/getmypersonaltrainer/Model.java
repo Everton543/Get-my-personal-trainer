@@ -85,12 +85,12 @@ public class Model {
                if (snapshot.exists()) {
                   Log.i(TAG, "Exercise " + exercise.getExerciseId() + " already exist");
                   warnings.errorExerciseAlreadyExists();
-                  if (presenter.getActualActivity() instanceof LoadingActivity) {
+                  if (presenter.getActualActivity() instanceof  FastError) {
                      ((LoadingActivity) presenter.getActualActivity()).loadingError();
                   }
 
                } else if(addPublicExerciseToDatabase(exercise)){
-                  if (presenter.getActualActivity() instanceof LoadingActivity) {
+                  if (presenter.getActualActivity() instanceof FastError) {
                      ((LoadingActivity) presenter.getActualActivity()).finishedCharge();
                   }
                }
@@ -113,7 +113,6 @@ public class Model {
       } else{
          warnings.invalidExerciseName();
       }
-
       return false;
    }
 
@@ -142,14 +141,14 @@ public class Model {
            if(snapshot.exists()){
                Log.i(TAG, "User " + user.getUserId() + " already exist");
                warnings.errorUserIdAlreadyExists();
-              if (presenter.getActualActivity() instanceof LoadingActivity) {
+              if (presenter.getActualActivity() instanceof FastError) {
                  ((LoadingActivity) presenter.getActualActivity()).loadingError();
               }
             }
             else{
                if(validateInfo.checkId(user.getUserId())) {
                   if(addUserToDatabase(user)){
-                     if (presenter.getActualActivity() instanceof LoadingActivity) {
+                     if (presenter.getActualActivity() instanceof FastError) {
                         ((LoadingActivity) presenter.getActualActivity()).finishedCharge();
                      }
                   }
@@ -254,13 +253,13 @@ public class Model {
 
                   presenter.setMyPersonalTrainer(personalTrainers.get(0));
 
-                  if(presenter.getActualActivity() instanceof LoadingActivity){
+                  if(presenter.getActualActivity() instanceof FastError){
                      ((LoadingActivity) presenter.getActualActivity()).finishedCharge();
                   }
                }else{
                   warnings.errorClientWithOutPersonalTrainer();
 
-                  if(presenter.getActualActivity() instanceof LoadingActivity){
+                  if(presenter.getActualActivity() instanceof FastError){
                      ((LoadingActivity) presenter.getActualActivity()).loadingError();
                   }
                }
@@ -300,13 +299,13 @@ public class Model {
                   personalTrainer.getClients().add(dataSnapshot.getValue(Client.class));
                }
 
-               if(presenter.getActualActivity() instanceof LoadingActivity){
+               if(presenter.getActualActivity() instanceof FastError){
                   ((LoadingActivity) presenter.getActualActivity()).finishedCharge();
                }
             }
             else {
                Log.i(TAG, "Found 0 client");
-               if(presenter.getActualActivity() instanceof LoadingActivity){
+               if(presenter.getActualActivity() instanceof FastError){
                   ((LoadingActivity) presenter.getActualActivity()).loadingError();
                }
             }
@@ -382,7 +381,6 @@ public class Model {
    }
 
    public void getExerciseNameList(final PersonalTrainer personalTrainer){
-      //TO-do: Correct bug here
       Log.i(TAG, "getExerciseNameList function called");
       Query query = database.getReference("Exercise")
             .orderByChild("free")
@@ -424,17 +422,18 @@ public class Model {
       Log.i(TAG, "save Client Exercise");
       databaseReference = database.getReference("Users");
       Log.i(TAG, "Creating Exercise ID");
-      exercise.setExerciseId(String.valueOf(client.getExerciseList().size()));
-      client.getExerciseList().add(exercise);
+      String newId = exercise.getName() + client.getExerciseList().size();
+      exercise.setExerciseId(newId);
+      client.getExerciseList().put(newId, exercise);
       if(validateInfo.checkId(exercise.getName()) == true) {
          updateClient(client);
          Log.i(TAG, "Client Updated with new Exercise");
-         warnings.createdNewExerciseSuccessfully();
+         //warnings.createdNewExerciseSuccessfully();
          return true;
       } else{
-         warnings.invalidExerciseName();
+         //warnings.invalidExerciseName();
          Log.i(TAG, "Invalid Exercise Name");
-         if(presenter.getActualActivity() instanceof LoadingActivity){
+         if(presenter.getActualActivity() instanceof FastError){
             ((LoadingActivity) presenter.getActualActivity()).loadingError();
          }
       }
@@ -444,48 +443,42 @@ public class Model {
 
    public void savePersonalPrivateExercise(Exercise exercise){
       Log.i(TAG, "save Personal Trainer Exercise");
+
+      Exercise newExercise = new Exercise(exercise.getName(),
+            exercise.getName(),
+            exercise.getEmphasis(),
+            exercise.getVideoLink(),
+            false);
       if (presenter.getUser() instanceof PersonalTrainer) {
-         presenter.getUser().getExerciseList().add(exercise);
+         presenter.getUser().getExerciseList().put(newExercise.getName(), newExercise);
          Log.i(TAG, "Personal trainer added exercises : " + presenter.getUser().getExerciseList());
-         updatePersonalTrainer((PersonalTrainer) presenter.getUser());
+
+         databaseReference = database.getReference("Users");
+         databaseReference.child(presenter.getUser().getUserId())
+               .child("exerciseList")
+               .child(newExercise.getName()).setValue(newExercise);
+
       }
    }
 
+
    public void addClientExercise(final Client client, final Exercise exercise){
-      Log.i(TAG, "Call addClientExercise with the id = " + exercise.getExerciseId());
+      Log.i(TAG, "Call addClientExercise with the name = " + exercise.getName());
       boolean goodResult = saveClientExercise(client, exercise);
       if(goodResult) {
-         Query query = database.getReference("Users")
-               .child(client.getPersonalTrainerId())
-               .child("exerciseList")
-               .orderByChild("exerciseId")
-               .equalTo(exercise.getName());
+         boolean hasGivenExercise =
+               validateInfo.checkIfPersonalTrainerHasGivenExercise((PersonalTrainer) presenter.getUser(), exercise);
+         if(hasGivenExercise == false){
+            savePersonalPrivateExercise(exercise);
+         }
 
-         query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-               Log.i(TAG, "Reading from database now");
-               userList.clear();
-               if(snapshot.exists()){
-                  Log.i(TAG, "Found some exercises");
-               }
-               else {
-                  Log.i(TAG, "Didn't found any exercise with this name");
-                  savePersonalPrivateExercise(exercise);
-                  if(presenter.getActualActivity() instanceof LoadingActivity){
-                     ((LoadingActivity) presenter.getActualActivity()).finishedCharge();
-                  }
-               }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-         });
+         if(presenter.getActualActivity() instanceof FastError){
+            ((LoadingActivity) presenter.getActualActivity()).finishedCharge();
+         }
       }
-
-      Log.i(TAG, "Bad Result");
+      else  if(presenter.getActualActivity() instanceof FastError){
+         ((LoadingActivity) presenter.getActualActivity()).loadingError();
+      }
    }
 
 

@@ -11,7 +11,7 @@ import android.util.Log;
 
 import java.util.Objects;
 
-public class LoadingActivity extends AppCompatActivity{
+public class LoadingActivity extends AppCompatActivity implements FastError{
 
    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
    @Override
@@ -21,11 +21,13 @@ public class LoadingActivity extends AppCompatActivity{
       MainActivity.presenter.setActualActivity(this);
    }
 
+   @Override
    public void finishedCharge(){
       Intent intent = new Intent(this, MainActivity.presenter.getGoingTo());
       startActivity(intent);
    }
 
+   @Override
    public void loadingError(){
       Intent intent = new Intent(this, MainActivity.presenter.getGoBack());
       startActivity(intent);

@@ -3,7 +3,6 @@ package com.example.getmypersonaltrainer;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
@@ -13,10 +12,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
-
 
 public class PersonalTrainerMainActivity extends AppCompatActivity {
     private static final String TAG = "TrainerMainActivity";
@@ -63,9 +58,9 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        recyclerView = findViewById(R.id.recycler_view_client_1);
+ /*       recyclerView = findViewById(R.id.recycler_view_client_1);
 
-        if(MainActivity.presenter.getUser() instanceof  PersonalTrainer) {
+       if(MainActivity.presenter.getUser() instanceof  PersonalTrainer) {
             ClientListViewAdapter clientListViewAdapter =
                   new ClientListViewAdapter(this,
                         (PersonalTrainer) MainActivity
@@ -74,7 +69,7 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
                   );
             recyclerView.setAdapter(clientListViewAdapter);
             recyclerView.setLayoutManager(new GridLayoutManager(this, ((PersonalTrainer) MainActivity.presenter.getUser()).getClients().size()));
-        }
+        }*/
         Log.i(TAG, "On resume");
 
     }

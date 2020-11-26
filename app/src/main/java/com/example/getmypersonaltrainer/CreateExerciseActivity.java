@@ -15,7 +15,7 @@ import android.widget.EditText;
 import java.time.DayOfWeek;
 import java.util.Objects;
 
-public class CreateExerciseActivity extends AppCompatActivity implements AutoFillExerciseInfoInterface, CreateExerciseInterface{
+public class CreateExerciseActivity extends AppCompatActivity implements AutoFillExerciseInfoInterface, CreateExerciseInterface, FastError{
 
     private String[] EXERCISE_NAMES = null;
     private int clientIndex = -1;
@@ -28,9 +28,6 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_exercise);
         MainActivity.presenter.setActualActivity(this);
-
-        MainActivity.presenter.setGoBack(CreateExerciseActivity.class);
-        MainActivity.presenter.setGoingTo(PersonalTrainerMainActivity.class);
 
         Log.i(TAG, "Oncreate Create Exercise");
 
@@ -163,11 +160,19 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
                 );
             }
 
-            Intent intent = new Intent(this, LoadingActivity.class);
-            startActivity(intent);
         }else {
             MainActivity.presenter.getModel().getWarnings().invalidDayOfWeek();
         }
     }
 
+    @Override
+    public void loadingError() {
+
+    }
+
+    @Override
+    public void finishedCharge() {
+        Intent intent = new Intent(this, PersonalTrainerMainActivity.class);
+        startActivity(intent);
+    }
 }
