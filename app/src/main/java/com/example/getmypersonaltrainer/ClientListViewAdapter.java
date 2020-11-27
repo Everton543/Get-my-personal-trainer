@@ -89,6 +89,16 @@ public class ClientListViewAdapter extends RecyclerView.Adapter<
          }
       });
 
+      holder.changeExercise.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            Intent intent = new Intent(context, ClientExerciseListActivity.class);
+            String index = String.valueOf(position);
+            intent.putExtra("index", index);
+            context.startActivity(intent);
+         }
+      });
+
    }
 
    @Override

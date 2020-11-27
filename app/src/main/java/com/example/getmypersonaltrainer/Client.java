@@ -1,6 +1,9 @@
 package com.example.getmypersonaltrainer;
 
+import java.time.DayOfWeek;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Client implements UserInterface, ClientInterface{
@@ -215,7 +218,21 @@ public class Client implements UserInterface, ClientInterface{
       this.voted = voted;
    }
 
-   public int getAge(){
+   public int getAge()
+   {
+      //TO-DO: FIX THIS
       return 100;
+
    }
+
+   public List<Exercise> getExercisesOfWeekDay(DayOfWeek dayOfWeek){
+      List<Exercise> exercises = new ArrayList<Exercise>();
+      for (Map.Entry me : exerciseList.entrySet()) {
+         if(me.getValue().equals(dayOfWeek)){
+            exercises.add((Exercise) me.getValue());
+         }
+      }
+      return exercises;
+   }
+
 }

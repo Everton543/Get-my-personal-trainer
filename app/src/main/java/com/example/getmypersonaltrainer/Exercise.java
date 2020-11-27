@@ -1,10 +1,14 @@
 package com.example.getmypersonaltrainer;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.time.DayOfWeek;
 
 public class Exercise {
    private String name;
-   private DayOfWeek dayOfWeek;
+   private DayOfWeek daysOfWeek;
    private String emphasis;
    private String repetitionTime;
    private int series;
@@ -28,7 +32,7 @@ public class Exercise {
                    int series, String intervalBetweenSeries,
                    String intervalBetweenExercises, String videoLink) {
       this.name = name;
-      this.dayOfWeek = dayOfWeek;
+      this.daysOfWeek = dayOfWeek;
       this.emphasis = emphasis;
       this.repetitionTime = repetitionTime;
       this.series = series;
@@ -36,6 +40,21 @@ public class Exercise {
       this.intervalBetweenExercises = intervalBetweenExercises;
       this.videoLink = videoLink;
    }
+
+   @RequiresApi(api = Build.VERSION_CODES.O)
+   @Override
+   public boolean equals(Object o){
+      if (o == this){
+         return true;
+      }
+
+      if(o instanceof DayOfWeek){
+         return daysOfWeek == o;
+      }
+
+      return false;
+   }
+
 
    public String getName() {
       return name;
@@ -50,11 +69,11 @@ public class Exercise {
    public void setFree(boolean free) { this.free = free;}
 
    public DayOfWeek getDaysOfWeek() {
-      return dayOfWeek;
+      return daysOfWeek;
    }
 
-   public void setDayOfWeek(DayOfWeek dayOfWeek) {
-      this.dayOfWeek = dayOfWeek;
+   public void setDaysOfWeek(DayOfWeek dayOfWeek) {
+      this.daysOfWeek = dayOfWeek;
    }
 
    public String getEmphasis() {

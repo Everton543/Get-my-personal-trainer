@@ -15,6 +15,8 @@ import android.widget.EditText;
 import java.time.DayOfWeek;
 import java.util.Objects;
 
+import static java.util.Objects.*;
+
 public class CreateExerciseActivity extends AppCompatActivity implements AutoFillExerciseInfoInterface, CreateExerciseInterface, FastError{
 
     private String[] EXERCISE_NAMES = null;
@@ -22,18 +24,28 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
     private static String TAG = "CreateExercise";
     private String[] weekDays;
     private DayOfWeek dayOfWeek = null;
+    private boolean changingExercise = false;
+    private String exerciseId = null;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_exercise);
         MainActivity.presenter.setActualActivity(this);
 
-        Log.i(TAG, "Oncreate Create Exercise");
+        Log.i(TAG, "On create Create Exercise");
+
+        if(getIntent().hasExtra("exerciseId")){
+
+            //todo fix bug
+            exerciseId = getIntent().getStringExtra("exerciseId");
+            fillGivenExerciseInfo();
+        }
 
         if(getIntent().hasExtra("index")){
             if(MainActivity.presenter.getUser() instanceof PersonalTrainer) {
-                clientIndex = Integer.parseInt(getIntent().getStringExtra("index"));
+                clientIndex = Integer.parseInt(requireNonNull(getIntent().getStringExtra("index")));
 
                 Log.i(TAG, "Changing client " +
                       ((PersonalTrainer) MainActivity.presenter.getUser())
@@ -73,6 +85,24 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
             }
         });
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void fillGivenExerciseInfo(){
+        //todo finish this function after test
+        //todo fix bug
+        if(MainActivity.presenter.getUser() instanceof PersonalTrainer) {
+            AutoCompleteTextView textExerciseName = findViewById(R.id.edit_text_exercise_name_create_exercise);
+            textExerciseName.setText(
+                  requireNonNull(((PersonalTrainer) MainActivity.presenter.getUser())
+                        .getClients()
+                        .get(clientIndex)
+                        .getExerciseList()
+                        .get(exerciseId))
+                  .getName()
+            );
+        }
+    }
+
 
     @Override
     public void fillExerciseInfo(Exercise exercise) {

@@ -3,6 +3,7 @@
 
     //Titles
     <string name="client_info_activity_title">Client Information</string>
+    <string name="client_exercise_list_title">Client\'s Exercise</string>
     <string name="change_client_info_activity_title">Change Information</string>
     <string name="personal_trainer_list_title">Personal Trainers: </string>
     <string name="login_activity_title">Login</string>

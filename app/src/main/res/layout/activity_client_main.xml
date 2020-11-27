@@ -283,7 +283,7 @@
                             android:layout_marginBottom="25dp">
 
                             <TextView
-                                android:id="@+id/text_tuesday_client_main_activity"
+                                android:id="@+id/text_tuesday_client_exercise_list"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
@@ -1019,7 +1019,7 @@
                             android:layout_marginBottom="25dp">
 
                             <TextView
-                                android:id="@+id/text_saturday_client_main_activity"
+                                android:id="@+id/text_saturday_client_exercise_list"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"

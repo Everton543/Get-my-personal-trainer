@@ -22,18 +22,20 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
         Log.i(TAG, "Started Personal Trainer main Activity");
 
         //saved in MainActivity trying to solve the BUG
-        MainActivity.personalTrainerRecyclerView = findViewById(R.id.recycler_view_client_1);
+        if(MainActivity.personalTrainerRecyclerView == null) {
+            MainActivity.personalTrainerRecyclerView = findViewById(R.id.recycler_view_client_1);
 
-        if(MainActivity.presenter.getUser() instanceof  PersonalTrainer) {
-            ClientListViewAdapter clientListViewAdapter =
-                  new ClientListViewAdapter(this,
-                        (PersonalTrainer) MainActivity
-                              .presenter
-                              .getUser()
-                  );
-            MainActivity.personalTrainerRecyclerView .setAdapter(clientListViewAdapter);
-            MainActivity.personalTrainerRecyclerView .setLayoutManager(new GridLayoutManager(this,
-                  ((PersonalTrainer) MainActivity.presenter.getUser()).getClients().size()));
+            if (MainActivity.presenter.getUser() instanceof PersonalTrainer) {
+                ClientListViewAdapter clientListViewAdapter =
+                      new ClientListViewAdapter(this,
+                            (PersonalTrainer) MainActivity
+                                  .presenter
+                                  .getUser()
+                      );
+                MainActivity.personalTrainerRecyclerView.setAdapter(clientListViewAdapter);
+                MainActivity.personalTrainerRecyclerView.setLayoutManager(new GridLayoutManager(this,
+                      ((PersonalTrainer) MainActivity.presenter.getUser()).getClients().size()));
+            }
         }
     }
 
