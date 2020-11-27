@@ -18,6 +18,21 @@ public class ValidateInfo {
       return databasePassword.equals(password);
    }
 
+   /**
+    *
+    * @param client
+    * @return boolean
+    * If client has personal trainer it returns true,
+    * it returns false otherwise.
+    */
+   public boolean checkIfClientHasPersonalTrainer(Client client){
+      if (client == null){
+         return false;
+      }
+
+      return client.getPersonalTrainerId() != null;
+   }
+
    public boolean checkIfPersonalTrainerHasGivenExercise(PersonalTrainer personalTrainer, Exercise exercise){
       if(personalTrainer.getExerciseList() == null){
          return false;

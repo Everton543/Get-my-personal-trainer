@@ -163,6 +163,24 @@ public class Model {
       });
    }
 
+   /**
+    *  @author Everton Alves
+    *  @param client
+    *  @return boolean
+    *  Check if the client has a personal trainer.
+    *  If the client has a personal trainer, the personal trainer will be removed
+    *  from the client and the function will return true, it returns false otherwise.
+    */
+   public boolean clientUnsubscribeFromPersonalTrainer(Client client){
+      boolean clientHasPersonalTrainer = validateInfo.checkIfClientHasPersonalTrainer(client);
+      if(clientHasPersonalTrainer){
+         client.setPersonalTrainerId(null);
+         updateClient(client);
+         return true;
+      }
+      return false;
+   }
+
    public boolean saveVoteInfo(int score){
       if(getValidateInfo().validScore(score)) {
          presenter.getMyPersonalTrainer().newVote(score);

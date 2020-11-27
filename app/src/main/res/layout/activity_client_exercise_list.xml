@@ -45,7 +45,7 @@
                 android:orientation="horizontal">
 
                 <TableLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="220dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="20dp"
                     android:layout_marginRight="20dp">
@@ -54,11 +54,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="25dp">
+                        android:layout_marginBottom="25dp"
+                        android:gravity="center_horizontal">
 
                         <TextView
                             android:id="@+id/text_monday_client_main_activity"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/monday"
@@ -68,33 +69,35 @@
 
                     <TableRow
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="25dp">
+                        android:layout_marginBottom="25dp"
+                        android:gravity="center_horizontal">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_view_monday"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="wrap_content" />
                     </TableRow>
 
                 </TableLayout>
 
                 <TableLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="20dp"
                     android:layout_marginRight="20dp">
 
                     <TableRow
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="25dp">
+                        android:layout_marginBottom="25dp"
+                        android:gravity="center_horizontal">
 
                         <TextView
                             android:id="@+id/text_tuesday_client_exercise_list"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/tuesday"
@@ -104,9 +107,10 @@
 
                     <TableRow
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="25dp">
+                        android:layout_marginBottom="25dp"
+                        android:gravity="center_horizontal">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_view_tuesday"
@@ -117,7 +121,7 @@
                 </TableLayout>
 
                 <TableLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="20dp"
                     android:layout_marginRight="20dp">
@@ -126,11 +130,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="25dp">
+                        android:layout_marginBottom="25dp"
+                        android:gravity="center">
 
                         <TextView
                             android:id="@+id/text_wednesday_client_exercise_list"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/wednesday"
@@ -142,7 +147,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="25dp">
+                        android:layout_marginBottom="25dp"
+                        android:gravity="center">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_view_wednesday"
@@ -153,7 +159,7 @@
                 </TableLayout>
 
                 <TableLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="20dp"
                     android:layout_marginRight="20dp">
@@ -162,7 +168,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="25dp">
+                        android:layout_marginBottom="25dp"
+                        android:gravity="center_horizontal">
 
                         <TextView
                             android:id="@+id/text_thursday_client_exercise_list"
@@ -178,7 +185,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="25dp">
+                        android:layout_marginBottom="25dp"
+                        android:gravity="center_horizontal">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_view_thursday"
@@ -189,7 +197,7 @@
                 </TableLayout>
 
                 <TableLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="20dp"
                     android:layout_marginRight="20dp">
@@ -198,7 +206,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="25dp">
+                        android:layout_marginBottom="25dp"
+                        android:gravity="center_horizontal">
 
                         <TextView
                             android:id="@+id/text_friday_client_exercise_list"
@@ -214,7 +223,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="25dp">
+                        android:layout_marginBottom="25dp"
+                        android:gravity="center_horizontal">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_view_friday"
@@ -225,16 +235,17 @@
                 </TableLayout>
 
                 <TableLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="20dp"
                     android:layout_marginRight="20dp">
 
                     <TableRow
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="25dp">
+                        android:layout_marginBottom="25dp"
+                        android:gravity="center_horizontal">
 
                         <TextView
                             android:id="@+id/text_saturday_client_exercise_list"
@@ -250,7 +261,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="25dp">
+                        android:layout_marginBottom="25dp"
+                        android:gravity="center_horizontal">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_view_saturday"

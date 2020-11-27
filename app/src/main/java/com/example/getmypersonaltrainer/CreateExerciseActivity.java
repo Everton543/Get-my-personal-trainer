@@ -40,7 +40,8 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
 
             //todo fix bug
             exerciseId = getIntent().getStringExtra("exerciseId");
-            fillGivenExerciseInfo();
+            Log.i(TAG, "Exercise Id : " + exerciseId);
+            //fillGivenExerciseInfo();
         }
 
         if(getIntent().hasExtra("index")){
