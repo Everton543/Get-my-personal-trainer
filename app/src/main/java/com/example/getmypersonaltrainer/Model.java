@@ -18,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.example.getmypersonaltrainer.MainActivity.presenter;
 
@@ -336,7 +337,6 @@ public class Model {
       });
    }
 
-
    public void checkLogin(final String userId , final String password, final Activity activity){
       Log.i(TAG, "checkLogin function called");
       Query query = database.getReference("Users")
@@ -428,12 +428,41 @@ public class Model {
       });
    }
 
-   public void updateUser(User user){
+   @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+   public void updateClientExercise(Exercise exercise, String clientId){
+      updateExercise(exercise, clientId);
 
+      if(presenter.getUser() instanceof PersonalTrainer){
+         boolean personalTrainersDoNotHaveTheNewExercise =  !validateInfo
+               .checkIfPersonalTrainerHasGivenExercise(
+                     (PersonalTrainer) presenter.getUser(),
+                     exercise
+               );
+
+         boolean personalTrainerExerciseGotChanged = validateInfo.checkIfPersonalTrainerExerciseGotChanged(Objects.requireNonNull(
+               presenter.getUser().getExerciseList().get(exercise.getName())), exercise);
+
+         if (personalTrainersDoNotHaveTheNewExercise || personalTrainerExerciseGotChanged){
+            savePersonalPrivateExercise(exercise);
+         }
+      }
    }
 
-   public void updateExercise(Exercise exercise){
+   public void updateExercise(Exercise exercise, String userId){
+      databaseReference = database.getReference("Users");
+      databaseReference.child(userId)
+            .child("exerciseList")
+            .child(exercise.getExerciseId()).setValue(exercise);
+   }
 
+   /**
+    * @author Everton Alves
+    * @param client
+    * Remove All Client Exercise from the database.
+    */
+   public void deleteClientExercises(Client client){
+      client.getExerciseList().clear();
+      updateClient(client);
    }
 
    public boolean saveClientExercise(Client client, Exercise exercise){
@@ -498,10 +527,4 @@ public class Model {
          ((LoadingActivity) presenter.getActualActivity()).loadingError();
       }
    }
-
-
-   public boolean logout(){
-      return false;
-   }
-
 }

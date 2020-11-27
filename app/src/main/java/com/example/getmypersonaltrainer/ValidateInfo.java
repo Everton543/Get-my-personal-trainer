@@ -18,6 +18,13 @@ public class ValidateInfo {
       return databasePassword.equals(password);
    }
 
+   public boolean checkIfPersonalTrainerExerciseGotChanged(Exercise personalExercise, Exercise exercise){
+         return !personalExercise.getEmphasis().equals(exercise.getEmphasis())
+               || personalExercise.getSeries() != exercise.getSeries()
+               || !personalExercise.getVideoLink().equals(exercise.getVideoLink());
+   }
+
+
    /**
     *
     * @param client
