@@ -439,13 +439,23 @@ public class Model {
                      exercise
                );
 
-         boolean personalTrainerExerciseGotChanged = validateInfo.checkIfPersonalTrainerExerciseGotChanged(Objects.requireNonNull(
-               presenter.getUser().getExerciseList().get(exercise.getName())), exercise);
+         Exercise personalTrainerExercise = presenter.getUser().getExerciseList().get(exercise.getName());
+         if(personalTrainerExercise != null) {
+            boolean personalTrainerExerciseGotChanged = validateInfo.checkIfPersonalTrainerExerciseGotChanged(
+                  personalTrainerExercise, exercise);
 
-         if (personalTrainersDoNotHaveTheNewExercise || personalTrainerExerciseGotChanged){
+            if (personalTrainersDoNotHaveTheNewExercise || personalTrainerExerciseGotChanged) {
+               savePersonalPrivateExercise(exercise);
+            }
+         }else{
             savePersonalPrivateExercise(exercise);
          }
       }
+   }
+
+   public void eraseClientExercise(Client client, String exerciseId){
+      client.getExerciseList().remove(exerciseId);
+      updateClient(client);
    }
 
    public void updateExercise(Exercise exercise, String userId){

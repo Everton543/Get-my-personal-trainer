@@ -24,6 +24,12 @@ public class ClientExerciseListActivity extends AppCompatActivity {
       if(getIntent().hasExtra("index")){
          if(MainActivity.presenter.getUser() instanceof PersonalTrainer) {
             clientIndex = Integer.parseInt(Objects.requireNonNull(getIntent().getStringExtra("index")));
+            MainActivity.presenter.setChangingClient(((PersonalTrainer) MainActivity
+                  .presenter
+                  .getUser())
+                  .getClients()
+                  .get(clientIndex)
+            );
          }
       }
 

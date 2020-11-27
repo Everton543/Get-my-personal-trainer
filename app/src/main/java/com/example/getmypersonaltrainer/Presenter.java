@@ -14,6 +14,7 @@ public class Presenter {
    private Class<?> goingTo = null;
    private Class<?> goBack = null;
    private Activity actualActivity = null;
+   private Client changingClient = null;
 
    Presenter(){
       model = new Model();
@@ -112,5 +113,13 @@ public class Presenter {
 
    public void setGoBack(Class<?> goBack) {
       this.goBack = goBack;
+   }
+
+   public Client getChangingClient() {
+      return changingClient;
+   }
+
+   public void setChangingClient(Client changingClient) {
+      this.changingClient = changingClient;
    }
 }

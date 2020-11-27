@@ -10,7 +10,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.time.DayOfWeek;
 import java.util.Objects;
@@ -26,6 +28,7 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
     private DayOfWeek dayOfWeek = null;
     private boolean changingExercise = false;
     private String exerciseId = null;
+    private Exercise sendingExercise = null;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -34,15 +37,8 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
         setContentView(R.layout.activity_create_exercise);
         MainActivity.presenter.setActualActivity(this);
 
+        changingExercise = false;
         Log.i(TAG, "On create Create Exercise");
-
-        if(getIntent().hasExtra("exerciseId")){
-
-            //todo fix bug
-            exerciseId = getIntent().getStringExtra("exerciseId");
-            Log.i(TAG, "Exercise Id : " + exerciseId);
-            //fillGivenExerciseInfo();
-        }
 
         if(getIntent().hasExtra("index")){
             if(MainActivity.presenter.getUser() instanceof PersonalTrainer) {
@@ -55,6 +51,13 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
                             .getUserId()
                 );
             }
+        }
+
+        if(getIntent().hasExtra("exerciseId")){
+
+            exerciseId = getIntent().getStringExtra("exerciseId");
+            Log.i(TAG, "Exercise Id : " + exerciseId);
+            changingExercise = true;
         }
 
         weekDays = getResources().getStringArray(R.array.weekDays);
@@ -85,25 +88,84 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
                 }
             }
         });
+
+        if(changingExercise){
+            fillGivenExerciseInfo();
+            setLayoutToChangingExercise();
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void fillGivenExerciseInfo(){
         //todo finish this function after test
         //todo fix bug
-        if(MainActivity.presenter.getUser() instanceof PersonalTrainer) {
+        if(MainActivity.presenter.getChangingClient() != null){
+            Exercise exercise = MainActivity.presenter
+                  .getChangingClient()
+                  .getExerciseList()
+                  .get(exerciseId);
+            Log.i(TAG, "Created Exercise from the given exerciseId");
+
+            Log.i(TAG, "Exercise info: ");
+
+            Log.i(TAG, "Exercise Name: " + exercise.getName());
+            Log.i(TAG, "Exercise Day: " + exercise.getDaysOfWeek());
+            Log.i(TAG, "Exercise LInk: " +  exercise.getVideoLink());
+            Log.i(TAG, "Exercise Series: " +  exercise.getSeries());
+            Log.i(TAG, "Exercise Emphasis: " +  exercise.getEmphasis());
+            Log.i(TAG, "Exercise Interval exercise: "  + exercise.getIntervalBetweenExercises());
+            Log.i(TAG, "Exercise Interval series: " + exercise.getSeries());
+            Log.i(TAG, "Exercise Repetition: " + exercise.getRepetitionTime());
+
             AutoCompleteTextView textExerciseName = findViewById(R.id.edit_text_exercise_name_create_exercise);
-            textExerciseName.setText(
-                  requireNonNull(((PersonalTrainer) MainActivity.presenter.getUser())
-                        .getClients()
-                        .get(clientIndex)
-                        .getExerciseList()
-                        .get(exerciseId))
-                  .getName()
-            );
+            textExerciseName.setText(exercise.getName());
+
+            AutoCompleteTextView editTextDayOfWeek = findViewById(R.id.edit_text_day_of_week_create_exercise);
+            int indexDayOfWeek = -1;
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                indexDayOfWeek = exercise.getDaysOfWeek().getValue();
+            }
+
+            if(indexDayOfWeek > 0) {
+                editTextDayOfWeek.setText(weekDays[indexDayOfWeek - 1]);
+            }
+
+            EditText editTextEmphasis = findViewById(R.id.edit_text_emphasis_create_exercise);
+            editTextEmphasis.setText(exercise.getEmphasis());
+
+            EditText editTextRepetition = findViewById(R.id.edit_text_repetition_create_exercise);
+            editTextRepetition.setText(exercise.getRepetitionTime());
+
+            EditText editTextSeries = findViewById(R.id.edit_text_series_create_exercise);
+            String exerciseSeries = String.valueOf(exercise.getSeries());
+            editTextSeries.setText(exerciseSeries);
+
+            EditText editTextIntervalSeries = findViewById(R.id.edit_text_interval_series_create_exercise);
+            editTextIntervalSeries.setText(exercise.getIntervalBetweenSeries());
+
+            EditText editTextIntervalExercise = findViewById(R.id.edit_text_interval_exercise_create_exercise);
+            editTextIntervalExercise.setText(exercise.getIntervalBetweenExercises());
+
+            EditText editTextVideoLink = findViewById(R.id.edit_text_video_link_create_exercise);
+            editTextVideoLink.setText(exercise.getVideoLink());
         }
     }
 
+    private void setLayoutToChangingExercise(){
+        TextView textView = findViewById(R.id.title_create_exercise_activity);
+        String newTitle = getResources().getString(R.string.change_exercise_title);
+        textView.setText(newTitle);
+
+        Button sendExercise = findViewById(R.id.button_confirm_new_exercise);
+        sendExercise.setVisibility(View.GONE);
+
+        Button changeExercise = findViewById(R.id.button_change_exercise_create_exercise);
+        changeExercise.setVisibility(View.VISIBLE);
+
+        Button deleteExercise = findViewById(R.id.button_delete_exercise_create_exercise);
+        deleteExercise.setVisibility(View.VISIBLE);
+    }
 
     @Override
     public void fillExerciseInfo(Exercise exercise) {
@@ -129,15 +191,12 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
                 return true;
             }
         }
-
         return false;
     }
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void sendExercise(View view){
-        Log.i(TAG, "Send Exercise Called");
-        //To-do: fix bug
+    private boolean setExerciseInfo(){
         AutoCompleteTextView textExerciseName = findViewById(R.id.edit_text_exercise_name_create_exercise);
         String exerciseName = String.valueOf(textExerciseName.getText());
         Log.i(TAG, "Exercise name: " + exerciseName);
@@ -179,20 +238,71 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
 
             Log.i(TAG, "Video link : " + videoLink);
 
-            Exercise exercise = new Exercise(exerciseName, dayOfWeek, emphasis, repetition,
-                series, seriesInterval, exerciseInterval, videoLink);
+            if(changingExercise){
+                sendingExercise = new Exercise(exerciseName, dayOfWeek, emphasis, repetition,
+                      series, seriesInterval, exerciseInterval, videoLink);
+                sendingExercise.setExerciseId(exerciseId);
+
+            }else{
+            sendingExercise = new Exercise(exerciseName, dayOfWeek, emphasis, repetition,
+                  series, seriesInterval, exerciseInterval, videoLink);
+            }
+            return true;
+        }
+
+        return false;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void sendExercise(View view){
+        Log.i(TAG, "Send Exercise Called");
+        boolean successfullySetExerciseInfo = setExerciseInfo();
+        if(successfullySetExerciseInfo){
 
             if (MainActivity.presenter.getUser() instanceof PersonalTrainer) {
                 MainActivity.presenter.getModel().addClientExercise(
                       ((PersonalTrainer) MainActivity.presenter
                             .getUser())
                             .getClients()
-                            .get(clientIndex), exercise
+                            .get(clientIndex), sendingExercise
                 );
             }
 
         }else {
             MainActivity.presenter.getModel().getWarnings().invalidDayOfWeek();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void sendExerciseChanges(View view){
+        Log.i(TAG, "Send Exercise Changes Called");
+        boolean successfullySetExerciseInfo = setExerciseInfo();
+        if(successfullySetExerciseInfo && MainActivity.presenter.getChangingClient() != null){
+            MainActivity.presenter.getModel().updateClientExercise(sendingExercise,
+                  MainActivity.presenter.getChangingClient().getUserId()
+            );
+
+            changingExercise = false;
+            MainActivity.presenter.setChangingClient(null);
+            finishedCharge();
+        }else {
+            MainActivity.presenter.getModel().getWarnings().invalidDayOfWeek();
+        }
+    }
+
+    public void eraseClientExercise(View view){
+        if(MainActivity.presenter.getChangingClient() != null) {
+            MainActivity.presenter.getModel().eraseClientExercise(
+                  MainActivity.presenter.getChangingClient(),
+                  exerciseId
+            );
+
+            changingExercise = false;
+            MainActivity.presenter.setChangingClient(null);
+            finishedCharge();
+
+        }else{
+            MainActivity.presenter.getModel().getWarnings().strangeError();
         }
     }
 

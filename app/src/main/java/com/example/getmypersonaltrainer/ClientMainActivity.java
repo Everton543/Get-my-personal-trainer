@@ -72,11 +72,10 @@ public class ClientMainActivity extends AppCompatActivity {
                     MainActivity.presenter.setGoingTo(PersonalTrainerInfoActivity.class);
                     MainActivity.presenter.setGoBack(ClientMainActivity.class);
                     intent = new Intent(this, LoadingActivity.class);
-                    startActivity(intent);
                 } else{
                     intent = new Intent(this, PersonalTrainerInfoActivity.class);
-                    startActivity(intent);
                 }
+                startActivity(intent);
                 return true;
 
             default:

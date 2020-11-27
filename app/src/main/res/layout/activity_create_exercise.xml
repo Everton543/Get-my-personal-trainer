@@ -141,6 +141,29 @@
                 android:textSize="30sp" />
 
 
+            <Button
+                android:id="@+id/button_change_exercise_create_exercise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/good_button_background"
+                android:gravity="center"
+                android:text="@string/button_change_exercise"
+                android:visibility="gone"
+                android:onClick="sendExerciseChanges"
+                android:textColor="@color/font_dark"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/button_delete_exercise_create_exercise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bad_button_background"
+                android:gravity="center"
+                android:text="@string/button_remove_exercise"
+                android:visibility="gone"
+                android:onClick="eraseClientExercise"
+                android:textColor="@color/font_dark"
+                android:textSize="30sp" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

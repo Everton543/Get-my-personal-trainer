@@ -32,6 +32,12 @@ public class Warnings {
       sendWarning(Toast.LENGTH_SHORT, text);
    }
 
+   public void strangeError(){
+      CharSequence text = "A ERROR happened please try again latter.";
+      sendWarning(Toast.LENGTH_SHORT, text);
+   }
+
+
    public void invalidScoreRange(){
       CharSequence text = "Score must be bellow 11 and greater then or equal to 0.";
       sendWarning(Toast.LENGTH_SHORT, text);

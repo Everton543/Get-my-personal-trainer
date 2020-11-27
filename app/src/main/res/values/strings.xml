@@ -17,6 +17,7 @@
     <string name="personal_trainer_sign_up_title">Personal Trainer Sign Up</string>
     <string name="send_invitation_title">Send Invitation</string>
     <string name="evaluate_personal_trainer_title">Evaluate Your Trainer</string>
+    <string name="change_exercise_title">Change Exercise</string>
 
     //Hints
     <string name="hint_invitation_id">Client ID</string>
@@ -83,6 +84,7 @@
     <string name="button_client_sign_in">Sign Up as a Client</string>
     <string name="button_evaluate">Evaluate</string>
     <string name="button_change_exercise">Change Exercise</string>
+    <string name="button_remove_exercise">Remove Exercise</string>
     <string name="button_add_exercise">Add New Exercise</string>
     <string name="button_remove_client">Remove Client</string>
 
