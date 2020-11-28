@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CalendarView;
 import android.widget.EditText;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class ClientSignUpActivity extends AppCompatActivity{
 
@@ -33,8 +36,15 @@ public class ClientSignUpActivity extends AppCompatActivity{
         editText = (EditText) findViewById(R.id.edit_text_phone_client_sign_up_activity);
         String phone = editText.getText().toString();
 
-        editText = (EditText) findViewById(R.id.edit_text_birth_date_client_sign_up_activity);
-        String birthDate = editText.getText().toString();
+        CalendarView CV = (CalendarView) findViewById(R.id.select_cv_birth_date_client_sign_up_activity);
+        long gcLong = CV.getDate();
+        GregorianCalendar gc = new GregorianCalendar();
+        gc.setTime(new Date(gcLong));
+        int[] birthDate = { 0, 0, 0 };
+        birthDate[0] = gc.get(GregorianCalendar.YEAR);
+        birthDate[1] = gc.get(GregorianCalendar.MONTH)+1;
+        birthDate[2] = gc.get(GregorianCalendar.DAY_OF_MONTH);
+        // String birthDate = CV.getText().toString();
 
         editText = (EditText) findViewById(R.id.edit_text_weight_client_sign_up_activity);
         String textBodyMass = editText.getText().toString();

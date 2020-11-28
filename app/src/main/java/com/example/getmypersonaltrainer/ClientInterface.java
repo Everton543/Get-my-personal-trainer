@@ -4,14 +4,14 @@ import java.util.HashMap;
 
 public interface ClientInterface {
    float getBodyMass();
-   String getBirthDate();
+   int[] getBirthDate();
    float getSize();
    String getPhone();
    String getPersonalTrainerId();
    boolean getVoted();
 
    void setPersonalTrainerId(String trainerId);
-   void setBirthDate(String birthDate);
+   void setBirthDate(int[] birthDate);
    void setSize(float size);
    void setBodyMass(float bodyMass);
    void setPhone(String phone);
