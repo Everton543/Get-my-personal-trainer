@@ -11,7 +11,7 @@ public class User implements UserInterface, ClientInterface, PersonalTrainerInte
    private String name;
    private String userId;
    private String phone;
-   private String birthDate;
+   private int[] birthDate;
    private float bodyMass;
    private float size;
    private Map<String, Exercise> exerciseList = new HashMap<String, Exercise>();
@@ -30,7 +30,7 @@ public class User implements UserInterface, ClientInterface, PersonalTrainerInte
 
    User(){}
 
-   User(UserTypes userType, String password, String name, String userId, String phone, String birthDate, float bodyMass, float size){
+   User(UserTypes userType, String password, String name, String userId, String phone, int[] birthDate, float bodyMass, float size){
       this.userType = userType;
       this.password = password;
       this.birthDate = birthDate;
@@ -201,7 +201,7 @@ public class User implements UserInterface, ClientInterface, PersonalTrainerInte
    }
 
    @Override
-   public String getBirthDate() {
+   public int[] getBirthDate() {
       return birthDate;
    }
 
@@ -236,7 +236,7 @@ public class User implements UserInterface, ClientInterface, PersonalTrainerInte
    }
 
    @Override
-   public void setBirthDate(String birthDate) {
+   public void setBirthDate(int[] birthDate) {
       this.birthDate = birthDate;
    }
 

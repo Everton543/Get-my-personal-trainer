@@ -12,7 +12,7 @@ public class Client implements UserInterface, ClientInterface{
    private String name;
    private String userId;
    private String phone;
-   private String birthDate;
+   private int[] birthDate;
    private float bodyMass;
    private float size;
    private Map<String, Exercise> exerciseList = new HashMap<String, Exercise>();
@@ -25,7 +25,7 @@ public class Client implements UserInterface, ClientInterface{
 
    public Client(){}
 
-   public Client(UserTypes userType, String password, String name, String userId, String phone, String birthDate, float bodyMass, float size){
+   public Client(UserTypes userType, String password, String name, String userId, String phone, int[] birthDate, float bodyMass, float size){
       this.userType = userType;
       this.password = password;
       this.birthDate = birthDate;
@@ -41,7 +41,7 @@ public class Client implements UserInterface, ClientInterface{
                  String name,
                  String userId,
                  String phone,
-                 String birthDate,
+                 int[] birthDate,
                  float bodyMass,
                  float size,
                  String personalTrainerId,
@@ -164,7 +164,7 @@ public class Client implements UserInterface, ClientInterface{
    }
 
    @Override
-   public String getBirthDate() {
+   public int[] getBirthDate() {
       return birthDate;
    }
 
@@ -194,7 +194,7 @@ public class Client implements UserInterface, ClientInterface{
    }
 
    @Override
-   public void setBirthDate(String birthDate) {
+   public void setBirthDate(int[] birthDate) {
       this.birthDate = birthDate;
    }
 

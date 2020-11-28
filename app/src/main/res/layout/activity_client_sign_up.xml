@@ -74,16 +74,12 @@
                 android:inputType="phone"
                 android:textSize="24sp" />
 
-            <EditText
-                android:id="@+id/edit_text_birth_date_client_sign_up_activity"
+            <CalendarView
+                android:id="@+id/select_cv_birth_date_client_sign_up_activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="@string/hint_birth_date"
-                android:inputType="date"
-                android:textSize="24sp" />
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp" />
 
             <EditText
                 android:id="@+id/edit_text_weight_client_sign_up_activity"
