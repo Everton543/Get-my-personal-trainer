@@ -19,9 +19,13 @@ public class ValidateInfo {
    }
 
    public boolean checkIfPersonalTrainerExerciseGotChanged(Exercise personalExercise, Exercise exercise){
-         return !personalExercise.getEmphasis().equals(exercise.getEmphasis())
-               || personalExercise.getSeries() != exercise.getSeries()
-               || !personalExercise.getVideoLink().equals(exercise.getVideoLink());
+      if(personalExercise == null || exercise == null){
+         return false;
+      }
+
+      return !personalExercise.getEmphasis().equals(exercise.getEmphasis())
+            || personalExercise.getSeries() != exercise.getSeries()
+            || !personalExercise.getVideoLink().equals(exercise.getVideoLink());
    }
 
 
@@ -41,13 +45,16 @@ public class ValidateInfo {
    }
 
    public boolean checkIfPersonalTrainerHasGivenExercise(PersonalTrainer personalTrainer, Exercise exercise){
-      if(personalTrainer.getExerciseList() == null){
+      if(exercise == null){
+         return false;
+      }
+
+      if(personalTrainer.getExerciseList() == null || exercise.getName() == null){
          return false;
       }
 
       return personalTrainer.getExerciseList().containsKey(exercise.getName());
    }
-
 
    public boolean checkId(String id){
       if(id == null){
@@ -60,18 +67,17 @@ public class ValidateInfo {
 
       Pattern pattern = Pattern.compile("[\\\\.\\]\\[<>\"@#$%&*!';:,()/]");
       Matcher matcher = pattern.matcher(id);
-      boolean passwordHasBadSymbols = matcher.find();
+      boolean passwordHasBadSymbols = !matcher.find();
 
-      if(passwordHasBadSymbols){
-         return false;
-      }
+      pattern = Pattern.compile("[A-z]", Pattern.CASE_INSENSITIVE);
+      matcher = pattern.matcher(id);
+      boolean hasLetter = matcher.find();
 
-      return true;
+      return passwordHasBadSymbols && hasLetter;
    }
 
    public boolean validScore(int score){
       if(score < 0 || score > 10){
-         MainActivity.presenter.getModel().getWarnings().invalidScoreRange();
          return false;
       }
 
@@ -97,7 +103,6 @@ public class ValidateInfo {
 
       return idDoNotHasBadSymbols && idHasLetter;
    }
-
 
    public boolean password(String password) {
       if(password.length() < 8){
