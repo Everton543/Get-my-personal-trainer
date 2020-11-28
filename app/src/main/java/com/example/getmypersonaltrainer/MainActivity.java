@@ -27,6 +27,7 @@ import static com.example.getmypersonaltrainer.UserTypes.PERSONAL_TRAINER;
       final static String NOT_FOUND = "notFound";
       private static final String TAG = "MyActivity";
       static RecyclerView personalTrainerRecyclerView = null;
+      static ClientListViewAdapter clientListViewAdapter = null;
 
       private String logId = null;
 

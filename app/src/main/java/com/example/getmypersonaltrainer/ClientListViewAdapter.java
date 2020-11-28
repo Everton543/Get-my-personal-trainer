@@ -17,6 +17,10 @@ public class ClientListViewAdapter extends RecyclerView.Adapter<
    Context context;
 
 
+   public void setContext(Context context){
+      this.context = context;
+   }
+
    public static class ClientListViewHolder extends RecyclerView.ViewHolder {
       TextView userID;
       TextView userAge;
@@ -38,6 +42,7 @@ public class ClientListViewAdapter extends RecyclerView.Adapter<
          addExercise = itemView.findViewById(R.id.button_add_new_exercise_client_list);
          changeExercise = itemView.findViewById(R.id.button_change_exercise_client_list);
          removeClient = itemView.findViewById(R.id.button_remove_client_client_list);
+
       }
    }
 
@@ -75,6 +80,9 @@ public class ClientListViewAdapter extends RecyclerView.Adapter<
             String index = String.valueOf(position);
             intent.putExtra("index", index);
             context.startActivity(intent);
+         //   if(context instanceof PersonalTrainerMainActivity){
+//               ((PersonalTrainerMainActivity) context).adapterChanged();
+//            }
          }
       });
 
@@ -86,6 +94,9 @@ public class ClientListViewAdapter extends RecyclerView.Adapter<
             personalTrainer.getClients().get(position).setPersonalTrainerId(null);
             MainActivity.presenter.getModel().updateClient(personalTrainer.getClients().get(position));
             personalTrainer.getClients().remove(position);
+            if(context instanceof PersonalTrainerMainActivity){
+               ((PersonalTrainerMainActivity) context).adapterChanged();
+            }
          }
       });
 
@@ -96,6 +107,9 @@ public class ClientListViewAdapter extends RecyclerView.Adapter<
             String index = String.valueOf(position);
             intent.putExtra("index", index);
             context.startActivity(intent);
+  //          if(context instanceof PersonalTrainerMainActivity){
+    //           ((PersonalTrainerMainActivity) context).adapterChanged();
+      //      }
          }
       });
 

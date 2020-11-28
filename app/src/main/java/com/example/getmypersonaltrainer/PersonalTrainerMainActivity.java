@@ -26,16 +26,30 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
             MainActivity.personalTrainerRecyclerView = findViewById(R.id.recycler_view_client_1);
 
             if (MainActivity.presenter.getUser() instanceof PersonalTrainer) {
-                ClientListViewAdapter clientListViewAdapter =
+                MainActivity.clientListViewAdapter =
                       new ClientListViewAdapter(this,
                             (PersonalTrainer) MainActivity
                                   .presenter
                                   .getUser()
                       );
-                MainActivity.personalTrainerRecyclerView.setAdapter(clientListViewAdapter);
+                MainActivity.personalTrainerRecyclerView.setAdapter(MainActivity.clientListViewAdapter);
                 MainActivity.personalTrainerRecyclerView.setLayoutManager(new GridLayoutManager(this,
                       ((PersonalTrainer) MainActivity.presenter.getUser()).getClients().size()));
             }
+        } else{
+            MainActivity.clientListViewAdapter.setContext(this);
+            MainActivity.personalTrainerRecyclerView.setAdapter(MainActivity.clientListViewAdapter);
+            MainActivity.personalTrainerRecyclerView.setLayoutManager(new GridLayoutManager(this,
+                  ((PersonalTrainer) MainActivity.presenter.getUser()).getClients().size()));
+        }
+
+
+
+    }
+
+    public void adapterChanged(){
+        if(MainActivity.presenter.getUser() instanceof PersonalTrainer) {
+            MainActivity.clientListViewAdapter.notifyDataSetChanged();
         }
     }
 
