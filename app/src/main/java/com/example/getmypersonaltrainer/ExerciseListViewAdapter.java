@@ -27,6 +27,7 @@ public class ExerciseListViewAdapter extends RecyclerView.Adapter<
    }
 
 
+
    public ExerciseListViewAdapter(Context context, List<Exercise> exerciseList){
       this.exerciseList = exerciseList;
       this.context = context;
