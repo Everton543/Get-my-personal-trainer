@@ -17,6 +17,7 @@ public class ExerciseListViewAdapter extends RecyclerView.Adapter<
 
    private final Context context;
    private final List<Exercise> exerciseList;
+   boolean changingClient = true;
 
    public class ExerciseListViewHolder extends RecyclerView.ViewHolder {
       Button exercise;
@@ -26,11 +27,15 @@ public class ExerciseListViewAdapter extends RecyclerView.Adapter<
       }
    }
 
-
-
    public ExerciseListViewAdapter(Context context, List<Exercise> exerciseList){
       this.exerciseList = exerciseList;
       this.context = context;
+   }
+
+   public ExerciseListViewAdapter(Context context, List<Exercise> exerciseList, boolean changingClient){
+      this.exerciseList = exerciseList;
+      this.context = context;
+      this.changingClient = changingClient;
    }
 
    @NonNull
@@ -45,17 +50,27 @@ public class ExerciseListViewAdapter extends RecyclerView.Adapter<
    public void onBindViewHolder(@NonNull ExerciseListViewHolder holder, final int position) {
       String name = exerciseList.get(position).getName();
       holder.exercise.setText(name);
-
+      if(this.changingClient == true) {
+         holder.exercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Intent intent = new Intent(context, CreateExerciseActivity.class);
+               String exerciseId = exerciseList.get(position).getExerciseId();
+               intent.putExtra("exerciseId", exerciseId);
+               context.startActivity(intent);
+            }
+         });
+      }
+      //otherwise show client's exercise list
       holder.exercise.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-            Intent intent = new Intent(context, CreateExerciseActivity.class);
             String exerciseId = exerciseList.get(position).getExerciseId();
+            Intent intent = new Intent(context, ExerciseInfoActivity.class);
             intent.putExtra("exerciseId", exerciseId);
             context.startActivity(intent);
-         }
-      });
-   }
+         }});
+      }
 
    @Override
    public int getItemCount() {

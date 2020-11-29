@@ -218,6 +218,16 @@ public class Client implements UserInterface, ClientInterface{
       this.voted = voted;
    }
 
+   public boolean UnsubscribeFromPersonalTrainer(){
+      if(this.getPersonalTrainerId() == null) {
+         return false;
+      }
+      Model temp = new Model();
+      this.setPersonalTrainerId(null);
+      temp.updateClient(this);
+      return true;
+   }
+
    public int getAge()
    {
       //TO-DO: FIX THIS
