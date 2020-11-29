@@ -15,6 +15,7 @@ public class Presenter {
    private Class<?> goBack = null;
    private Activity actualActivity = null;
    private Client changingClient = null;
+   private List<PersonalTrainer> allPersonalTrainers = new ArrayList<PersonalTrainer>();
 
    Presenter(){
       model = new Model();
@@ -121,5 +122,13 @@ public class Presenter {
 
    public void setChangingClient(Client changingClient) {
       this.changingClient = changingClient;
+   }
+
+   public List<PersonalTrainer> getAllPersonalTrainers() {
+      return allPersonalTrainers;
+   }
+
+   public void setAllPersonalTrainers(List<PersonalTrainer> allPersonalTrainers) {
+      this.allPersonalTrainers = allPersonalTrainers;
    }
 }

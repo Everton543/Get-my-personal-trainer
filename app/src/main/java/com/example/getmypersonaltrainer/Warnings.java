@@ -95,6 +95,12 @@ public class Warnings {
       sendWarning(Toast.LENGTH_LONG, text);
    }
 
+   public void noPersonalTrainerAvailable(){
+      CharSequence text = "We don't have personal trainers available";
+      sendWarning(Toast.LENGTH_LONG, text);
+   }
+
+
    public void wrongPasswordOrUserId(){
       CharSequence text = "Wrong Password or User Id";
       sendWarning(Toast.LENGTH_SHORT, text);

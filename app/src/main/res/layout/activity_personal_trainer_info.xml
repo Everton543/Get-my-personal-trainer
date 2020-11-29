@@ -116,6 +116,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/bad_button_background"
                 android:gravity="center"
+                android:onClick="unsubscribe"
                 android:text="@string/button_unsubscribe"
                 android:textColor="@color/font_dark"
                 android:textSize="30sp" />

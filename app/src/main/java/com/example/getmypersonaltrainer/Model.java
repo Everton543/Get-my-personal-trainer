@@ -165,6 +165,44 @@ public class Model {
       });
    }
 
+   public void getAllPersonalTrainers(){
+      if(presenter.getUser() instanceof Client) {
+         Query query = database.getReference("Users")
+               .orderByChild("userType")
+               .equalTo(String.valueOf(UserTypes.PERSONAL_TRAINER));
+
+         query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+               presenter.getAllPersonalTrainers().clear();
+               if (snapshot.exists()) {
+                  for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                     PersonalTrainer personalTrainer = dataSnapshot.getValue(PersonalTrainer.class);
+                     presenter.getAllPersonalTrainers().add(personalTrainer);
+                  }
+
+                  if(presenter.getActualActivity() instanceof FastError){
+                     ((LoadingActivity) presenter.getActualActivity()).finishedCharge();
+                  }
+               }else{
+                  warnings.noPersonalTrainerAvailable();
+
+                  if(presenter.getActualActivity() instanceof FastError){
+                     ((LoadingActivity) presenter.getActualActivity()).loadingError();
+                  }
+               }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+         });
+      }
+
+
+   }
+
    /**
     *  @author Everton Alves
     *  @param client
