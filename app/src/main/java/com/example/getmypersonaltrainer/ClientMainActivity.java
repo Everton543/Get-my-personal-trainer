@@ -1,9 +1,13 @@
 package com.example.getmypersonaltrainer;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,8 +16,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.time.DayOfWeek;
+
 public class ClientMainActivity extends AppCompatActivity {
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +59,33 @@ public class ClientMainActivity extends AppCompatActivity {
                     }
                 });
             }
+        }
+        RecyclerView mondayView = findViewById(R.id.recycler_view_client_main_monday);
+        RecyclerView tuesdayView = findViewById(R.id.recycler_view_client_main_tuesday);
+        RecyclerView wednesdayView = findViewById(R.id.recycler_view_client_main_wednesday);
+        RecyclerView thursdayView = findViewById(R.id.recycler_view_client_main_thursday);
+        RecyclerView fridayView = findViewById(R.id.recycler_view_client_main_friday);
+        RecyclerView saturdayView = findViewById(R.id.recycler_view_client_main_saturday);
+
+        setRecyclerViewAdapter(mondayView, DayOfWeek.MONDAY);
+        setRecyclerViewAdapter(tuesdayView, DayOfWeek.TUESDAY);
+        setRecyclerViewAdapter(wednesdayView, DayOfWeek.WEDNESDAY);
+        setRecyclerViewAdapter(thursdayView, DayOfWeek.THURSDAY);
+        setRecyclerViewAdapter(fridayView, DayOfWeek.FRIDAY);
+        setRecyclerViewAdapter(saturdayView, DayOfWeek.SATURDAY);
+    }
+
+    private void setRecyclerViewAdapter(RecyclerView recyclerView, DayOfWeek dayOfWeek){
+        /* Todo After test check if List<Exercise> is not null*/
+        if(MainActivity.presenter.getUser() instanceof Client) {
+            ExerciseListViewAdapter exerciseListViewAdapter =
+                  new ExerciseListViewAdapter(this,
+                        ((Client) MainActivity.presenter.getUser()).getExercisesOfWeekDay(dayOfWeek),
+                        false
+                        );
+
+            recyclerView.setAdapter(exerciseListViewAdapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
     }
 

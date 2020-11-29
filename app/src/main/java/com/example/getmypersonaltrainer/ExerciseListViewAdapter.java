@@ -50,7 +50,7 @@ public class ExerciseListViewAdapter extends RecyclerView.Adapter<
    public void onBindViewHolder(@NonNull ExerciseListViewHolder holder, final int position) {
       String name = exerciseList.get(position).getName();
       holder.exercise.setText(name);
-      if(this.changingClient == true) {
+      if(this.changingClient) {
          holder.exercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,16 +60,18 @@ public class ExerciseListViewAdapter extends RecyclerView.Adapter<
                context.startActivity(intent);
             }
          });
+      }else {
+         //otherwise show client's exercise list
+         holder.exercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               String exerciseId = exerciseList.get(position).getExerciseId();
+               Intent intent = new Intent(context, ExerciseInfoActivity.class);
+               intent.putExtra("exerciseId", exerciseId);
+               context.startActivity(intent);
+            }
+         });
       }
-      //otherwise show client's exercise list
-      holder.exercise.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-            String exerciseId = exerciseList.get(position).getExerciseId();
-            Intent intent = new Intent(context, ExerciseInfoActivity.class);
-            intent.putExtra("exerciseId", exerciseId);
-            context.startActivity(intent);
-         }});
       }
 
    @Override
