@@ -40,7 +40,7 @@ public class Model {
       database = FirebaseDatabase.getInstance();
       databaseReference = database.getReference();
       // Read from the database
-      databaserf.addValueEventListener(new ValueEventListener() {
+      databaseReference.addValueEventListener(new ValueEventListener() {
          @Override
          public void onDataChange(DataSnapshot dataSnapshot) {
             // This method is called once with the initial value and again
