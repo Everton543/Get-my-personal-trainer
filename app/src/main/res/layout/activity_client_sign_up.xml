@@ -37,8 +37,7 @@
                 android:gravity="center"
                 android:text="@string/client_sign_up_activity_title"
                 android:textColor="@color/title_light"
-                android:textSize="40sp" />
-
+                android:textSize="32sp" />
 
             <EditText
                 android:id="@+id/edit_text_id_client_sign_up_activity"
@@ -49,7 +48,8 @@
                 android:gravity="center"
                 android:hint="@string/hint_id"
                 android:inputType="text"
-                android:textSize="24sp" />
+                android:textSize="20sp"
+                android:importantForAutofill="no" />
 
 
             <EditText
@@ -61,7 +61,8 @@
                 android:gravity="center"
                 android:hint="@string/hint_name"
                 android:inputType="textPersonName"
-                android:textSize="24sp" />
+                android:textSize="20sp"
+                android:importantForAutofill="no" />
 
             <EditText
                 android:id="@+id/edit_text_phone_client_sign_up_activity"
@@ -72,7 +73,8 @@
                 android:gravity="center"
                 android:hint="@string/hint_phone"
                 android:inputType="phone"
-                android:textSize="24sp" />
+                android:textSize="20sp"
+                android:importantForAutofill="no" />
 
             <CalendarView
                 android:id="@+id/select_cv_birth_date_client_sign_up_activity"
@@ -90,7 +92,8 @@
                 android:gravity="center"
                 android:hint="@string/hint_body_mass"
                 android:inputType="numberDecimal"
-                android:textSize="24sp" />
+                android:textSize="20sp"
+                android:importantForAutofill="no" />
 
             <EditText
                 android:id="@+id/edit_text_size_client_sign_up_activity"
@@ -101,7 +104,8 @@
                 android:gravity="center"
                 android:hint="@string/hint_size"
                 android:inputType="numberDecimal"
-                android:textSize="24sp" />
+                android:textSize="20sp"
+                android:importantForAutofill="no" />
 
             <EditText
                 android:id="@+id/edit_text_password_client_sign_up_activity"
@@ -112,7 +116,8 @@
                 android:gravity="center"
                 android:hint="@string/hint_password"
                 android:inputType="textPassword"
-                android:textSize="24sp" />
+                android:textSize="20sp"
+                android:importantForAutofill="no" />
 
             <EditText
                 android:id="@+id/edit_text_confirm_password_client_sign_up_activity"
@@ -123,7 +128,8 @@
                 android:gravity="center"
                 android:hint="@string/hint_confirm_password"
                 android:inputType="textPassword"
-                android:textSize="24sp" />
+                android:textSize="20sp"
+                android:importantForAutofill="no" />
 
             <Button
                 android:id="@+id/button_confirm_change_client_sign_up_activity"
@@ -134,7 +140,7 @@
                 android:text="@string/button_confirm"
                 android:onClick="ClientSignUp"
                 android:textColor="@color/font_dark"
-                android:textSize="30sp" />
+                android:textSize="22sp" />
 
 
         </LinearLayout>
