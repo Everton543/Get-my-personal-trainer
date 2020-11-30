@@ -18,7 +18,7 @@ public class Client implements UserInterface, ClientInterface{
    private Map<String, Exercise> exerciseList = new HashMap<String, Exercise>();
    private String hashedPassword;
    private String salt;
-   private Map<String, InvitationMessage> invitationMessages;
+   private Map<String, InvitationMessage> invitationMessages = new HashMap<String, InvitationMessage>();
    private boolean receivedInvitation = false;
    private String personalTrainerId;
    private boolean voted = false;

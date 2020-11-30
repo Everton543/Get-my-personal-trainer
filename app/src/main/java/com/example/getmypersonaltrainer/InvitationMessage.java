@@ -1,15 +1,12 @@
 package com.example.getmypersonaltrainer;
 
-import static com.example.getmypersonaltrainer.MainActivity.presenter;
-
 public class InvitationMessage {
    private String senderId = null;
    private String receiverId = null;
    private String senderName = null;
    private UserTypes senderUserType = null;
    private String phone = null;
-
-
+   private String invitationMessage = null;
 
    public InvitationMessage(String senderId,
                             String receiverId,
@@ -19,6 +16,8 @@ public class InvitationMessage {
       this.receiverId = receiverId;
       this.senderName = senderName;
       this.senderUserType = senderUserType;
+
+      createInvitationMessage();
    }
 
    public InvitationMessage() {
@@ -30,42 +29,60 @@ public class InvitationMessage {
       this.senderName = senderName;
       this.senderUserType = senderUserType;
       this.phone = phone;
+
+      createInvitationMessage();
    }
 
-   public String getSenderId() {
-      return senderId;
+   public void setInvitationMessage(String invitationMessage) {
+      this.invitationMessage = invitationMessage;
    }
 
    public void setSenderId(String senderId) {
       this.senderId = senderId;
    }
 
-   public String getReceiverId() {
-      return receiverId;
-   }
-
    public void setReceiverId(String receiverId) {
       this.receiverId = receiverId;
-   }
-
-   public String getSenderName() {
-      return senderName;
    }
 
    public void setSenderName(String senderName) {
       this.senderName = senderName;
    }
 
-   public UserTypes getSenderUserType() {
-      return senderUserType;
-   }
-
    public void setSenderUserType(UserTypes senderUserType) {
       this.senderUserType = senderUserType;
    }
 
+   public void setPhone(String phone) {
+      this.phone = phone;
+   }
+
+
+   public String getSenderId() {
+      return senderId;
+   }
+
+   public String getReceiverId() {
+      return receiverId;
+   }
+
+   public String getSenderName() {
+      return senderName;
+   }
+
+   public UserTypes getSenderUserType() {
+      return senderUserType;
+   }
+
    public String getInvitationMessage(){
-      String invitationMessage = null;
+      return invitationMessage;
+   }
+
+   public String getPhone() {
+      return phone;
+   }
+
+   public void createInvitationMessage(){
       if(senderUserType == UserTypes.PERSONAL_TRAINER){
          invitationMessage =  senderName;
          invitationMessage += " that has the ID: " + senderId;
@@ -77,15 +94,6 @@ public class InvitationMessage {
          invitationMessage += " wants you as a personal trainer.";
          invitationMessage += " clients phone: " + phone;
       }
-
-      return invitationMessage;
    }
 
-   public String getPhone() {
-      return phone;
-   }
-
-   public void setPhone(String phone) {
-      this.phone = phone;
-   }
 }

@@ -20,7 +20,7 @@ public class User implements UserInterface, ClientInterface, PersonalTrainerInte
    private String aboutMyselfText;
    private List<Client> clientList = new ArrayList<Client>();
    private String personalTrainerId;
-   private String invitationMessage;
+   private Map<String, InvitationMessage> invitationMessage = new HashMap<String, InvitationMessage>();
    private List<String> exerciseNameList = new ArrayList<String>();
    private boolean receivedInvitation;
    private int score;
@@ -85,13 +85,13 @@ public class User implements UserInterface, ClientInterface, PersonalTrainerInte
    }
 
    @Override
-   public String getInvitationMessage() {
+   public Map<String, InvitationMessage> getInvitationMessage() {
       return invitationMessage;
    }
 
    @Override
    public boolean getReceivedInvitation() {
-      return false;
+      return receivedInvitation;
    }
 
    @Override
@@ -100,8 +100,8 @@ public class User implements UserInterface, ClientInterface, PersonalTrainerInte
    }
 
    @Override
-   public void setInvitationMessage(String invitationMessage) {
-      this.invitationMessage = invitationMessage;
+   public void setInvitationMessage(Map<String, InvitationMessage> invitationMessages) {
+
    }
 
    @Override
@@ -135,6 +135,11 @@ public class User implements UserInterface, ClientInterface, PersonalTrainerInte
    }
 
    @Override
+   public void addNewInvitationMessage(InvitationMessage invitationMessage) {
+
+   }
+
+   @Override
    public List<Client> getClients() {
       return clientList;
    }
@@ -145,7 +150,7 @@ public class User implements UserInterface, ClientInterface, PersonalTrainerInte
    }
 
    @Override
-   public void removeClient(String clientId) {
+   public void removeClient(int id) {
 
    }
 

@@ -44,35 +44,6 @@
             android:textSize="25sp"
             android:visibility="gone" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/button_confirm_client_main"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/good_button_background"
-                android:text="@string/button_confirm"
-                android:textColor="@color/font_dark"
-                android:textSize="30sp"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/button_decline_client_main"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/bad_button_background"
-                android:text="@string/button_declaim"
-                android:textColor="@color/font_dark"
-                android:textSize="30sp"
-                android:visibility="gone" />
-        </LinearLayout>
-
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">

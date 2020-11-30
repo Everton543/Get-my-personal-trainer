@@ -251,7 +251,6 @@ public class Model {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-               userList.clear();
                Log.i(TAG, "onDataChange from sendInvitationToClient");
                if (snapshot.exists()) {
                   if(invitationMessage.getSenderUserType() == UserTypes.PERSONAL_TRAINER) {
@@ -263,19 +262,17 @@ public class Model {
 
                      if(clients.get(0).getPersonalTrainerId() == null) {
 
-                        if (presenter.getUser() instanceof PersonalTrainer) {
+                        clients.get(0).setReceivedInvitation(true);
+                        clients.get(0).addNewInvitationMessage(invitationMessage);
 
-                           clients.get(0).setReceivedInvitation(true);
-                           clients.get(0).addNewInvitationMessage(invitationMessage);
+                        updateClient(clients.get(0));
 
-                           updateClient(clients.get(0));
-
-                           if(presenter.getActualActivity() instanceof FastError){
-                              ((FastError) presenter.getActualActivity()).finishedCharge();
-                           }
-                           
-                           warnings.invitationGotSend();
+                        if(presenter.getActualActivity() instanceof FastError){
+                           ((FastError) presenter.getActualActivity()).finishedCharge();
                         }
+                           
+                        warnings.invitationGotSend();
+
                      } else{
                         if(presenter.getActualActivity() instanceof FastError){
                            ((FastError) presenter.getActualActivity()).loadingError();

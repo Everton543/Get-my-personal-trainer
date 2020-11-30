@@ -16,7 +16,7 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
    private String hashedPassword;
    private String salt;
    private List<String> exerciseNameList = new ArrayList<String>();
-   private Map<String, InvitationMessage> invitationMessage;
+   private Map<String, InvitationMessage> invitationMessage = new HashMap<String, InvitationMessage>();
    private boolean receivedInvitation = false;
    private int score = 0;
    private int voteQuantity = 0;
