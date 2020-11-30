@@ -16,7 +16,7 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
    private String hashedPassword;
    private String salt;
    private List<String> exerciseNameList = new ArrayList<String>();
-   private String invitationMessage;
+   private Map<String, InvitationMessage> invitationMessage;
    private boolean receivedInvitation = false;
    private int score = 0;
    private int voteQuantity = 0;
@@ -66,7 +66,7 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
    }
 
    @Override
-   public String getInvitationMessage() {
+   public Map<String, InvitationMessage> getInvitationMessage() {
       return invitationMessage;
    }
 
@@ -81,8 +81,8 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
    }
 
    @Override
-   public void setInvitationMessage(String invitationMessage) {
-      this.invitationMessage = invitationMessage;
+   public void setInvitationMessage(Map<String, InvitationMessage> invitationMessages) {
+      this.invitationMessage = invitationMessages;
    }
 
    @Override
@@ -151,18 +151,23 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
    }
 
    @Override
+   public void addNewInvitationMessage(InvitationMessage invitationMessage) {
+
+   }
+
+   @Override
    public List<Client> getClients() {
       return clientList;
    }
 
    @Override
    public void addNewClient(Client newClient) {
-
+      clientList.add(newClient);
    }
 
    @Override
-   public void removeClient(String clientId) {
-
+   public void removeClient(int id) {
+      clientList.remove(id);
    }
 
    @Override

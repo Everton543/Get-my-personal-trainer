@@ -28,36 +28,10 @@ public class ClientMainActivity extends AppCompatActivity {
         MainActivity.presenter.setActualActivity(this);
 
         if(MainActivity.presenter.getUser() instanceof Client){
-            if(MainActivity.presenter.getUser().getInvitationMessage() != null){
+            if(MainActivity.presenter.getUser().getReceivedInvitation()){
                 TextView textView = findViewById(R.id.text_invitation_message_client_main);
-                textView.setText(MainActivity.presenter.getUser().getInvitationMessage());
+                textView.setText(R.string.client_received_invitation);
                 textView.setVisibility(View.VISIBLE);
-
-                Button confirmButton = findViewById(R.id.button_confirm_client_main);
-                confirmButton.setVisibility(View.VISIBLE);
-                confirmButton.setOnClickListener(new View.OnClickListener(){
-
-                    @Override
-                    public void onClick(View view) {
-                        MainActivity.presenter.getUser().setReceivedInvitation(true);
-                        MainActivity.presenter.getUser().setInvitationMessage(null);
-
-                        MainActivity.presenter.getModel().updateClient((Client) MainActivity.presenter.getUser());
-                    }
-                });
-
-                Button declineButton = findViewById(R.id.button_decline_client_main);
-                declineButton.setVisibility(View.VISIBLE);
-                declineButton.setOnClickListener(new View.OnClickListener(){
-
-                    @Override
-                    public void onClick(View view) {
-                        MainActivity.presenter.getUser().setReceivedInvitation(false);
-                        MainActivity.presenter.getUser().setInvitationMessage(null);
-                        ((Client) MainActivity.presenter.getUser()).setPersonalTrainerId(null);
-                        MainActivity.presenter.getModel().updateClient((Client) MainActivity.presenter.getUser());
-                    }
-                });
             }
         }
         RecyclerView mondayView = findViewById(R.id.recycler_view_client_main_monday);

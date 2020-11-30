@@ -14,8 +14,6 @@ public class Warnings {
       toast.show();
    }
 
-
-
    public void passwordNotEqualError(){
       Log.e(TAG, "Password not equal");
       CharSequence text = "Password not equal";
@@ -24,6 +22,12 @@ public class Warnings {
 
    public void alreadyVoted(){
       CharSequence text = "You already evaluated this personal trainer";
+      sendWarning(Toast.LENGTH_SHORT, text);
+   }
+
+
+   public void errorClientAlreadyHasAPersonalTrainer(){
+      CharSequence text = "Client already has a personal trainer";
       sendWarning(Toast.LENGTH_SHORT, text);
    }
 
@@ -61,6 +65,11 @@ public class Warnings {
 
    public void errorClientDoesNotExists(){
       CharSequence text = "Client does not exists";
+      sendWarning(Toast.LENGTH_SHORT, text);
+   }
+
+   public void errorUserDoesNotExists(){
+      CharSequence text = "User does not exists";
       sendWarning(Toast.LENGTH_SHORT, text);
    }
 

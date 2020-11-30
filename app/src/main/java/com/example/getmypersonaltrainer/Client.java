@@ -18,7 +18,7 @@ public class Client implements UserInterface, ClientInterface{
    private Map<String, Exercise> exerciseList = new HashMap<String, Exercise>();
    private String hashedPassword;
    private String salt;
-   private String invitationMessage;
+   private Map<String, InvitationMessage> invitationMessages;
    private boolean receivedInvitation = false;
    private String personalTrainerId;
    private boolean voted = false;
@@ -46,7 +46,7 @@ public class Client implements UserInterface, ClientInterface{
                  float size,
                  String personalTrainerId,
                  boolean receivedInvitation,
-                 String invitationMessage,
+                 Map<String, InvitationMessage> invitationMessages,
                  String hashedPassword,
                  String salt,
                  Map<String, Exercise> exerciseList){
@@ -60,7 +60,7 @@ public class Client implements UserInterface, ClientInterface{
       this.phone = phone;
       this.personalTrainerId = personalTrainerId;
       this.receivedInvitation = receivedInvitation;
-      this.invitationMessage = invitationMessage;
+      this.invitationMessages = invitationMessages;
       this.hashedPassword = hashedPassword;
       this.salt = salt;
       this.exerciseList = exerciseList;
@@ -68,8 +68,8 @@ public class Client implements UserInterface, ClientInterface{
 
 
    @Override
-   public String getInvitationMessage() {
-      return invitationMessage;
+   public Map<String, InvitationMessage> getInvitationMessage() {
+      return invitationMessages;
    }
 
    @Override
@@ -83,8 +83,8 @@ public class Client implements UserInterface, ClientInterface{
    }
 
    @Override
-   public void setInvitationMessage(String invitationMessage) {
-      this.invitationMessage = invitationMessage;
+   public void setInvitationMessage(Map<String, InvitationMessage> invitationMessage) {
+      this.invitationMessages = invitationMessage;
    }
 
 
@@ -156,6 +156,11 @@ public class Client implements UserInterface, ClientInterface{
    @Override
    public void setUserType(UserTypes userType) {
       this.userType = userType;
+   }
+
+   @Override
+   public void addNewInvitationMessage(InvitationMessage invitationMessage) {
+      invitationMessages.put(invitationMessage.getSenderId(), invitationMessage);
    }
 
    @Override

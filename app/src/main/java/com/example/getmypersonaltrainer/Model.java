@@ -31,7 +31,7 @@ public class Model {
    private static final String TAG = "Model";
    private Warnings warnings = new Warnings();
    private ValidateInfo validateInfo = new ValidateInfo();
-   private List<Client> clientToInvite = new ArrayList<Client>();
+   private List<Client> clients = new ArrayList<Client>();
    private List<PersonalTrainer> personalTrainers = new ArrayList<PersonalTrainer>();
    List<User> userList = new ArrayList<User>();
 
@@ -70,7 +70,6 @@ public class Model {
       return false;
    }
 
-
    public void savePublicExercise(final Exercise exercise){
       Log.i(TAG, "Call savePublicExercise with the id = " + exercise.getExerciseId());
       if(validateInfo.checkId(exercise.getExerciseId())) {
@@ -88,12 +87,12 @@ public class Model {
                   Log.i(TAG, "Exercise " + exercise.getExerciseId() + " already exist");
                   warnings.errorExerciseAlreadyExists();
                   if (presenter.getActualActivity() instanceof  FastError) {
-                     ((LoadingActivity) presenter.getActualActivity()).loadingError();
+                     ((FastError) presenter.getActualActivity()).loadingError();
                   }
 
                } else if(addPublicExerciseToDatabase(exercise)){
                   if (presenter.getActualActivity() instanceof FastError) {
-                     ((LoadingActivity) presenter.getActualActivity()).finishedCharge();
+                     ((FastError) presenter.getActualActivity()).finishedCharge();
                   }
                }
             }
@@ -144,14 +143,14 @@ public class Model {
                Log.i(TAG, "User " + user.getUserId() + " already exist");
                warnings.errorUserIdAlreadyExists();
               if (presenter.getActualActivity() instanceof FastError) {
-                 ((LoadingActivity) presenter.getActualActivity()).loadingError();
+                 ((FastError) presenter.getActualActivity()).loadingError();
               }
             }
             else{
                if(validateInfo.checkId(user.getUserId())) {
                   if(addUserToDatabase(user)){
                      if (presenter.getActualActivity() instanceof FastError) {
-                        ((LoadingActivity) presenter.getActualActivity()).finishedCharge();
+                        ((FastError) presenter.getActualActivity()).finishedCharge();
                      }
                   }
                }
@@ -182,13 +181,13 @@ public class Model {
                   }
 
                   if(presenter.getActualActivity() instanceof FastError){
-                     ((LoadingActivity) presenter.getActualActivity()).finishedCharge();
+                     ((FastError) presenter.getActualActivity()).finishedCharge();
                   }
                }else{
                   warnings.noPersonalTrainerAvailable();
 
                   if(presenter.getActualActivity() instanceof FastError){
-                     ((LoadingActivity) presenter.getActualActivity()).loadingError();
+                     ((FastError) presenter.getActualActivity()).loadingError();
                   }
                }
             }
@@ -240,12 +239,13 @@ public class Model {
       return false;
    }
 
-   public void sendInvitationToClient(final String clientId){
-      Log.i(TAG, "Call sendInvitationToClient with the id = " + clientId);
-      if(validateInfo.checkId(clientId)) {
+   public void sendInvitationMessage(final InvitationMessage invitationMessage){
+      Log.i(TAG, "Call sendInvitationMessage with the id = " + invitationMessage.getReceiverId());
+
+      if(validateInfo.checkId(invitationMessage.getReceiverId())) {
          Query query = database.getReference("Users")
                .orderByChild("userId")
-               .equalTo(clientId);
+               .equalTo(invitationMessage.getReceiverId());
 
          query.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -254,34 +254,64 @@ public class Model {
                userList.clear();
                Log.i(TAG, "onDataChange from sendInvitationToClient");
                if (snapshot.exists()) {
-                  for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                     Client client = dataSnapshot.getValue(Client.class);
-                     clientToInvite.add(client);
+                  if(invitationMessage.getSenderUserType() == UserTypes.PERSONAL_TRAINER) {
+                     clients.clear();
+                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        Client client = dataSnapshot.getValue(Client.class);
+                        clients.add(client);
+                     }
+
+                     if(clients.get(0).getPersonalTrainerId() == null) {
+
+                        if (presenter.getUser() instanceof PersonalTrainer) {
+
+                           clients.get(0).setReceivedInvitation(true);
+                           clients.get(0).addNewInvitationMessage(invitationMessage);
+
+                           updateClient(clients.get(0));
+
+                           if(presenter.getActualActivity() instanceof FastError){
+                              ((FastError) presenter.getActualActivity()).finishedCharge();
+                           }
+                           
+                           warnings.invitationGotSend();
+                        }
+                     } else{
+                        if(presenter.getActualActivity() instanceof FastError){
+                           ((FastError) presenter.getActualActivity()).loadingError();
+                        }
+
+                        warnings.errorClientAlreadyHasAPersonalTrainer();
+                     }
+
                   }
+                  else if (invitationMessage.getSenderUserType() == UserTypes.CLIENT){
+                     personalTrainers.clear();
+                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        PersonalTrainer personalTrainer = dataSnapshot.getValue(PersonalTrainer.class);
+                        personalTrainers.add(personalTrainer);
+                     }
 
-                  if(clientToInvite.get(0).getReceivedInvitation() == false) {
+                     if (presenter.getUser() instanceof Client) {
 
-                     if (presenter.getUser() instanceof PersonalTrainer) {
-                        String invitationMessage = "The personal trainer " + presenter.getUser().getName();
-                        invitationMessage += " that has the ID: " + presenter.getUser().getUserId();
-                        invitationMessage += " wants to be your personal trainer. Will you accept?";
+                        personalTrainers.get(0).setReceivedInvitation(true);
+                        personalTrainers.get(0).addNewInvitationMessage(invitationMessage);
 
-                        clientToInvite.get(0).setPersonalTrainerId(presenter.getUser().getUserId());
-                        clientToInvite.get(0).setReceivedInvitation(true);
-                        clientToInvite.get(0).setInvitationMessage(invitationMessage);
-                        clientToInvite.get(0).setVoted(false);
+                        updatePersonalTrainer(personalTrainers.get(0));
 
-                        updateClient(clientToInvite.get(0));
+                        if(presenter.getActualActivity() instanceof FastError){
+                           ((FastError) presenter.getActualActivity()).finishedCharge();
+                        }
 
                         warnings.invitationGotSend();
                      }
                   }
-                  else{
-                     warnings.errorClientHasAlreadyReceivedAnInvitation();
-                  }
                }
                else{
-                  warnings.errorClientDoesNotExists();
+                  if(presenter.getActualActivity() instanceof FastError){
+                     ((FastError) presenter.getActualActivity()).loadingError();
+                  }
+                  warnings.errorUserDoesNotExists();
                }
             }
 
@@ -290,6 +320,12 @@ public class Model {
 
             }
          });
+      }
+      else {
+         if(presenter.getActualActivity() instanceof FastError){
+            ((FastError) presenter.getActualActivity()).loadingError();
+         }
+         warnings.errorUserDoesNotExists();
       }
    }
 
@@ -312,14 +348,16 @@ public class Model {
                   presenter.setMyPersonalTrainer(personalTrainers.get(0));
 
                   if(presenter.getActualActivity() instanceof FastError){
-                     ((LoadingActivity) presenter.getActualActivity()).finishedCharge();
+                     ((FastError) presenter.getActualActivity()).finishedCharge();
                   }
                }else{
-                  warnings.errorClientWithOutPersonalTrainer();
 
                   if(presenter.getActualActivity() instanceof FastError){
-                     ((LoadingActivity) presenter.getActualActivity()).loadingError();
+                     ((FastError) presenter.getActualActivity()).loadingError();
                   }
+
+                  warnings.errorClientWithOutPersonalTrainer();
+
                }
             }
 
@@ -358,13 +396,13 @@ public class Model {
                }
 
                if(presenter.getActualActivity() instanceof FastError){
-                  ((LoadingActivity) presenter.getActualActivity()).finishedCharge();
+                  ((FastError) presenter.getActualActivity()).finishedCharge();
                }
             }
             else {
                Log.i(TAG, "Found 0 client");
                if(presenter.getActualActivity() instanceof FastError){
-                  ((LoadingActivity) presenter.getActualActivity()).loadingError();
+                  ((FastError) presenter.getActualActivity()).loadingError();
                }
             }
          }
@@ -530,7 +568,7 @@ public class Model {
          //warnings.invalidExerciseName();
          Log.i(TAG, "Invalid Exercise Name");
          if(presenter.getActualActivity() instanceof FastError){
-            ((LoadingActivity) presenter.getActualActivity()).loadingError();
+            ((FastError) presenter.getActualActivity()).loadingError();
          }
       }
 
@@ -569,11 +607,11 @@ public class Model {
          }
 
          if(presenter.getActualActivity() instanceof FastError){
-            ((LoadingActivity) presenter.getActualActivity()).finishedCharge();
+            ((FastError) presenter.getActualActivity()).finishedCharge();
          }
       }
       else  if(presenter.getActualActivity() instanceof FastError){
-         ((LoadingActivity) presenter.getActualActivity()).loadingError();
+         ((FastError) presenter.getActualActivity()).loadingError();
       }
    }
 }

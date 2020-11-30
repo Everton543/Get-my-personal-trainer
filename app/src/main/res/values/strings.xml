@@ -95,6 +95,10 @@
     <string name="text_personal_trainer_info">
         The personal trainer did not wrote about himself/herself yet.
     </string>
+    <string name="client_received_invitation">
+        A personal trainer wants you as a student.
+        Go to your menu and click in Invitations.
+    </string>
     <string name="monday">Monday</string>
     <string name="tuesday">Tuesday</string>
     <string name="wednesday">Wednesday</string>

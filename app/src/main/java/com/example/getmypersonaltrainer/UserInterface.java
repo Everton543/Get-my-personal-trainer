@@ -13,11 +13,11 @@ public interface UserInterface {
    String getSalt();
    String getHashedPassword();
    Map<String, Exercise> getExerciseList();
-   String getInvitationMessage();
+   Map<String, InvitationMessage> getInvitationMessage();
    boolean getReceivedInvitation();
 
    void setReceivedInvitation(boolean invitation);
-   void setInvitationMessage(String invitationMessage);
+   void setInvitationMessage(Map<String, InvitationMessage> invitationMessages);
    void setExerciseList(Map<String, Exercise> exerciseList);
    void setSalt(String salt);
    void setHashedPassword(String hashedPassword);
@@ -25,4 +25,5 @@ public interface UserInterface {
    void setPassword(String password);
    void setName(String name);
    void setUserType(UserTypes type);
+   void addNewInvitationMessage(InvitationMessage invitationMessage);
 }

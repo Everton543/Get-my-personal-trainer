@@ -6,7 +6,7 @@ import java.util.List;
 public interface PersonalTrainerInterface {
    List<Client> getClients();
    void addNewClient(Client newClient);
-   void removeClient(String clientId);
+   void removeClient(int id);
    String getAboutMyselfText();
    List<String> getExerciseNameList();
    int getScore();
