@@ -37,7 +37,7 @@
                 android:gravity="center"
                 android:text="@string/client_info_activity_title"
                 android:textColor="@color/title_light"
-                android:textSize="40sp" />
+                android:textSize="32sp" />
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -46,7 +46,7 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center">
+                    android:gravity="center_horizontal">
 
                     <TextView
                         android:id="@+id/tag_client_name_list_activity"
@@ -58,7 +58,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/name_tag"
                         android:textColor="@color/font_light"
-                        android:textSize="30sp" />
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/text_client_name_client_info_activity"
@@ -68,14 +68,14 @@
                         android:gravity="center"
                         android:text="@string/unknown_info"
                         android:textColor="@color/font_light"
-                        android:textSize="30sp" />
+                        android:textSize="20sp" />
 
                 </TableRow>
 
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center">
+                    android:gravity="center_horizontal">
 
                     <TextView
                         android:id="@+id/tag_age_client_info_activity"
@@ -87,7 +87,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/age_tag"
                         android:textColor="@color/font_light"
-                        android:textSize="30sp" />
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/text_age_client_info_activity"
@@ -97,14 +97,14 @@
                         android:gravity="center"
                         android:text="@string/unknown_info"
                         android:textColor="@color/font_light"
-                        android:textSize="30sp" />
+                        android:textSize="20sp" />
 
                 </TableRow>
 
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center">
+                    android:gravity="center_horizontal">
 
                     <TextView
                         android:id="@+id/tag_weight_client_info_activity"
@@ -116,7 +116,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/body_mass_tag"
                         android:textColor="@color/font_light"
-                        android:textSize="30sp" />
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/text_weight_client_info_activity"
@@ -126,14 +126,14 @@
                         android:gravity="center"
                         android:text="@string/unknown_info"
                         android:textColor="@color/font_light"
-                        android:textSize="30sp" />
+                        android:textSize="20sp" />
 
                 </TableRow>
 
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center">
+                    android:gravity="center_horizontal">
 
                     <TextView
                         android:id="@+id/tag_size_client_info_activity"
@@ -145,7 +145,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/size_tag"
                         android:textColor="@color/font_light"
-                        android:textSize="30sp" />
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/text_size_client_info_activity"
@@ -155,14 +155,14 @@
                         android:gravity="center"
                         android:text="@string/unknown_info"
                         android:textColor="@color/font_light"
-                        android:textSize="30sp" />
+                        android:textSize="20sp" />
 
                 </TableRow>
 
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center">
+                    android:gravity="center_horizontal">
 
                     <TextView
                         android:id="@+id/tag_phone_client_info_activity"
@@ -172,7 +172,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/phone_tag"
                         android:textColor="@color/font_light"
-                        android:textSize="30sp" />
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/text_phone_client_info_activity"
@@ -182,7 +182,7 @@
                         android:gravity="center"
                         android:text="@string/unknown_info"
                         android:textColor="@color/font_light"
-                        android:textSize="30sp" />
+                        android:textSize="20sp" />
                 </TableRow>
             </TableLayout>
 
@@ -195,7 +195,7 @@
                 android:gravity="center"
                 android:text="@string/button_client_info_remove_client"
                 android:textColor="@color/font_dark"
-                android:textSize="30sp" />
+                android:textSize="22sp" />
 
 
         </LinearLayout>
