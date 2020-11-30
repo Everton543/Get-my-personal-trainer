@@ -75,6 +75,18 @@
                 android:textSize="20sp"
                 android:importantForAutofill="no" />
 
+            <EditText
+                android:id="@+id/edit_text_observations_create_public_exercise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/hint_exercise_observations"
+                android:inputType="text"
+                android:textSize="20sp"
+                android:importantForAutofill="no" />
+
             <Button
                 android:id="@+id/button_confirm_public_exercise"
                 android:layout_width="match_parent"

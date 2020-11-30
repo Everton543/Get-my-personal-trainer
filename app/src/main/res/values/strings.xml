@@ -44,6 +44,7 @@
         Write about yourself, for example how many years you are working
         as a personal trainer, where you are from, etc.
     </string>
+    <string name="hint_exercise_observations"> Exercise Observations  </string>
 
     //Tags
     <string name="phone_tag">Phone: </string>
@@ -55,15 +56,16 @@
     <string name="size_tag">Size: </string>
     <string name="password_tag">Password: </string>
     <string name="confirm_password_tag">Confirm password: </string>
-    <string name="exercise_name_tag">Exercise Name: </string>
-    <string name="exercise_emphasis_tag">Objective: </string>
+    <string name="exercise_name_tag">Name: </string>
+    <string name="exercise_emphasis_tag">Emphasis: </string>
     <string name="exercise_number_repetition_tag">Repetitions/Time: </string>
     <string name="exercise_number_series_tag">Series: </string>
-    <string name="exercise_interval_between_series_tag">Interval for Series: </string>
-    <string name="exercise_interval_between_exercise_tag">Interval for Exercise: </string>
+    <string name="exercise_interval_between_series_tag">Series interval: </string>
+    <string name="exercise_interval_between_exercise_tag">Exercise\'s interval: </string>
     <string name="exercise_video_tag">Video Link: </string>
     <string name="day_of_week_tag">Exercise Day: </string>
     <string name="score_tag">Score</string>
+    <string name="observations_tag">Observations: </string>
 
 
     //Menu

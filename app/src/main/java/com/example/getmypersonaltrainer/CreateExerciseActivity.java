@@ -233,6 +233,9 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
 
             Log.i(TAG, "Exercise interval: " + exerciseInterval);
 
+            EditText editTextObservations = findViewById(R.id.edit_text_observations_exercise_create_exercise);
+            String observations = String.valueOf(editTextObservations.getText());
+
             EditText editTextVideoLink = findViewById(R.id.edit_text_video_link_create_exercise);
             String videoLink = String.valueOf(editTextVideoLink.getText());
 
@@ -240,12 +243,12 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
 
             if(changingExercise){
                 sendingExercise = new Exercise(exerciseName, dayOfWeek, emphasis, repetition,
-                      series, seriesInterval, exerciseInterval, videoLink);
+                      series, seriesInterval, exerciseInterval, videoLink, observations);
                 sendingExercise.setExerciseId(exerciseId);
 
             }else{
             sendingExercise = new Exercise(exerciseName, dayOfWeek, emphasis, repetition,
-                  series, seriesInterval, exerciseInterval, videoLink);
+                  series, seriesInterval, exerciseInterval, videoLink, observations);
             }
             return true;
         }

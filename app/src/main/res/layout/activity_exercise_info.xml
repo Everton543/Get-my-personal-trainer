@@ -41,223 +41,230 @@
                 android:gravity="center"
                 android:text="@string/exercise_information_title"
                 android:textColor="@color/title_light"
-                android:textSize="40sp" />
+                android:textSize="32sp" />
 
-            <TableLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:paddingLeft="4dp"
-                android:paddingTop="4dp"
-                android:paddingEnd="4dp"
-                android:paddingRight="4dp"
-                android:paddingBottom="4dp">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="20dp">
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center">
+                <TextView
+                    android:id="@+id/tag_exercise_name_exercise_info_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/exercise_name_tag"
+                    android:textColor="@color/font_light"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tag_exercise_name_exercise_info_activity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginBottom="20dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/exercise_name_tag"
-                        android:textColor="@color/font_light"
-                        android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/text_exercise_name_exercise_info_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/unknown_info"
+                    android:textColor="@color/font_light"
+                    android:textSize="20sp" />
+            </TableRow>
 
-                    <TextView
-                        android:id="@+id/text_exercise_name_exercise_info_activity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:gravity="center"
-                        android:text="@string/unknown_info"
-                        android:textColor="@color/font_light"
-                        android:textSize="20sp" />
 
-                </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="20dp">
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center">
+                <TextView
+                    android:id="@+id/tag_exercise_emphasis_exercise_info_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/exercise_emphasis_tag"
+                    android:textColor="@color/font_light"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tag_week_day_exercise_info_activity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginBottom="20dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/day_of_week_tag"
-                        android:textColor="@color/font_light"
-                        android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/text_exercise_emphasis_exercise_info_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/unknown_info"
+                    android:textColor="@color/font_light"
+                    android:textSize="20sp" />
 
-                    <TextView
-                        android:id="@+id/text_week_day_exercise_info_activity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:gravity="center"
-                        android:text="@string/unknown_info"
-                        android:textColor="@color/font_light"
-                        android:textSize="20sp" />
+            </TableRow>
 
-                </TableRow>
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="20dp">
 
-                    <TextView
-                        android:id="@+id/tag_exercise_emphasis_exercise_info_activity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginBottom="20dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/exercise_emphasis_tag"
-                        android:textColor="@color/font_light"
-                        android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/tag_exercise_series_exercise_info_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/exercise_number_series_tag"
+                    android:textColor="@color/font_light"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/text_exercise_emphasis_exercise_info_activity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:gravity="center"
-                        android:text="@string/unknown_info"
-                        android:textColor="@color/font_light"
-                        android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/text_exercise_series_exercise_info_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unknown_info"
+                    android:textColor="@color/font_light"
+                    android:textSize="20sp" />
+            </TableRow>
 
-                </TableRow>
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="20dp">
 
-                    <TextView
-                        android:id="@+id/tag_exercise_repetition_exercise_info_activity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginBottom="20dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/exercise_number_repetition_tag"
-                        android:textColor="@color/font_light"
-                        android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/tag_exercise_repetition_exercise_info_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/exercise_number_repetition_tag"
+                    android:textColor="@color/font_light"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/text_exercise_repetition_exercise_info_activity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:gravity="center"
-                        android:text="@string/unknown_info"
-                        android:textColor="@color/font_light"
-                        android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/text_exercise_repetition_exercise_info_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/unknown_info"
+                    android:textColor="@color/font_light"
+                    android:textSize="20sp" />
 
-                </TableRow>
+            </TableRow>
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center">
 
-                    <TextView
-                        android:id="@+id/tag_exercise_series_exercise_info_activity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/exercise_number_series_tag"
-                        android:textColor="@color/font_light"
-                        android:textSize="20sp" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="20dp">
 
-                    <TextView
-                        android:id="@+id/text_exercise_series_exercise_info_activity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:gravity="center"
-                        android:text="@string/unknown_info"
-                        android:textColor="@color/font_light"
-                        android:textSize="20sp" />
-                </TableRow>
+                <TextView
+                    android:id="@+id/tag_series_interval_exercise_info_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/exercise_interval_between_series_tag"
+                    android:textColor="@color/font_light"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center">
+                <TextView
+                    android:id="@+id/text_series_interval_exercise_info_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/unknown_info"
+                    android:textColor="@color/font_light"
+                    android:textSize="20sp" />
+            </TableRow>
 
-                    <TextView
-                        android:id="@+id/tag_series_interval_exercise_info_activity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/exercise_interval_between_series_tag"
-                        android:textColor="@color/font_light"
-                        android:textSize="20sp" />
 
-                    <TextView
-                        android:id="@+id/text_series_interval_exercise_info_activity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:gravity="center"
-                        android:text="@string/unknown_info"
-                        android:textColor="@color/font_light"
-                        android:textSize="20sp" />
-                </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="20dp">
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center">
+                <TextView
+                    android:id="@+id/tag_exercise_interval_exercise_info_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/exercise_interval_between_exercise_tag"
+                    android:textColor="@color/font_light"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tag_exercise_interval_exercise_info_activity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginBottom="20dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/exercise_interval_between_exercise_tag"
-                        android:textColor="@color/font_light"
-                        android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/text_exercise_interval_exercise_info_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/unknown_info"
+                    android:textColor="@color/font_light"
+                    android:textSize="20sp" />
+            </TableRow>
 
-                    <TextView
-                        android:id="@+id/text_exercise_interval_exercise_info_activity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:gravity="center"
-                        android:text="@string/unknown_info"
-                        android:textColor="@color/font_light"
-                        android:textSize="20sp" />
-                </TableRow>
 
-            </TableLayout>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:id="@+id/tag_observations_exercise_info_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/observations_tag"
+                    android:textColor="@color/font_light"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/text_observations_exercise_info_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/unknown_info"
+                    android:textColor="@color/font_light"
+                    android:textSize="20sp" />
+
+            </TableRow>
 
             <TextView
                 android:id="@+id/tag_exercise_video_exercise_info_activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:gravity="center"
                 android:text="@string/exercise_video_tag"
                 android:textColor="@color/font_light"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/text_exercise_video_exercise_info_activity"

@@ -27,7 +27,6 @@ public class ExerciseInfoActivity extends AppCompatActivity {
             Exercise exercise = MainActivity.presenter
                   .getUser().getExerciseList().get(exerciseId);
 
-            String day = String.valueOf(exercise.getDaysOfWeek());
             String emphasis = exercise.getEmphasis();
             String name = exercise.getName();
             String repetitionTime = exercise.getRepetitionTime();
@@ -36,6 +35,7 @@ public class ExerciseInfoActivity extends AppCompatActivity {
             String intervalBetweenSeries = exercise.getIntervalBetweenSeries();
             String intervalBetweenExercises = exercise.getIntervalBetweenSeries();
             String videoLink = exercise.getVideoLink();
+            String observations = exercise.getObservations();
 
 
             TextView textView = null;
@@ -44,8 +44,8 @@ public class ExerciseInfoActivity extends AppCompatActivity {
             textView = findViewById(R.id.text_exercise_name_exercise_info_activity);
             textView.setText(name);
             //day
-            textView = findViewById(R.id.text_week_day_exercise_info_activity);
-            textView.setText(day);
+            textView = findViewById(R.id.text_observations_exercise_info_activity);
+            textView.setText(observations);
             //objective
             textView = findViewById(R.id.text_exercise_emphasis_exercise_info_activity);
             textView.setText(emphasis);

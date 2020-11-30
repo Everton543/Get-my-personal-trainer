@@ -579,6 +579,7 @@ public class Model {
             exercise.getName(),
             exercise.getEmphasis(),
             exercise.getVideoLink(),
+            exercise.getObservations(),
             false);
       if (presenter.getUser() instanceof PersonalTrainer) {
          presenter.getUser().getExerciseList().put(newExercise.getName(), newExercise);

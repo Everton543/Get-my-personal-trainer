@@ -27,8 +27,11 @@ public class CreatePublicExerciseActivity extends AppCompatActivity {
       editText = findViewById(R.id.edit_text_video_link_create_public_exercise);
       String videoLink = editText.getText().toString();
 
+      editText = findViewById(R.id.edit_text_observations_create_public_exercise);
+      String observations = editText.getText().toString();
+
       String exerciseId = exerciseName + "Free";
-      Exercise publicExercise = new Exercise(exerciseName, exerciseId, emphasis, videoLink, true);
+      Exercise publicExercise = new Exercise(exerciseName, exerciseId, emphasis, videoLink,observations, true);
 
       MainActivity.presenter.getModel().savePublicExercise(publicExercise);
       MainActivity.presenter.setGoingTo(PersonalTrainerInfoActivity.class);

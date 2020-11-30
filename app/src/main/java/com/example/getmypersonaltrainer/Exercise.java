@@ -16,11 +16,12 @@ public class Exercise {
    private String intervalBetweenExercises;
    private String videoLink;
    private String exerciseId;
+   private String observations = "observations";
    private boolean free = false;
 
    public Exercise(){   }
 
-   public Exercise(String name, String exerciseId, String emphasis, String videoLink, boolean free){
+   public Exercise(String name, String exerciseId, String emphasis, String videoLink, String observations, boolean free){
       this.name = name;
       this.exerciseId = exerciseId;
       this.emphasis = emphasis;
@@ -30,7 +31,7 @@ public class Exercise {
 
    public Exercise(String name, DayOfWeek dayOfWeek, String emphasis, String repetitionTime,
                    int series, String intervalBetweenSeries,
-                   String intervalBetweenExercises, String videoLink) {
+                   String intervalBetweenExercises, String videoLink, String observations) {
       this.name = name;
       this.daysOfWeek = dayOfWeek;
       this.emphasis = emphasis;
@@ -130,5 +131,13 @@ public class Exercise {
 
    public void setExerciseId(String exerciseId) {
       this.exerciseId = exerciseId;
+   }
+
+   public String getObservations() {
+      return observations;
+   }
+
+   public void setObservations(String observations) {
+      this.observations = observations;
    }
 }
