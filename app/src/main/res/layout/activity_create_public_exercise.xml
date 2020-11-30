@@ -36,7 +36,7 @@
                 android:gravity="center"
                 android:text="@string/create_exercise_title"
                 android:textColor="@color/title_light"
-                android:textSize="40sp" />
+                android:textSize="32sp" />
 
 
             <AutoCompleteTextView
@@ -48,7 +48,7 @@
                 android:gravity="center"
                 android:hint="@string/hint_exercise_name"
                 android:inputType="text"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/edit_text_emphasis_create_public_exercise"
@@ -59,7 +59,8 @@
                 android:gravity="center"
                 android:hint="@string/hint_exercise_emphasis"
                 android:inputType="text"
-                android:textSize="24sp" />
+                android:textSize="20sp"
+                android:importantForAutofill="no" />
 
 
             <EditText
@@ -71,7 +72,8 @@
                 android:gravity="center"
                 android:hint="@string/hint_exercise_video"
                 android:inputType="text"
-                android:textSize="24sp" />
+                android:textSize="20sp"
+                android:importantForAutofill="no" />
 
             <Button
                 android:id="@+id/button_confirm_public_exercise"
@@ -82,7 +84,7 @@
                 android:onClick="sendExercise"
                 android:text="@string/button_confirm"
                 android:textColor="@color/font_dark"
-                android:textSize="30sp" />
+                android:textSize="22sp" />
 
 
         </LinearLayout>
