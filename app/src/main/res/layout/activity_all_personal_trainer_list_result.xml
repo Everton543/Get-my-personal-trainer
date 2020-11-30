@@ -35,7 +35,7 @@
             android:gravity="center"
             android:text="@string/personal_trainer_list_title"
             android:textColor="@color/title_light"
-            android:textSize="40sp" />
+            android:textSize="32sp" />
 
         <ListView
             android:id="@+id/list_personal_trainers"
