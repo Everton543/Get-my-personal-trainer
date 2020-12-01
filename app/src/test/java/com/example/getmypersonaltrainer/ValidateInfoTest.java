@@ -205,63 +205,95 @@ class ValidateInfoTest {
               false, false, false, false,
               false, false, false, false,
               false, false, false, false,
+              false, false, false, false,
+              false, false, false, false,
               true,  true,  true,  true,
       };
-      int[][] birthdays = {
-              { 1899,  1,  1 },{ 1900,  0,  1 },{ 1900,  1,  0 },{ 9999, 12, 31 },
-              { 1900, 13,  1 },{ 1900,  1, 33 },{ 1900,  2, 30 },{ 1961,  2, 29 },
-              { 1900,  1, 32 },{ 1900,  2, 30 },{ 1900,  3, 32 },{ 1900,  4, 31 },
-              { 1900,  5, 32 },{ 1900,  6, 31 },{ 1900,  7, 32 },{ 1900,  8, 32 },
-              { 1900,  9, 31 },{ 1900, 10, 32 },{ 1900, 11, 31 },{ 1900, 12, 32 },
-              { 1940,  9, 24 },{ 1961,  9, 23 },{ 1967,  7, 16 },{ 1986, 12,  7 },
+      String[] birthdays = {
+              "", "1999", "1984/12", "20010911",
+              "19AA/01/01","1900/CC/00","1900/0C/00","200A/12/31",
+              "1899/01/01","1900/01/00","1900/01/00","9999/12/31",
+              "1900/13/01","1900/01/33","1900/02/30","1961/02/29",
+              "1900/01/32","1900/02/30","1900/03/32","1900/04/31",
+              "1900/05/32","1900/06/31","1900/07/32","1900/08/32",
+              "1900/09/31","1900/10/32","1900/11/31","1900/12/32",
+              "1940/09/24","1961/09/23","1967/07/16","1986/12/07"
       };
 
-      // Change one date to one year into the future
-      GregorianCalendar gc = new GregorianCalendar();
-      int year = gc.get(GregorianCalendar.YEAR);
-      birthdays[3][0] = year +1;
-
+      // Check them all!
       for (int i=0;i<expected.length;++i) {
          testLegalBirthday(birthdays[i],expected[i]);
       }
    }
 
-   void testLegalBirthday(int[] birthday, boolean expected){
+   void testLegalBirthday(String stringBD, boolean expected){
+      boolean error = false;
       boolean result = true;
-      GregorianCalendar gc = new GregorianCalendar();
-      int year = gc.get(GregorianCalendar.YEAR);
-      int month = gc.get(GregorianCalendar.MONTH)+1;
-      int day = gc.get(GregorianCalendar.DAY_OF_MONTH);
+      int[] birthday = { 0, 0, 0 };
+      String[] ymd = { null, null, null };
 
-      // Test valid dates...
-      if (birthday[0]<1900) result = false;
-      if ((birthday[1]<1)||(birthday[2]<1)) result = false;
-      if ((birthday[1]>12)||(birthday[2]>31)) result = false;
-      if (birthday[0]>year) result = false;
-      if ((birthday[0]==year)&&(birthday[1]>month)) result = false;
-      if ((birthday[0]==year)&&(birthday[1]==month)&&(birthday[2]>day)) result = false;
-
-      // Check specific month lengths...
-      switch (birthday[1]) {
-         case 2: // Feb
-            if (((birthday[0]%4)==0)&&(birthday[2]>29)) result = false;
-            if (((birthday[0]%4)>0)&&(birthday[2]>28)) result = false;
-            break;
-         case 4: // Mar
-         case 6: // Jun
-         case 9: // Sep
-         case 11: // Nov
-            if (birthday[2]>30) result = false;
-         default:
-            break;
+      // Validate String characteristics. Should be YYYY/MM/DD
+      if ((stringBD==null)||(stringBD.length()<10)||
+              (stringBD.charAt(4)!='/')||(stringBD.charAt(7)!='/')) {
+         assertEquals(false, expected);
+         error = true;
+      }
+      if (!error) {
+         // Need to validate that we only have numbers
+         ymd[0] = stringBD.substring(0, 4);
+         ymd[1] = stringBD.substring(5, 7);
+         ymd[2] = stringBD.substring(8,10);
+         String test = ymd[0] + ymd[1] + ymd[2];
+         String legal = "0123456789";
+         for (int i=0;i<test.length();++i) {
+            boolean found = false;
+            for (int j=0;j<legal.length();++j)
+               if (test.charAt(i)==legal.charAt(j))
+                  found = true;
+            if (!found)
+               error = true;
+         }
+         if (error)
+            assertEquals(false, expected);
       }
 
-      // Logging data.
-      String msg = "Validating (MM/DD/YYYY) [" + birthday[1] + "/" + birthday[2] + "/";
-      msg += birthday[0] + "] valid = [" + result + "] expected = [" + expected + "]";
-      if (result != expected)
-         Log.d("ValidateInfoTest",msg);
-      assertEquals(result, expected);
+      if (!error) {
+         GregorianCalendar gc = new GregorianCalendar();
+         int year = gc.get(GregorianCalendar.YEAR);
+         int month = gc.get(GregorianCalendar.MONTH) + 1;
+         int day = gc.get(GregorianCalendar.DAY_OF_MONTH);
+
+         // Test valid dates...
+         if (birthday[0] < 1900) result = false;
+         if ((birthday[1] < 1) || (birthday[2] < 1)) result = false;
+         if ((birthday[1] > 12) || (birthday[2] > 31)) result = false;
+         if (birthday[0] > year) result = false;
+         if ((birthday[0] == year) && (birthday[1] > month)) result = false;
+         if ((birthday[0] == year) && (birthday[1] == month) && (birthday[2] > day)) result = false;
+
+         // Check specific month lengths...
+         switch (birthday[1]) {
+            case 2: // Feb
+               if (((birthday[0] % 4) == 0) && (birthday[2] > 29)) result = false;
+               if (((birthday[0] % 4) > 0) && (birthday[2] > 28)) result = false;
+               break;
+            case 4: // Mar
+            case 6: // Jun
+            case 9: // Sep
+            case 11: // Nov
+               if (birthday[2] > 30) result = false;
+            default:
+               break;
+         }
+
+         // Logging data.
+         String msg = "Validating (" + stringBD + ") --> [";
+         msg += birthday[0] + "/" + birthday[1] + "/" + birthday[2];
+         msg += "] valid = [" + result + "] expected = [" + expected + "]";
+         if (result != expected)
+            Log.d("ValidateInfoTest", msg);
+         assertEquals(result, expected);
+      }
    }
 
    @Test

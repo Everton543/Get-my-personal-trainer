@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.EditText;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -40,10 +42,8 @@ public class ClientSignUpActivity extends AppCompatActivity{
         long gcLong = CV.getDate();
         GregorianCalendar gc = new GregorianCalendar();
         gc.setTime(new Date(gcLong));
-        int[] birthDate = { 0, 0, 0 };
-        birthDate[0] = gc.get(GregorianCalendar.YEAR);
-        birthDate[1] = gc.get(GregorianCalendar.MONTH)+1;
-        birthDate[2] = gc.get(GregorianCalendar.DAY_OF_MONTH);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        String birthDate = sdf.format(gc);
 
         editText = (EditText) findViewById(R.id.edit_text_weight_client_sign_up_activity);
         String textBodyMass = editText.getText().toString();
