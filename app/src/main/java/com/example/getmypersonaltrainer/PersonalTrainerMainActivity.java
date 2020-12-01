@@ -6,12 +6,16 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 public class PersonalTrainerMainActivity extends AppCompatActivity {
     private static final String TAG = "TrainerMainActivity";
@@ -24,11 +28,10 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
         boolean personalTrainerHasClients = ((PersonalTrainer) MainActivity.presenter
               .getUser()).getClients().size() > 0;
         //saved in MainActivity trying to solve the BUG
-        if(MainActivity.personalTrainerRecyclerView == null) {
+        if(MainActivity.personalTrainerRecyclerView == null && personalTrainerHasClients) {
             MainActivity.personalTrainerRecyclerView = findViewById(R.id.recycler_view_client_1);
 
-            if (MainActivity.presenter.getUser() instanceof PersonalTrainer
-                && personalTrainerHasClients)
+            if (MainActivity.presenter.getUser() instanceof PersonalTrainer)
             {
                 MainActivity.clientListViewAdapter =
                       new ClientListViewAdapter(this,
@@ -45,10 +48,9 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
             MainActivity.personalTrainerRecyclerView.setAdapter(MainActivity.clientListViewAdapter);
             MainActivity.personalTrainerRecyclerView.setLayoutManager(new GridLayoutManager(this,
                   ((PersonalTrainer) MainActivity.presenter.getUser()).getClients().size()));
+        } else{
+            noClient();
         }
-
-
-
     }
 
     public void adapterChanged(){
@@ -58,10 +60,14 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.i(TAG, "On resume");
+    public void noClient() {
+        String inviteClient = getString(R.string.item_invite_client);
+        String message = "You don't have Clients to find clients go to the menu at the top right" +
+              " conner of the screen and click in " + inviteClient;
+
+        TextView text = findViewById(R.id.text_no_clients_alert);
+        text.setText(message);
+        text.setVisibility(View.VISIBLE);
     }
 
     @Override
