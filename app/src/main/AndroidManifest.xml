@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ClientExerciseListActivity"></activity>
+        <activity android:name=".ReadInvitationMessageActivity"></activity>
+        <activity android:name=".ClientExerciseListActivity" />
         <activity android:name=".EvaluatePersonalTrainerActivity" />
         <activity android:name=".SendInvitationActivity" />
         <activity android:name=".CreatePublicExerciseActivity" />

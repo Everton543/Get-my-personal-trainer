@@ -18,6 +18,7 @@
     <string name="send_invitation_title">Send Invitation</string>
     <string name="evaluate_personal_trainer_title">Evaluate Your Trainer</string>
     <string name="change_exercise_title">Change Exercise</string>
+    <string name="read_invitation_message_title">Invitations</string>
 
     //Hints
     <string name="hint_invitation_id">Client ID</string>
@@ -93,6 +94,7 @@
     //Text
     <string name="unknown_info">Unknown</string>
     <string name="blank"> </string>
+    <string name="no_invitation">You don\'t have invitation</string>
     <string name="or">OR</string>
     <string name="text_personal_trainer_info">
         The personal trainer did not wrote about himself/herself yet.

@@ -12,7 +12,7 @@
         android:background="@color/good_button_background"
         android:text="@string/unknown_info"
         android:textColor="@color/font_dark"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

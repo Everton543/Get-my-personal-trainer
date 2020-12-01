@@ -37,7 +37,7 @@
                 android:gravity="center"
                 android:text="@string/client_sign_up_activity_title"
                 android:textColor="@color/title_light"
-                android:textSize="18sp" />
+                android:textSize="22sp" />
 
             <EditText
                 android:id="@+id/edit_text_id_client_sign_up_activity"
