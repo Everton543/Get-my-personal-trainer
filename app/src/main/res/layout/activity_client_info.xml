@@ -37,7 +37,7 @@
                 android:gravity="center"
                 android:text="@string/client_info_activity_title"
                 android:textColor="@color/title_light"
-                android:textSize="32sp" />
+                android:textSize="22sp" />
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -58,7 +58,8 @@
                         android:gravity="center_vertical"
                         android:text="@string/name_tag"
                         android:textColor="@color/font_light"
-                        android:textSize="20sp" />
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/text_client_name_client_info_activity"
@@ -68,7 +69,7 @@
                         android:gravity="center"
                         android:text="@string/unknown_info"
                         android:textColor="@color/font_light"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                 </TableRow>
 
@@ -87,7 +88,8 @@
                         android:gravity="center_vertical"
                         android:text="@string/age_tag"
                         android:textColor="@color/font_light"
-                        android:textSize="20sp" />
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/text_age_client_info_activity"
@@ -97,7 +99,7 @@
                         android:gravity="center"
                         android:text="@string/unknown_info"
                         android:textColor="@color/font_light"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                 </TableRow>
 
@@ -116,7 +118,8 @@
                         android:gravity="center_vertical"
                         android:text="@string/body_mass_tag"
                         android:textColor="@color/font_light"
-                        android:textSize="20sp" />
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/text_weight_client_info_activity"
@@ -126,7 +129,7 @@
                         android:gravity="center"
                         android:text="@string/unknown_info"
                         android:textColor="@color/font_light"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                 </TableRow>
 
@@ -145,7 +148,8 @@
                         android:gravity="center_vertical"
                         android:text="@string/size_tag"
                         android:textColor="@color/font_light"
-                        android:textSize="20sp" />
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/text_size_client_info_activity"
@@ -155,7 +159,7 @@
                         android:gravity="center"
                         android:text="@string/unknown_info"
                         android:textColor="@color/font_light"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                 </TableRow>
 
@@ -172,7 +176,8 @@
                         android:gravity="center_vertical"
                         android:text="@string/phone_tag"
                         android:textColor="@color/font_light"
-                        android:textSize="20sp" />
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/text_phone_client_info_activity"
@@ -182,7 +187,7 @@
                         android:gravity="center"
                         android:text="@string/unknown_info"
                         android:textColor="@color/font_light"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
                 </TableRow>
             </TableLayout>
 
@@ -195,7 +200,7 @@
                 android:gravity="center"
                 android:text="@string/button_client_info_remove_client"
                 android:textColor="@color/font_dark"
-                android:textSize="22sp" />
+                android:textSize="18sp" />
 
 
         </LinearLayout>

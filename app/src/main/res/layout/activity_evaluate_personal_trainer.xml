@@ -26,7 +26,7 @@
                 android:gravity="center"
                 android:text="@string/evaluate_personal_trainer_title"
                 android:textColor="@color/title_light"
-                android:textSize="32sp" />
+                android:textSize="22sp" />
 
 
             <TableRow
@@ -44,7 +44,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/name_tag"
                     android:textColor="@color/font_light"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/text_personal_trainer_name_evaluate_personal_trainer_info"
@@ -54,7 +54,7 @@
                     android:gravity="center"
                     android:text="@string/unknown_info"
                     android:textColor="@color/font_light"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
             </TableRow>
 
             <TableRow
@@ -72,7 +72,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/score_tag"
                     android:textColor="@color/font_light"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/text_score_evaluate_personal_trainer_activity"
@@ -82,7 +82,7 @@
                     android:gravity="center"
                     android:text="@string/unknown_info"
                     android:textColor="@color/font_light"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
             </TableRow>
 
             <EditText
@@ -95,7 +95,7 @@
                 android:gravity="center"
                 android:hint="@string/hint_score_vote"
                 android:inputType="number"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/button_confirm_evaluate_personal_trainer_activity"
@@ -106,7 +106,7 @@
                 android:onClick="sendVote"
                 android:text="@string/button_confirm"
                 android:textColor="@color/font_dark"
-                android:textSize="22sp" />
+                android:textSize="18sp" />
 
         </LinearLayout>
     </ScrollView>

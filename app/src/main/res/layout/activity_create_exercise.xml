@@ -37,7 +37,7 @@
                 android:gravity="center"
                 android:text="@string/create_exercise_title"
                 android:textColor="@color/title_light"
-                android:textSize="32sp" />
+                android:textSize="22sp" />
 
 
             <AutoCompleteTextView
@@ -49,7 +49,7 @@
                 android:gravity="center"
                 android:hint="@string/hint_exercise_name"
                 android:inputType="text"
-                android:textSize="24sp" />
+                android:textSize="16sp" />
 
             <AutoCompleteTextView
                 android:id="@+id/edit_text_day_of_week_create_exercise"
@@ -60,7 +60,7 @@
                 android:gravity="center"
                 android:hint="@string/hint_day_of_week"
                 android:inputType="text"
-                android:textSize="24sp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/edit_text_emphasis_create_exercise"
@@ -71,7 +71,7 @@
                 android:gravity="center"
                 android:hint="@string/hint_exercise_emphasis"
                 android:inputType="text"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:importantForAutofill="no" />
 
             <EditText
@@ -83,7 +83,7 @@
                 android:gravity="center"
                 android:hint="@string/hint_exercise_number_repetition"
                 android:inputType="text"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:importantForAutofill="no" />
 
             <EditText
@@ -95,7 +95,7 @@
                 android:gravity="center"
                 android:hint="@string/hint_exercise_number_series"
                 android:inputType="number"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:importantForAutofill="no" />
 
             <EditText
@@ -107,7 +107,7 @@
                 android:gravity="center"
                 android:hint="@string/hint_exercise_interval_between_series"
                 android:inputType="text"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:importantForAutofill="no" />
 
             <EditText
@@ -119,7 +119,7 @@
                 android:gravity="center"
                 android:hint="@string/hint_exercise_interval_between_exercise"
                 android:inputType="text"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:importantForAutofill="no" />
 
             <EditText
@@ -131,7 +131,7 @@
                 android:gravity="center"
                 android:hint="@string/hint_exercise_observations"
                 android:inputType="text"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:importantForAutofill="no" />
 
             <EditText
@@ -143,7 +143,7 @@
                 android:gravity="center"
                 android:hint="@string/hint_exercise_video"
                 android:inputType="text"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:importantForAutofill="no" />
 
             <Button
@@ -152,10 +152,10 @@
                 android:layout_height="wrap_content"
                 android:background="@color/good_button_background"
                 android:gravity="center"
-                android:text="@string/button_confirm"
                 android:onClick="sendExercise"
+                android:text="@string/button_confirm"
                 android:textColor="@color/font_dark"
-                android:textSize="22sp" />
+                android:textSize="18sp" />
 
 
             <Button
@@ -164,11 +164,11 @@
                 android:layout_height="wrap_content"
                 android:background="@color/good_button_background"
                 android:gravity="center"
-                android:text="@string/button_change_exercise"
-                android:visibility="gone"
                 android:onClick="sendExerciseChanges"
+                android:text="@string/button_change_exercise"
                 android:textColor="@color/font_dark"
-                android:textSize="22sp" />
+                android:textSize="18sp"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/button_delete_exercise_create_exercise"
@@ -176,11 +176,11 @@
                 android:layout_height="wrap_content"
                 android:background="@color/bad_button_background"
                 android:gravity="center"
-                android:text="@string/button_remove_exercise"
-                android:visibility="gone"
                 android:onClick="eraseClientExercise"
+                android:text="@string/button_remove_exercise"
                 android:textColor="@color/font_dark"
-                android:textSize="22sp" />
+                android:textSize="18sp"
+                android:visibility="gone" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

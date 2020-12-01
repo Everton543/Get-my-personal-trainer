@@ -3,23 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/background_my_client_layout"
-    android:layout_width="match_parent"
+    android:layout_width="240dp"
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
         android:layout_marginBottom="10dp"
         android:orientation="vertical"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -35,7 +32,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/id_tag"
                 android:textColor="@color/font_light"
-                android:textSize="30sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -47,7 +44,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/unknown_info"
                 android:textColor="@color/font_light"
-                android:textSize="30sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
         </TableRow>
 
@@ -62,7 +59,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/name_tag"
                 android:textColor="@color/font_light"
-                android:textSize="26sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/client_name_my_client"
@@ -73,7 +70,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/unknown_info"
                 android:textColor="@color/font_light"
-                android:textSize="26sp" />
+                android:textSize="16sp" />
         </TableRow>
 
         <TableRow
@@ -87,7 +84,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/body_mass_tag"
                 android:textColor="@color/font_light"
-                android:textSize="26sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/client_body_mass_my_client"
@@ -98,7 +95,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/unknown_info"
                 android:textColor="@color/font_light"
-                android:textSize="26sp" />
+                android:textSize="16sp" />
         </TableRow>
 
         <TableRow
@@ -113,7 +110,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/age_tag"
                 android:textColor="@color/font_light"
-                android:textSize="26sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/client_age_my_client"
@@ -124,7 +121,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/unknown_info"
                 android:textColor="@color/font_light"
-                android:textSize="26sp" />
+                android:textSize="16sp" />
         </TableRow>
 
 
@@ -139,7 +136,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/phone_tag"
                 android:textColor="@color/font_light"
-                android:textSize="26sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/client_phone_my_client"
@@ -150,7 +147,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/unknown_info"
                 android:textColor="@color/font_light"
-                android:textSize="26sp" />
+                android:textSize="16sp" />
         </TableRow>
 
 
@@ -164,7 +161,7 @@
             android:onClick="sendExercise"
             android:text="@string/button_change_exercise"
             android:textColor="@color/font_dark"
-            android:textSize="30sp" />
+            android:textSize="16sp" />
 
 
         <Button
@@ -177,7 +174,7 @@
             android:onClick="sendExercise"
             android:text="@string/button_add_exercise"
             android:textColor="@color/font_dark"
-            android:textSize="30sp" />
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/button_remove_client_client_list"
@@ -189,7 +186,7 @@
             android:onClick="sendExercise"
             android:text="@string/button_remove_client"
             android:textColor="@color/font_dark"
-            android:textSize="30sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

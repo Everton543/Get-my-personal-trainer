@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:background="@color/good_button_background"
-        android:text="Button"
+        android:text="@string/unknown_info"
         android:textColor="@color/font_dark"
         android:textSize="16sp"
         android:textStyle="bold"

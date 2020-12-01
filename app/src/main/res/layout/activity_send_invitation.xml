@@ -36,7 +36,7 @@
                 android:gravity="center"
                 android:text="@string/send_invitation_title"
                 android:textColor="@color/title_light"
-                android:textSize="40sp" />
+                android:textSize="22sp" />
 
 
             <EditText
@@ -48,7 +48,8 @@
                 android:gravity="center"
                 android:hint="@string/hint_invitation_id"
                 android:inputType="text"
-                android:textSize="24sp" />
+                android:textSize="16sp"
+                android:importantForAutofill="no" />
 
 
             <Button
@@ -60,7 +61,7 @@
                 android:onClick="sendInvitation"
                 android:text="@string/button_confirm"
                 android:textColor="@color/font_dark"
-                android:textSize="30sp" />
+                android:textSize="18sp" />
 
 
         </LinearLayout>

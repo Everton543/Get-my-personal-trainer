@@ -27,7 +27,7 @@
                 android:gravity="center"
                 android:text="@string/personal_trainer_info_title"
                 android:textColor="@color/title_light"
-                android:textSize="40sp" />
+                android:textSize="22sp" />
 
             <TableRow
                 android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/name_tag"
                     android:textColor="@color/font_light"
-                    android:textSize="30sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/text_personal_trainer_name_personal_trainer_info"
@@ -54,7 +54,7 @@
                     android:gravity="center"
                     android:text="@string/unknown_info"
                     android:textColor="@color/font_light"
-                    android:textSize="30sp" />
+                    android:textSize="16sp" />
             </TableRow>
 
             <TableRow
@@ -72,7 +72,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/score_tag"
                     android:textColor="@color/font_light"
-                    android:textSize="30sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/text_score_personal_trainer_info_activity"
@@ -82,7 +82,7 @@
                     android:gravity="center"
                     android:text="@string/unknown_info"
                     android:textColor="@color/font_light"
-                    android:textSize="30sp" />
+                    android:textSize="16sp" />
 
             </TableRow>
 
@@ -97,7 +97,7 @@
                 android:onClick="evaluateTrainer"
                 android:text="@string/button_evaluate"
                 android:textColor="@color/font_dark"
-                android:textSize="30sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/text_about_self_personal_trainer_info_activity"
@@ -108,7 +108,7 @@
                 android:layout_marginBottom="30dp"
                 android:text="@string/text_personal_trainer_info"
                 android:textColor="@color/font_light"
-                android:textSize="30sp" />
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/button_unsubscribe_personal_trainer_info_activity"
@@ -119,7 +119,7 @@
                 android:onClick="unsubscribe"
                 android:text="@string/button_unsubscribe"
                 android:textColor="@color/font_dark"
-                android:textSize="30sp" />
+                android:textSize="18sp" />
         </LinearLayout>
     </ScrollView>
 
