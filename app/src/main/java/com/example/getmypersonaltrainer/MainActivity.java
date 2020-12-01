@@ -89,7 +89,7 @@ import static com.example.getmypersonaltrainer.UserTypes.PERSONAL_TRAINER;
                   presenter.setUserAsPersonalTrainer();
                   saveLoginId();
                   presenter.setGoingTo(PersonalTrainerMainActivity.class);
-                  presenter.setGoBack(MainActivity.class);
+                  presenter.setGoBack(PersonalTrainerMainActivity.class);
                   presenter.getModel().getPersonalTrainerInfo();
                   Intent intent = new Intent(this, LoadingActivity.class);
                   startActivity(intent);

@@ -101,7 +101,7 @@ public class User implements UserInterface, ClientInterface, PersonalTrainerInte
 
    @Override
    public void setInvitationMessage(Map<String, InvitationMessage> invitationMessages) {
-
+      this.invitationMessage = invitationMessages;
    }
 
    @Override

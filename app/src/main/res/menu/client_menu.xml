@@ -7,4 +7,7 @@
     <item
         android:id="@+id/client_menu_item_see_personal_trainer"
         android:title="@string/item_my_personal_trainer" />
+    <item
+        android:id="@+id/client_menu_item_read_invitation"
+        android:title="@string/item_read_invitation" />
 </menu>

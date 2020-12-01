@@ -105,6 +105,28 @@ public class Model {
       }
    }
 
+   public void acceptInvitation(final InvitationMessage invitationMessage){
+      databaseReference = database.getReference("Users");
+      if(invitationMessage.getSenderUserType() == UserTypes.PERSONAL_TRAINER){
+         databaseReference.child(invitationMessage.getReceiverId())
+               .child("personalTrainerId")
+               .setValue(invitationMessage.getSenderId());
+      }
+      else if (invitationMessage.getSenderUserType() == UserTypes.CLIENT){
+         databaseReference.child(invitationMessage.getSenderId())
+               .child("personalTrainerId")
+               .setValue(invitationMessage.getReceiverId());
+      }
+   }
+
+   public void declaimInvitation(final InvitationMessage invitationMessage){
+      databaseReference = database.getReference("Users");
+      databaseReference.child(invitationMessage.getReceiverId())
+            .child("invitationMessage")
+            .child(invitationMessage.getSenderId())
+            .setValue(null);
+   }
+
    private boolean addPublicExerciseToDatabase(final Exercise exercise){
       databaseReference = database.getReference("Exercise");
       if(validateInfo.checkId(exercise.getExerciseId()) == true) {
@@ -384,23 +406,17 @@ public class Model {
          @Override
          public void onDataChange(@NonNull DataSnapshot snapshot) {
             Log.i(TAG, "Reading from database now");
-            userList.clear();
             if(snapshot.exists()){
                Log.i(TAG, "Found some clients");
-
                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                   personalTrainer.getClients().add(dataSnapshot.getValue(Client.class));
-               }
-
-               if(presenter.getActualActivity() instanceof FastError){
-                  ((FastError) presenter.getActualActivity()).finishedCharge();
                }
             }
             else {
                Log.i(TAG, "Found 0 client");
-               if(presenter.getActualActivity() instanceof FastError){
-                  ((FastError) presenter.getActualActivity()).loadingError();
-               }
+            }
+            if(presenter.getActualActivity() instanceof FastError){
+               ((FastError) presenter.getActualActivity()).finishedCharge();
             }
          }
 
@@ -482,7 +498,6 @@ public class Model {
          @Override
          public void onDataChange(@NonNull DataSnapshot snapshot) {
             Log.i(TAG, "Reading from database now");
-            userList.clear();
             if(snapshot.exists()){
                Log.i(TAG, "Found some exercises");
 

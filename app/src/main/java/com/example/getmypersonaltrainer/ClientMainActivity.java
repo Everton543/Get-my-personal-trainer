@@ -74,17 +74,30 @@ public class ClientMainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent = null;
         switch (item.getItemId()){
-            case R.id.client_menu_item_see_personal_trainer:
-                if(MainActivity.presenter.getMyPersonalTrainer() == null) {
+            case R.id.client_menu_item_see_personal_trainer: {
+                if (MainActivity.presenter.getMyPersonalTrainer() == null) {
                     MainActivity.presenter.getModel().checkMyPersonalTrainer();
                     MainActivity.presenter.setGoingTo(PersonalTrainerInfoActivity.class);
                     MainActivity.presenter.setGoBack(ClientMainActivity.class);
                     intent = new Intent(this, LoadingActivity.class);
-                } else{
+                } else {
                     intent = new Intent(this, PersonalTrainerInfoActivity.class);
                 }
                 startActivity(intent);
                 return true;
+            }
+
+            case R.id.client_menu_item_read_invitation:{
+                intent = new Intent(this, ReadInvitationMessageActivity.class);
+                startActivity(intent);
+                return true;
+            }
+
+            case R.id.client_menu_item_change_client_info:{
+                intent = new Intent(this, ChangeClientInfoActivity.class);
+                startActivity(intent);
+                return true;
+            }
 
             default:
                 return super.onOptionsItemSelected(item);

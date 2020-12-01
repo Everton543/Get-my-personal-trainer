@@ -2,8 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/background_read_invitation_message_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_background"
     tools:context=".ReadInvitationMessageActivity">
 
     <TextView
@@ -35,6 +37,7 @@
         app:layout_constraintTop_toBottomOf="@+id/title_client_info_activity" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_invitation_messages"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
