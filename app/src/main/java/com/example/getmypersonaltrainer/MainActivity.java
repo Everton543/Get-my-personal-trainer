@@ -71,15 +71,13 @@ import static com.example.getmypersonaltrainer.UserTypes.PERSONAL_TRAINER;
          Log.i(TAG, "login function finished");
       }
 
-      public void saveLoginId(){
-         if(presenter.isLogged()) {
-            SharedPreferences sharedPreferences;
-            sharedPreferences = getSharedPreferences(PREFERENCES,
-                  Context.MODE_PRIVATE);
-            SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
-            preferencesEditor.putString(USER_ID, logId);
-            preferencesEditor.apply();
-         }
+      private void saveLoginId(){
+         SharedPreferences sharedPreferences;
+         sharedPreferences = getSharedPreferences(PREFERENCES,
+               Context.MODE_PRIVATE);
+         SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
+         preferencesEditor.putString(USER_ID, logId);
+         preferencesEditor.apply();
       }
 
       public void singUp(View view){
