@@ -38,6 +38,7 @@ import static com.example.getmypersonaltrainer.UserTypes.PERSONAL_TRAINER;
       setContentView(R.layout.activity_main);
 
       presenter.setActualActivity(this);
+      presenter.setLogged(false);
       SharedPreferences sharedPreferences;
       sharedPreferences = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
 
@@ -85,7 +86,6 @@ import static com.example.getmypersonaltrainer.UserTypes.PERSONAL_TRAINER;
          if(goodLoginResult){
             switch (userType){
                case PERSONAL_TRAINER:{
-                  presenter.setLogged(true);
                   presenter.setUserAsPersonalTrainer();
                   saveLoginId();
                   presenter.setGoingTo(PersonalTrainerMainActivity.class);

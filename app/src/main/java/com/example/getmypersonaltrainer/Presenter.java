@@ -16,6 +16,8 @@ public class Presenter {
    private Activity actualActivity = null;
    private Client changingClient = null;
    private List<PersonalTrainer> allPersonalTrainers = new ArrayList<PersonalTrainer>();
+   private boolean getInfoFromDatabase = false;
+   private boolean getExercises = false;
 
    Presenter(){
       model = new Model();
@@ -130,5 +132,13 @@ public class Presenter {
 
    public void setAllPersonalTrainers(List<PersonalTrainer> allPersonalTrainers) {
       this.allPersonalTrainers = allPersonalTrainers;
+   }
+
+   public boolean isGetInfoFromDatabase() {
+      return getInfoFromDatabase;
+   }
+
+   public void setGetInfoFromDatabase(boolean getInfoFromDatabase) {
+      this.getInfoFromDatabase = getInfoFromDatabase;
    }
 }

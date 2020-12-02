@@ -35,7 +35,6 @@ public class Model {
    private List<PersonalTrainer> personalTrainers = new ArrayList<PersonalTrainer>();
    List<User> userList = new ArrayList<User>();
 
-
    public Model(){
       database = FirebaseDatabase.getInstance();
       databaseReference = database.getReference();
@@ -83,18 +82,22 @@ public class Model {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                userList.clear();
                Log.i(TAG, "onDataChange from savePublicExercise");
-               if (snapshot.exists()) {
+               if (snapshot.exists() && presenter.isGetInfoFromDatabase()) {
                   Log.i(TAG, "Exercise " + exercise.getExerciseId() + " already exist");
                   warnings.errorExerciseAlreadyExists();
                   if (presenter.getActualActivity() instanceof  FastError) {
                      ((FastError) presenter.getActualActivity()).loadingError();
                   }
 
-               } else if(addPublicExerciseToDatabase(exercise)){
-                  if (presenter.getActualActivity() instanceof FastError) {
-                     ((FastError) presenter.getActualActivity()).finishedCharge();
+               }
+               else if(presenter.isGetInfoFromDatabase()){
+                  if(addPublicExerciseToDatabase(exercise)) {
+                     if (presenter.getActualActivity() instanceof FastError) {
+                        ((FastError) presenter.getActualActivity()).finishedCharge();
+                     }
                   }
                }
+               presenter.setGetInfoFromDatabase(false);
             }
 
             @Override
@@ -121,10 +124,12 @@ public class Model {
 
    public void declaimInvitation(final InvitationMessage invitationMessage){
       databaseReference = database.getReference("Users");
-      databaseReference.child(invitationMessage.getReceiverId())
-            .child("invitationMessage")
-            .child(invitationMessage.getSenderId())
-            .setValue(null);
+      presenter.getUser().getInvitationMessage().remove(invitationMessage.getSenderId());
+      if(presenter.getUser() instanceof Client){
+         updateClient((Client) presenter.getUser());
+      } else if(presenter.getUser() instanceof PersonalTrainer){
+         updatePersonalTrainer((PersonalTrainer) presenter.getUser());
+      }
    }
 
    private boolean addPublicExerciseToDatabase(final Exercise exercise){
@@ -160,15 +165,16 @@ public class Model {
          @Override
          public void onDataChange(@NonNull DataSnapshot snapshot) {
             userList.clear();
+            boolean userNotLogged = !presenter.isLogged();
             Log.i(TAG, "onDataChange from getIdFromDatabase called");
-           if(snapshot.exists()){
+           if(snapshot.exists() && userNotLogged){
                Log.i(TAG, "User " + user.getUserId() + " already exist");
                warnings.errorUserIdAlreadyExists();
               if (presenter.getActualActivity() instanceof FastError) {
                  ((FastError) presenter.getActualActivity()).loadingError();
               }
             }
-            else{
+            else if (userNotLogged){
                if(validateInfo.checkId(user.getUserId())) {
                   if(addUserToDatabase(user)){
                      if (presenter.getActualActivity() instanceof FastError) {
@@ -196,22 +202,26 @@ public class Model {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                presenter.getAllPersonalTrainers().clear();
-               if (snapshot.exists()) {
-                  for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                     PersonalTrainer personalTrainer = dataSnapshot.getValue(PersonalTrainer.class);
-                     presenter.getAllPersonalTrainers().add(personalTrainer);
-                  }
+               if (snapshot.exists() && presenter.isGetInfoFromDatabase()) {
+                  if(presenter.getAllPersonalTrainers() == null) {
+                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        PersonalTrainer personalTrainer = dataSnapshot.getValue(PersonalTrainer.class);
+                        presenter.getAllPersonalTrainers().add(personalTrainer);
+                     }
 
-                  if(presenter.getActualActivity() instanceof FastError){
-                     ((FastError) presenter.getActualActivity()).finishedCharge();
+                     if (presenter.getActualActivity() instanceof FastError) {
+                        ((FastError) presenter.getActualActivity()).finishedCharge();
+                     }
                   }
-               }else{
+               }
+               else if (presenter.isGetInfoFromDatabase()){
                   warnings.noPersonalTrainerAvailable();
-
                   if(presenter.getActualActivity() instanceof FastError){
                      ((FastError) presenter.getActualActivity()).loadingError();
                   }
                }
+
+               presenter.setGetInfoFromDatabase(false);
             }
 
             @Override
@@ -274,7 +284,7 @@ public class Model {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                Log.i(TAG, "onDataChange from sendInvitationToClient");
-               if (snapshot.exists()) {
+               if (snapshot.exists() && presenter.isGetInfoFromDatabase()) {
                   if(invitationMessage.getSenderUserType() == UserTypes.PERSONAL_TRAINER) {
                      clients.clear();
                      for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
@@ -326,12 +336,13 @@ public class Model {
                      }
                   }
                }
-               else{
+               else if (presenter.isGetInfoFromDatabase()){
                   if(presenter.getActualActivity() instanceof FastError){
                      ((FastError) presenter.getActualActivity()).loadingError();
                   }
                   warnings.errorUserDoesNotExists();
                }
+               presenter.setGetInfoFromDatabase(false);
             }
 
             @Override
@@ -357,8 +368,9 @@ public class Model {
          query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+               Log.i(TAG, "checkMyPersonalTrainer on data change called");
                personalTrainers.clear();
-               if (snapshot.exists()) {
+               if (snapshot.exists() && presenter.isGetInfoFromDatabase()) {
                   for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                      PersonalTrainer personalTrainer = dataSnapshot.getValue(PersonalTrainer.class);
                      personalTrainers.add(personalTrainer);
@@ -369,7 +381,8 @@ public class Model {
                   if(presenter.getActualActivity() instanceof FastError){
                      ((FastError) presenter.getActualActivity()).finishedCharge();
                   }
-               }else{
+               }
+               else if (presenter.isGetInfoFromDatabase()){
 
                   if(presenter.getActualActivity() instanceof FastError){
                      ((FastError) presenter.getActualActivity()).loadingError();
@@ -378,6 +391,7 @@ public class Model {
                   warnings.errorClientWithOutPersonalTrainer();
 
                }
+               presenter.setGetInfoFromDatabase(false);
             }
 
             @Override
@@ -405,17 +419,20 @@ public class Model {
       query.addValueEventListener(new ValueEventListener() {
          @Override
          public void onDataChange(@NonNull DataSnapshot snapshot) {
-            Log.i(TAG, "Reading from database now");
-            if(snapshot.exists()){
+            Log.i(TAG, "getClientList onDataChangeCalled");
+
+            boolean userNotLogged = !presenter.isLogged();
+            if(snapshot.exists() && userNotLogged){
                Log.i(TAG, "Found some clients");
                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                   personalTrainer.getClients().add(dataSnapshot.getValue(Client.class));
                }
             }
-            else {
+            else if (userNotLogged){
                Log.i(TAG, "Found 0 client");
             }
-            if(presenter.getActualActivity() instanceof FastError){
+            if(presenter.getActualActivity() instanceof FastError && userNotLogged){
+               presenter.setLogged(true);
                ((FastError) presenter.getActualActivity()).finishedCharge();
             }
          }
@@ -437,9 +454,10 @@ public class Model {
          @RequiresApi(api = Build.VERSION_CODES.O)
          @Override
          public void onDataChange(@NonNull DataSnapshot snapshot) {
-            Log.i(TAG, "Reading from database now");
+            Log.i(TAG, "onDataChange checkLogin called");
             userList.clear();
-            if(snapshot.exists()){
+            boolean isNotLogged = !presenter.isLogged();
+            if(snapshot.exists() && isNotLogged){
                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                   User user = dataSnapshot.getValue(User.class);
                   userList.add(user);
@@ -469,7 +487,7 @@ public class Model {
                   warnings.wrongPasswordOrUserId();
                }
             }
-            else {
+            else if(isNotLogged){
 
                if (activity instanceof LoginInterface) {
                   ((LoginInterface) activity).loginUserType(
@@ -497,15 +515,15 @@ public class Model {
       query.addValueEventListener(new ValueEventListener() {
          @Override
          public void onDataChange(@NonNull DataSnapshot snapshot) {
-            Log.i(TAG, "Reading from database now");
-            if(snapshot.exists()){
+            Log.i(TAG, "onDataChange from getExerciseNameList called");
+            if(snapshot.exists() && presenter.isGetInfoFromDatabase()){
                Log.i(TAG, "Found some exercises");
 
                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                   personalTrainer.getExerciseNameList().add(dataSnapshot.child("name").getValue(String.class));
                }
             }
-            else {
+            else if(presenter.isGetInfoFromDatabase()){
                Log.i(TAG, "Didn't found any exercise");
             }
          }
@@ -571,7 +589,8 @@ public class Model {
       String newId = exercise.getName() + client.getExerciseList().size();
       exercise.setExerciseId(newId);
       client.getExerciseList().put(newId, exercise);
-      if(validateInfo.checkId(exercise.getName()) == true) {
+      boolean validId = validateInfo.checkId(exercise.getName());
+      if(validId) {
          updateClient(client);
          Log.i(TAG, "Client Updated with new Exercise");
          //warnings.createdNewExerciseSuccessfully();
@@ -607,7 +626,6 @@ public class Model {
 
       }
    }
-
 
    public void addClientExercise(final Client client, final Exercise exercise){
       Log.i(TAG, "Call addClientExercise with the name = " + exercise.getName());

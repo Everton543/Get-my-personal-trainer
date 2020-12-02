@@ -74,7 +74,7 @@ public class InvitationListViewAdapter extends RecyclerView.Adapter<
 
                if(clientAlreadyHasPersonalTrainer){
                   if(context instanceof ReadInvitationMessageActivity){
-                     ((ReadInvitationMessageActivity) context).alertDialog();
+                     ((ReadInvitationMessageActivity) context).alertDialog(position);
                   }
                }else{
                   MainActivity.presenter.getModel().acceptInvitation(invitationList.get(position));
@@ -89,7 +89,9 @@ public class InvitationListViewAdapter extends RecyclerView.Adapter<
       holder.declaimInvitation.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-            MainActivity.presenter.getModel().declaimInvitation(invitationList.get(position));
+            if(context instanceof ReadInvitationMessageActivity){
+               ((ReadInvitationMessageActivity) context).eraseInvitation(position);
+            }
          }
       });
    }

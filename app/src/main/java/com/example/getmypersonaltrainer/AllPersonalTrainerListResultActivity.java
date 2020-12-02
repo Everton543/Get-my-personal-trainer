@@ -10,5 +10,10 @@ public class AllPersonalTrainerListResultActivity extends AppCompatActivity {
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_all_personal_trainer_list_result);
+
+      if(MainActivity.presenter.getAllPersonalTrainers() == null) {
+         MainActivity.presenter.setGetInfoFromDatabase(true);
+         MainActivity.presenter.getModel().getAllPersonalTrainers();
+      }
    }
 }

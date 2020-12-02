@@ -16,13 +16,16 @@ import java.util.Map;
 
 public class ReadInvitationMessageActivity extends AppCompatActivity {
 
-   RecyclerView invitationsView;
-   InvitationListViewAdapter invitationAdapter;
+   private RecyclerView invitationsView;
+   private InvitationListViewAdapter invitationAdapter;
+   private static final String TAG = "READ_INVITATION";
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_read_invitation_message);
+
+      MainActivity.presenter.getUser().setReceivedInvitation(false);
 
       if(MainActivity.presenter.getUser().getInvitationMessage() != null) {
          invitationsView = findViewById(R.id.recycler_view_invitation_messages);
@@ -42,7 +45,7 @@ public class ReadInvitationMessageActivity extends AppCompatActivity {
    }
 
 
-   public void alertDialog() {
+   public void alertDialog(final int position) {
       AlertDialog.Builder dialog=new AlertDialog.Builder(this);
       dialog.setMessage("Continue will change your personal trainer. Continue?");
       dialog.setTitle("You have a personal trainer");
@@ -50,21 +53,27 @@ public class ReadInvitationMessageActivity extends AppCompatActivity {
             new DialogInterface.OnClickListener() {
                public void onClick(DialogInterface dialog,
                                    int which) {
-                  Log.i("READ_INVITATION", "Yes pressed");
-                  //CREATE MODEL FUNCTION TO ADD THE PERSONAL TRAINER TO THE CLIENT
+                  Log.i(TAG, "Yes pressed");
+                  MainActivity.presenter.getModel().acceptInvitation(invitationAdapter
+                        .getInvitationList().get(position));
+                  eraseInvitation(position);
                }
             });
       dialog.setNegativeButton("cancel",new DialogInterface.OnClickListener() {
          @Override
          public void onClick(DialogInterface dialog, int which) {
-            Log.i("READ_INVITATION", "cancel pressed");
+            Log.i(TAG, "cancel pressed");
          }
       });
       AlertDialog alertDialog=dialog.create();
       alertDialog.show();
    }
 
-   public void declaimInvitation(){
+   public void eraseInvitation(final int position){
+      InvitationMessage invitationMessage =  invitationAdapter.getInvitationList().get(position);
+      MainActivity.presenter.getModel().declaimInvitation(invitationMessage);
 
+      invitationAdapter.getInvitationList().remove(position);
+      invitationAdapter.notifyItemRemoved(position);
    }
 }

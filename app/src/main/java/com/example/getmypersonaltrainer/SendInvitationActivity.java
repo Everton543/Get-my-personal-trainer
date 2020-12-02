@@ -30,6 +30,7 @@ public class SendInvitationActivity extends AppCompatActivity {
                   MainActivity.presenter.getUser().getName(),
                   MainActivity.presenter.getUser().getUserType()
             );
+            MainActivity.presenter.setGetInfoFromDatabase(true);
             MainActivity.presenter.getModel().sendInvitationMessage(invitationMessage);
 
             Intent intent = new Intent(this, LoadingActivity.class);

@@ -27,8 +27,8 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
 
         boolean personalTrainerHasClients = ((PersonalTrainer) MainActivity.presenter
               .getUser()).getClients().size() > 0;
-        //saved in MainActivity trying to solve the BUG
-        if(MainActivity.personalTrainerRecyclerView == null && personalTrainerHasClients) {
+
+        if(personalTrainerHasClients){
             MainActivity.personalTrainerRecyclerView = findViewById(R.id.recycler_view_client_1);
 
             if (MainActivity.presenter.getUser() instanceof PersonalTrainer)
@@ -43,11 +43,6 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
                 MainActivity.personalTrainerRecyclerView.setLayoutManager(new GridLayoutManager(this,
                       ((PersonalTrainer) MainActivity.presenter.getUser()).getClients().size()));
             }
-        } else if(personalTrainerHasClients){
-            MainActivity.clientListViewAdapter.setContext(this);
-            MainActivity.personalTrainerRecyclerView.setAdapter(MainActivity.clientListViewAdapter);
-            MainActivity.personalTrainerRecyclerView.setLayoutManager(new GridLayoutManager(this,
-                  ((PersonalTrainer) MainActivity.presenter.getUser()).getClients().size()));
         } else{
             noClient();
         }

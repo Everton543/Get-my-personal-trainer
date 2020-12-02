@@ -76,6 +76,7 @@ public class ClientMainActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.client_menu_item_see_personal_trainer: {
                 if (MainActivity.presenter.getMyPersonalTrainer() == null) {
+                    MainActivity.presenter.setGetInfoFromDatabase(true);
                     MainActivity.presenter.getModel().checkMyPersonalTrainer();
                     MainActivity.presenter.setGoingTo(PersonalTrainerInfoActivity.class);
                     MainActivity.presenter.setGoBack(ClientMainActivity.class);
@@ -95,6 +96,12 @@ public class ClientMainActivity extends AppCompatActivity {
 
             case R.id.client_menu_item_change_client_info:{
                 intent = new Intent(this, ChangeClientInfoActivity.class);
+                startActivity(intent);
+                return true;
+            }
+
+            case R.id.client_menu_item_find_all_personal_trainer:{
+                intent = new Intent(this, AllPersonalTrainerListResultActivity.class);
                 startActivity(intent);
                 return true;
             }

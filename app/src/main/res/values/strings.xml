@@ -75,6 +75,7 @@
     <string name="item_invite_client">Invite Client</string>
     <string name="item_create_public_exercise">Create public exercise</string>
     <string name="item_read_invitation">Invitations</string>
+    <string name="item_find_all_personal_trainer">Search New Personal Trainer</string>
     <string name="switch_mode">Light/Dark mode</string>
 
     //Buttons

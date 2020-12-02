@@ -263,6 +263,7 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
         if(successfullySetExerciseInfo){
 
             if (MainActivity.presenter.getUser() instanceof PersonalTrainer) {
+                MainActivity.presenter.setGetInfoFromDatabase(true);
                 MainActivity.presenter.getModel().addClientExercise(
                       ((PersonalTrainer) MainActivity.presenter
                             .getUser())
