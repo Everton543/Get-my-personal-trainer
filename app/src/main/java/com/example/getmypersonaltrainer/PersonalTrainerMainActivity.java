@@ -23,6 +23,7 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_trainer_main);
+        MainActivity.presenter.setActualActivity(this);
         Log.i(TAG, "Started Personal Trainer main Activity");
 
         boolean personalTrainerHasClients = ((PersonalTrainer) MainActivity.presenter
@@ -48,10 +49,25 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
         }
     }
 
-    public void adapterChanged(){
-        if(MainActivity.presenter.getUser() instanceof PersonalTrainer) {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        uploadAllAdapter();
+    }
+
+    public void uploadAllAdapter(){
+        Log.i(TAG, "upload all adapter function called");
+        if(MainActivity.presenter.getUser() instanceof PersonalTrainer &&
+            MainActivity.clientListViewAdapter != null) {
             MainActivity.clientListViewAdapter.notifyDataSetChanged();
+            Log.i(TAG, "uploaded adapter");
         }
+    }
+
+    public void removeClient(int position){
+        PersonalTrainer personalTrainer = MainActivity.clientListViewAdapter.getPersonalTrainer();
+        personalTrainer.removeClient(position);
+        MainActivity.clientListViewAdapter.notifyItemRemoved(position);
     }
 
 

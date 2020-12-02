@@ -78,10 +78,16 @@ public class InvitationListViewAdapter extends RecyclerView.Adapter<
                   }
                }else{
                   MainActivity.presenter.getModel().acceptInvitation(invitationList.get(position));
+                  if(context instanceof ReadInvitationMessageActivity){
+                     ((ReadInvitationMessageActivity) context).eraseInvitation(position);
+                  }
                }
 
             }else{
                MainActivity.presenter.getModel().acceptInvitation(invitationList.get(position));
+               if(context instanceof ReadInvitationMessageActivity){
+                  ((ReadInvitationMessageActivity) context).eraseInvitation(position);
+               }
             }
          }
       });
@@ -90,7 +96,7 @@ public class InvitationListViewAdapter extends RecyclerView.Adapter<
          @Override
          public void onClick(View v) {
             if(context instanceof ReadInvitationMessageActivity){
-               ((ReadInvitationMessageActivity) context).eraseInvitation(position);
+               ((ReadInvitationMessageActivity) context).declaimInvitation(position);
             }
          }
       });

@@ -27,7 +27,8 @@ public class ReadInvitationMessageActivity extends AppCompatActivity {
 
       MainActivity.presenter.getUser().setReceivedInvitation(false);
 
-      if(MainActivity.presenter.getUser().getInvitationMessage() != null) {
+      if(MainActivity.presenter.getUser().getInvitationMessage() != null &&
+      MainActivity.presenter.getUser().getInvitationMessage().size() > 0) {
          invitationsView = findViewById(R.id.recycler_view_invitation_messages);
 
          Map<String, InvitationMessage> invitationList =
@@ -69,9 +70,15 @@ public class ReadInvitationMessageActivity extends AppCompatActivity {
       alertDialog.show();
    }
 
-   public void eraseInvitation(final int position){
+
+   public void declaimInvitation(final int position){
       InvitationMessage invitationMessage =  invitationAdapter.getInvitationList().get(position);
       MainActivity.presenter.getModel().declaimInvitation(invitationMessage);
+      eraseInvitation(position);
+   }
+
+   public void eraseInvitation(final int position){
+      InvitationMessage invitationMessage =  invitationAdapter.getInvitationList().get(position);
 
       invitationAdapter.getInvitationList().remove(position);
       invitationAdapter.notifyItemRemoved(position);

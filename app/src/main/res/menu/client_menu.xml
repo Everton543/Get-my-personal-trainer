@@ -12,5 +12,5 @@
         android:title="@string/item_read_invitation" />
     <item
         android:id="@+id/client_menu_item_find_all_personal_trainer"
-        android:title="@string/item_read_invitation" />
+        android:title = "@string/item_find_all_personal_trainer" />
 </menu>

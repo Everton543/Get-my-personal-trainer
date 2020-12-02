@@ -32,38 +32,44 @@ import static com.example.getmypersonaltrainer.UserTypes.PERSONAL_TRAINER;
       private String logId = null;
 
       public final static Presenter presenter = new Presenter();
+
       @Override
       protected void onCreate(Bundle savedInstanceState) {
-      super.onCreate(savedInstanceState);
-      setContentView(R.layout.activity_main);
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_main);
 
-      presenter.setActualActivity(this);
-      presenter.setLogged(false);
-      SharedPreferences sharedPreferences;
-      sharedPreferences = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
+         presenter.setActualActivity(this);
+         presenter.setLogged(false);
+         SharedPreferences sharedPreferences;
+         sharedPreferences = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
 
-      logId = sharedPreferences.getString(USER_ID, NOT_FOUND);
-      if(logId.equals(NOT_FOUND)){
-         //If not found Put the text as blank
-         eraseText(R.id.edit_text_user_id_login_activity);
-      } else{
-         //To-do: Put the userId in the login information
-         EditText editText = (EditText) findViewById(R.id.edit_text_user_id_login_activity);
-         editText.setText(logId);
+         logId = sharedPreferences.getString(USER_ID, NOT_FOUND);
+         if(logId.equals(NOT_FOUND)){
+            //If not found Put the text as blank
+            eraseText(R.id.edit_text_user_id_login_activity);
+         } else{
+            EditText editText = (EditText) findViewById(R.id.edit_text_user_id_login_activity);
+            editText.setText(logId);
+         }
       }
-   }
 
-   public void login(View view){
-      Log.i(TAG, "login function called");
-      EditText editText = (EditText) findViewById(R.id.edit_text_user_id_login_activity);
-      logId = editText.getText().toString();
+      @Override
+      protected void onResume() {
+         super.onResume();
+         presenter.setLogged(false);
+      }
 
-      editText = (EditText) findViewById(R.id.edit_text_password_login_activity);
-      String password = editText.getText().toString();
+      public void login(View view){
+         Log.i(TAG, "login function called");
+         EditText editText = (EditText) findViewById(R.id.edit_text_user_id_login_activity);
+         logId = editText.getText().toString();
 
-      presenter.getModel().checkLogin(logId, password, this);
-      Log.i(TAG, "login function finished");
-   }
+         editText = (EditText) findViewById(R.id.edit_text_password_login_activity);
+         String password = editText.getText().toString();
+
+         presenter.getModel().checkLogin(logId, password, this);
+         Log.i(TAG, "login function finished");
+      }
 
       public void saveLoginId(){
          if(presenter.isLogged()) {

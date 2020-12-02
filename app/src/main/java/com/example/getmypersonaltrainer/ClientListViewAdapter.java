@@ -13,8 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ClientListViewAdapter extends RecyclerView.Adapter<
       ClientListViewAdapter.ClientListViewHolder> {
-   PersonalTrainer personalTrainer;
-   Context context;
+
+   public PersonalTrainer getPersonalTrainer() {
+      return personalTrainer;
+   }
+
+   public void setPersonalTrainer(PersonalTrainer personalTrainer) {
+      this.personalTrainer = personalTrainer;
+   }
+
+   private PersonalTrainer personalTrainer;
+   private Context context;
 
 
    public void setContext(Context context){
@@ -80,22 +89,17 @@ public class ClientListViewAdapter extends RecyclerView.Adapter<
             String index = String.valueOf(position);
             intent.putExtra("index", index);
             context.startActivity(intent);
-         //   if(context instanceof PersonalTrainerMainActivity){
-//               ((PersonalTrainerMainActivity) context).adapterChanged();
-//            }
          }
       });
 
       holder.removeClient.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-            //BUG: After removing client in the place of the gone client is a copy of another one
-            //The same happens when adding a new client.
             personalTrainer.getClients().get(position).setPersonalTrainerId(null);
             MainActivity.presenter.getModel().updateClient(personalTrainer.getClients().get(position));
-            personalTrainer.getClients().remove(position);
             if(context instanceof PersonalTrainerMainActivity){
-               ((PersonalTrainerMainActivity) context).adapterChanged();
+//               ((PersonalTrainerMainActivity) context).adapterChanged();
+               ((PersonalTrainerMainActivity) context).removeClient(position);
             }
          }
       });
@@ -107,9 +111,6 @@ public class ClientListViewAdapter extends RecyclerView.Adapter<
             String index = String.valueOf(position);
             intent.putExtra("index", index);
             context.startActivity(intent);
-  //          if(context instanceof PersonalTrainerMainActivity){
-    //           ((PersonalTrainerMainActivity) context).adapterChanged();
-      //      }
          }
       });
 

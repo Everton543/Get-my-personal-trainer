@@ -457,6 +457,10 @@ public class Model {
             Log.i(TAG, "onDataChange checkLogin called");
             userList.clear();
             boolean isNotLogged = !presenter.isLogged();
+            if(presenter.getActualActivity() instanceof PersonalTrainerMainActivity){
+               ((PersonalTrainerMainActivity) presenter.getActualActivity()).uploadAllAdapter();
+            }
+
             if(snapshot.exists() && isNotLogged){
                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                   User user = dataSnapshot.getValue(User.class);
