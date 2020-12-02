@@ -405,6 +405,7 @@ public class Model {
 
    public void getPersonalTrainerInfo(){
       if(presenter.getUser() instanceof PersonalTrainerInterface){
+         presenter.setGetInfoFromDatabase(true);
          getExerciseNameList((PersonalTrainer) presenter.getUser());
          getClientList((PersonalTrainer) presenter.getUser());
       }
@@ -525,11 +526,16 @@ public class Model {
 
                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                   personalTrainer.getExerciseNameList().add(dataSnapshot.child("name").getValue(String.class));
+                  Exercise exercise = dataSnapshot.getValue(Exercise.class);
+                  if(exercise != null) {
+                     presenter.getFreeExerciseList().put(exercise.getExerciseId(), exercise);
+                  }
                }
             }
             else if(presenter.isGetInfoFromDatabase()){
                Log.i(TAG, "Didn't found any exercise");
             }
+            presenter.setGetInfoFromDatabase(false);
          }
 
          @Override

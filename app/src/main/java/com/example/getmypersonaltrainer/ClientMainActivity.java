@@ -50,7 +50,6 @@ public class ClientMainActivity extends AppCompatActivity {
     }
 
     private void setRecyclerViewAdapter(RecyclerView recyclerView, DayOfWeek dayOfWeek){
-        /* Todo After test check if List<Exercise> is not null*/
         if(MainActivity.presenter.getUser() instanceof Client) {
             ExerciseListViewAdapter exerciseListViewAdapter =
                   new ExerciseListViewAdapter(this,

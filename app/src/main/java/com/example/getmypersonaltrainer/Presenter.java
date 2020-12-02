@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Presenter {
    private Model model;
@@ -18,6 +20,23 @@ public class Presenter {
    private List<PersonalTrainer> allPersonalTrainers = new ArrayList<PersonalTrainer>();
    private boolean getInfoFromDatabase = false;
    private boolean getExercises = false;
+   private Map<String, Exercise> freeExerciseList = new HashMap<String, Exercise>();
+
+   public boolean isGetExercises() {
+      return getExercises;
+   }
+
+   public void setGetExercises(boolean getExercises) {
+      this.getExercises = getExercises;
+   }
+
+   public Map<String, Exercise> getFreeExerciseList() {
+      return freeExerciseList;
+   }
+
+   public void setFreeExerciseList(Map<String, Exercise> freeExerciseList) {
+      this.freeExerciseList = freeExerciseList;
+   }
 
    Presenter(){
       model = new Model();

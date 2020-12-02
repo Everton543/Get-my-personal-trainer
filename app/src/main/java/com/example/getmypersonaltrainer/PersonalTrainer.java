@@ -152,7 +152,7 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
 
    @Override
    public void addNewInvitationMessage(InvitationMessage invitationMessage) {
-
+      this.invitationMessage.put(invitationMessage.getSenderId(), invitationMessage);
    }
 
    @Override
@@ -192,6 +192,20 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
 
    public void addNewExerciseName(String exerciseName){
       exerciseNameList.add(exerciseName);
+   }
+
+   public Exercise getExerciseFromExerciseName(String exerciseName){
+      Exercise exercise = null;
+      for (Map.Entry mapEntry : exerciseList.entrySet()) {
+         boolean existsExerciseInTheListWithThisName =
+               ((Exercise) mapEntry.getValue()).getName().equals(exerciseName);
+
+         if(existsExerciseInTheListWithThisName){
+            exercise = (Exercise) mapEntry.getValue();
+            break;
+         }
+      }
+      return  exercise;
    }
 
    @Override

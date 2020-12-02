@@ -15,6 +15,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.time.DayOfWeek;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import static java.util.Objects.*;
@@ -29,6 +32,7 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
     private boolean changingExercise = false;
     private String exerciseId = null;
     private Exercise sendingExercise = null;
+    private List<String> exerciseNameList;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -64,8 +68,8 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
 
         String[] exerciseNames = new String[0];
         if(MainActivity.presenter.getUser() instanceof PersonalTrainer){
-
-            exerciseNames = ((PersonalTrainer) MainActivity.presenter.getUser()).getExerciseNameList().toArray(new String[0]);
+            exerciseNameList = ((PersonalTrainer) MainActivity.presenter.getUser()).getExerciseNameList();
+            exerciseNames = exerciseNameList.toArray(new String[0]);
         }
 
         AutoCompleteTextView editTextWeekDays = findViewById(R.id.edit_text_day_of_week_create_exercise);
@@ -73,7 +77,7 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
               android.R.layout.simple_list_item_1, weekDays);
         editTextWeekDays.setAdapter(weekDaysAdapter);
 
-        AutoCompleteTextView editTextExerciseName = findViewById(R.id.edit_text_exercise_name_create_exercise);
+        final AutoCompleteTextView editTextExerciseName = findViewById(R.id.edit_text_exercise_name_create_exercise);
         ArrayAdapter<String> exerciseName = new ArrayAdapter<>(this,
               android.R.layout.simple_list_item_1, exerciseNames);
         editTextExerciseName.setAdapter(exerciseName);
@@ -83,8 +87,31 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus == false){
-                    //Check if the exercise Exists in the database
-                    //If it does put the information using the function fillExerciseInfo
+                    Log.i(TAG, "Clicked in an exercise name");
+                    String exerciseName = String.valueOf(editTextExerciseName.getText());
+                    String exerciseFreeId = exerciseName + "Free";
+
+                    Map<String,Exercise> freeExercises = MainActivity.presenter.getFreeExerciseList();
+
+
+                    if(exerciseNameList.contains(exerciseName)){
+                        if(MainActivity.presenter.getUser() instanceof PersonalTrainer){
+                            Exercise exercise =
+                                  ((PersonalTrainer) MainActivity.presenter
+                                        .getUser())
+                                        .getExerciseFromExerciseName(exerciseName);
+
+                            if(exercise != null) {
+                                fillExerciseInfo(exercise);
+                                return;
+                            }
+                        }
+                    }
+
+                    if(freeExercises.containsKey(exerciseFreeId)){
+                        Exercise exercise = MainActivity.presenter.getFreeExerciseList().get(exerciseFreeId);
+                        fillExerciseInfo(exercise);
+                    }
                 }
             }
         });
@@ -97,8 +124,6 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void fillGivenExerciseInfo(){
-        //todo finish this function after test
-        //todo fix bug
         if(MainActivity.presenter.getChangingClient() != null){
             Exercise exercise = MainActivity.presenter
                   .getChangingClient()
@@ -170,6 +195,7 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
     @Override
     public void fillExerciseInfo(Exercise exercise) {
         //Get exercise info and put it in VideoLink and Emphasis EditTexts and observations
+        Log.i(TAG, "Fill exercise info");
         EditText textEmphasis = findViewById(R.id.edit_text_emphasis_create_exercise);
         textEmphasis.setText(exercise.getEmphasis());
     }
