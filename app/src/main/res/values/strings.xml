@@ -34,7 +34,7 @@
     <string name="hint_confirm_password">Confirm Password</string>
     <string name="hint_score_vote">Score from 0 to 10</string>
     <string name="hint_exercise_name">Exercise Name</string>
-    <string name="hint_exercise_emphasis">Exercise Objective</string>
+    <string name="hint_exercise_emphasis">Exercise Emphasis</string>
     <string name="hint_exercise_number_repetition">Repetitions/Time</string>
     <string name="hint_exercise_number_series">Number Series</string>
     <string name="hint_exercise_interval_between_series">Interval for Series</string>
