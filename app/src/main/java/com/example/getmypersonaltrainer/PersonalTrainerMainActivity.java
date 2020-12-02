@@ -92,15 +92,23 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent = null;
         switch (item.getItemId()){
-            case R.id.item_create_public_exercise:
+            case R.id.item_create_public_exercise: {
                 intent = new Intent(this, CreatePublicExerciseActivity.class);
                 startActivity(intent);
                 return true;
+            }
 
-            case R.id.item_invite_client:
+            case R.id.item_invite_client: {
                 intent = new Intent(this, SendInvitationActivity.class);
                 startActivity(intent);
                 return true;
+            }
+
+            case R.id.trainer_menu_item_read_invitation:{
+                intent = new Intent(this, ReadInvitationMessageActivity.class);
+                startActivity(intent);
+                return true;
+            }
             default:
                 return super.onOptionsItemSelected(item);
         }

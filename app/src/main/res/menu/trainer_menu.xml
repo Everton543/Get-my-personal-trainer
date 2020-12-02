@@ -9,4 +9,7 @@
         android:id="@+id/item_invite_client"
         android:icon="@android:drawable/ic_input_add"
         android:title="@string/item_invite_client" />
+    <item
+        android:id="@+id/trainer_menu_item_read_invitation"
+        android:title="@string/item_read_invitation" />
 </menu>
