@@ -12,6 +12,7 @@
     <string name="client_main_activity_title">My Exercises</string>
     <string name="create_exercise_title">Create New Exercise</string>
     <string name="client_sign_up_activity_title">Client Sign Up</string>
+    <string name="client_sign_up_activity_birthdate">Select Your Birth Date</string>
     <string name="personal_trainer_main_title">Clients List</string>
     <string name="choose_sign_in_type_title">Choose Your Account Type</string>
     <string name="personal_trainer_sign_up_title">Personal Trainer Sign Up</string>

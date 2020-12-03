@@ -76,12 +76,40 @@
                 android:textSize="16sp"
                 android:importantForAutofill="no" />
 
-            <CalendarView
-                android:id="@+id/select_cv_birth_date_client_sign_up_activity"
+            <TextView
+                android:id="@+id/textViewBirthday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp" />
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/abril_fatface"
+                android:gravity="center"
+                android:text="@string/client_sign_up_activity_birthdate" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinnerYear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <Spinner
+                    android:id="@+id/spinnerMonth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <Spinner
+                    android:id="@+id/spinnerDay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/edit_text_weight_client_sign_up_activity"
