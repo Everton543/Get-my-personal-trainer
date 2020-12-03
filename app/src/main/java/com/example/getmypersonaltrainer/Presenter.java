@@ -11,6 +11,7 @@ import java.util.Map;
 public class Presenter {
    private Model model;
    private boolean logged;
+   private boolean recyclerViewLoadingError = false;
    private UserInterface user;
    private PersonalTrainer myPersonalTrainer = null;
    private Class<?> goingTo = null;
@@ -159,5 +160,13 @@ public class Presenter {
 
    public void setGetInfoFromDatabase(boolean getInfoFromDatabase) {
       this.getInfoFromDatabase = getInfoFromDatabase;
+   }
+
+   public boolean isRecyclerViewLoadingError() {
+      return recyclerViewLoadingError;
+   }
+
+   public void setRecyclerViewLoadingError(boolean recyclerViewLoadingError) {
+      this.recyclerViewLoadingError = recyclerViewLoadingError;
    }
 }

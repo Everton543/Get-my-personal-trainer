@@ -2,6 +2,7 @@ package com.example.getmypersonaltrainer;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +12,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.TypeAdapterFactory;
+
 public class ClientListViewAdapter extends RecyclerView.Adapter<
       ClientListViewAdapter.ClientListViewHolder> {
 
+   private static final String TAG = "ClientAdapter";
    public PersonalTrainer getPersonalTrainer() {
       return personalTrainer;
    }
@@ -23,12 +27,7 @@ public class ClientListViewAdapter extends RecyclerView.Adapter<
    }
 
    private PersonalTrainer personalTrainer;
-   private Context context;
-
-
-   public void setContext(Context context){
-      this.context = context;
-   }
+   private final Context context;
 
    public static class ClientListViewHolder extends RecyclerView.ViewHolder {
       TextView userID;
@@ -42,6 +41,7 @@ public class ClientListViewAdapter extends RecyclerView.Adapter<
 
       public ClientListViewHolder(@NonNull View itemView) {
          super(itemView);
+         Log.i(TAG, "holder constructor");
          userID = itemView.findViewById(R.id.client_id_my_client);
          userAge = itemView.findViewById(R.id.client_age_my_client);
          userBodyMass = itemView.findViewById(R.id.client_body_mass_my_client);
@@ -56,6 +56,7 @@ public class ClientListViewAdapter extends RecyclerView.Adapter<
    }
 
    public ClientListViewAdapter(Context context, PersonalTrainer personalTrainer){
+      Log.i(TAG, "adapter constructor");
       this.personalTrainer = personalTrainer;
       this.context = context;
    }
@@ -63,6 +64,7 @@ public class ClientListViewAdapter extends RecyclerView.Adapter<
    @NonNull
    @Override
    public ClientListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+      Log.i(TAG, "called onCreateViewHolder");
       LayoutInflater inflater = LayoutInflater.from(context);
       View view = inflater.inflate(R.layout.my_client, parent, false);
       return new ClientListViewHolder(view);
@@ -70,6 +72,7 @@ public class ClientListViewAdapter extends RecyclerView.Adapter<
 
    @Override
    public void onBindViewHolder(@NonNull ClientListViewHolder holder, final int position) {
+      Log.i(TAG, "called onBindViewHolder");
       String bodyMass = String.valueOf(personalTrainer.getClients().get(position).getBodyMass());
       String age = String.valueOf(personalTrainer.getClients().get(position).getAge());
       String phone = personalTrainer.getClients().get(position).getPhone();
@@ -85,6 +88,13 @@ public class ClientListViewAdapter extends RecyclerView.Adapter<
       holder.addExercise.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
+            Log.i(TAG, "Add exercise setOnclickListener");
+            if(context instanceof PersonalTrainerMainActivity){
+               Log.i(TAG, "Setting error to true");
+               ((PersonalTrainerMainActivity) context)
+                     .setRecyclerViewLoadingError(true);
+            }
+
             Intent intent = new Intent(context, CreateExerciseActivity.class);
             String index = String.valueOf(position);
             intent.putExtra("index", index);
@@ -95,10 +105,10 @@ public class ClientListViewAdapter extends RecyclerView.Adapter<
       holder.removeClient.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
+            Log.i(TAG, "remove client setOnclickListener");
             personalTrainer.getClients().get(position).setPersonalTrainerId(null);
             MainActivity.presenter.getModel().updateClient(personalTrainer.getClients().get(position));
             if(context instanceof PersonalTrainerMainActivity){
-//               ((PersonalTrainerMainActivity) context).adapterChanged();
                ((PersonalTrainerMainActivity) context).removeClient(position);
             }
          }
@@ -107,13 +117,17 @@ public class ClientListViewAdapter extends RecyclerView.Adapter<
       holder.changeExercise.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
+            if(context instanceof PersonalTrainerMainActivity){
+               ((PersonalTrainerMainActivity) context)
+                     .setRecyclerViewLoadingError(true);
+            }
+            Log.i(TAG, "changeExercise setOnclickListener");
             Intent intent = new Intent(context, ClientExerciseListActivity.class);
             String index = String.valueOf(position);
             intent.putExtra("index", index);
             context.startActivity(intent);
          }
       });
-
    }
 
    @Override

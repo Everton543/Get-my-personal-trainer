@@ -172,6 +172,9 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
             EditText editTextIntervalExercise = findViewById(R.id.edit_text_interval_exercise_create_exercise);
             editTextIntervalExercise.setText(exercise.getIntervalBetweenExercises());
 
+            EditText editTextObservation = findViewById(R.id.edit_text_observations_exercise_create_exercise);
+            editTextObservation.setText(exercise.getObservations());
+
             EditText editTextVideoLink = findViewById(R.id.edit_text_video_link_create_exercise);
             editTextVideoLink.setText(exercise.getVideoLink());
         }

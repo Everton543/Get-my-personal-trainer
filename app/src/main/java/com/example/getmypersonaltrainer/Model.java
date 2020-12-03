@@ -423,11 +423,15 @@ public class Model {
             Log.i(TAG, "getClientList onDataChangeCalled");
 
             boolean userNotLogged = !presenter.isLogged();
-            if(snapshot.exists() && userNotLogged){
+            if(snapshot.exists() && userNotLogged
+                  || presenter.getUser() instanceof PersonalTrainer){
                Log.i(TAG, "Found some clients");
+               clients.clear();
                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                  personalTrainer.getClients().add(dataSnapshot.getValue(Client.class));
+                  Client client = dataSnapshot.getValue(Client.class);
+                  clients.add(client);
                }
+               personalTrainer.setClients(clients);
             }
             else if (userNotLogged){
                Log.i(TAG, "Found 0 client");
@@ -458,10 +462,6 @@ public class Model {
             Log.i(TAG, "onDataChange checkLogin called");
             userList.clear();
             boolean isNotLogged = !presenter.isLogged();
-            if(presenter.getActualActivity() instanceof PersonalTrainerMainActivity){
-               ((PersonalTrainerMainActivity) presenter.getActualActivity()).uploadAllAdapter();
-            }
-
             if(snapshot.exists() && isNotLogged){
                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                   User user = dataSnapshot.getValue(User.class);

@@ -17,8 +17,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.Map;
+
 public class PersonalTrainerMainActivity extends AppCompatActivity {
     private static final String TAG = "TrainerMainActivity";
+    private ClientListViewAdapter clientListViewAdapter = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,48 +30,61 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
         MainActivity.presenter.setActualActivity(this);
         Log.i(TAG, "Started Personal Trainer main Activity");
 
-        boolean personalTrainerHasClients = ((PersonalTrainer) MainActivity.presenter
-              .getUser()).getClients().size() > 0;
+        boolean personalTrainerHasClients = false;
+        if(MainActivity.presenter.getUser() instanceof PersonalTrainer){
+            if(((PersonalTrainer) MainActivity.presenter.getUser()).getClients() != null) {
+                personalTrainerHasClients = ((PersonalTrainer) MainActivity.presenter
+                      .getUser()).getClients().size() > 0;
+            }
+        }
 
         if(personalTrainerHasClients){
-            MainActivity.personalTrainerRecyclerView = findViewById(R.id.recycler_view_client_1);
+            //todo make it back to normal after test
+            RecyclerView personalTrainerRecyclerView =  findViewById(R.id.recycler_view_client_1);
 
-            if (MainActivity.presenter.getUser() instanceof PersonalTrainer)
-            {
-                MainActivity.clientListViewAdapter =
+            if (MainActivity.presenter.getUser() instanceof PersonalTrainer){
+
+                clientListViewAdapter =
                       new ClientListViewAdapter(this,
                             (PersonalTrainer) MainActivity
                                   .presenter
                                   .getUser()
                       );
-                MainActivity.personalTrainerRecyclerView.setAdapter(MainActivity.clientListViewAdapter);
-                MainActivity.personalTrainerRecyclerView.setLayoutManager(new GridLayoutManager(this,
+                personalTrainerRecyclerView.setAdapter(clientListViewAdapter);
+
+                personalTrainerRecyclerView.setLayoutManager(new GridLayoutManager(this,
                       ((PersonalTrainer) MainActivity.presenter.getUser()).getClients().size()));
             }
         } else{
             noClient();
         }
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        Log.i(TAG, "onResume Called");
         uploadAllAdapter();
     }
 
     public void uploadAllAdapter(){
         Log.i(TAG, "upload all adapter function called");
         if(MainActivity.presenter.getUser() instanceof PersonalTrainer &&
-            MainActivity.clientListViewAdapter != null) {
-            MainActivity.clientListViewAdapter.notifyDataSetChanged();
+            clientListViewAdapter != null) {
+            clientListViewAdapter.setPersonalTrainer((PersonalTrainer) MainActivity
+                  .presenter.getUser());
+            clientListViewAdapter.notifyDataSetChanged();
+            setRecyclerViewLoadingError(false);
+            PersonalTrainer personalTrainer = clientListViewAdapter.getPersonalTrainer();
             Log.i(TAG, "uploaded adapter");
         }
     }
 
     public void removeClient(int position){
-        PersonalTrainer personalTrainer = MainActivity.clientListViewAdapter.getPersonalTrainer();
+        PersonalTrainer personalTrainer = clientListViewAdapter.getPersonalTrainer();
         personalTrainer.removeClient(position);
-        MainActivity.clientListViewAdapter.notifyItemRemoved(position);
+        clientListViewAdapter.notifyItemRemoved(position);
     }
 
 
@@ -112,6 +129,14 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public boolean isRecyclerViewLoadingError() {
+        return MainActivity.presenter.isRecyclerViewLoadingError();
+    }
+
+    public void setRecyclerViewLoadingError(boolean recyclerViewLoadingError) {
+        MainActivity.presenter.setRecyclerViewLoadingError(recyclerViewLoadingError);
     }
 }
 
