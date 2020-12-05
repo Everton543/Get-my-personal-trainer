@@ -1,13 +1,13 @@
 package com.example.getmypersonaltrainer;
 
 import android.util.Log;
-
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 public class Client implements UserInterface, ClientInterface{
    private UserTypes userType;

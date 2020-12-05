@@ -1,18 +1,22 @@
 package com.example.getmypersonaltrainer;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Spinner;
+
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
-
-public class ClientSignUpActivity extends AppCompatActivity {
+public class ClientSignUpActivity extends AppCompatActivity{
     public static String TAG = "ClientSignUpActivity";
 
     @Override
@@ -77,6 +81,7 @@ public class ClientSignUpActivity extends AppCompatActivity {
 
         editText = (EditText) findViewById(R.id.edit_text_phone_client_sign_up_activity);
         String phone = editText.getText().toString();
+
 
         // Setup CalendarView object...
         Spinner spinnerYear = (Spinner) findViewById(R.id.spinnerYear);
