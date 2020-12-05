@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GetMyPersonalTrainer</string>
+    <string name="app_name">Get My Personal Trainer</string>
 
     //Titles
     <string name="client_info_activity_title">Client Information</string>

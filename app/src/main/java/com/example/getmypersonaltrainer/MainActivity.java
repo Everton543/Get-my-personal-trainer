@@ -1,5 +1,6 @@
    package com.example.getmypersonaltrainer;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,6 +11,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -35,6 +37,11 @@ import static com.example.getmypersonaltrainer.UserTypes.PERSONAL_TRAINER;
       protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
          setContentView(R.layout.activity_main);
+
+         ActionBar actionBar = getSupportActionBar();
+         assert actionBar != null;
+         actionBar.hide();
+
 
          presenter.setActualActivity(this);
          presenter.setLogged(false);
