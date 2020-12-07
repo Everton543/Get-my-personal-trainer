@@ -27,18 +27,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/title_client_info_activity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp"
-                android:fontFamily="@font/abril_fatface"
-                android:gravity="center"
-                android:text="@string/client_info_activity_title"
-                android:textColor="@color/title_light"
-                android:textSize="22sp" />
-
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -46,6 +34,7 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="20dp"
                     android:gravity="center_horizontal">
 
                     <TextView
@@ -54,7 +43,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="20dp"
                         android:layout_marginRight="20dp"
-                        android:layout_marginBottom="20dp"
                         android:gravity="center_vertical"
                         android:text="@string/name_tag"
                         android:textColor="@color/font_light"
@@ -65,7 +53,6 @@
                         android:id="@+id/text_client_name_client_info_activity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
                         android:gravity="center"
                         android:text="@string/unknown_info"
                         android:textColor="@color/font_light"
@@ -76,6 +63,7 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="20dp"
                     android:gravity="center_horizontal">
 
                     <TextView
@@ -84,7 +72,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="20dp"
                         android:layout_marginRight="20dp"
-                        android:layout_marginBottom="20dp"
                         android:gravity="center_vertical"
                         android:text="@string/age_tag"
                         android:textColor="@color/font_light"
@@ -95,7 +82,6 @@
                         android:id="@+id/text_age_client_info_activity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
                         android:gravity="center"
                         android:text="@string/unknown_info"
                         android:textColor="@color/font_light"
@@ -106,6 +92,7 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="20dp"
                     android:gravity="center_horizontal">
 
                     <TextView
@@ -114,7 +101,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="20dp"
                         android:layout_marginRight="20dp"
-                        android:layout_marginBottom="20dp"
                         android:gravity="center_vertical"
                         android:text="@string/body_mass_tag"
                         android:textColor="@color/font_light"
@@ -125,7 +111,6 @@
                         android:id="@+id/text_weight_client_info_activity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
                         android:gravity="center"
                         android:text="@string/unknown_info"
                         android:textColor="@color/font_light"
@@ -136,6 +121,7 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="20dp"
                     android:gravity="center_horizontal">
 
                     <TextView
@@ -144,7 +130,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="20dp"
                         android:layout_marginRight="20dp"
-                        android:layout_marginBottom="20dp"
                         android:gravity="center_vertical"
                         android:text="@string/size_tag"
                         android:textColor="@color/font_light"
@@ -155,7 +140,6 @@
                         android:id="@+id/text_size_client_info_activity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
                         android:gravity="center"
                         android:text="@string/unknown_info"
                         android:textColor="@color/font_light"
@@ -166,13 +150,13 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="20dp"
                     android:gravity="center_horizontal">
 
                     <TextView
                         android:id="@+id/tag_phone_client_info_activity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
                         android:gravity="center_vertical"
                         android:text="@string/phone_tag"
                         android:textColor="@color/font_light"
@@ -183,7 +167,6 @@
                         android:id="@+id/text_phone_client_info_activity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
                         android:gravity="center"
                         android:text="@string/unknown_info"
                         android:textColor="@color/font_light"
@@ -191,16 +174,40 @@
                 </TableRow>
             </TableLayout>
 
-
             <Button
-                android:id="@+id/button_personal_trainer_sign_in_type"
+                android:id="@+id/button_add_exercise_client_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/good_button_background"
+                android:gravity="center"
+                android:onClick="addExercise"
+                android:text="@string/button_add_exercise"
+                android:textColor="@color/font_dark"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/button_change_exercise_client_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/good_button_background"
+                android:gravity="center"
+                android:onClick="changeExercise"
+                android:text="@string/button_change_exercise"
+                android:textColor="@color/font_dark"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/button_remove_client_client_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:background="@color/bad_button_background"
                 android:gravity="center"
-                android:text="@string/button_client_info_remove_client"
+                android:onClick="removeClient"
+                android:text="@string/button_remove_client"
                 android:textColor="@color/font_dark"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
 
         </LinearLayout>

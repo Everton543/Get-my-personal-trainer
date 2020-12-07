@@ -55,7 +55,7 @@
     <string name="age_tag">Age: </string>
     <string name="weight_tag">Weight: </string>
     <string name="body_mass_tag">Body Mass:  </string>
-    <string name="size_tag">Size: </string>
+    <string name="size_tag">Height: </string>
     <string name="password_tag">Password: </string>
     <string name="confirm_password_tag">Confirm password: </string>
     <string name="exercise_name_tag">Name: </string>
@@ -80,7 +80,6 @@
     <string name="switch_mode">Light/Dark mode</string>
 
     //Buttons
-    <string name="button_client_info_remove_client">Remove Client</string>
     <string name="button_confirm">Confirm</string>
     <string name="button_declaim">Declaim</string>
     <string name="button_login">Login</string>
@@ -93,6 +92,7 @@
     <string name="button_remove_exercise">Remove Exercise</string>
     <string name="button_add_exercise">Add New Exercise</string>
     <string name="button_remove_client">Remove Client</string>
+    <string name="button_see_client_info">See Client Info</string>
 
     //Text
     <string name="unknown_info">Unknown</string>

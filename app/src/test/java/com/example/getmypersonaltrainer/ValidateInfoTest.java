@@ -18,20 +18,20 @@ class ValidateInfoTest {
          "exercise is empty, or the exercise to compare is empty, or if Exercises emphasis are equal, or if " +
          "exercise series are equal, or if exercise videoLink are equal")
    void variablesCheckIfPersonalTrainerExerciseChanged(){
-      Exercise pExercise1 = new Exercise("name", "id", "emphasis", "videoLink", false);
-      Exercise pExercise2 = new Exercise("name", "id", "emphasis", "videoLink", false);
-      Exercise pExercise3 = new Exercise("name", "id", "emphasis", "videoLink", false);
-      Exercise pExercise4 = new Exercise("name", "id", "emphasis", "videoLink", false);
-      Exercise pExercise5 = new Exercise("name", "id", "emphasis", "videoLink", false);
-      Exercise pExercise6 = new Exercise("name", "id", "emphasis", "videoLink", false);
+      Exercise pExercise1 = new Exercise("name", "id", "emphasis", "videoLink", "obs", false);
+      Exercise pExercise2 = new Exercise("name", "id", "emphasis", "videoLink", "obs",false);
+      Exercise pExercise3 = new Exercise("name", "id", "emphasis", "videoLink", "obs",false);
+      Exercise pExercise4 = new Exercise("name", "id", "emphasis", "videoLink","obs", false);
+      Exercise pExercise5 = new Exercise("name", "id", "emphasis", "videoLink", "obs",false);
+      Exercise pExercise6 = new Exercise("name", "id", "emphasis", "videoLink", "obs",false);
       pExercise6.setSeries(5);
 
-      Exercise exercise1 = new Exercise("change", "id", "emphasis", "videoLink", false);
-      Exercise exercise2 = new Exercise("name", "change", "emphasis", "videoLink", false);
-      Exercise exercise3 = new Exercise("name", "id", "change", "videoLink", false);
-      Exercise exercise4 = new Exercise("name", "id", "emphasis", "change", false);
-      Exercise exercise5 = new Exercise("name", "id", "emphasis", "videoLink", false);
-      Exercise exercise6 = new Exercise("name", "id", "emphasis", "videoLink", false);
+      Exercise exercise1 = new Exercise("change", "id", "emphasis", "videoLink", "obs",false);
+      Exercise exercise2 = new Exercise("name", "change", "emphasis", "videoLink", "obs",false);
+      Exercise exercise3 = new Exercise("name", "id", "change", "videoLink", "obs",false);
+      Exercise exercise4 = new Exercise("name", "id", "emphasis", "change", "obs",false);
+      Exercise exercise5 = new Exercise("name", "id", "emphasis", "videoLink", "obs",false);
+      Exercise exercise6 = new Exercise("name", "id", "emphasis", "videoLink", "obs",false);
 
       boolean [] expected = {
             false, false, false,

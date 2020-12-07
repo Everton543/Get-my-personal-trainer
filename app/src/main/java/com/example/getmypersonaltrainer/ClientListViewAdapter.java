@@ -1,137 +1,82 @@
 package com.example.getmypersonaltrainer;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.solver.state.ConstraintReference;
+import androidx.constraintlayout.solver.state.State;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.gson.TypeAdapterFactory;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 
-public class ClientListViewAdapter extends RecyclerView.Adapter<
-      ClientListViewAdapter.ClientListViewHolder> {
 
-   private static final String TAG = "ClientAdapter";
-   public PersonalTrainer getPersonalTrainer() {
-      return personalTrainer;
+public class ClientListViewAdapter extends FirebaseRecyclerAdapter<Client,
+        ClientListViewAdapter.ClientListViewHolder>{
+   private Activity activity = null;
+   /**
+    * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
+    * {@link FirebaseRecyclerOptions} for configuration options.
+    *
+    * @param options
+    */
+   public ClientListViewAdapter(@NonNull FirebaseRecyclerOptions<Client> options, Activity activity) {
+      super(options);
+      this.activity = activity;
    }
 
-   public void setPersonalTrainer(PersonalTrainer personalTrainer) {
-      this.personalTrainer = personalTrainer;
-   }
+   @Override
+   protected void onBindViewHolder(@NonNull ClientListViewHolder holder, int position, @NonNull final Client model) {
+      String name = model.getName();
+      String id = model.getUserId();
 
-   private PersonalTrainer personalTrainer;
-   private final Context context;
+      holder.userID.setText(id);
+      holder.userName.setText(name);
 
-   public static class ClientListViewHolder extends RecyclerView.ViewHolder {
-      TextView userID;
-      TextView userAge;
-      TextView userBodyMass;
-      TextView userName;
-      TextView userPhone;
-      Button addExercise;
-      Button changeExercise;
-      Button removeClient;
-
-      public ClientListViewHolder(@NonNull View itemView) {
-         super(itemView);
-         Log.i(TAG, "holder constructor");
-         userID = itemView.findViewById(R.id.client_id_my_client);
-         userAge = itemView.findViewById(R.id.client_age_my_client);
-         userBodyMass = itemView.findViewById(R.id.client_body_mass_my_client);
-         userName = itemView.findViewById(R.id.client_name_my_client);
-         userPhone = itemView.findViewById(R.id.client_phone_my_client);
-
-         addExercise = itemView.findViewById(R.id.button_add_new_exercise_client_list);
-         changeExercise = itemView.findViewById(R.id.button_change_exercise_client_list);
-         removeClient = itemView.findViewById(R.id.button_remove_client_client_list);
-
+      if(position % 2 != 0){
+         holder.background.setBackgroundColor(ContextCompat.getColor(activity, R.color.light_list_separate));
       }
-   }
 
-   public ClientListViewAdapter(Context context, PersonalTrainer personalTrainer){
-      Log.i(TAG, "adapter constructor");
-      this.personalTrainer = personalTrainer;
-      this.context = context;
+      holder.seeClientInfoButton.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            MainActivity.presenter.setChangingClient(model);
+            Intent intent = new Intent(MainActivity.presenter.getActualActivity(), ClientInfoActivity.class);
+            MainActivity.presenter.getActualActivity().startActivity(intent);
+         }
+      });
+
    }
 
    @NonNull
    @Override
    public ClientListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-      Log.i(TAG, "called onCreateViewHolder");
-      LayoutInflater inflater = LayoutInflater.from(context);
-      View view = inflater.inflate(R.layout.my_client, parent, false);
+      View view = LayoutInflater.from(parent.getContext())
+              .inflate(R.layout.my_client, parent, false);
       return new ClientListViewHolder(view);
    }
 
-   @Override
-   public void onBindViewHolder(@NonNull ClientListViewHolder holder, final int position) {
-      Log.i(TAG, "called onBindViewHolder");
-      String bodyMass = String.valueOf(personalTrainer.getClients().get(position).getBodyMass());
-      String age = String.valueOf(personalTrainer.getClients().get(position).getAge());
-      String phone = personalTrainer.getClients().get(position).getPhone();
-      String name = personalTrainer.getClients().get(position).getName();
-      String id = personalTrainer.getClients().get(position).getUserId();
+   public class ClientListViewHolder extends RecyclerView.ViewHolder {
+      TextView userID;
+      TextView userName;
+      ConstraintLayout background;
+      Button seeClientInfoButton;
 
-      holder.userID.setText(id);
-      holder.userBodyMass.setText(bodyMass);
-      holder.userAge.setText(age);
-      holder.userPhone.setText(phone);
-      holder.userName.setText(name);
-
-      holder.addExercise.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-            Log.i(TAG, "Add exercise setOnclickListener");
-            if(context instanceof PersonalTrainerMainActivity){
-               Log.i(TAG, "Setting error to true");
-               ((PersonalTrainerMainActivity) context)
-                     .setRecyclerViewLoadingError(true);
-            }
-
-            Intent intent = new Intent(context, CreateExerciseActivity.class);
-            String index = String.valueOf(position);
-            intent.putExtra("index", index);
-            context.startActivity(intent);
-         }
-      });
-
-      holder.removeClient.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-            Log.i(TAG, "remove client setOnclickListener");
-            personalTrainer.getClients().get(position).setPersonalTrainerId(null);
-            MainActivity.presenter.getModel().updateClient(personalTrainer.getClients().get(position));
-            if(context instanceof PersonalTrainerMainActivity){
-               ((PersonalTrainerMainActivity) context).removeClient(position);
-            }
-         }
-      });
-
-      holder.changeExercise.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-            if(context instanceof PersonalTrainerMainActivity){
-               ((PersonalTrainerMainActivity) context)
-                     .setRecyclerViewLoadingError(true);
-            }
-            Log.i(TAG, "changeExercise setOnclickListener");
-            Intent intent = new Intent(context, ClientExerciseListActivity.class);
-            String index = String.valueOf(position);
-            intent.putExtra("index", index);
-            context.startActivity(intent);
-         }
-      });
+      public ClientListViewHolder(@NonNull View itemView) {
+         super(itemView);
+         userID = itemView.findViewById(R.id.client_id_my_client);
+         userName = itemView.findViewById(R.id.client_name_my_client);
+         background = itemView.findViewById(R.id.background_my_client_layout);
+         seeClientInfoButton = itemView.findViewById(R.id.button_see_client_info);
+      }
    }
 
-   @Override
-   public int getItemCount() {
-      return personalTrainer.getClients().size();
-   }
 }

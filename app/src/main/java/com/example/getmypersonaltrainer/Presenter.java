@@ -18,10 +18,21 @@ public class Presenter {
    private Class<?> goBack = null;
    private Activity actualActivity = null;
    private Client changingClient = null;
+   private Exercise selectedExercise = null;
    private List<PersonalTrainer> allPersonalTrainers = new ArrayList<PersonalTrainer>();
    private boolean getInfoFromDatabase = false;
    private boolean getExercises = false;
    private Map<String, Exercise> freeExerciseList = new HashMap<String, Exercise>();
+
+   public List<Client> getClientList() {
+      return clientList;
+   }
+
+   public void setClientList(List<Client> clientList) {
+      this.clientList = clientList;
+   }
+
+   private List<Client> clientList = new ArrayList<Client>();
 
    public boolean isGetExercises() {
       return getExercises;
@@ -168,5 +179,13 @@ public class Presenter {
 
    public void setRecyclerViewLoadingError(boolean recyclerViewLoadingError) {
       this.recyclerViewLoadingError = recyclerViewLoadingError;
+   }
+
+   public Exercise getSelectedExercise() {
+      return selectedExercise;
+   }
+
+   public void setSelectedExercise(Exercise selectedExercise) {
+      this.selectedExercise = selectedExercise;
    }
 }

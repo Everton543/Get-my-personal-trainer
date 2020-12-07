@@ -8,6 +8,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -25,6 +27,10 @@ import static com.example.getmypersonaltrainer.MainActivity.presenter;
 //
 
 public class Model {
+   public FirebaseDatabase getDatabase() {
+      return database;
+   }
+
    private FirebaseDatabase database = null;
    private DatabaseReference databaseReference = null;
    private ChildEventListener childEventListener;
@@ -36,6 +42,9 @@ public class Model {
    List<User> userList = new ArrayList<User>();
 
    public Model(){
+      //This line is for FirebaseDatabase to work faster
+      FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
       database = FirebaseDatabase.getInstance();
       databaseReference = database.getReference();
    }
@@ -67,6 +76,39 @@ public class Model {
       }
 
       return false;
+   }
+
+   public FirebaseRecyclerOptions<Client> getClientListRecyclerOptions(){
+      if(presenter.getUser() instanceof PersonalTrainer) {
+         String personalId = presenter.getUser().getUserId();
+         Query query = database.getReference("Users")
+                 .orderByChild("personalTrainerId")
+                 .equalTo(personalId);
+
+         FirebaseRecyclerOptions<Client> options =
+                 new FirebaseRecyclerOptions.Builder<Client>()
+                         .setQuery(query, Client.class)
+                 .build();
+         return options;
+      }
+
+      return null;
+   }
+
+   public FirebaseRecyclerOptions<Exercise>
+      getClientExerciseList(Client client, DayOfWeek dayOfWeek)
+   {
+      Query query = database.getReference("Users").child(client.getUserId())
+              .child("exerciseList")
+              .orderByChild("daysOfWeek")
+              .equalTo(String.valueOf(dayOfWeek));
+
+      FirebaseRecyclerOptions<Exercise> options =
+              new FirebaseRecyclerOptions.Builder<Exercise>()
+              .setQuery(query, Exercise.class)
+              .build();
+
+      return options;
    }
 
    public void savePublicExercise(final Exercise exercise){
@@ -120,6 +162,11 @@ public class Model {
                .child("personalTrainerId")
                .setValue(invitationMessage.getReceiverId());
       }
+   }
+
+   public void removeClient(Client client){
+      client.setPersonalTrainerId(null);
+      updateClient(client);
    }
 
    public void declaimInvitation(final InvitationMessage invitationMessage){
@@ -412,137 +459,18 @@ public class Model {
    }
 
    public void getClientList(final PersonalTrainer personalTrainer){
-      Log.i(TAG, "getClientList function called");
-      Query query = database.getReference("Users")
-            .orderByChild("personalTrainerId")
-            .equalTo(personalTrainer.getUserId());
-
-      query.addValueEventListener(new ValueEventListener() {
-         @Override
-         public void onDataChange(@NonNull DataSnapshot snapshot) {
-            Log.i(TAG, "getClientList onDataChangeCalled");
-
-            boolean userNotLogged = !presenter.isLogged();
-            if(snapshot.exists() && userNotLogged
-                  || presenter.getUser() instanceof PersonalTrainer){
-               Log.i(TAG, "Found some clients");
-               clients.clear();
-               for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                  Client client = dataSnapshot.getValue(Client.class);
-                  clients.add(client);
-               }
-               personalTrainer.setClients(clients);
-            }
-            else if (userNotLogged){
-               Log.i(TAG, "Found 0 client");
-            }
-            if(presenter.getActualActivity() instanceof FastError && userNotLogged){
-               presenter.setLogged(true);
-               ((FastError) presenter.getActualActivity()).finishedCharge();
-            }
-         }
-
-         @Override
-         public void onCancelled(@NonNull DatabaseError error) {
-
-         }
-      });
+      GetClientList getClientList = new GetClientList(personalTrainer);
+      getClientList.run();
    }
 
    public void checkLogin(final String userId , final String password, final Activity activity){
-      Log.i(TAG, "checkLogin function called");
-      Query query = database.getReference("Users")
-            .orderByChild("userId")
-            .equalTo(userId);
-
-      query.addValueEventListener(new ValueEventListener() {
-         @RequiresApi(api = Build.VERSION_CODES.O)
-         @Override
-         public void onDataChange(@NonNull DataSnapshot snapshot) {
-            Log.i(TAG, "onDataChange checkLogin called");
-            userList.clear();
-            boolean isNotLogged = !presenter.isLogged();
-            if(snapshot.exists() && isNotLogged){
-               for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                  User user = dataSnapshot.getValue(User.class);
-                  userList.add(user);
-               }
-
-               Log.v(TAG, "Number of users with the id " + userId + " = " + userList.size());
-               userList.get(0).setPassword(password);
-
-               boolean verifyPasswordResult = false;
-               try {
-                  verifyPasswordResult = Encrypt.verifyPassword(userList.get(0));
-               } catch (Exception e) {
-                  Log.e(TAG, "Was not able to decrypt password");
-                  e.printStackTrace();
-               }
-
-               if(verifyPasswordResult){
-                  warnings.signUpSuccessfully();
-                  if(activity instanceof LoginInterface){
-                     ((LoginInterface) activity).setPresenterUser(userList.get(0));
-
-                     ((LoginInterface) activity).loginUserType(
-                           userList.get(0).getUserType(),
-                           true);
-                  }
-               }else {
-                  warnings.wrongPasswordOrUserId();
-               }
-            }
-            else if(isNotLogged){
-
-               if (activity instanceof LoginInterface) {
-                  ((LoginInterface) activity).loginUserType(
-                        UserTypes.NONE,
-                        false);
-               }
-
-               warnings.wrongPasswordOrUserId();
-            }
-         }
-
-         @Override
-         public void onCancelled(@NonNull DatabaseError error) {
-
-         }
-      });
+      CheckLogin checkLogin = new CheckLogin(userId, password, activity);
+      checkLogin.run();
    }
 
    public void getExerciseNameList(final PersonalTrainer personalTrainer){
-      Log.i(TAG, "getExerciseNameList function called");
-      Query query = database.getReference("Exercise")
-            .orderByChild("free")
-            .equalTo(true);
-
-      query.addValueEventListener(new ValueEventListener() {
-         @Override
-         public void onDataChange(@NonNull DataSnapshot snapshot) {
-            Log.i(TAG, "onDataChange from getExerciseNameList called");
-            if(snapshot.exists() && presenter.isGetInfoFromDatabase()){
-               Log.i(TAG, "Found some exercises");
-
-               for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                  personalTrainer.getExerciseNameList().add(dataSnapshot.child("name").getValue(String.class));
-                  Exercise exercise = dataSnapshot.getValue(Exercise.class);
-                  if(exercise != null) {
-                     presenter.getFreeExerciseList().put(exercise.getExerciseId(), exercise);
-                  }
-               }
-            }
-            else if(presenter.isGetInfoFromDatabase()){
-               Log.i(TAG, "Didn't found any exercise");
-            }
-            presenter.setGetInfoFromDatabase(false);
-         }
-
-         @Override
-         public void onCancelled(@NonNull DatabaseError error) {
-
-         }
-      });
+      GetExerciseNameList getExerciseNameList = new GetExerciseNameList(personalTrainer);
+      getExerciseNameList.run();
    }
 
    @RequiresApi(api = Build.VERSION_CODES.KITKAT)

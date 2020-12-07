@@ -50,7 +50,8 @@
                 android:hint="@string/hint_id"
                 android:inputType="text"
                 android:textIsSelectable="true"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:importantForAutofill="no" />
 
             <EditText
                 android:id="@+id/edit_text_password_login_activity"
@@ -61,7 +62,8 @@
                 android:gravity="center"
                 android:hint="@string/hint_password"
                 android:inputType="textPassword"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:importantForAutofill="no" />
 
             <Button
                 android:id="@+id/button_login_login_activity"

@@ -10,14 +10,25 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+
 import java.util.List;
 
-public class ExerciseListViewAdapter extends RecyclerView.Adapter<
-      ExerciseListViewAdapter.ExerciseListViewHolder> {
+public class ExerciseListViewAdapter extends FirebaseRecyclerAdapter<
+      Exercise, ExerciseListViewAdapter.ExerciseListViewHolder> {
 
-   private final Context context;
-   private final List<Exercise> exerciseList;
-   boolean changingClient = true;
+   boolean changingClient = false;
+   /**
+    * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
+    * {@link FirebaseRecyclerOptions} for configuration options.
+    *
+    * @param options
+    */
+   public ExerciseListViewAdapter(@NonNull FirebaseRecyclerOptions<Exercise> options, boolean changingClient) {
+      super(options);
+      this.changingClient = changingClient;
+   }
 
    public class ExerciseListViewHolder extends RecyclerView.ViewHolder {
       Button exercise;
@@ -27,56 +38,31 @@ public class ExerciseListViewAdapter extends RecyclerView.Adapter<
       }
    }
 
-   public ExerciseListViewAdapter(Context context, List<Exercise> exerciseList){
-      this.exerciseList = exerciseList;
-      this.context = context;
-   }
-
-   public ExerciseListViewAdapter(Context context, List<Exercise> exerciseList, boolean changingClient){
-      this.exerciseList = exerciseList;
-      this.context = context;
-      this.changingClient = changingClient;
-   }
 
    @NonNull
    @Override
    public ExerciseListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-      LayoutInflater inflater = LayoutInflater.from(context);
+      LayoutInflater inflater = LayoutInflater.from(parent.getContext());
       View view = inflater.inflate(R.layout.exercise_list, parent, false);
       return new ExerciseListViewHolder(view);
    }
 
    @Override
-   public void onBindViewHolder(@NonNull ExerciseListViewHolder holder, final int position) {
-      String name = exerciseList.get(position).getName();
+   protected void onBindViewHolder(@NonNull ExerciseListViewHolder holder, int position, @NonNull final Exercise model) {
+      String name = model.getName();
       holder.exercise.setText(name);
-      if(this.changingClient) {
-         holder.exercise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               Intent intent = new Intent(context, CreateExerciseActivity.class);
-               String exerciseId = exerciseList.get(position).getExerciseId();
-               intent.putExtra("exerciseId", exerciseId);
-               context.startActivity(intent);
+      holder.exercise.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            MainActivity.presenter.setSelectedExercise(model);
+            Intent intent = null;
+            if(changingClient) {
+               intent = new Intent(MainActivity.presenter.getActualActivity(), CreateExerciseActivity.class);
+            }else{
+               intent = new Intent(MainActivity.presenter.getActualActivity(), ExerciseInfoActivity.class);
             }
-         });
-      }else {
-         //otherwise show client's exercise list
-         holder.exercise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               String exerciseId = exerciseList.get(position).getExerciseId();
-               Intent intent = new Intent(context, ExerciseInfoActivity.class);
-               intent.putExtra("exerciseId", exerciseId);
-               context.startActivity(intent);
-            }
-         });
-      }
-      }
-
-   @Override
-   public int getItemCount() {
-      return exerciseList.size();
+            MainActivity.presenter.getActualActivity().startActivity(intent);
+         }
+      });
    }
-
 }

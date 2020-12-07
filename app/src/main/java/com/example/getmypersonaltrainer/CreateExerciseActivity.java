@@ -25,7 +25,7 @@ import static java.util.Objects.*;
 public class CreateExerciseActivity extends AppCompatActivity implements AutoFillExerciseInfoInterface, CreateExerciseInterface, FastError{
 
     private String[] EXERCISE_NAMES = null;
-    private int clientIndex = -1;
+//    private int clientIndex = -1;
     private static String TAG = "CreateExercise";
     private String[] weekDays;
     private DayOfWeek dayOfWeek = null;
@@ -44,7 +44,7 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
         changingExercise = false;
         Log.i(TAG, "On create Create Exercise");
 
-        if(getIntent().hasExtra("index")){
+/*        if(getIntent().hasExtra("index")){
             if(MainActivity.presenter.getUser() instanceof PersonalTrainer) {
                 clientIndex = Integer.parseInt(requireNonNull(getIntent().getStringExtra("index")));
 
@@ -55,7 +55,7 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
                             .getUserId()
                 );
             }
-        }
+        }*/
 
         if(getIntent().hasExtra("exerciseId")){
 
@@ -293,13 +293,11 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
         boolean successfullySetExerciseInfo = setExerciseInfo();
         if(successfullySetExerciseInfo){
 
-            if (MainActivity.presenter.getUser() instanceof PersonalTrainer) {
+            if (MainActivity.presenter.getChangingClient() != null) {
                 MainActivity.presenter.setGetInfoFromDatabase(true);
                 MainActivity.presenter.getModel().addClientExercise(
-                      ((PersonalTrainer) MainActivity.presenter
-                            .getUser())
-                            .getClients()
-                            .get(clientIndex), sendingExercise
+                      MainActivity.presenter.getChangingClient()
+                      , sendingExercise
                 );
             }
 

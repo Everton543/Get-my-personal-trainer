@@ -17,8 +17,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.time.DayOfWeek;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClientMainActivity extends AppCompatActivity {
+
+    private Client client = null;
+    private List<ExerciseListViewAdapter> exerciseListViewAdapters = new ArrayList<ExerciseListViewAdapter>();
+    private List<RecyclerView> exerciseListRecyclerView = new ArrayList<RecyclerView>();
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -28,37 +34,67 @@ public class ClientMainActivity extends AppCompatActivity {
         MainActivity.presenter.setActualActivity(this);
 
         if(MainActivity.presenter.getUser() instanceof Client){
+            client = (Client) MainActivity.presenter.getUser();
             if(MainActivity.presenter.getUser().getReceivedInvitation()){
                 TextView textView = findViewById(R.id.text_invitation_message_client_main);
                 textView.setText(R.string.client_received_invitation);
                 textView.setVisibility(View.VISIBLE);
             }
         }
-        RecyclerView mondayView = findViewById(R.id.recycler_view_client_main_monday);
-        RecyclerView tuesdayView = findViewById(R.id.recycler_view_client_main_tuesday);
-        RecyclerView wednesdayView = findViewById(R.id.recycler_view_client_main_wednesday);
-        RecyclerView thursdayView = findViewById(R.id.recycler_view_client_main_thursday);
-        RecyclerView fridayView = findViewById(R.id.recycler_view_client_main_friday);
-        RecyclerView saturdayView = findViewById(R.id.recycler_view_client_main_saturday);
 
-        setRecyclerViewAdapter(mondayView, DayOfWeek.MONDAY);
-        setRecyclerViewAdapter(tuesdayView, DayOfWeek.TUESDAY);
-        setRecyclerViewAdapter(wednesdayView, DayOfWeek.WEDNESDAY);
-        setRecyclerViewAdapter(thursdayView, DayOfWeek.THURSDAY);
-        setRecyclerViewAdapter(fridayView, DayOfWeek.FRIDAY);
-        setRecyclerViewAdapter(saturdayView, DayOfWeek.SATURDAY);
+        if(exerciseListRecyclerView.size() < 1) {
+            RecyclerView mondayView = findViewById(R.id.recycler_view_client_main_monday);
+            RecyclerView tuesdayView = findViewById(R.id.recycler_view_client_main_tuesday);
+            RecyclerView wednesdayView = findViewById(R.id.recycler_view_client_main_wednesday);
+            RecyclerView thursdayView = findViewById(R.id.recycler_view_client_main_thursday);
+            RecyclerView fridayView = findViewById(R.id.recycler_view_client_main_friday);
+            RecyclerView saturdayView = findViewById(R.id.recycler_view_client_main_saturday);
+
+
+            setRecyclerViewAdapter(mondayView, DayOfWeek.MONDAY);
+            setRecyclerViewAdapter(tuesdayView, DayOfWeek.TUESDAY);
+            setRecyclerViewAdapter(wednesdayView, DayOfWeek.WEDNESDAY);
+            setRecyclerViewAdapter(thursdayView, DayOfWeek.THURSDAY);
+            setRecyclerViewAdapter(fridayView, DayOfWeek.FRIDAY);
+            setRecyclerViewAdapter(saturdayView, DayOfWeek.SATURDAY);
+
+            exerciseListRecyclerView.add(mondayView);
+            exerciseListRecyclerView.add(tuesdayView);
+            exerciseListRecyclerView.add(wednesdayView);
+            exerciseListRecyclerView.add(thursdayView);
+            exerciseListRecyclerView.add(fridayView);
+            exerciseListRecyclerView.add(saturdayView);
+        }
     }
 
     private void setRecyclerViewAdapter(RecyclerView recyclerView, DayOfWeek dayOfWeek){
         if(MainActivity.presenter.getUser() instanceof Client) {
             ExerciseListViewAdapter exerciseListViewAdapter =
-                  new ExerciseListViewAdapter(this,
-                        ((Client) MainActivity.presenter.getUser()).getExercisesOfWeekDay(dayOfWeek),
+                  new ExerciseListViewAdapter(
+                          MainActivity.presenter.getModel().getClientExerciseList(client, dayOfWeek),
                         false
-                        );
+                  );
 
             recyclerView.setAdapter(exerciseListViewAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            exerciseListViewAdapters.add(exerciseListViewAdapter);
+        }
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        for(int i = 0 ; i < exerciseListViewAdapters.size(); i++) {
+            exerciseListViewAdapters.get(i).startListening();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        for(int i = 0 ; i < exerciseListViewAdapters.size(); i++) {
+            exerciseListViewAdapters.get(i).stopListening();
         }
     }
 

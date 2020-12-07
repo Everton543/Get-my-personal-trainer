@@ -16,10 +16,13 @@
     <color name="light_menu_background">#ff9100</color>
     <color name="font_light">#4d4b48</color>
     <color name="title_light">#f58b18</color>
+    <color name="light_list_separate">#888888</color>
 
     //dark mode colors
     <color name="title_dark">#ff9100</color>
     <color name="font_dark">#cad2eb</color>
     <color name="dark_background">#373f4a</color>
     <color name="dark_menu_background">#f58b18</color>
+    <color name="dark_list_separate">#000000</color>
+
 </resources>

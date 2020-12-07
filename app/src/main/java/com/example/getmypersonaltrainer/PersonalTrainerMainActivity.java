@@ -2,12 +2,9 @@ package com.example.getmypersonaltrainer;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,11 +14,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.Map;
 
 public class PersonalTrainerMainActivity extends AppCompatActivity {
     private static final String TAG = "TrainerMainActivity";
     private ClientListViewAdapter clientListViewAdapter = null;
+    private RecyclerView personalTrainerRecyclerView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,32 +26,22 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_personal_trainer_main);
         MainActivity.presenter.setActualActivity(this);
         Log.i(TAG, "Started Personal Trainer main Activity");
+        MainActivity.presenter.setChangingClient(null);
 
         boolean personalTrainerHasClients = false;
-        if(MainActivity.presenter.getUser() instanceof PersonalTrainer){
-            if(((PersonalTrainer) MainActivity.presenter.getUser()).getClients() != null) {
-                personalTrainerHasClients = ((PersonalTrainer) MainActivity.presenter
-                      .getUser()).getClients().size() > 0;
-            }
+        if(MainActivity.presenter.getClientList() != null){
+            personalTrainerHasClients = MainActivity.presenter.getClientList().size() > 0;
         }
 
         if(personalTrainerHasClients){
-            //todo make it back to normal after test
-            RecyclerView personalTrainerRecyclerView =  findViewById(R.id.recycler_view_client_1);
+            personalTrainerRecyclerView =  findViewById(R.id.recycler_view_clients);
 
-            if (MainActivity.presenter.getUser() instanceof PersonalTrainer){
+            clientListViewAdapter = new ClientListViewAdapter(MainActivity.presenter
+                    .getModel()
+                    .getClientListRecyclerOptions(),this);
 
-                clientListViewAdapter =
-                      new ClientListViewAdapter(this,
-                            (PersonalTrainer) MainActivity
-                                  .presenter
-                                  .getUser()
-                      );
-                personalTrainerRecyclerView.setAdapter(clientListViewAdapter);
-
-                personalTrainerRecyclerView.setLayoutManager(new GridLayoutManager(this,
-                      ((PersonalTrainer) MainActivity.presenter.getUser()).getClients().size()));
-            }
+            personalTrainerRecyclerView.setAdapter(clientListViewAdapter);
+            personalTrainerRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         } else{
             noClient();
         }
@@ -62,31 +49,16 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        Log.i(TAG, "onResume Called");
-        uploadAllAdapter();
+    protected void onStart() {
+        super.onStart();
+        clientListViewAdapter.startListening();
     }
 
-    public void uploadAllAdapter(){
-        Log.i(TAG, "upload all adapter function called");
-        if(MainActivity.presenter.getUser() instanceof PersonalTrainer &&
-            clientListViewAdapter != null) {
-            clientListViewAdapter.setPersonalTrainer((PersonalTrainer) MainActivity
-                  .presenter.getUser());
-            clientListViewAdapter.notifyDataSetChanged();
-            setRecyclerViewLoadingError(false);
-            PersonalTrainer personalTrainer = clientListViewAdapter.getPersonalTrainer();
-            Log.i(TAG, "uploaded adapter");
-        }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        clientListViewAdapter.stopListening();
     }
-
-    public void removeClient(int position){
-        PersonalTrainer personalTrainer = clientListViewAdapter.getPersonalTrainer();
-        personalTrainer.removeClient(position);
-        clientListViewAdapter.notifyItemRemoved(position);
-    }
-
 
     public void noClient() {
         String inviteClient = getString(R.string.item_invite_client);
@@ -129,14 +101,6 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    public boolean isRecyclerViewLoadingError() {
-        return MainActivity.presenter.isRecyclerViewLoadingError();
-    }
-
-    public void setRecyclerViewLoadingError(boolean recyclerViewLoadingError) {
-        MainActivity.presenter.setRecyclerViewLoadingError(recyclerViewLoadingError);
     }
 }
 

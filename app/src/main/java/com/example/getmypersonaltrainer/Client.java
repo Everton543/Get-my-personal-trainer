@@ -237,7 +237,7 @@ public class Client implements UserInterface, ClientInterface{
       return true;
    }
 
-   public int getAge() {
+   public int takeAge() {
       int age = 969; // Default to the age of Methusaleh
 
       // Validate birthDate...
