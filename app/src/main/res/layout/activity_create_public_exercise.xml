@@ -26,18 +26,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/title_create_public_exercise_activity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp"
-                android:fontFamily="@font/abril_fatface"
-                android:gravity="center"
-                android:text="@string/create_exercise_title"
-                android:textColor="@color/title_light"
-                android:textSize="22sp" />
-
 
             <AutoCompleteTextView
                 android:id="@+id/edit_text_exercise_name_create_public_exercise"

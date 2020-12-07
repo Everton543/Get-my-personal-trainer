@@ -1,5 +1,6 @@
 package com.example.getmypersonaltrainer;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,9 +17,14 @@ public class PersonalTrainerSingUpActivity extends AppCompatActivity{
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_personal_trainer_sing_up);
       MainActivity.presenter.setActualActivity(this);
+
+      ActionBar actionBar = getSupportActionBar();
+      assert actionBar != null;
+      actionBar.setTitle(R.string.personal_trainer_sign_up_title);
    }
 
    public void signUp(View view){
+      //todo fix BUG even when the user do everything right, the next Activity is the goingBack one.
       boolean result = false;
 
       EditText editText = (EditText) findViewById(R.id.edit_text_id_personal_trainer_sign_up_activity);

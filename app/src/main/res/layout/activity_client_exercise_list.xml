@@ -8,273 +8,254 @@
     android:background="@color/light_background"
     tools:context=".ClientExerciseListActivity">
 
-    <LinearLayout
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
-        android:orientation="vertical"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/title_client_exercise_list_activity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"
-            android:fontFamily="@font/abril_fatface"
-            android:gravity="center"
-            android:text="@string/client_exercise_list_title"
-            android:textColor="@color/title_light"
-            android:textSize="22sp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <TableLayout
+                android:layout_width="220dp"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp">
 
-                <TableLayout
-                    android:layout_width="220dp"
+                <TableRow
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp">
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="25dp"
+                    android:gravity="center_horizontal">
 
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="25dp"
-                        android:gravity="center_horizontal">
-
-                        <TextView
-                            android:id="@+id/text_monday_client_main_activity"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/monday"
-                            android:textColor="@color/font_light"
-                            android:textSize="20sp" />
-                    </TableRow>
-
-                    <TableRow
+                    <TextView
+                        android:id="@+id/text_monday_client_main_activity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="25dp"
-                        android:gravity="center_horizontal">
+                        android:gravity="center"
+                        android:text="@string/monday"
+                        android:textColor="@color/font_light"
+                        android:textSize="20sp" />
+                </TableRow>
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycler_view_monday"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                    </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="25dp"
+                    android:gravity="center_horizontal">
 
-                </TableLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_view_monday"
+                        android:layout_width="220dp"
+                        android:layout_height="wrap_content" />
+                </TableRow>
 
-                <TableLayout
-                    android:layout_width="200dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp">
+            </TableLayout>
 
-                    <TableRow
+            <TableLayout
+                android:layout_width="220dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="25dp"
+                    android:gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/text_tuesday_client_exercise_list"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="25dp"
-                        android:gravity="center_horizontal">
+                        android:gravity="center"
+                        android:text="@string/tuesday"
+                        android:textColor="@color/font_light"
+                        android:textSize="20sp" />
+                </TableRow>
 
-                        <TextView
-                            android:id="@+id/text_tuesday_client_exercise_list"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/tuesday"
-                            android:textColor="@color/font_light"
-                            android:textSize="20sp" />
-                    </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="25dp"
+                    android:gravity="center_horizontal">
 
-                    <TableRow
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_view_tuesday"
+                        android:layout_width="220dp"
+                        android:layout_height="match_parent" />
+                </TableRow>
+
+            </TableLayout>
+
+            <TableLayout
+                android:layout_width="220dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="25dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/text_wednesday_client_exercise_list"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="25dp"
-                        android:gravity="center_horizontal">
+                        android:gravity="center"
+                        android:text="@string/wednesday"
+                        android:textColor="@color/font_light"
+                        android:textSize="20sp" />
+                </TableRow>
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycler_view_tuesday"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-                    </TableRow>
-
-                </TableLayout>
-
-                <TableLayout
-                    android:layout_width="200dp"
+                <TableRow
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp">
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="25dp"
+                    android:gravity="center">
 
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="25dp"
-                        android:gravity="center">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_view_wednesday"
+                        android:layout_width="220dp"
+                        android:layout_height="match_parent" />
+                </TableRow>
 
-                        <TextView
-                            android:id="@+id/text_wednesday_client_exercise_list"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/wednesday"
-                            android:textColor="@color/font_light"
-                            android:textSize="20sp" />
-                    </TableRow>
+            </TableLayout>
 
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="25dp"
-                        android:gravity="center">
+            <TableLayout
+                android:layout_width="220dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp">
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycler_view_wednesday"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-                    </TableRow>
-
-                </TableLayout>
-
-                <TableLayout
-                    android:layout_width="200dp"
+                <TableRow
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp">
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="25dp"
+                    android:gravity="center_horizontal">
 
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="25dp"
-                        android:gravity="center_horizontal">
-
-                        <TextView
-                            android:id="@+id/text_thursday_client_exercise_list"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/thursday"
-                            android:textColor="@color/font_light"
-                            android:textSize="20sp" />
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="25dp"
-                        android:gravity="center_horizontal">
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycler_view_thursday"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-                    </TableRow>
-
-                </TableLayout>
-
-                <TableLayout
-                    android:layout_width="200dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp">
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="25dp"
-                        android:gravity="center_horizontal">
-
-                        <TextView
-                            android:id="@+id/text_friday_client_exercise_list"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/friday"
-                            android:textColor="@color/font_light"
-                            android:textSize="20sp" />
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="25dp"
-                        android:gravity="center_horizontal">
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycler_view_friday"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-                    </TableRow>
-
-                </TableLayout>
-
-                <TableLayout
-                    android:layout_width="200dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp">
-
-                    <TableRow
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/text_thursday_client_exercise_list"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="25dp"
-                        android:gravity="center_horizontal">
+                        android:gravity="center"
+                        android:text="@string/thursday"
+                        android:textColor="@color/font_light"
+                        android:textSize="20sp" />
+                </TableRow>
 
-                        <TextView
-                            android:id="@+id/text_saturday_client_exercise_list"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/saturday"
-                            android:textColor="@color/font_light"
-                            android:textSize="20sp" />
-                    </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="25dp"
+                    android:gravity="center_horizontal">
 
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="25dp"
-                        android:gravity="center_horizontal">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_view_thursday"
+                        android:layout_width="220dp"
+                        android:layout_height="match_parent" />
+                </TableRow>
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycler_view_saturday"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-                    </TableRow>
+            </TableLayout>
 
-                </TableLayout>
+            <TableLayout
+                android:layout_width="220dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp">
 
-            </LinearLayout>
-        </HorizontalScrollView>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="25dp"
+                    android:gravity="center_horizontal">
 
+                    <TextView
+                        android:id="@+id/text_friday_client_exercise_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/friday"
+                        android:textColor="@color/font_light"
+                        android:textSize="20sp" />
+                </TableRow>
 
-    </LinearLayout>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="25dp"
+                    android:gravity="center_horizontal">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_view_friday"
+                        android:layout_width="220dp"
+                        android:layout_height="match_parent" />
+                </TableRow>
+
+            </TableLayout>
+
+            <TableLayout
+                android:layout_width="220dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="25dp"
+                    android:gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/text_saturday_client_exercise_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/saturday"
+                        android:textColor="@color/font_light"
+                        android:textSize="20sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="25dp"
+                    android:gravity="center_horizontal">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_view_saturday"
+                        android:layout_width="220dp"
+                        android:layout_height="match_parent" />
+                </TableRow>
+
+            </TableLayout>
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

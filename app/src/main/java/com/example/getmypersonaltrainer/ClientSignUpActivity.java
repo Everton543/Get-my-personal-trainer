@@ -1,5 +1,6 @@
 package com.example.getmypersonaltrainer;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -18,12 +19,17 @@ import java.util.GregorianCalendar;
 
 public class ClientSignUpActivity extends AppCompatActivity{
     public static String TAG = "ClientSignUpActivity";
+//todo change the hint from size to Height
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_sign_up);
         MainActivity.presenter.setActualActivity(this);
+
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setTitle(R.string.client_sign_up_activity_title);
 
         // Setup spinners for the birthdate picker...
         // Setup arrays to pick from...
@@ -66,7 +72,7 @@ public class ClientSignUpActivity extends AppCompatActivity{
     }
 
     public void ClientSignUp(View view){
-
+        //todo fix BUG even when the user do everything right the next activity is the go back one
         EditText editText = (EditText) findViewById(R.id.edit_text_id_client_sign_up_activity);
         String id = editText.getText().toString();
 

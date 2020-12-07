@@ -24,18 +24,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/title_client_main_activity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"
-            android:fontFamily="@font/abril_fatface"
-            android:gravity="center"
-            android:text="@string/client_main_activity_title"
-            android:textColor="@color/title_light"
-            android:textSize="22sp" />
-
-        <TextView
             android:id="@+id/text_invitation_message_client_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -85,14 +73,14 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_view_client_main_monday"
-                            android:layout_width="match_parent"
+                            android:layout_width="220dp"
                             android:layout_height="wrap_content" />
                     </TableRow>
 
                 </TableLayout>
 
                 <TableLayout
-                    android:layout_width="200dp"
+                    android:layout_width="220dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="20dp"
                     android:layout_marginRight="20dp">
@@ -123,14 +111,14 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_view_client_main_tuesday"
-                            android:layout_width="match_parent"
+                            android:layout_width="220dp"
                             android:layout_height="match_parent" />
                     </TableRow>
 
                 </TableLayout>
 
                 <TableLayout
-                    android:layout_width="200dp"
+                    android:layout_width="220dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="20dp"
                     android:layout_marginRight="20dp">
@@ -161,14 +149,14 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_view_client_main_wednesday"
-                            android:layout_width="match_parent"
+                            android:layout_width="220dp"
                             android:layout_height="match_parent" />
                     </TableRow>
 
                 </TableLayout>
 
                 <TableLayout
-                    android:layout_width="200dp"
+                    android:layout_width="220dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="20dp"
                     android:layout_marginRight="20dp">
@@ -199,14 +187,14 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_view_client_main_thursday"
-                            android:layout_width="match_parent"
+                            android:layout_width="220dp"
                             android:layout_height="match_parent" />
                     </TableRow>
 
                 </TableLayout>
 
                 <TableLayout
-                    android:layout_width="200dp"
+                    android:layout_width="220dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="20dp"
                     android:layout_marginRight="20dp">
@@ -237,14 +225,14 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_view_client_main_friday"
-                            android:layout_width="match_parent"
+                            android:layout_width="220dp"
                             android:layout_height="match_parent" />
                     </TableRow>
 
                 </TableLayout>
 
                 <TableLayout
-                    android:layout_width="200dp"
+                    android:layout_width="220dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="20dp"
                     android:layout_marginRight="20dp">
@@ -275,7 +263,7 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_view_client_main_saturday"
-                            android:layout_width="match_parent"
+                            android:layout_width="220dp"
                             android:layout_height="match_parent" />
                     </TableRow>
 

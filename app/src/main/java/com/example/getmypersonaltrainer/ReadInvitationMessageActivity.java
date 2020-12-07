@@ -1,5 +1,6 @@
 package com.example.getmypersonaltrainer;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +25,11 @@ public class ReadInvitationMessageActivity extends AppCompatActivity {
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_read_invitation_message);
+      MainActivity.presenter.setActualActivity(this);
+
+      ActionBar actionBar = getSupportActionBar();
+      assert actionBar != null;
+      actionBar.setTitle(R.string.read_invitation_message_title);
 
       MainActivity.presenter.getUser().setReceivedInvitation(false);
 
@@ -31,10 +37,9 @@ public class ReadInvitationMessageActivity extends AppCompatActivity {
       MainActivity.presenter.getUser().getInvitationMessage().size() > 0) {
          invitationsView = findViewById(R.id.recycler_view_invitation_messages);
 
-         Map<String, InvitationMessage> invitationList =
-               MainActivity.presenter.getUser().getInvitationMessage();
-
-         invitationAdapter = new InvitationListViewAdapter(this, invitationList);
+         invitationAdapter = new InvitationListViewAdapter(
+                 MainActivity.presenter.getModel().getInvitationList()
+         );
 
          invitationsView.setAdapter(invitationAdapter);
          invitationsView.setLayoutManager(new LinearLayoutManager(this));
@@ -45,8 +50,23 @@ public class ReadInvitationMessageActivity extends AppCompatActivity {
       }
    }
 
+   @Override
+   protected void onStart() {
+      super.onStart();
+      if(invitationAdapter != null) {
+         invitationAdapter.startListening();
+      }
+   }
 
-   public void alertDialog(final int position) {
+   @Override
+   protected void onStop() {
+      super.onStop();
+      if(invitationAdapter != null) {
+         invitationAdapter.stopListening();
+      }
+   }
+
+   public void alertDialog(final InvitationMessage invitationMessage) {
       AlertDialog.Builder dialog=new AlertDialog.Builder(this);
       dialog.setMessage("Continue will change your personal trainer. Continue?");
       dialog.setTitle("You have a personal trainer");
@@ -55,9 +75,7 @@ public class ReadInvitationMessageActivity extends AppCompatActivity {
                public void onClick(DialogInterface dialog,
                                    int which) {
                   Log.i(TAG, "Yes pressed");
-                  MainActivity.presenter.getModel().acceptInvitation(invitationAdapter
-                        .getInvitationList().get(position));
-                  eraseInvitation(position);
+                  MainActivity.presenter.getModel().acceptInvitation(invitationMessage);
                }
             });
       dialog.setNegativeButton("cancel",new DialogInterface.OnClickListener() {
@@ -71,16 +89,7 @@ public class ReadInvitationMessageActivity extends AppCompatActivity {
    }
 
 
-   public void declaimInvitation(final int position){
-      InvitationMessage invitationMessage =  invitationAdapter.getInvitationList().get(position);
+   public void declaimInvitation(InvitationMessage invitationMessage){
       MainActivity.presenter.getModel().declaimInvitation(invitationMessage);
-      eraseInvitation(position);
-   }
-
-   public void eraseInvitation(final int position){
-      InvitationMessage invitationMessage =  invitationAdapter.getInvitationList().get(position);
-
-      invitationAdapter.getInvitationList().remove(position);
-      invitationAdapter.notifyItemRemoved(position);
    }
 }

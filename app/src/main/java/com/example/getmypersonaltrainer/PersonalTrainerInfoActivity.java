@@ -1,5 +1,6 @@
 package com.example.getmypersonaltrainer;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,6 +16,10 @@ public class PersonalTrainerInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_trainer_info);
         MainActivity.presenter.setActualActivity(this);
+
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setTitle(R.string.personal_trainer_info_title);
 
         int invalidInput = 0;
 

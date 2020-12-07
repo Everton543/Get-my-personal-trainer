@@ -1,6 +1,7 @@
 package com.example.getmypersonaltrainer;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -19,6 +20,10 @@ public class LoadingActivity extends AppCompatActivity implements FastError{
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_loading);
       MainActivity.presenter.setActualActivity(this);
+
+      ActionBar actionBar = getSupportActionBar();
+      assert actionBar != null;
+      actionBar.hide();
    }
 
    @Override

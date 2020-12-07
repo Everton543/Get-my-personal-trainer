@@ -9,24 +9,10 @@
     tools:context=".ReadInvitationMessageActivity">
 
     <TextView
-        android:id="@+id/title_client_info_activity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/abril_fatface"
-        android:gravity="center"
-        android:text="@string/read_invitation_message_title"
-        android:textColor="@color/title_light"
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/text_no_invitation_read_invitation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="@string/no_invitation"
         android:textColor="@color/font_light"
@@ -34,7 +20,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_client_info_activity" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_invitation_messages"
@@ -49,5 +35,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_client_info_activity" />
+        app:layout_constraintTop_toBottomOf="@+id/text_no_invitation_read_invitation" />
 </androidx.constraintlayout.widget.ConstraintLayout>

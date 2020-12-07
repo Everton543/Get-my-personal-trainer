@@ -27,18 +27,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/title_create_exercise_activity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp"
-                android:fontFamily="@font/abril_fatface"
-                android:gravity="center"
-                android:text="@string/create_exercise_title"
-                android:textColor="@color/title_light"
-                android:textSize="22sp" />
-
 
             <AutoCompleteTextView
                 android:id="@+id/edit_text_exercise_name_create_exercise"
@@ -51,16 +39,11 @@
                 android:inputType="text"
                 android:textSize="16sp" />
 
-            <AutoCompleteTextView
-                android:id="@+id/edit_text_day_of_week_create_exercise"
+            <Spinner
+                android:id="@+id/spinner_day_of_week_create_exercise"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="@string/hint_day_of_week"
-                android:inputType="text"
-                android:textSize="16sp" />
+                android:layout_weight="1" />
 
             <EditText
                 android:id="@+id/edit_text_emphasis_create_exercise"
@@ -168,6 +151,7 @@
                 android:text="@string/button_change_exercise"
                 android:textColor="@color/font_dark"
                 android:textSize="18sp"
+                android:layout_marginBottom="20dp"
                 android:visibility="gone" />
 
             <Button

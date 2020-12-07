@@ -95,6 +95,20 @@ public class Model {
       return null;
    }
 
+   public FirebaseRecyclerOptions<InvitationMessage>
+      getInvitationList(){
+      Query query = database.getReference("Users")
+              .child(presenter.getUser().getUserId())
+              .child("invitationMessage");
+
+      FirebaseRecyclerOptions<InvitationMessage> options =
+              new FirebaseRecyclerOptions.Builder<InvitationMessage>()
+              .setQuery(query, InvitationMessage.class)
+              .build();
+
+      return options;
+   }
+
    public FirebaseRecyclerOptions<Exercise>
       getClientExerciseList(Client client, DayOfWeek dayOfWeek)
    {
@@ -162,6 +176,17 @@ public class Model {
                .child("personalTrainerId")
                .setValue(invitationMessage.getReceiverId());
       }
+
+      eraseInvitation(invitationMessage);
+   }
+
+   public void eraseInvitation(final InvitationMessage invitationMessage){
+      presenter.getUser().getInvitationMessage().remove(invitationMessage.getSenderId());
+      if(presenter.getUser() instanceof Client){
+         presenter.getModel().updateClient((Client) presenter.getUser());
+      } else if(presenter.getUser() instanceof PersonalTrainer){
+         presenter.getModel().updatePersonalTrainer((PersonalTrainer) presenter.getUser());
+      }
    }
 
    public void removeClient(Client client){
@@ -177,6 +202,8 @@ public class Model {
       } else if(presenter.getUser() instanceof PersonalTrainer){
          updatePersonalTrainer((PersonalTrainer) presenter.getUser());
       }
+
+      eraseInvitation(invitationMessage);
    }
 
    private boolean addPublicExerciseToDatabase(final Exercise exercise){

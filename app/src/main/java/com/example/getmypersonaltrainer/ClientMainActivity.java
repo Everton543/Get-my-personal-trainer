@@ -2,6 +2,7 @@ package com.example.getmypersonaltrainer;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,6 +33,10 @@ public class ClientMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_main);
         MainActivity.presenter.setActualActivity(this);
+
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setTitle(R.string.client_main_activity_title);
 
         if(MainActivity.presenter.getUser() instanceof Client){
             client = (Client) MainActivity.presenter.getUser();

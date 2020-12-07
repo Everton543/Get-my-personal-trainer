@@ -50,6 +50,7 @@
 
     //Tags
     <string name="phone_tag">Phone: </string>
+    <string name="about_myself_tag">About Myself: </string>
     <string name="id_tag">ID: </string>
     <string name="name_tag">Name: </string>
     <string name="age_tag">Age: </string>

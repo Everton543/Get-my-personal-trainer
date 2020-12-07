@@ -1,5 +1,6 @@
 package com.example.getmypersonaltrainer;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,6 +17,10 @@ public class SendInvitationActivity extends AppCompatActivity {
         MainActivity.presenter.setActualActivity(this);
         MainActivity.presenter.setGoingTo(SendInvitationActivity.class);
         MainActivity.presenter.setGoBack(SendInvitationActivity.class);
+
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setTitle(R.string.send_invitation_title);
     }
 
     public void sendInvitation(View view){

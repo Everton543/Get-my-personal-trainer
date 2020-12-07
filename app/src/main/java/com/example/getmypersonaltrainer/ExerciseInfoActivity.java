@@ -1,6 +1,7 @@
 package com.example.getmypersonaltrainer;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -20,12 +21,12 @@ public class ExerciseInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_info);
 
-        if(MainActivity.presenter.getUser() instanceof Client){
-            Intent intent = getIntent();
-            String exerciseId = intent.getStringExtra("exerciseId");
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setTitle(R.string.exercise_information_title);
 
-            Exercise exercise = MainActivity.presenter
-                  .getUser().getExerciseList().get(exerciseId);
+        if(MainActivity.presenter.getUser() instanceof Client){
+            Exercise exercise = MainActivity.presenter.getSelectedExercise();
 
             String emphasis = exercise.getEmphasis();
             String name = exercise.getName();

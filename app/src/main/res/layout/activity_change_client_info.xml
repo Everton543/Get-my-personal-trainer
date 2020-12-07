@@ -28,18 +28,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/title_client_info_activity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp"
-                android:fontFamily="@font/abril_fatface"
-                android:gravity="center"
-                android:text="@string/change_client_info_activity_title"
-                android:textColor="@color/title_light"
-                android:textSize="22sp" />
-
 
             <EditText
                 android:id="@+id/edit_text_name_change_client_info"
@@ -65,17 +53,40 @@
                 android:textSize="16sp"
                 android:importantForAutofill="no" />
 
-            <EditText
-                android:id="@+id/edit_text_birth_date_change_client_info"
+            <TextView
+                android:id="@+id/text_birthday_change_client_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/abril_fatface"
+                android:gravity="center"
+                android:text="@string/client_sign_up_activity_birthdate" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:ems="10"
                 android:gravity="center"
-                android:hint="@string/hint_birth_date"
-                android:inputType="date"
-                android:textSize="16sp"
-                android:importantForAutofill="no" />
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinner_year_change_client_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <Spinner
+                    android:id="@+id/spinner_month_change_client_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <Spinner
+                    android:id="@+id/spinner_day_change_client_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/edit_text_weight_change_client_info"
@@ -84,10 +95,10 @@
                 android:layout_marginBottom="20dp"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="@string/hint_weight"
+                android:hint="@string/hint_body_mass"
+                android:importantForAutofill="no"
                 android:inputType="numberDecimal"
-                android:textSize="16sp"
-                android:importantForAutofill="no" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/edit_text_size_change_client_info"
@@ -96,34 +107,10 @@
                 android:layout_marginBottom="20dp"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="@string/hint_size"
+                android:hint="@string/hint_height"
+                android:importantForAutofill="no"
                 android:inputType="numberDecimal"
-                android:textSize="16sp"
-                android:importantForAutofill="no" />
-
-            <EditText
-                android:id="@+id/edit_text_password_change_client_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="@string/hint_password"
-                android:inputType="textPassword"
-                android:textSize="16sp"
-                android:importantForAutofill="no" />
-
-            <EditText
-                android:id="@+id/edit_text_confirm_password_change_client_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="@string/hint_confirm_password"
-                android:inputType="textPassword"
-                android:textSize="16sp"
-                android:importantForAutofill="no" />
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/button_personal_trainer_sign_in_type"
@@ -131,6 +118,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/good_button_background"
                 android:gravity="center"
+                android:onClick="changeClientInfo"
                 android:text="@string/button_confirm"
                 android:textColor="@color/font_dark"
                 android:textSize="18sp" />

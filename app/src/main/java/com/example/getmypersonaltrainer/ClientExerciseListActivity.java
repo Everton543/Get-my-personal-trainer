@@ -1,6 +1,7 @@
 package com.example.getmypersonaltrainer;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +27,11 @@ public class ClientExerciseListActivity extends AppCompatActivity {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_client_exercise_list);
       MainActivity.presenter.setActualActivity(this);
+
+      ActionBar actionBar = getSupportActionBar();
+      assert actionBar != null;
+      actionBar.setTitle(R.string.client_exercise_list_title);
+
 
       client = MainActivity.presenter.getChangingClient();
       if(exerciseListRecyclerView.size() < 1) {

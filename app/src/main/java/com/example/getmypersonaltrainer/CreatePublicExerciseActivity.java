@@ -1,5 +1,6 @@
 package com.example.getmypersonaltrainer;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,9 +16,13 @@ public class CreatePublicExerciseActivity extends AppCompatActivity {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_create_public_exercise);
 
+      ActionBar actionBar = getSupportActionBar();
+      assert actionBar != null;
+      actionBar.setTitle(R.string.create_exercise_title);
    }
 
    public void sendExercise(View view){
+      //todo BUG, it stays forever in the loading Activity
       AutoCompleteTextView autoCompleteTextView = findViewById(R.id.edit_text_exercise_name_create_public_exercise);
       String exerciseName = autoCompleteTextView.getText().toString();
 
@@ -34,8 +39,10 @@ public class CreatePublicExerciseActivity extends AppCompatActivity {
       Exercise publicExercise = new Exercise(exerciseName, exerciseId, emphasis, videoLink,observations, true);
 
       MainActivity.presenter.getModel().savePublicExercise(publicExercise);
-      MainActivity.presenter.setGoingTo(PersonalTrainerInfoActivity.class);
-      MainActivity.presenter.setGoBack(ClientMainActivity.class);
+      MainActivity.presenter.setGoingTo(PersonalTrainerMainActivity.class);
+      MainActivity.presenter.setGoBack(PersonalTrainerMainActivity.class);
+
+      //todo put the warning message appear only after go Back or go Forward to the next activity
       Intent intent = new Intent(this, LoadingActivity.class);
       startActivity(intent);
    }

@@ -1,6 +1,7 @@
 package com.example.getmypersonaltrainer;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.time.DayOfWeek;
@@ -25,12 +27,10 @@ import static java.util.Objects.*;
 public class CreateExerciseActivity extends AppCompatActivity implements AutoFillExerciseInfoInterface, CreateExerciseInterface, FastError{
 
     private String[] EXERCISE_NAMES = null;
-//    private int clientIndex = -1;
     private static String TAG = "CreateExercise";
     private String[] weekDays;
     private DayOfWeek dayOfWeek = null;
     private boolean changingExercise = false;
-    private String exerciseId = null;
     private Exercise sendingExercise = null;
     private List<String> exerciseNameList;
 
@@ -41,30 +41,14 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
         setContentView(R.layout.activity_create_exercise);
         MainActivity.presenter.setActualActivity(this);
 
-        changingExercise = false;
-        Log.i(TAG, "On create Create Exercise");
-
-/*        if(getIntent().hasExtra("index")){
-            if(MainActivity.presenter.getUser() instanceof PersonalTrainer) {
-                clientIndex = Integer.parseInt(requireNonNull(getIntent().getStringExtra("index")));
-
-                Log.i(TAG, "Changing client " +
-                      ((PersonalTrainer) MainActivity.presenter.getUser())
-                            .getClients()
-                            .get(clientIndex)
-                            .getUserId()
-                );
-            }
-        }*/
-
-        if(getIntent().hasExtra("exerciseId")){
-
-            exerciseId = getIntent().getStringExtra("exerciseId");
-            Log.i(TAG, "Exercise Id : " + exerciseId);
-            changingExercise = true;
-        }
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setTitle(R.string.create_exercise_title);
 
         weekDays = getResources().getStringArray(R.array.weekDays);
+
+        changingExercise = false;
+        Log.i(TAG, "On create Create Exercise");
 
         String[] exerciseNames = new String[0];
         if(MainActivity.presenter.getUser() instanceof PersonalTrainer){
@@ -72,10 +56,13 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
             exerciseNames = exerciseNameList.toArray(new String[0]);
         }
 
-        AutoCompleteTextView editTextWeekDays = findViewById(R.id.edit_text_day_of_week_create_exercise);
+        //AutoCompleteTextView editTextWeekDays = findViewById(R.id.edit_text_day_of_week_create_exercise);
+        Spinner spinnerWeekDay = (Spinner) findViewById(R.id.spinner_day_of_week_create_exercise);
         ArrayAdapter<String> weekDaysAdapter = new ArrayAdapter<String>(this,
               android.R.layout.simple_list_item_1, weekDays);
-        editTextWeekDays.setAdapter(weekDaysAdapter);
+        weekDaysAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerWeekDay.setAdapter(weekDaysAdapter);
+        spinnerWeekDay.setSelection(0);
 
         final AutoCompleteTextView editTextExerciseName = findViewById(R.id.edit_text_exercise_name_create_exercise);
         ArrayAdapter<String> exerciseName = new ArrayAdapter<>(this,
@@ -116,8 +103,8 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
             }
         });
 
-        if(changingExercise){
-            fillGivenExerciseInfo();
+        if(MainActivity.presenter.getSelectedExercise() != null){
+            changingExercise = true;
             setLayoutToChangingExercise();
         }
     }
@@ -126,26 +113,14 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
     private void fillGivenExerciseInfo(){
         if(MainActivity.presenter.getChangingClient() != null){
             Exercise exercise = MainActivity.presenter
-                  .getChangingClient()
-                  .getExerciseList()
-                  .get(exerciseId);
-            Log.i(TAG, "Created Exercise from the given exerciseId");
-
-            Log.i(TAG, "Exercise info: ");
-
-            Log.i(TAG, "Exercise Name: " + exercise.getName());
-            Log.i(TAG, "Exercise Day: " + exercise.getDaysOfWeek());
-            Log.i(TAG, "Exercise LInk: " +  exercise.getVideoLink());
-            Log.i(TAG, "Exercise Series: " +  exercise.getSeries());
-            Log.i(TAG, "Exercise Emphasis: " +  exercise.getEmphasis());
-            Log.i(TAG, "Exercise Interval exercise: "  + exercise.getIntervalBetweenExercises());
-            Log.i(TAG, "Exercise Interval series: " + exercise.getSeries());
-            Log.i(TAG, "Exercise Repetition: " + exercise.getRepetitionTime());
+                  .getSelectedExercise();
 
             AutoCompleteTextView textExerciseName = findViewById(R.id.edit_text_exercise_name_create_exercise);
             textExerciseName.setText(exercise.getName());
 
-            AutoCompleteTextView editTextDayOfWeek = findViewById(R.id.edit_text_day_of_week_create_exercise);
+            //AutoCompleteTextView editTextDayOfWeek = findViewById(R.id.edit_text_day_of_week_create_exercise);
+            Spinner spinnerWeekDay = (Spinner) findViewById(R.id.spinner_day_of_week_create_exercise);
+
             int indexDayOfWeek = -1;
 
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -153,7 +128,8 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
             }
 
             if(indexDayOfWeek > 0) {
-                editTextDayOfWeek.setText(weekDays[indexDayOfWeek - 1]);
+                //editTextDayOfWeek.setText(weekDays[indexDayOfWeek - 1]);
+                spinnerWeekDay.setSelection(indexDayOfWeek - 1);
             }
 
             EditText editTextEmphasis = findViewById(R.id.edit_text_emphasis_create_exercise);
@@ -180,10 +156,11 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void setLayoutToChangingExercise(){
-        TextView textView = findViewById(R.id.title_create_exercise_activity);
-        String newTitle = getResources().getString(R.string.change_exercise_title);
-        textView.setText(newTitle);
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setTitle(R.string.change_exercise_title);
 
         Button sendExercise = findViewById(R.id.button_confirm_new_exercise);
         sendExercise.setVisibility(View.GONE);
@@ -193,6 +170,8 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
 
         Button deleteExercise = findViewById(R.id.button_delete_exercise_create_exercise);
         deleteExercise.setVisibility(View.VISIBLE);
+
+        fillGivenExerciseInfo();
     }
 
     @Override
@@ -231,8 +210,9 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
         AutoCompleteTextView textExerciseName = findViewById(R.id.edit_text_exercise_name_create_exercise);
         String exerciseName = String.valueOf(textExerciseName.getText());
         Log.i(TAG, "Exercise name: " + exerciseName);
-        AutoCompleteTextView editTextDayOfWeek = findViewById(R.id.edit_text_day_of_week_create_exercise);
-        String textDayOfWeek = String.valueOf(editTextDayOfWeek.getText());
+        //AutoCompleteTextView editTextDayOfWeek = findViewById(R.id.edit_text_day_of_week_create_exercise);
+        Spinner spinnerWeekDay = (Spinner) findViewById(R.id.spinner_day_of_week_create_exercise);
+        String textDayOfWeek = String.valueOf(spinnerWeekDay.getSelectedItem());
         Log.i(TAG, "Week day string : " + textDayOfWeek);
 
         boolean validDayOfWeek = getDayOfWeek(textDayOfWeek);
@@ -275,8 +255,9 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
             if(changingExercise){
                 sendingExercise = new Exercise(exerciseName, dayOfWeek, emphasis, repetition,
                       series, seriesInterval, exerciseInterval, videoLink, observations);
-                sendingExercise.setExerciseId(exerciseId);
-
+                sendingExercise.setExerciseId(
+                        MainActivity.presenter.getSelectedExercise().getExerciseId()
+                );
             }else{
             sendingExercise = new Exercise(exerciseName, dayOfWeek, emphasis, repetition,
                   series, seriesInterval, exerciseInterval, videoLink, observations);
@@ -327,7 +308,7 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
         if(MainActivity.presenter.getChangingClient() != null) {
             MainActivity.presenter.getModel().eraseClientExercise(
                   MainActivity.presenter.getChangingClient(),
-                  exerciseId
+                  MainActivity.presenter.getSelectedExercise().getExerciseId()
             );
 
             changingExercise = false;

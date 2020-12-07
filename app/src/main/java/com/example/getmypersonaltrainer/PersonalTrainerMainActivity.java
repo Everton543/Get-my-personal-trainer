@@ -1,6 +1,7 @@
 package com.example.getmypersonaltrainer;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +29,10 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
         Log.i(TAG, "Started Personal Trainer main Activity");
         MainActivity.presenter.setChangingClient(null);
 
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setTitle(R.string.personal_trainer_main_title);
+
         boolean personalTrainerHasClients = false;
         if(MainActivity.presenter.getClientList() != null){
             personalTrainerHasClients = MainActivity.presenter.getClientList().size() > 0;
@@ -51,13 +56,17 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        clientListViewAdapter.startListening();
+        if(clientListViewAdapter != null) {
+            clientListViewAdapter.startListening();
+        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        clientListViewAdapter.stopListening();
+        if(clientListViewAdapter != null) {
+            clientListViewAdapter.stopListening();
+        }
     }
 
     public void noClient() {

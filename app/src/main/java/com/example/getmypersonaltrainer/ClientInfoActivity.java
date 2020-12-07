@@ -16,6 +16,7 @@ public class ClientInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_info);
+        MainActivity.presenter.setActualActivity(this);
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;

@@ -1,5 +1,6 @@
 package com.example.getmypersonaltrainer;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,17 +12,27 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class InvitationListViewAdapter extends RecyclerView.Adapter<
+public class InvitationListViewAdapter extends FirebaseRecyclerAdapter<InvitationMessage,
       InvitationListViewAdapter.InvitationListViewHolder> {
 
-   List<InvitationMessage> invitationList = new ArrayList<InvitationMessage>();
-   Context context;
+   /**
+    * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
+    * {@link FirebaseRecyclerOptions} for configuration options.
+    *
+    * @param options
+    */
+   public InvitationListViewAdapter(@NonNull FirebaseRecyclerOptions<InvitationMessage> options) {
+      super(options);
+   }
 
-   public class InvitationListViewHolder extends RecyclerView.ViewHolder {
+   public static class InvitationListViewHolder extends RecyclerView.ViewHolder {
       TextView invitationText;
       Button acceptInvitation;
       Button declaimInvitation;
@@ -34,60 +45,43 @@ public class InvitationListViewAdapter extends RecyclerView.Adapter<
       }
    }
 
-   public InvitationListViewAdapter(Context context, Map<String, InvitationMessage> invitationList){
-      this.context = context;
-
-      for (Map.Entry me : invitationList.entrySet()) {
-         this.invitationList.add((InvitationMessage) me.getValue());
-      }
-   }
-
-
-   public List<InvitationMessage> getInvitationList() {
-      return invitationList;
-   }
-
-   public void setInvitationList(List<InvitationMessage> invitationList) {
-      this.invitationList = invitationList;
-   }
-
-
    @NonNull
    @Override
    public InvitationListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-      LayoutInflater inflater = LayoutInflater.from(context);
+      LayoutInflater inflater = LayoutInflater.from(parent.getContext());
       View view = inflater.inflate(R.layout.invitation_message, parent, false);
       return new InvitationListViewHolder(view);
    }
 
    @Override
-   public void onBindViewHolder(@NonNull final InvitationListViewHolder holder, final int position) {
-      String invitationMessage = invitationList.get(position).getInvitationMessage();
+   protected void onBindViewHolder(@NonNull InvitationListViewHolder holder,
+                                   final int position,
+                                   @NonNull final InvitationMessage model) {
+
+      String invitationMessage = model.getInvitationMessage();
       holder.invitationText.setText(invitationMessage);
 
       holder.acceptInvitation.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
+            Activity activity = MainActivity.presenter.getActualActivity();
             if(MainActivity.presenter.getUser() instanceof Client){
                boolean clientAlreadyHasPersonalTrainer =
-                     ((Client) MainActivity.presenter.getUser()).getPersonalTrainerId() != null;
+                       ((Client) MainActivity
+                               .presenter
+                               .getUser()).getPersonalTrainerId() != null;
 
                if(clientAlreadyHasPersonalTrainer){
-                  if(context instanceof ReadInvitationMessageActivity){
-                     ((ReadInvitationMessageActivity) context).alertDialog(position);
+                  if(activity instanceof ReadInvitationMessageActivity){
+                     ((ReadInvitationMessageActivity)
+                             activity).alertDialog(model);
                   }
                }else{
-                  MainActivity.presenter.getModel().acceptInvitation(invitationList.get(position));
-                  if(context instanceof ReadInvitationMessageActivity){
-                     ((ReadInvitationMessageActivity) context).eraseInvitation(position);
-                  }
+                  MainActivity.presenter.getModel().acceptInvitation(model);
                }
 
             }else{
-               MainActivity.presenter.getModel().acceptInvitation(invitationList.get(position));
-               if(context instanceof ReadInvitationMessageActivity){
-                  ((ReadInvitationMessageActivity) context).eraseInvitation(position);
-               }
+               MainActivity.presenter.getModel().acceptInvitation(model);
             }
          }
       });
@@ -95,16 +89,12 @@ public class InvitationListViewAdapter extends RecyclerView.Adapter<
       holder.declaimInvitation.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-            if(context instanceof ReadInvitationMessageActivity){
-               ((ReadInvitationMessageActivity) context).declaimInvitation(position);
+            if(MainActivity.presenter.getActualActivity() instanceof ReadInvitationMessageActivity){
+               ((ReadInvitationMessageActivity)
+                       MainActivity.presenter.getActualActivity()).declaimInvitation(model);
             }
          }
       });
-   }
-
-   @Override
-   public int getItemCount() {
-      return invitationList.size();
    }
 
 }
