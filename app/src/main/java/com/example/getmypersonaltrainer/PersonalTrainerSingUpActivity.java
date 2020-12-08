@@ -24,7 +24,6 @@ public class PersonalTrainerSingUpActivity extends AppCompatActivity{
    }
 
    public void signUp(View view){
-      //todo fix BUG even when the user do everything right, the next Activity is the goingBack one.
       boolean result = false;
 
       EditText editText = (EditText) findViewById(R.id.edit_text_id_personal_trainer_sign_up_activity);
@@ -48,6 +47,7 @@ public class PersonalTrainerSingUpActivity extends AppCompatActivity{
             .checkIfPasswordAreEqual(password, confirmPassword);
 
       if(passwordsAreEqual == true){
+         MainActivity.presenter.setGetInfoFromDatabase(true);
          User personalTrainer = new User(UserTypes.PERSONAL_TRAINER, password, name, id, aboutMyselfText);
          MainActivity.presenter.getModel().saveUser(personalTrainer);
          MainActivity.presenter.setGoingTo(MainActivity.class);

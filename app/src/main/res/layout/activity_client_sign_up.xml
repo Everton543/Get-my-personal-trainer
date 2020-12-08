@@ -118,7 +118,7 @@
                 android:layout_marginBottom="20dp"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="@string/hint_size"
+                android:hint="@string/hint_height"
                 android:inputType="numberDecimal"
                 android:textSize="16sp"
                 android:importantForAutofill="no" />

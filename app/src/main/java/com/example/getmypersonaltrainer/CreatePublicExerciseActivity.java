@@ -22,7 +22,6 @@ public class CreatePublicExerciseActivity extends AppCompatActivity {
    }
 
    public void sendExercise(View view){
-      //todo BUG, it stays forever in the loading Activity
       AutoCompleteTextView autoCompleteTextView = findViewById(R.id.edit_text_exercise_name_create_public_exercise);
       String exerciseName = autoCompleteTextView.getText().toString();
 
@@ -38,11 +37,11 @@ public class CreatePublicExerciseActivity extends AppCompatActivity {
       String exerciseId = exerciseName + "Free";
       Exercise publicExercise = new Exercise(exerciseName, exerciseId, emphasis, videoLink,observations, true);
 
+      MainActivity.presenter.setGetInfoFromDatabase(true);
       MainActivity.presenter.getModel().savePublicExercise(publicExercise);
       MainActivity.presenter.setGoingTo(PersonalTrainerMainActivity.class);
-      MainActivity.presenter.setGoBack(PersonalTrainerMainActivity.class);
-
-      //todo put the warning message appear only after go Back or go Forward to the next activity
+      MainActivity.presenter.setGoBack(CreatePublicExerciseActivity.class);
+      
       Intent intent = new Intent(this, LoadingActivity.class);
       startActivity(intent);
    }

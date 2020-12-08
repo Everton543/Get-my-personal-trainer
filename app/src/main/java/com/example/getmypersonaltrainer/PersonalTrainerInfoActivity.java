@@ -57,9 +57,8 @@ public class PersonalTrainerInfoActivity extends AppCompatActivity {
 
     public void unsubscribe(View view){
         if(MainActivity.presenter.getUser() instanceof Client){
-            ((Client) MainActivity.presenter.getUser()).setPersonalTrainerId(null);
-            MainActivity.presenter.getModel().updateClient(
-                  (Client) MainActivity.presenter.getUser()
+            MainActivity.presenter.getModel().clientUnsubscribeFromPersonalTrainer(
+                    ((Client) MainActivity.presenter.getUser())
             );
 
             Intent  intent = new Intent(this, ClientMainActivity.class);

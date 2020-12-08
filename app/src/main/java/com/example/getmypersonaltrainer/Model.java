@@ -60,8 +60,8 @@ public class Model {
    @RequiresApi(api = Build.VERSION_CODES.O)
    private boolean addUserToDatabase(final User user){
       databaseReference = database.getReference("Users");
-
-      if(validateInfo.password(user.getPassword()) == true) {
+      boolean userHasValidPassword = validateInfo.password(user.getPassword());
+      if(userHasValidPassword) {
          try {
             Encrypt.hashUserPassword(user);
          } catch (Exception e) {
@@ -140,10 +140,10 @@ public class Model {
                Log.i(TAG, "onDataChange from savePublicExercise");
                if (snapshot.exists() && presenter.isGetInfoFromDatabase()) {
                   Log.i(TAG, "Exercise " + exercise.getExerciseId() + " already exist");
-                  warnings.errorExerciseAlreadyExists();
                   if (presenter.getActualActivity() instanceof  FastError) {
                      ((FastError) presenter.getActualActivity()).loadingError();
                   }
+                  warnings.errorExerciseAlreadyExists();
 
                }
                else if(presenter.isGetInfoFromDatabase()){
@@ -240,15 +240,16 @@ public class Model {
          public void onDataChange(@NonNull DataSnapshot snapshot) {
             userList.clear();
             boolean userNotLogged = !presenter.isLogged();
+            boolean sendingInfo = presenter.isGetInfoFromDatabase();
             Log.i(TAG, "onDataChange from getIdFromDatabase called");
-           if(snapshot.exists() && userNotLogged){
+           if(snapshot.exists() && userNotLogged && sendingInfo){
                Log.i(TAG, "User " + user.getUserId() + " already exist");
-               warnings.errorUserIdAlreadyExists();
               if (presenter.getActualActivity() instanceof FastError) {
                  ((FastError) presenter.getActualActivity()).loadingError();
               }
+              warnings.errorUserIdAlreadyExists();
             }
-            else if (userNotLogged){
+            else if (userNotLogged && sendingInfo){
                if(validateInfo.checkId(user.getUserId())) {
                   if(addUserToDatabase(user)){
                      if (presenter.getActualActivity() instanceof FastError) {
@@ -257,6 +258,7 @@ public class Model {
                   }
                }
             }
+            presenter.setGetInfoFromDatabase(false);
          }
 
          @Override

@@ -19,7 +19,6 @@ import java.util.GregorianCalendar;
 
 public class ClientSignUpActivity extends AppCompatActivity{
     public static String TAG = "ClientSignUpActivity";
-//todo change the hint from size to Height
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +71,6 @@ public class ClientSignUpActivity extends AppCompatActivity{
     }
 
     public void ClientSignUp(View view){
-        //todo fix BUG even when the user do everything right the next activity is the go back one
         EditText editText = (EditText) findViewById(R.id.edit_text_id_client_sign_up_activity);
         String id = editText.getText().toString();
 
@@ -146,8 +144,9 @@ public class ClientSignUpActivity extends AppCompatActivity{
               .getValidateInfo()
               .checkIfPasswordAreEqual(password, confirmPassword);
 
-        if(passwordsAreEqual == true){
+        if(passwordsAreEqual){
             User client = new User(UserTypes.CLIENT, password, name, id, phone, birthDate, bodyMass, size);
+            MainActivity.presenter.setGetInfoFromDatabase(true);
             MainActivity.presenter.getModel().saveUser(client);
             MainActivity.presenter.setGoingTo(MainActivity.class);
             MainActivity.presenter.setGoBack(PersonalTrainerSingUpActivity.class);
