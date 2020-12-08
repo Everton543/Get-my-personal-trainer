@@ -141,7 +141,12 @@ public class ClientSignUpActivity extends AppCompatActivity{
               .getValidateInfo()
               .checkIfPasswordAreEqual(password, confirmPassword);
 
-        if(passwordsAreEqual){
+        boolean validPassword = MainActivity.presenter
+                .getModel()
+                .getValidateInfo()
+                .password(password);
+
+        if(passwordsAreEqual && validPassword){
             User client = new User(UserTypes.CLIENT, password, name, id, phone, birthDate, bodyMass, size);
             MainActivity.presenter.setGetInfoFromDatabase(true);
             MainActivity.presenter.getModel().saveUser(client);
@@ -149,6 +154,8 @@ public class ClientSignUpActivity extends AppCompatActivity{
             MainActivity.presenter.setGoBack(PersonalTrainerSingUpActivity.class);
             Intent intent = new Intent(this, LoadingActivity.class);
             startActivity(intent);
+        }else if(validPassword == false) {
+            MainActivity.presenter.getModel().getWarnings().invalidPassword();
         }else{
             MainActivity.presenter.getModel().getWarnings().passwordNotEqualError();
         }

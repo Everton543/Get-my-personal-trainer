@@ -41,7 +41,12 @@ public class PersonalTrainerSingUpActivity extends AppCompatActivity{
             .getValidateInfo()
             .checkIfPasswordAreEqual(password, confirmPassword);
 
-      if(passwordsAreEqual){
+      boolean validPassword = MainActivity.presenter
+              .getModel()
+              .getValidateInfo()
+              .password(password);
+
+      if(passwordsAreEqual && validPassword){
          MainActivity.presenter.setGetInfoFromDatabase(true);
          User personalTrainer = new User(UserTypes.PERSONAL_TRAINER, password, name, id, aboutMyselfText);
          MainActivity.presenter.getModel().saveUser(personalTrainer);
@@ -50,6 +55,8 @@ public class PersonalTrainerSingUpActivity extends AppCompatActivity{
          Intent intent = new Intent(this, LoadingActivity.class);
          startActivity(intent);
 
+      }else if(validPassword == false) {
+         MainActivity.presenter.getModel().getWarnings().invalidPassword();
       }else{
          MainActivity.presenter.getModel().getWarnings().passwordNotEqualError();
       }
