@@ -20,15 +20,15 @@ import static com.example.getmypersonaltrainer.MainActivity.presenter;
 
 public class CheckLogin implements Runnable{
     private final static String TAG = "CheckLogin";
-    private final List<User> userList = new ArrayList<User>();
-    private String userId = null;
-    private String password = null;
-    private WeakReference<Activity> activity = null;
+    private final List<User> userList = new ArrayList<>();
+    private final String userId;
+    private final String password;
+    private final WeakReference<Activity> activity;
 
     public CheckLogin(String userId, String password, Activity activity) {
         this.userId = userId;
         this.password = password;
-        this.activity = new WeakReference<Activity>(activity);
+        this.activity = new WeakReference<>(activity);
     }
 
 
@@ -63,8 +63,8 @@ public class CheckLogin implements Runnable{
                         e.printStackTrace();
                     }
 
+                    Activity runActivity = activity.get();
                     if(correctPassword){
-                        Activity runActivity = activity.get();
                         if(runActivity instanceof LoginInterface){
                             ((LoginInterface) runActivity).setPresenterUser(userList.get(0));
 
@@ -74,7 +74,6 @@ public class CheckLogin implements Runnable{
                         }
                     }else {
 
-                        Activity runActivity = activity.get();
                         runActivity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

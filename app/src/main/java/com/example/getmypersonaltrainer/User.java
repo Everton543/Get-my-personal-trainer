@@ -14,14 +14,14 @@ public class User implements UserInterface, ClientInterface, PersonalTrainerInte
    private String birthDate;
    private float bodyMass;
    private float size;
-   private Map<String, Exercise> exerciseList = new HashMap<String, Exercise>();
+   private Map<String, Exercise> exerciseList = new HashMap<>();
    private String hashedPassword;
    private String salt;
    private String aboutMyselfText;
-   private List<Client> clientList = new ArrayList<Client>();
+   private List<Client> clientList = new ArrayList<>();
    private String personalTrainerId;
-   private Map<String, InvitationMessage> invitationMessage = new HashMap<String, InvitationMessage>();
-   private List<String> exerciseNameList = new ArrayList<String>();
+   private Map<String, InvitationMessage> invitationMessage = new HashMap<>();
+   private List<String> exerciseNameList = new ArrayList<>();
    private boolean receivedInvitation;
    private int score;
    private int voteQuantity;

@@ -1,6 +1,5 @@
 package com.example.getmypersonaltrainer;
 
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
-import java.util.List;
-
 public class ExerciseListViewAdapter extends FirebaseRecyclerAdapter<
       Exercise, ExerciseListViewAdapter.ExerciseListViewHolder> {
 
@@ -23,14 +20,14 @@ public class ExerciseListViewAdapter extends FirebaseRecyclerAdapter<
     * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
     * {@link FirebaseRecyclerOptions} for configuration options.
     *
-    * @param options
+    * @param options This is the FirebaseRecyclerOptions
     */
    public ExerciseListViewAdapter(@NonNull FirebaseRecyclerOptions<Exercise> options, boolean changingClient) {
       super(options);
       this.changingClient = changingClient;
    }
 
-   public class ExerciseListViewHolder extends RecyclerView.ViewHolder {
+   public static class ExerciseListViewHolder extends RecyclerView.ViewHolder {
       Button exercise;
       public ExerciseListViewHolder(@NonNull View itemView) {
          super(itemView);
@@ -55,7 +52,7 @@ public class ExerciseListViewAdapter extends FirebaseRecyclerAdapter<
          @Override
          public void onClick(View v) {
             MainActivity.presenter.setSelectedExercise(model);
-            Intent intent = null;
+            Intent intent;
             if(changingClient) {
                intent = new Intent(MainActivity.presenter.getActualActivity(), CreateExerciseActivity.class);
             }else{

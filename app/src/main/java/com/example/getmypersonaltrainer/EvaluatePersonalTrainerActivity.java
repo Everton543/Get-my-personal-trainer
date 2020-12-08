@@ -37,9 +37,9 @@ public class EvaluatePersonalTrainerActivity extends AppCompatActivity {
       EditText editTextScore = findViewById(R.id.edit_text_score_vote_evaluate_personal_trainer);
       int score = Integer.parseInt(String.valueOf(editTextScore.getText()));
 
-      boolean result = MainActivity.presenter.getModel().saveVoteInfo(score);
+      boolean goodResult = MainActivity.presenter.getModel().saveVoteInfo(score);
 
-      if(result == true) {
+      if(goodResult) {
          Intent intent = new Intent(this, ClientMainActivity.class);
          startActivity(intent);
       }

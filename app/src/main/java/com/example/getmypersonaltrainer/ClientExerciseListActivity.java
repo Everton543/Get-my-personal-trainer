@@ -3,24 +3,25 @@ package com.example.getmypersonaltrainer;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
+/**
+ * @author Everton Alves
+ *
+ */
 public class ClientExerciseListActivity extends AppCompatActivity {
    @RequiresApi(api = Build.VERSION_CODES.O)
    private Client client = null;
-   private List<ExerciseListViewAdapter> exerciseListViewAdapters = new ArrayList<ExerciseListViewAdapter>();
-   private List<RecyclerView> exerciseListRecyclerView = new ArrayList<RecyclerView>();
+   private final List<ExerciseListViewAdapter> exerciseListViewAdapters = new ArrayList<>();
+   private final List<RecyclerView> exerciseListRecyclerView = new ArrayList<>();
    @RequiresApi(api = Build.VERSION_CODES.O)
    @Override
    protected void onCreate(Bundle savedInstanceState) {

@@ -14,20 +14,14 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.time.DayOfWeek;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-
-import static java.util.Objects.*;
 
 public class CreateExerciseActivity extends AppCompatActivity implements AutoFillExerciseInfoInterface, CreateExerciseInterface, FastError{
 
-    private String[] EXERCISE_NAMES = null;
-    private static String TAG = "CreateExercise";
+    private static final String TAG = "CreateExercise";
     private String[] weekDays;
     private DayOfWeek dayOfWeek = null;
     private boolean changingExercise = false;
@@ -58,8 +52,8 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
 
         //AutoCompleteTextView editTextWeekDays = findViewById(R.id.edit_text_day_of_week_create_exercise);
         Spinner spinnerWeekDay = (Spinner) findViewById(R.id.spinner_day_of_week_create_exercise);
-        ArrayAdapter<String> weekDaysAdapter = new ArrayAdapter<String>(this,
-              android.R.layout.simple_list_item_1, weekDays);
+        ArrayAdapter<String> weekDaysAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, weekDays);
         weekDaysAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerWeekDay.setAdapter(weekDaysAdapter);
         spinnerWeekDay.setSelection(0);
@@ -184,10 +178,9 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
 
     @Override
     public void setExerciseNameList(String[] exerciseNameList) {
-        this.EXERCISE_NAMES = exerciseNameList;
         AutoCompleteTextView editTextExerciseName = findViewById(R.id.edit_text_exercise_name_create_exercise);
-        ArrayAdapter<String> exerciseNameAdapter = new ArrayAdapter<String>(this,
-              android.R.layout.simple_list_item_1, EXERCISE_NAMES);
+        ArrayAdapter<String> exerciseNameAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, exerciseNameList);
         editTextExerciseName.setAdapter(exerciseNameAdapter);
     }
 

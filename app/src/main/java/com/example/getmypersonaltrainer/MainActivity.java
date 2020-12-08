@@ -2,26 +2,14 @@
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.gson.Gson;
-
-import java.io.Serializable;
-
-import static com.example.getmypersonaltrainer.UserTypes.PERSONAL_TRAINER;
 
    public class MainActivity extends AppCompatActivity implements LoginInterface{
       final static String PREFERENCES = "SharedPreference";

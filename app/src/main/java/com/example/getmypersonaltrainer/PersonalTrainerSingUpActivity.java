@@ -7,9 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-
-import com.google.gson.Gson;
-
 public class PersonalTrainerSingUpActivity extends AppCompatActivity{
 
    @Override
@@ -24,8 +21,6 @@ public class PersonalTrainerSingUpActivity extends AppCompatActivity{
    }
 
    public void signUp(View view){
-      boolean result = false;
-
       EditText editText = (EditText) findViewById(R.id.edit_text_id_personal_trainer_sign_up_activity);
       String id = editText.getText().toString();
 
@@ -46,7 +41,7 @@ public class PersonalTrainerSingUpActivity extends AppCompatActivity{
             .getValidateInfo()
             .checkIfPasswordAreEqual(password, confirmPassword);
 
-      if(passwordsAreEqual == true){
+      if(passwordsAreEqual){
          MainActivity.presenter.setGetInfoFromDatabase(true);
          User personalTrainer = new User(UserTypes.PERSONAL_TRAINER, password, name, id, aboutMyselfText);
          MainActivity.presenter.getModel().saveUser(personalTrainer);

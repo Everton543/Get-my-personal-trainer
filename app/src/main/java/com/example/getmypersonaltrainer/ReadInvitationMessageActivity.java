@@ -11,9 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.Map;
 
 public class ReadInvitationMessageActivity extends AppCompatActivity {
 

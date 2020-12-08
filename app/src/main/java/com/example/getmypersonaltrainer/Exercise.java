@@ -27,6 +27,7 @@ public class Exercise {
       this.emphasis = emphasis;
       this.videoLink = videoLink;
       this.free = free;
+      this.observations = observations;
    }
 
    public Exercise(String name, DayOfWeek dayOfWeek, String emphasis, String repetitionTime,
@@ -40,6 +41,7 @@ public class Exercise {
       this.intervalBetweenSeries = intervalBetweenSeries;
       this.intervalBetweenExercises = intervalBetweenExercises;
       this.videoLink = videoLink;
+      this.observations = observations;
    }
 
    @RequiresApi(api = Build.VERSION_CODES.O)

@@ -5,13 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 public class ClientInfoActivity extends AppCompatActivity {
 
-    private String index = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +55,7 @@ public class ClientInfoActivity extends AppCompatActivity {
 
     public void removeClient(View view){
         if(MainActivity.presenter.getChangingClient() != null) {
-            MainActivity.presenter.getModel().removeClient(
+            MainActivity.presenter.getModel().clientUnsubscribeFromPersonalTrainer(
                     MainActivity.presenter.getChangingClient()
             );
 

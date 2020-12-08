@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -46,7 +45,8 @@ public class PersonalTrainerInfoActivity extends AppCompatActivity {
     public void evaluateTrainer(View view){
         if(MainActivity.presenter.getUser() instanceof Client) {
 
-            if(((Client) MainActivity.presenter.getUser()).getVoted() == false) {
+            boolean didNotVote = !((Client) MainActivity.presenter.getUser()).getVoted();
+            if(didNotVote) {
                 Intent intent = new Intent(this, EvaluatePersonalTrainerActivity.class);
                 startActivity(intent);
             } else{
@@ -61,9 +61,9 @@ public class PersonalTrainerInfoActivity extends AppCompatActivity {
                     ((Client) MainActivity.presenter.getUser())
             );
 
-            Intent  intent = new Intent(this, ClientMainActivity.class);
+            Intent intent = new Intent(this, ClientMainActivity.class);
             startActivity(intent);
+
         }
     }
-
 }

@@ -190,10 +190,6 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
       this.score = score;
    }
 
-   public void addNewExerciseName(String exerciseName){
-      exerciseNameList.add(exerciseName);
-   }
-
    public Exercise getExerciseFromExerciseName(String exerciseName){
       Exercise exercise = null;
       for (Map.Entry mapEntry : exerciseList.entrySet()) {
@@ -250,14 +246,4 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
          this.voteQuantity = 2;
       }
    }
-
-   public String [] getClientsID(){
-      List<String> clientsID= new ArrayList<String>();
-      for(int i = 0; i < clientList.size(); i++){
-         clientsID.add(clientList.get(i).getUserId());
-      }
-
-      return clientsID.toArray(new String[0]);
-   }
-
 }

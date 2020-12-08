@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,6 +33,11 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setTitle(R.string.personal_trainer_main_title);
+
+        boolean receivedInvitation = MainActivity.presenter.getUser().getReceivedInvitation();
+        if(receivedInvitation){
+            receivedInvitation();
+        }
 
         boolean personalTrainerHasClients = false;
         if(MainActivity.presenter.getClientList() != null){
@@ -69,12 +75,20 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
         }
     }
 
+    public void receivedInvitation(){
+        TextView textView = findViewById(R.id.text_received_invitation_alert_personal_main);
+        String invitationText = getString(R.string.personal_trainer_received_invitation);
+        invitationText += " " + getString(R.string.item_read_invitation);
+        textView.setText(invitationText);
+        textView.setVisibility(View.VISIBLE);
+    }
+
     public void noClient() {
         String inviteClient = getString(R.string.item_invite_client);
         String message = "You don't have Clients to find clients go to the menu at the top right" +
               " conner of the screen and click in " + inviteClient;
 
-        TextView text = findViewById(R.id.text_no_clients_alert);
+        TextView text = findViewById(R.id.text_no_clients_alert_personal_main);
         text.setText(message);
         text.setVisibility(View.VISIBLE);
     }
@@ -86,9 +100,10 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
         return true;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Intent intent = null;
+        Intent intent;
         switch (item.getItemId()){
             case R.id.item_create_public_exercise: {
                 intent = new Intent(this, CreatePublicExerciseActivity.class);

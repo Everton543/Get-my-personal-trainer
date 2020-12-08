@@ -2,15 +2,12 @@ package com.example.getmypersonaltrainer;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.solver.state.ConstraintReference;
-import androidx.constraintlayout.solver.state.State;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -64,7 +61,7 @@ public class ClientListViewAdapter extends FirebaseRecyclerAdapter<Client,
       return new ClientListViewHolder(view);
    }
 
-   public class ClientListViewHolder extends RecyclerView.ViewHolder {
+   public static class ClientListViewHolder extends RecyclerView.ViewHolder {
       TextView userID;
       TextView userName;
       ConstraintLayout background;

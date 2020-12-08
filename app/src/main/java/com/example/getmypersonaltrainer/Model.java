@@ -1,7 +1,6 @@
 package com.example.getmypersonaltrainer;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
@@ -9,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,26 +18,18 @@ import com.google.firebase.database.ValueEventListener;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static com.example.getmypersonaltrainer.MainActivity.presenter;
 
-//
-
 public class Model {
-   public FirebaseDatabase getDatabase() {
-      return database;
-   }
-
-   private FirebaseDatabase database = null;
-   private DatabaseReference databaseReference = null;
-   private ChildEventListener childEventListener;
+   private final FirebaseDatabase database;
+   private DatabaseReference databaseReference;
    private static final String TAG = "Model";
-   private Warnings warnings = new Warnings();
-   private ValidateInfo validateInfo = new ValidateInfo();
-   private List<Client> clients = new ArrayList<Client>();
-   private List<PersonalTrainer> personalTrainers = new ArrayList<PersonalTrainer>();
-   List<User> userList = new ArrayList<User>();
+   private final Warnings warnings = new Warnings();
+   private final ValidateInfo validateInfo = new ValidateInfo();
+   private final List<Client> clients = new ArrayList<>();
+   private final List<PersonalTrainer> personalTrainers = new ArrayList<>();
+   List<User> userList = new ArrayList<>();
 
    public Model(){
       //This line is for FirebaseDatabase to work faster
@@ -47,6 +37,10 @@ public class Model {
 
       database = FirebaseDatabase.getInstance();
       databaseReference = database.getReference();
+   }
+
+   public FirebaseDatabase getDatabase() {
+      return database;
    }
 
    ValidateInfo getValidateInfo(){
@@ -85,11 +79,9 @@ public class Model {
                  .orderByChild("personalTrainerId")
                  .equalTo(personalId);
 
-         FirebaseRecyclerOptions<Client> options =
-                 new FirebaseRecyclerOptions.Builder<Client>()
-                         .setQuery(query, Client.class)
-                 .build();
-         return options;
+         return new FirebaseRecyclerOptions.Builder<Client>()
+                 .setQuery(query, Client.class)
+         .build();
       }
 
       return null;
@@ -101,12 +93,9 @@ public class Model {
               .child(presenter.getUser().getUserId())
               .child("invitationMessage");
 
-      FirebaseRecyclerOptions<InvitationMessage> options =
-              new FirebaseRecyclerOptions.Builder<InvitationMessage>()
-              .setQuery(query, InvitationMessage.class)
-              .build();
-
-      return options;
+      return new FirebaseRecyclerOptions.Builder<InvitationMessage>()
+      .setQuery(query, InvitationMessage.class)
+      .build();
    }
 
    public FirebaseRecyclerOptions<Exercise>
@@ -117,12 +106,9 @@ public class Model {
               .orderByChild("daysOfWeek")
               .equalTo(String.valueOf(dayOfWeek));
 
-      FirebaseRecyclerOptions<Exercise> options =
-              new FirebaseRecyclerOptions.Builder<Exercise>()
-              .setQuery(query, Exercise.class)
-              .build();
-
-      return options;
+      return new FirebaseRecyclerOptions.Builder<Exercise>()
+      .setQuery(query, Exercise.class)
+      .build();
    }
 
    public void savePublicExercise(final Exercise exercise){
@@ -189,11 +175,6 @@ public class Model {
       }
    }
 
-   public void removeClient(Client client){
-      client.setPersonalTrainerId(null);
-      updateClient(client);
-   }
-
    public void declaimInvitation(final InvitationMessage invitationMessage){
       databaseReference = database.getReference("Users");
       presenter.getUser().getInvitationMessage().remove(invitationMessage.getSenderId());
@@ -208,7 +189,9 @@ public class Model {
 
    private boolean addPublicExerciseToDatabase(final Exercise exercise){
       databaseReference = database.getReference("Exercise");
-      if(validateInfo.checkId(exercise.getExerciseId()) == true) {
+      boolean validId = validateInfo.checkId(exercise.getExerciseId());
+
+      if(validId) {
             databaseReference.child(exercise.getExerciseId()).setValue(exercise);
             warnings.createdNewExerciseSuccessfully();
             return true;
@@ -312,20 +295,14 @@ public class Model {
 
    /**
     *  @author Everton Alves
-    *  @param client
-    *  @return boolean
-    *  Check if the client has a personal trainer.
-    *  If the client has a personal trainer, the personal trainer will be removed
-    *  from the client and the function will return true, it returns false otherwise.
+    *  @param client Client class
     */
-   public boolean clientUnsubscribeFromPersonalTrainer(Client client){
+   public void clientUnsubscribeFromPersonalTrainer(Client client){
       boolean clientHasPersonalTrainer = validateInfo.checkIfClientHasPersonalTrainer(client);
       if(clientHasPersonalTrainer){
          client.setPersonalTrainerId(null);
          updateClient(client);
-         return true;
       }
-      return false;
    }
 
    public boolean saveVoteInfo(int score){
@@ -539,9 +516,11 @@ public class Model {
             .child(exercise.getExerciseId()).setValue(exercise);
    }
 
+
+
    /**
     * @author Everton Alves
-    * @param client
+    * @param client Client class
     * Remove All Client Exercise from the database.
     */
    public void deleteClientExercises(Client client){
@@ -598,9 +577,9 @@ public class Model {
       Log.i(TAG, "Call addClientExercise with the name = " + exercise.getName());
       boolean goodResult = saveClientExercise(client, exercise);
       if(goodResult) {
-         boolean hasGivenExercise =
-               validateInfo.checkIfPersonalTrainerHasGivenExercise((PersonalTrainer) presenter.getUser(), exercise);
-         if(hasGivenExercise == false){
+         boolean doNotHasGivenExercise =
+               !validateInfo.checkIfPersonalTrainerHasGivenExercise((PersonalTrainer) presenter.getUser(), exercise);
+         if(doNotHasGivenExercise){
             savePersonalPrivateExercise(exercise);
          }
 

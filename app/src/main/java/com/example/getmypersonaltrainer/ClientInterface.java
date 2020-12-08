@@ -1,7 +1,5 @@
 package com.example.getmypersonaltrainer;
 
-import java.util.HashMap;
-
 public interface ClientInterface {
    float getBodyMass();
    String getBirthDate();

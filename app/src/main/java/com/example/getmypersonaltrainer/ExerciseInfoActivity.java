@@ -4,14 +4,9 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.TextView;
-
-import java.time.DayOfWeek;
-import java.util.List;
-import java.util.Map;
 
 public class ExerciseInfoActivity extends AppCompatActivity {
 
@@ -39,7 +34,7 @@ public class ExerciseInfoActivity extends AppCompatActivity {
             String observations = exercise.getObservations();
 
 
-            TextView textView = null;
+            TextView textView;
 
             //name
             textView = findViewById(R.id.text_exercise_name_exercise_info_activity);

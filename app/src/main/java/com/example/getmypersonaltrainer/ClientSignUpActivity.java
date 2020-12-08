@@ -8,13 +8,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class ClientSignUpActivity extends AppCompatActivity{
@@ -52,9 +49,9 @@ public class ClientSignUpActivity extends AppCompatActivity{
         Spinner spinnerMonth = (Spinner) findViewById(R.id.spinnerMonth);
         Spinner spinnerDay = (Spinner) findViewById(R.id.spinnerDay);
         // Put the arrays into the spinners...
-        ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, years);
-        ArrayAdapter<String> adapterMonth = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, months);
-        ArrayAdapter<String> adapterDay = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, days);
+        ArrayAdapter<String> adapterYear = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, years);
+        ArrayAdapter<String> adapterMonth = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, months);
+        ArrayAdapter<String> adapterDay = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, days);
         // Specify the layout to use when the list of choices appears
         adapterYear.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapterMonth.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

@@ -20,8 +20,7 @@ public class InvitationMessage {
       createInvitationMessage();
    }
 
-   public InvitationMessage() {
-   }
+   public InvitationMessage() { }
 
    public InvitationMessage(String senderId, String receiverId, String senderName, UserTypes senderUserType, String phone) {
       this.senderId = senderId;

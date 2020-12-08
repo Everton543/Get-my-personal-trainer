@@ -105,7 +105,11 @@
     </string>
     <string name="client_received_invitation">
         A personal trainer wants you as a student.
-        Go to your menu and click in Invitations.
+        Go to your menu and click in
+    </string>
+    <string name="personal_trainer_received_invitation">
+        A client wants you as his/her personal trainer.
+        Go to your menu and click in
     </string>
     <string name="monday">Monday</string>
     <string name="tuesday">Tuesday</string>

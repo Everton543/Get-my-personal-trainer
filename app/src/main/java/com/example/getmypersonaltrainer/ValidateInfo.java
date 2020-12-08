@@ -1,7 +1,6 @@
 package com.example.getmypersonaltrainer;
 
 import android.util.Log;
-import android.widget.EditText;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,7 +30,7 @@ public class ValidateInfo {
 
    /**
     *
-    * @param client
+    * @param client Client class
     * @return boolean
     * If client has personal trainer it returns true,
     * it returns false otherwise.
@@ -77,11 +76,7 @@ public class ValidateInfo {
    }
 
    public boolean validScore(int score){
-      if(score < 0 || score > 10){
-         return false;
-      }
-
-      return true;
+      return score >= 0 && score <= 10;
    }
 
    public boolean exerciseId(String id){
@@ -123,12 +118,12 @@ public class ValidateInfo {
 
       pattern = Pattern.compile("[\\\\.\\]\\[<\\s>\"';:,()/]");
       matcher = pattern.matcher(password);
-      boolean passwordHasBadSymbols = matcher.find();
+      boolean passwordDoNotHasBadSymbols = !matcher.find();
 
-      return ((passwordHasNumber == true)
-            && (passwordHasLowercaseLetter == true)
-            && (passwordHasUppercaseLetter == true )
-            && (passwordHasBadSymbols == false));
+      return ((passwordHasNumber)
+            && (passwordHasLowercaseLetter)
+            && (passwordHasUppercaseLetter)
+            && (passwordDoNotHasBadSymbols));
    }
 
 

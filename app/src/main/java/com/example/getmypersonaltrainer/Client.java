@@ -1,14 +1,15 @@
 package com.example.getmypersonaltrainer;
 
 import android.util.Log;
-import java.time.DayOfWeek;
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
+/**
+ * @author Everton Alves
+ * All the information needed for a Client user.
+ */
 public class Client implements UserInterface, ClientInterface{
    private UserTypes userType;
    private String password;
@@ -18,10 +19,10 @@ public class Client implements UserInterface, ClientInterface{
    private String birthDate;
    private float bodyMass;
    private float size;
-   private Map<String, Exercise> exerciseList = new HashMap<String, Exercise>();
+   private Map<String, Exercise> exerciseList = new HashMap<>();
    private String hashedPassword;
    private String salt;
-   private Map<String, InvitationMessage> invitationMessages = new HashMap<String, InvitationMessage>();
+   private Map<String, InvitationMessage> invitationMessages = new HashMap<>();
    private boolean receivedInvitation = false;
    private String personalTrainerId;
    private boolean voted = false;
@@ -227,16 +228,10 @@ public class Client implements UserInterface, ClientInterface{
       this.voted = voted;
    }
 
-   public boolean UnsubscribeFromPersonalTrainer(){
-      if(this.getPersonalTrainerId() == null) {
-         return false;
-      }
-      Model temp = new Model();
-      this.setPersonalTrainerId(null);
-      temp.updateClient(this);
-      return true;
-   }
-
+   /**
+    * @author Cheri Hansen
+    * @return age
+    */
    public int takeAge() {
       int age = 969; // Default to the age of Methusaleh
 
@@ -332,16 +327,6 @@ public class Client implements UserInterface, ClientInterface{
          Log.i(TAG, "getAge() - He must be Methusaleh as his age is 969!");
 
       return age;
-   }
-
-   public List<Exercise> getExercisesOfWeekDay(DayOfWeek dayOfWeek){
-      List<Exercise> exercises = new ArrayList<Exercise>();
-      for (Map.Entry me : exerciseList.entrySet()) {
-         if(me.getValue().equals(dayOfWeek)){
-            exercises.add((Exercise) me.getValue());
-         }
-      }
-      return exercises;
    }
 
 }

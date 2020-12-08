@@ -15,8 +15,8 @@ import java.util.List;
 import static com.example.getmypersonaltrainer.MainActivity.presenter;
 
 public class GetClientList implements Runnable {
-    private PersonalTrainer personalTrainer;
-    private List<Client> clients = new ArrayList<Client>();
+    private final PersonalTrainer personalTrainer;
+    private final List<Client> clients = new ArrayList<>();
     private static final String TAG = "GetClientList";
     GetClientList(PersonalTrainer personalTrainer){
         this.personalTrainer = personalTrainer;

@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -49,9 +48,9 @@ public class ChangeClientInfoActivity extends AppCompatActivity {
         spinnerMonth = (Spinner) findViewById(R.id.spinner_month_change_client_info);
         spinnerDay = (Spinner) findViewById(R.id.spinner_day_change_client_info);
         // Put the arrays into the spinners...
-        ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, years);
-        ArrayAdapter<String> adapterMonth = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, months);
-        ArrayAdapter<String> adapterDay = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, days);
+        ArrayAdapter<String> adapterYear = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, years);
+        ArrayAdapter<String> adapterMonth = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, months);
+        ArrayAdapter<String> adapterDay = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, days);
         // Specify the layout to use when the list of choices appears
         adapterYear.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapterMonth.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

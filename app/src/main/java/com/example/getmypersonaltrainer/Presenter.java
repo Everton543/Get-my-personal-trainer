@@ -1,7 +1,6 @@
 package com.example.getmypersonaltrainer;
 
 import android.app.Activity;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +10,6 @@ import java.util.Map;
 public class Presenter {
    private Model model;
    private boolean logged;
-   private boolean recyclerViewLoadingError = false;
    private UserInterface user;
    private PersonalTrainer myPersonalTrainer = null;
    private Class<?> goingTo = null;
@@ -19,10 +17,11 @@ public class Presenter {
    private Activity actualActivity = null;
    private Client changingClient = null;
    private Exercise selectedExercise = null;
-   private List<PersonalTrainer> allPersonalTrainers = new ArrayList<PersonalTrainer>();
+   private List<PersonalTrainer> allPersonalTrainers = new ArrayList<>();
    private boolean getInfoFromDatabase = false;
-   private boolean getExercises = false;
-   private Map<String, Exercise> freeExerciseList = new HashMap<String, Exercise>();
+   private Map<String, Exercise> freeExerciseList = new HashMap<>();
+   private List<Client> clientList = new ArrayList<>();
+
 
    public List<Client> getClientList() {
       return clientList;
@@ -30,16 +29,6 @@ public class Presenter {
 
    public void setClientList(List<Client> clientList) {
       this.clientList = clientList;
-   }
-
-   private List<Client> clientList = new ArrayList<Client>();
-
-   public boolean isGetExercises() {
-      return getExercises;
-   }
-
-   public void setGetExercises(boolean getExercises) {
-      this.getExercises = getExercises;
    }
 
    public Map<String, Exercise> getFreeExerciseList() {
@@ -89,6 +78,9 @@ public class Presenter {
                getUser().getUserId(),
                ((PersonalTrainerInterface) getUser()).getAboutMyselfText(),
                getUser().getExerciseList());
+         personalTrainer.setReceivedInvitation(
+                 getUser().getReceivedInvitation()
+         );
       }
       setUser(personalTrainer);
    }
@@ -171,14 +163,6 @@ public class Presenter {
 
    public void setGetInfoFromDatabase(boolean getInfoFromDatabase) {
       this.getInfoFromDatabase = getInfoFromDatabase;
-   }
-
-   public boolean isRecyclerViewLoadingError() {
-      return recyclerViewLoadingError;
-   }
-
-   public void setRecyclerViewLoadingError(boolean recyclerViewLoadingError) {
-      this.recyclerViewLoadingError = recyclerViewLoadingError;
    }
 
    public Exercise getSelectedExercise() {

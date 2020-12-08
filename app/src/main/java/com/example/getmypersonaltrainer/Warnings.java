@@ -73,11 +73,6 @@ public class Warnings {
       sendWarning(Toast.LENGTH_SHORT, text);
    }
 
-   public void errorClientHasAlreadyReceivedAnInvitation(){
-      CharSequence text = "Client has already received an invitation";
-      sendWarning(Toast.LENGTH_SHORT, text);
-   }
-
    public void invitationGotSend(){
       CharSequence text = "Client received yours invitation";
       sendWarning(Toast.LENGTH_SHORT, text);

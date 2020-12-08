@@ -11,8 +11,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import static com.example.getmypersonaltrainer.MainActivity.presenter;
 
+
+/**
+ * @author Everton Alves
+ */
 public class GetExerciseNameList implements Runnable {
-    private PersonalTrainer personalTrainer = null;
+    private final PersonalTrainer personalTrainer;
     private static final String TAG = "GetExercisesName";
 
     public GetExerciseNameList(PersonalTrainer personalTrainer) {
