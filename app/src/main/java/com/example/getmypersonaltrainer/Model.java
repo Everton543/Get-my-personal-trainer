@@ -345,21 +345,30 @@ public class Model {
                         clients.add(client);
                      }
 
+                     if(clients.get(0).getUserType() == UserTypes.CLIENT){
+                        clients.get(0).setReceivedInvitation(true);
+                        clients.get(0).addNewInvitationMessage(invitationMessage);
 
-                     clients.get(0).setReceivedInvitation(true);
-                     clients.get(0).addNewInvitationMessage(invitationMessage);
+                        updateClient(clients.get(0));
 
-                     updateClient(clients.get(0));
-
-                     if(presenter.getActualActivity() instanceof FastError){
-                        ((FastError) presenter.getActualActivity()).finishedCharge();
-                     }
+                        if(presenter.getActualActivity() instanceof FastError){
+                           ((FastError) presenter.getActualActivity()).finishedCharge();
+                        }
                            
-                     warnings.invitationGotSend();
+                        warnings.invitationGotSend();
+                     }else{
+                        if(presenter.getActualActivity() instanceof FastError){
+                           ((FastError) presenter.getActualActivity()).finishedCharge();
+                        }                        
+                        
+                        warnings.errorUserDoesNotExists();
+                     }
 
                   }
                }
-               else if (invitationMessage.getSenderUserType() == UserTypes.CLIENT){
+               else if (snapshot.exists() &&
+                        invitationMessage.getSenderUserType() == UserTypes.CLIENT &&
+                       presenter.isGetInfoFromDatabase()){
                   personalTrainers.clear();
                   for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                      PersonalTrainer personalTrainer = dataSnapshot.getValue(PersonalTrainer.class);
