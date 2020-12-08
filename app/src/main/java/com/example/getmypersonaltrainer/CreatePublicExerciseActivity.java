@@ -15,7 +15,7 @@ public class CreatePublicExerciseActivity extends AppCompatActivity {
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_create_public_exercise);
-
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
       ActionBar actionBar = getSupportActionBar();
       assert actionBar != null;
       actionBar.setTitle(R.string.create_exercise_title);

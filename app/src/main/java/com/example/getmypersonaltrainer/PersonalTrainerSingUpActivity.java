@@ -15,6 +15,7 @@ public class PersonalTrainerSingUpActivity extends AppCompatActivity{
       setContentView(R.layout.activity_personal_trainer_sing_up);
       MainActivity.presenter.setActualActivity(this);
 
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
       ActionBar actionBar = getSupportActionBar();
       assert actionBar != null;
       actionBar.setTitle(R.string.personal_trainer_sign_up_title);
@@ -46,20 +47,27 @@ public class PersonalTrainerSingUpActivity extends AppCompatActivity{
               .getValidateInfo()
               .password(password);
 
-      if(passwordsAreEqual && validPassword){
-         MainActivity.presenter.setGetInfoFromDatabase(true);
-         User personalTrainer = new User(UserTypes.PERSONAL_TRAINER, password, name, id, aboutMyselfText);
-         MainActivity.presenter.getModel().saveUser(personalTrainer);
-         MainActivity.presenter.setGoingTo(MainActivity.class);
-         MainActivity.presenter.setGoBack(PersonalTrainerSingUpActivity.class);
-         Intent intent = new Intent(this, LoadingActivity.class);
-         startActivity(intent);
+      if(name == null || name.equals("") ||
+         confirmPassword == null || confirmPassword.equals("") ||
+         password == null || password.equals("") ||
+         id == null || id.equals("")){
 
-      }else if(validPassword == false) {
-         MainActivity.presenter.getModel().getWarnings().invalidPassword();
-      }else{
-         MainActivity.presenter.getModel().getWarnings().passwordNotEqualError();
+         MainActivity.presenter.getModel().getWarnings().blankInformation();
+      } else {
+
+         if (passwordsAreEqual && validPassword) {
+            MainActivity.presenter.setGetInfoFromDatabase(true);
+            User personalTrainer = new User(UserTypes.PERSONAL_TRAINER, password, name, id, aboutMyselfText);
+            MainActivity.presenter.getModel().saveUser(personalTrainer);
+            MainActivity.presenter.setGoingTo(MainActivity.class);
+            MainActivity.presenter.setGoBack(PersonalTrainerSingUpActivity.class);
+            Intent intent = new Intent(this, LoadingActivity.class);
+            startActivity(intent);
+         } else if (validPassword == false) {
+            MainActivity.presenter.getModel().getWarnings().invalidPassword();
+         } else {
+            MainActivity.presenter.getModel().getWarnings().passwordNotEqualError();
+         }
       }
-
    }
 }

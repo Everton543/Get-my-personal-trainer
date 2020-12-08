@@ -15,10 +15,10 @@ public class Client implements UserInterface, ClientInterface{
    private String password;
    private String name;
    private String userId;
-   private String phone;
+   private String phone = "0";
    private String birthDate;
-   private float bodyMass;
-   private float size;
+   private float bodyMass = 0;
+   private float size = 0;
    private Map<String, Exercise> exerciseList = new HashMap<>();
    private String hashedPassword;
    private String salt;

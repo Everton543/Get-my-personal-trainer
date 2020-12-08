@@ -17,9 +17,10 @@ public class LoadingActivity extends AppCompatActivity implements FastError{
       setContentView(R.layout.activity_loading);
       MainActivity.presenter.setActualActivity(this);
 
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
       ActionBar actionBar = getSupportActionBar();
       assert actionBar != null;
-      actionBar.hide();
+      actionBar.setTitle(R.string.login_activity_title);
    }
 
    @Override

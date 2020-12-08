@@ -1,5 +1,6 @@
 package com.example.getmypersonaltrainer;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +26,7 @@ public class ReadInvitationMessageActivity extends AppCompatActivity {
       setContentView(R.layout.activity_read_invitation_message);
       MainActivity.presenter.setActualActivity(this);
 
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
       ActionBar actionBar = getSupportActionBar();
       assert actionBar != null;
       actionBar.setTitle(R.string.read_invitation_message_title);
@@ -45,6 +48,18 @@ public class ReadInvitationMessageActivity extends AppCompatActivity {
          TextView textAlert = findViewById(R.id.text_no_invitation_read_invitation);
          textAlert.setVisibility(View.VISIBLE);
       }
+   }
+
+   @Nullable
+   @Override
+   public Intent getParentActivityIntent() {
+      Intent intent = null;
+      if(MainActivity.presenter.getUser() instanceof Client){
+         intent = new Intent(this, ClientMainActivity.class);
+      }else if(MainActivity.presenter.getUser() instanceof PersonalTrainer){
+         intent = new Intent(this, PersonalTrainerMainActivity.class);
+      }
+      return intent;
    }
 
    @Override

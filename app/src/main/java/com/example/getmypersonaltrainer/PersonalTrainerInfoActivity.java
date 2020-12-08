@@ -15,6 +15,7 @@ public class PersonalTrainerInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_trainer_info);
         MainActivity.presenter.setActualActivity(this);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;

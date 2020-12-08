@@ -22,7 +22,7 @@ public class ClientSignUpActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_sign_up);
         MainActivity.presenter.setActualActivity(this);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setTitle(R.string.client_sign_up_activity_title);
@@ -134,30 +134,40 @@ public class ClientSignUpActivity extends AppCompatActivity{
         float bodyMass = Float.parseFloat(textBodyMass);
 
         editText = (EditText) findViewById(R.id.edit_text_size_client_sign_up_activity);
-        float size = Float.parseFloat(editText.getText().toString());
+        String textSize = editText.getText().toString();
+        float size = Float.parseFloat(textSize);
 
-        boolean passwordsAreEqual = MainActivity.presenter
-              .getModel()
-              .getValidateInfo()
-              .checkIfPasswordAreEqual(password, confirmPassword);
+        if(name == null || name.equals("") ||
+                confirmPassword == null || confirmPassword.equals("") ||
+                password == null || password.equals("") ||
+                id == null || id.equals("")){
 
-        boolean validPassword = MainActivity.presenter
-                .getModel()
-                .getValidateInfo()
-                .password(password);
+            MainActivity.presenter.getModel().getWarnings().blankInformation();
+        } else {
 
-        if(passwordsAreEqual && validPassword){
-            User client = new User(UserTypes.CLIENT, password, name, id, phone, birthDate, bodyMass, size);
-            MainActivity.presenter.setGetInfoFromDatabase(true);
-            MainActivity.presenter.getModel().saveUser(client);
-            MainActivity.presenter.setGoingTo(MainActivity.class);
-            MainActivity.presenter.setGoBack(PersonalTrainerSingUpActivity.class);
-            Intent intent = new Intent(this, LoadingActivity.class);
-            startActivity(intent);
-        }else if(validPassword == false) {
-            MainActivity.presenter.getModel().getWarnings().invalidPassword();
-        }else{
-            MainActivity.presenter.getModel().getWarnings().passwordNotEqualError();
+            boolean passwordsAreEqual = MainActivity.presenter
+                    .getModel()
+                    .getValidateInfo()
+                    .checkIfPasswordAreEqual(password, confirmPassword);
+
+            boolean validPassword = MainActivity.presenter
+                    .getModel()
+                    .getValidateInfo()
+                    .password(password);
+
+            if (passwordsAreEqual && validPassword) {
+                User client = new User(UserTypes.CLIENT, password, name, id, phone, birthDate, bodyMass, size);
+                MainActivity.presenter.setGetInfoFromDatabase(true);
+                MainActivity.presenter.getModel().saveUser(client);
+                MainActivity.presenter.setGoingTo(MainActivity.class);
+                MainActivity.presenter.setGoBack(ClientSignUpActivity.class);
+                Intent intent = new Intent(this, LoadingActivity.class);
+                startActivity(intent);
+            } else if (validPassword == false) {
+                MainActivity.presenter.getModel().getWarnings().invalidPassword();
+            } else {
+                MainActivity.presenter.getModel().getWarnings().passwordNotEqualError();
+            }
         }
     }
 }

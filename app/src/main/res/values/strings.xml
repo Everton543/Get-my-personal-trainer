@@ -79,6 +79,7 @@
     <string name="item_read_invitation">Invitations</string>
     <string name="item_find_all_personal_trainer">Search New Personal Trainer</string>
     <string name="switch_mode">Light/Dark mode</string>
+    <string name="item_my_home">My Home Screen</string>
 
     //Buttons
     <string name="button_confirm">Confirm</string>

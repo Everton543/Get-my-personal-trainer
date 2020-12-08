@@ -108,7 +108,7 @@ public class ValidateInfo {
       Matcher matcher = pattern.matcher(password);
       boolean passwordHasNumber = matcher.find();
 
-      pattern = Pattern.compile("[a-z]", Pattern.CASE_INSENSITIVE);
+      pattern = Pattern.compile("[a-z]", Pattern.UNICODE_CASE);
       matcher = pattern.matcher(password);
       boolean passwordHasLowercaseLetter = matcher.find();
 

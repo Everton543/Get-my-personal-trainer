@@ -25,11 +25,11 @@ public class Warnings {
       sendWarning(Toast.LENGTH_SHORT, text);
    }
 
-
-   public void errorClientAlreadyHasAPersonalTrainer(){
-      CharSequence text = "Client already has a personal trainer";
+   public void blankInformation(){
+      CharSequence text = "You forgot to put some information";
       sendWarning(Toast.LENGTH_SHORT, text);
    }
+
 
    public void invalidDayOfWeek(){
       CharSequence text = "Invalid day of week";

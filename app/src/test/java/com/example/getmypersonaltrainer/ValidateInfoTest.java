@@ -335,7 +335,7 @@ class ValidateInfoTest {
          false, false, true, true, true, true, true,
          false, true, false, false, false, false, false,
          false, false, false, true, false, false, false,
-            false,
+            false, false
       };
       String[] passwords = {
          "123", "1ag", "12345678", "1234567a", "asdfghjk", "adfhjkkJ", "asdfght8K",
@@ -343,7 +343,7 @@ class ValidateInfoTest {
          "1234Ja12)", "1aBcDeFg(", "0a1b2c3D!", "A234567a@", "Asdfghj0#", "9dfhjkkJ$", "asdfght8K%",
          "1234Ja12\"", "1aBcDeFg&", "0a1b2c3D\\", "A234567a/", "Asdfghj0<", "9dfhjkkJ>", "asdfght8K;",
          "1234Ja12:", "1aBcDeFg[", "0a1b2c3D]", "A234567a*", "Asdfghj0[]", "9dfhjkkJ()", "asdfght8K<>",
-            "abd Anj125",
+            "abd Anj125", "123456AA"
       };
 
       // Run all our tests...

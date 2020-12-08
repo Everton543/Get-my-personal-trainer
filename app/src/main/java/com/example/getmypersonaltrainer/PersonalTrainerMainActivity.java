@@ -30,6 +30,7 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
         Log.i(TAG, "Started Personal Trainer main Activity");
         MainActivity.presenter.setChangingClient(null);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setTitle(R.string.personal_trainer_main_title);

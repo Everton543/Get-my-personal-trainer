@@ -1,5 +1,6 @@
 package com.example.getmypersonaltrainer;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,7 +16,11 @@ public class EvaluatePersonalTrainerActivity extends AppCompatActivity {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_evaluate_personal_trainer);
       MainActivity.presenter.setActualActivity(this);
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+      ActionBar actionBar = getSupportActionBar();
+      assert actionBar != null;
+      actionBar.setTitle(R.string.evaluate_personal_trainer_title);
 
       int invalidInput = 0;
 

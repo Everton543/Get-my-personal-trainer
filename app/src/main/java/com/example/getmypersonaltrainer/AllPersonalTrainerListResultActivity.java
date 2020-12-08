@@ -11,6 +11,7 @@ public class AllPersonalTrainerListResultActivity extends AppCompatActivity {
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_all_personal_trainer_list_result);
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
       ActionBar actionBar = getSupportActionBar();
       assert actionBar != null;

@@ -1,6 +1,8 @@
 package com.example.getmypersonaltrainer;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +39,17 @@ public class Presenter {
 
    public void setFreeExerciseList(Map<String, Exercise> freeExerciseList) {
       this.freeExerciseList = freeExerciseList;
+   }
+
+   public void goToMyHome(View view){
+      Intent intent = null;
+      if(user instanceof  Client){
+         intent = new Intent(actualActivity, ClientMainActivity.class);
+      } else if(user instanceof PersonalTrainer){
+         intent = new Intent(actualActivity, PersonalTrainerMainActivity.class);
+      }
+
+      actualActivity.startActivity(intent);
    }
 
    Presenter(){

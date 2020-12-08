@@ -10,13 +10,13 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
    private String password;
    private String name;
    private String userId;
-   private String aboutMyselfText;
-   private List<Client> clientList = new ArrayList<Client>();
-   private Map<String, Exercise> exerciseList = new HashMap<String, Exercise>();
+   private String aboutMyselfText = "no info";
+   private List<Client> clientList = new ArrayList<>();
+   private Map<String, Exercise> exerciseList = new HashMap<>();
    private String hashedPassword;
    private String salt;
-   private List<String> exerciseNameList = new ArrayList<String>();
-   private Map<String, InvitationMessage> invitationMessage = new HashMap<String, InvitationMessage>();
+   private List<String> exerciseNameList = new ArrayList<>();
+   private Map<String, InvitationMessage> invitationMessage = new HashMap<>();
    private boolean receivedInvitation = false;
    private int score = 0;
    private int voteQuantity = 0;
