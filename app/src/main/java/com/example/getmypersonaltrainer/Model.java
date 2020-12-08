@@ -345,50 +345,42 @@ public class Model {
                         clients.add(client);
                      }
 
-                     if(clients.get(0).getPersonalTrainerId() == null) {
 
-                        clients.get(0).setReceivedInvitation(true);
-                        clients.get(0).addNewInvitationMessage(invitationMessage);
+                     clients.get(0).setReceivedInvitation(true);
+                     clients.get(0).addNewInvitationMessage(invitationMessage);
 
-                        updateClient(clients.get(0));
+                     updateClient(clients.get(0));
 
-                        if(presenter.getActualActivity() instanceof FastError){
-                           ((FastError) presenter.getActualActivity()).finishedCharge();
-                        }
+                     if(presenter.getActualActivity() instanceof FastError){
+                        ((FastError) presenter.getActualActivity()).finishedCharge();
+                     }
                            
-                        warnings.invitationGotSend();
+                     warnings.invitationGotSend();
 
-                     } else{
-                        if(presenter.getActualActivity() instanceof FastError){
-                           ((FastError) presenter.getActualActivity()).loadingError();
-                        }
-
-                        warnings.errorClientAlreadyHasAPersonalTrainer();
-                     }
-
-                  }
-                  else if (invitationMessage.getSenderUserType() == UserTypes.CLIENT){
-                     personalTrainers.clear();
-                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        PersonalTrainer personalTrainer = dataSnapshot.getValue(PersonalTrainer.class);
-                        personalTrainers.add(personalTrainer);
-                     }
-
-                     if (presenter.getUser() instanceof Client) {
-
-                        personalTrainers.get(0).setReceivedInvitation(true);
-                        personalTrainers.get(0).addNewInvitationMessage(invitationMessage);
-
-                        updatePersonalTrainer(personalTrainers.get(0));
-
-                        if(presenter.getActualActivity() instanceof FastError){
-                           ((FastError) presenter.getActualActivity()).finishedCharge();
-                        }
-
-                        warnings.invitationGotSend();
-                     }
                   }
                }
+               else if (invitationMessage.getSenderUserType() == UserTypes.CLIENT){
+                  personalTrainers.clear();
+                  for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                     PersonalTrainer personalTrainer = dataSnapshot.getValue(PersonalTrainer.class);
+                     personalTrainers.add(personalTrainer);
+                  }
+
+                  if (presenter.getUser() instanceof Client) {
+
+                     personalTrainers.get(0).setReceivedInvitation(true);
+                     personalTrainers.get(0).addNewInvitationMessage(invitationMessage);
+
+                     updatePersonalTrainer(personalTrainers.get(0));
+
+                     if(presenter.getActualActivity() instanceof FastError){
+                        ((FastError) presenter.getActualActivity()).finishedCharge();
+                     }
+
+                     warnings.invitationGotSend();
+                  }
+               }
+
                else if (presenter.isGetInfoFromDatabase()){
                   if(presenter.getActualActivity() instanceof FastError){
                      ((FastError) presenter.getActualActivity()).loadingError();
