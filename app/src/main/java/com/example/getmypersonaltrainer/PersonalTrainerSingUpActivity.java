@@ -47,27 +47,19 @@ public class PersonalTrainerSingUpActivity extends AppCompatActivity{
               .getValidateInfo()
               .password(password);
 
-      if(name == null || name.equals("") ||
-         confirmPassword == null || confirmPassword.equals("") ||
-         password == null || password.equals("") ||
-         id == null || id.equals("")){
 
-         MainActivity.presenter.getModel().getWarnings().blankInformation();
+      if (passwordsAreEqual && validPassword) {
+         MainActivity.presenter.setGetInfoFromDatabase(true);
+         User personalTrainer = new User(UserTypes.PERSONAL_TRAINER, password, name, id, aboutMyselfText);
+         MainActivity.presenter.getModel().saveUser(personalTrainer);
+         MainActivity.presenter.setGoingTo(MainActivity.class);
+         MainActivity.presenter.setGoBack(PersonalTrainerSingUpActivity.class);
+         Intent intent = new Intent(this, LoadingActivity.class);
+         startActivity(intent);
+      } else if (validPassword == false) {
+         MainActivity.presenter.getModel().getWarnings().invalidPassword();
       } else {
-
-         if (passwordsAreEqual && validPassword) {
-            MainActivity.presenter.setGetInfoFromDatabase(true);
-            User personalTrainer = new User(UserTypes.PERSONAL_TRAINER, password, name, id, aboutMyselfText);
-            MainActivity.presenter.getModel().saveUser(personalTrainer);
-            MainActivity.presenter.setGoingTo(MainActivity.class);
-            MainActivity.presenter.setGoBack(PersonalTrainerSingUpActivity.class);
-            Intent intent = new Intent(this, LoadingActivity.class);
-            startActivity(intent);
-         } else if (validPassword == false) {
-            MainActivity.presenter.getModel().getWarnings().invalidPassword();
-         } else {
-            MainActivity.presenter.getModel().getWarnings().passwordNotEqualError();
-         }
+         MainActivity.presenter.getModel().getWarnings().passwordNotEqualError();
       }
    }
 }
