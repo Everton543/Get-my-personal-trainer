@@ -225,7 +225,10 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
             EditText editTextSeries = findViewById(R.id.edit_text_series_create_exercise);
             String seriesText = String.valueOf(editTextSeries.getText());
             Log.i(TAG, "Series text: " + seriesText);
-            int series = Integer.parseInt(seriesText);
+            int series = 0;
+            if(!seriesText.equals("") || seriesText != null) {
+                series = Integer.parseInt(seriesText);
+            }
 
             Log.i(TAG, "Series number: " + series);
 

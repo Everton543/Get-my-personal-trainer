@@ -131,11 +131,17 @@ public class ClientSignUpActivity extends AppCompatActivity{
 
         editText = (EditText) findViewById(R.id.edit_text_weight_client_sign_up_activity);
         String textBodyMass = editText.getText().toString();
-        float bodyMass = Float.parseFloat(textBodyMass);
+        float bodyMass = 0;
+        if(!textBodyMass.equals("") && textBodyMass != null) {
+            bodyMass = Float.parseFloat(textBodyMass);
+        }
 
         editText = (EditText) findViewById(R.id.edit_text_size_client_sign_up_activity);
         String textSize = editText.getText().toString();
-        float size = Float.parseFloat(textSize);
+        float size = 0;
+        if(!textSize.equals("") && textSize != null) {
+            size = Float.parseFloat(textSize);
+        }
 
         boolean passwordsAreEqual = MainActivity.presenter
                 .getModel()

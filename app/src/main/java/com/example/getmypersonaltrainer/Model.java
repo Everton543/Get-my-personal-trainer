@@ -369,6 +369,7 @@ public class Model {
                else if (snapshot.exists() &&
                         invitationMessage.getSenderUserType() == UserTypes.CLIENT &&
                        presenter.isGetInfoFromDatabase()){
+
                   personalTrainers.clear();
                   for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                      PersonalTrainer personalTrainer = dataSnapshot.getValue(PersonalTrainer.class);
