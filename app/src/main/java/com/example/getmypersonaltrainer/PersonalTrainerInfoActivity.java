@@ -10,6 +10,11 @@ import android.widget.TextView;
 
 public class PersonalTrainerInfoActivity extends AppCompatActivity {
 
+    //todo FIX bug of when clicking with empty Personal Trainer
+
+    //todo Fix bug if when client accepted invitation and it still says that he does not has a client
+    //This happens when the personal trainer did not put all his information
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
