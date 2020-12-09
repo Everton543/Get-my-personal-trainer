@@ -35,4 +35,17 @@ public class LoadingActivity extends AppCompatActivity implements FastError{
       startActivity(intent);
    }
 
+   //call this function in case the app is stuck at the loading activity
+   public void stuckAtLoadingActivity(){
+      Intent intent = null;
+      if(MainActivity.presenter.getUser() == null){
+         intent = new Intent(this, MainActivity.class);
+      }else if(MainActivity.presenter.getUser() instanceof Client){
+         intent = new Intent(this, ClientMainActivity.class);
+      }else if(MainActivity.presenter.getUser() instanceof PersonalTrainer){
+         intent = new Intent(this, PersonalTrainerMainActivity.class);
+      }
+      startActivity(intent);
+   }
+
 }

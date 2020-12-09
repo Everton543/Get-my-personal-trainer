@@ -152,15 +152,22 @@ public class Model {
 
    public void acceptInvitation(final InvitationMessage invitationMessage){
       databaseReference = database.getReference("Users");
+      String trainerId = null;
       if(invitationMessage.getSenderUserType() == UserTypes.PERSONAL_TRAINER){
+         trainerId = invitationMessage.getSenderId();
          databaseReference.child(invitationMessage.getReceiverId())
                .child("personalTrainerId")
-               .setValue(invitationMessage.getSenderId());
+               .setValue(trainerId);
       }
       else if (invitationMessage.getSenderUserType() == UserTypes.CLIENT){
+         trainerId = invitationMessage.getReceiverId();
          databaseReference.child(invitationMessage.getSenderId())
                .child("personalTrainerId")
-               .setValue(invitationMessage.getReceiverId());
+               .setValue(trainerId);
+      }
+
+      if(presenter.getUser() instanceof Client && trainerId != null){
+         ((Client) presenter.getUser()).setPersonalTrainerId(trainerId);
       }
 
       eraseInvitation(invitationMessage);
@@ -241,6 +248,9 @@ public class Model {
                   }
                }
             }
+           else if(presenter.getActualActivity() instanceof LoadingActivity){
+              ((LoadingActivity) presenter.getActualActivity()).stuckAtLoadingActivity();
+           }
             presenter.setGetInfoFromDatabase(false);
          }
 
@@ -279,7 +289,9 @@ public class Model {
                      ((FastError) presenter.getActualActivity()).loadingError();
                   }
                }
-
+               else if(presenter.getActualActivity() instanceof LoadingActivity){
+                  ((LoadingActivity) presenter.getActualActivity()).stuckAtLoadingActivity();
+               }
                presenter.setGetInfoFromDatabase(false);
             }
 
@@ -365,30 +377,30 @@ public class Model {
                      }
 
                   }
-               }
-               else if (snapshot.exists() &&
-                        invitationMessage.getSenderUserType() == UserTypes.CLIENT &&
-                       presenter.isGetInfoFromDatabase()){
+                  else if (invitationMessage.getSenderUserType() == UserTypes.CLIENT &&
+                          presenter.isGetInfoFromDatabase())
+                  {
 
-                  personalTrainers.clear();
-                  for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                     PersonalTrainer personalTrainer = dataSnapshot.getValue(PersonalTrainer.class);
-                     personalTrainers.add(personalTrainer);
-                  }
-
-                  if (presenter.getUser() instanceof Client) {
-
-                     personalTrainers.get(0).setReceivedInvitation(true);
-                     personalTrainers.get(0).addNewInvitationMessage(invitationMessage);
-
-                     updatePersonalTrainer(personalTrainers.get(0));
-
-                     if(presenter.getActualActivity() instanceof FastError){
-                        ((FastError) presenter.getActualActivity()).finishedCharge();
+                     personalTrainers.clear();
+                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        PersonalTrainer personalTrainer = dataSnapshot.getValue(PersonalTrainer.class);
+                        personalTrainers.add(personalTrainer);
                      }
 
-                     warnings.invitationGotSend();
+                     if (personalTrainers.get(0) != null &&
+                             personalTrainers.get(0) instanceof PersonalTrainer) {
+                        personalTrainers.get(0).setReceivedInvitation(true);
+                        personalTrainers.get(0).addNewInvitationMessage(invitationMessage);
+
+                        updatePersonalTrainer(personalTrainers.get(0));
+
+                        if (presenter.getActualActivity() instanceof FastError) {
+                           ((FastError) presenter.getActualActivity()).finishedCharge();
+                        }
+                        warnings.invitationGotSend();
+                     }
                   }
+
                }
 
                else if (presenter.isGetInfoFromDatabase()){
@@ -396,6 +408,10 @@ public class Model {
                      ((FastError) presenter.getActualActivity()).loadingError();
                   }
                   warnings.errorUserDoesNotExists();
+               }
+
+               else if(presenter.getActualActivity() instanceof LoadingActivity){
+                  ((LoadingActivity) presenter.getActualActivity()).stuckAtLoadingActivity();
                }
                presenter.setGetInfoFromDatabase(false);
             }
@@ -446,6 +462,11 @@ public class Model {
                   warnings.errorClientWithOutPersonalTrainer();
 
                }
+
+               else if(presenter.getActualActivity() instanceof LoadingActivity){
+                  ((LoadingActivity) presenter.getActualActivity()).stuckAtLoadingActivity();
+               }
+
                presenter.setGetInfoFromDatabase(false);
             }
 
@@ -467,8 +488,45 @@ public class Model {
    }
 
    public void getClientList(final PersonalTrainer personalTrainer){
-      GetClientList getClientList = new GetClientList(personalTrainer);
-      getClientList.run();
+      //GetClientList getClientList = new GetClientList(personalTrainer);
+      //getClientList.run();
+      Log.i(TAG, "getClientList function called");
+      Query query = presenter.getModel().getDatabase().getReference("Users")
+              .orderByChild("personalTrainerId")
+              .equalTo(personalTrainer.getUserId());
+
+      query.addValueEventListener(new ValueEventListener() {
+         @Override
+         public void onDataChange(@NonNull DataSnapshot snapshot) {
+            Log.i(TAG, "getClientList onDataChangeCalled");
+
+            boolean userNotLogged = !presenter.isLogged();
+            if(snapshot.exists() && userNotLogged){
+               Log.i(TAG, "Found some clients");
+               clients.clear();
+               for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                  Client client = dataSnapshot.getValue(Client.class);
+                  clients.add(client);
+               }
+               presenter.setClientList(clients);
+            }
+            else if (userNotLogged){
+               Log.i(TAG, "Found 0 client");
+            }
+            if(presenter.getActualActivity() instanceof FastError && userNotLogged){
+               presenter.setLogged(true);
+               ((FastError) presenter.getActualActivity()).finishedCharge();
+            }
+            else if(presenter.getActualActivity() instanceof LoadingActivity){
+               ((LoadingActivity) presenter.getActualActivity()).stuckAtLoadingActivity();
+            }
+         }
+
+         @Override
+         public void onCancelled(@NonNull DatabaseError error) {
+
+         }
+      });
    }
 
    public void checkLogin(final String userId , final String password, final Activity activity){
@@ -477,8 +535,40 @@ public class Model {
    }
 
    public void getExerciseNameList(final PersonalTrainer personalTrainer){
-      GetExerciseNameList getExerciseNameList = new GetExerciseNameList(personalTrainer);
-      getExerciseNameList.run();
+    //  GetExerciseNameList getExerciseNameList = new GetExerciseNameList(personalTrainer);
+      //getExerciseNameList.run();
+      Query query = presenter.getModel().getDatabase().getReference("Exercise")
+              .orderByChild("free")
+              .equalTo(true);
+
+      query.addValueEventListener(new ValueEventListener() {
+         @Override
+         public void onDataChange(@NonNull DataSnapshot snapshot) {
+            Log.i(TAG, "onDataChange from getExerciseNameList called");
+            if(snapshot.exists() && presenter.isGetInfoFromDatabase()){
+               Log.i(TAG, "Found some exercises");
+
+               for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                  personalTrainer.getExerciseNameList().add(dataSnapshot.child("name").getValue(String.class));
+                  Exercise exercise = dataSnapshot.getValue(Exercise.class);
+                  if(exercise != null) {
+                     presenter.getFreeExerciseList().put(exercise.getExerciseId(), exercise);
+                  }
+               }
+            }
+            else if(presenter.isGetInfoFromDatabase()){
+               Log.i(TAG, "Didn't found any exercise");
+            }
+            presenter.setGetInfoFromDatabase(false);
+         }
+
+         @Override
+         public void onCancelled(@NonNull DatabaseError error) {
+
+         }
+      });
+
+
    }
 
    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -518,8 +608,6 @@ public class Model {
             .child(exercise.getExerciseId()).setValue(exercise);
    }
 
-
-
    /**
     * @author Everton Alves
     * @param client Client class
@@ -541,10 +629,8 @@ public class Model {
       if(validId) {
          updateClient(client);
          Log.i(TAG, "Client Updated with new Exercise");
-         //warnings.createdNewExerciseSuccessfully();
          return true;
       } else{
-         //warnings.invalidExerciseName();
          Log.i(TAG, "Invalid Exercise Name");
          if(presenter.getActualActivity() instanceof FastError){
             ((FastError) presenter.getActualActivity()).loadingError();
@@ -592,5 +678,11 @@ public class Model {
       else  if(presenter.getActualActivity() instanceof FastError){
          ((FastError) presenter.getActualActivity()).loadingError();
       }
+   }
+
+   public void resetValues() {
+      clients.clear();
+      personalTrainers.clear();
+      userList.clear();
    }
 }

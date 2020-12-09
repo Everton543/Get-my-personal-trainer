@@ -30,9 +30,9 @@ import android.widget.EditText;
          assert actionBar != null;
          actionBar.hide();
 
-
+         presenter.resetValues();
          presenter.setActualActivity(this);
-         presenter.setLogged(false);
+
          SharedPreferences sharedPreferences;
          sharedPreferences = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
 

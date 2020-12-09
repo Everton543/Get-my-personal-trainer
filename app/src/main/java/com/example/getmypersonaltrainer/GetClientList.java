@@ -36,7 +36,6 @@ public class GetClientList implements Runnable {
 
                 boolean userNotLogged = !presenter.isLogged();
                 if(snapshot.exists() && userNotLogged){
-//                        || presenter.getUser() instanceof PersonalTrainer){
                     Log.i(TAG, "Found some clients");
                     clients.clear();
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()){
@@ -44,7 +43,6 @@ public class GetClientList implements Runnable {
                         clients.add(client);
                     }
                     presenter.setClientList(clients);
-                    //personalTrainer.setClients(clients);
                 }
                 else if (userNotLogged){
                     Log.i(TAG, "Found 0 client");
@@ -52,6 +50,9 @@ public class GetClientList implements Runnable {
                 if(presenter.getActualActivity() instanceof FastError && userNotLogged){
                     presenter.setLogged(true);
                     ((FastError) presenter.getActualActivity()).finishedCharge();
+                }
+                else if(presenter.getActualActivity() instanceof LoadingActivity){
+                    ((LoadingActivity) presenter.getActualActivity()).stuckAtLoadingActivity();
                 }
             }
 

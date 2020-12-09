@@ -34,11 +34,12 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_exercise);
         MainActivity.presenter.setActualActivity(this);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setTitle(R.string.create_exercise_title);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         weekDays = getResources().getStringArray(R.array.weekDays);
 

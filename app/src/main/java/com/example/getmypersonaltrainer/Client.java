@@ -13,7 +13,7 @@ import java.util.Map;
 public class Client implements UserInterface, ClientInterface{
    private UserTypes userType;
    private String password;
-   private String name;
+   private String name = "unknown";
    private String userId;
    private String phone = "0";
    private String birthDate;

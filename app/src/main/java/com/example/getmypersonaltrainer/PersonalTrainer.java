@@ -8,7 +8,7 @@ import java.util.Map;
 public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
    private UserTypes userType;
    private String password;
-   private String name;
+   private String name = "unknown";
    private String userId;
    private String aboutMyselfText = "no info";
    private List<Client> clientList = new ArrayList<>();

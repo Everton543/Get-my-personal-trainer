@@ -17,7 +17,7 @@ import android.view.View;
 import android.widget.TextView;
 
 
-public class PersonalTrainerMainActivity extends AppCompatActivity {
+public class PersonalTrainerMainActivity extends AppCompatActivity implements FastError{
     private static final String TAG = "TrainerMainActivity";
     private ClientListViewAdapter clientListViewAdapter = null;
     private RecyclerView personalTrainerRecyclerView = null;
@@ -30,10 +30,10 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
         Log.i(TAG, "Started Personal Trainer main Activity");
         MainActivity.presenter.setChangingClient(null);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setTitle(R.string.personal_trainer_main_title);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         boolean receivedInvitation = MainActivity.presenter.getUser().getReceivedInvitation();
         if(receivedInvitation){
@@ -126,6 +126,18 @@ public class PersonalTrainerMainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void loadingError() {
+        Intent intent = new Intent(this, MainActivity.presenter.getGoBack());
+        startActivity(intent);
+    }
+
+    @Override
+    public void finishedCharge() {
+        Intent intent = new Intent(this, MainActivity.presenter.getGoingTo());
+        startActivity(intent);
     }
 }
 

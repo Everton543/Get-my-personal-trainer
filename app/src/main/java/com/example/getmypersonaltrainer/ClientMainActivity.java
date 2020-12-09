@@ -21,7 +21,7 @@ import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientMainActivity extends AppCompatActivity {
+public class ClientMainActivity extends AppCompatActivity implements FastError{
 
     private Client client;
     private final List<ExerciseListViewAdapter> exerciseListViewAdapters = new ArrayList<>();
@@ -118,16 +118,21 @@ public class ClientMainActivity extends AppCompatActivity {
         Intent intent;
         switch (item.getItemId()){
             case R.id.client_menu_item_see_personal_trainer: {
-                if (MainActivity.presenter.getMyPersonalTrainer() == null) {
+                if(((Client) MainActivity.presenter.getUser()).getPersonalTrainerId() == null){
+                    MainActivity.presenter.getModel().getWarnings()
+                            .errorClientWithOutPersonalTrainer();
+                }
+                else if (MainActivity.presenter.getMyPersonalTrainer() == null) {
                     MainActivity.presenter.setGetInfoFromDatabase(true);
                     MainActivity.presenter.getModel().checkMyPersonalTrainer();
                     MainActivity.presenter.setGoingTo(PersonalTrainerInfoActivity.class);
                     MainActivity.presenter.setGoBack(ClientMainActivity.class);
                     intent = new Intent(this, LoadingActivity.class);
-                } else {
+                    startActivity(intent);
+                } else if (MainActivity.presenter.getMyPersonalTrainer() != null){
                     intent = new Intent(this, PersonalTrainerInfoActivity.class);
+                    startActivity(intent);
                 }
-                startActivity(intent);
                 return true;
             }
 
@@ -155,4 +160,15 @@ public class ClientMainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void loadingError() {
+        Intent intent = new Intent(this, MainActivity.presenter.getGoBack());
+        startActivity(intent);
+    }
+
+    @Override
+    public void finishedCharge() {
+        Intent intent = new Intent(this, MainActivity.presenter.getGoingTo());
+        startActivity(intent);
+    }
 }

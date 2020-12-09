@@ -2,6 +2,7 @@ package com.example.getmypersonaltrainer;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Presenter {
+   private static final String TAG = "Presenter";
    private Model model;
    private boolean logged;
    private UserInterface user;
@@ -23,6 +25,23 @@ public class Presenter {
    private boolean getInfoFromDatabase = false;
    private Map<String, Exercise> freeExerciseList = new HashMap<>();
    private List<Client> clientList = new ArrayList<>();
+
+
+   public void  resetValues(){
+      Log.i(TAG, "ResetValue");
+      logged = false;
+      user = null;
+      myPersonalTrainer = null;
+      goingTo = null;
+      goBack = null;
+      changingClient = null;
+      selectedExercise = null;
+      allPersonalTrainers = new ArrayList<>();
+      getInfoFromDatabase = false;
+      freeExerciseList = new HashMap<>();
+      clientList = new ArrayList<>();
+      model.resetValues();
+   }
 
 
    public List<Client> getClientList() {
