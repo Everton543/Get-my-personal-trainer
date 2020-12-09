@@ -43,7 +43,7 @@ public class PersonalTrainerInfoActivity extends AppCompatActivity {
 
         if(personalTrainer.getVoteQuantity() > invalidInput){
             TextView textViewScore = findViewById(R.id.text_score_personal_trainer_info_activity);
-            String score = String.valueOf(personalTrainer.getAverageScore());
+            String score = String.valueOf(personalTrainer.takeAverageScore());
             textViewScore.setText(score);
         }
     }

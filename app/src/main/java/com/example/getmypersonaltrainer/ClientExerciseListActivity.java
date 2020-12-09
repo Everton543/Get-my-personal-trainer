@@ -28,11 +28,11 @@ public class ClientExerciseListActivity extends AppCompatActivity {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_client_exercise_list);
       MainActivity.presenter.setActualActivity(this);
-      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
       ActionBar actionBar = getSupportActionBar();
       assert actionBar != null;
       actionBar.setTitle(R.string.client_exercise_list_title);
-
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
       client = MainActivity.presenter.getChangingClient();
       if(exerciseListRecyclerView.size() < 1) {

@@ -2,9 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/item_create_public_exercise"
-        android:icon="@android:drawable/ic_input_add"
-        android:title="@string/item_create_public_exercise" />
+        android:id="@+id/item_change_personal_trainer_info"
+        android:title="@string/item_change_personal_info" />
     <item
         android:id="@+id/item_invite_client"
         android:icon="@android:drawable/ic_input_add"
@@ -12,4 +11,8 @@
     <item
         android:id="@+id/trainer_menu_item_read_invitation"
         android:title="@string/item_read_invitation" />
+    <item
+        android:id="@+id/item_create_public_exercise"
+        android:icon="@android:drawable/ic_input_add"
+        android:title="@string/item_create_public_exercise" />
 </menu>

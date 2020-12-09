@@ -4,7 +4,7 @@
     //Titles
     <string name="client_info_activity_title">Client Information</string>
     <string name="client_exercise_list_title">Client\'s Exercise</string>
-    <string name="change_client_info_activity_title">Change Information</string>
+    <string name="change_client_info_activity_title">Change Your Information</string>
     <string name="personal_trainer_list_title">Personal Trainers: </string>
     <string name="login_activity_title">Login</string>
     <string name="exercise_information_title">Exercise Information</string>
@@ -19,6 +19,7 @@
     <string name="send_invitation_title">Send Invitation</string>
     <string name="evaluate_personal_trainer_title">Evaluate Your Trainer</string>
     <string name="change_exercise_title">Change Exercise</string>
+    <string name="change_personal_trainer_info_title">Change Your Information</string>
     <string name="read_invitation_message_title">Invitations</string>
 
     //Hints
@@ -73,6 +74,7 @@
 
     //Menu
     <string name="item_change_client_info">Change My Info</string>
+    <string name="item_change_personal_info">Change My Info</string>
     <string name="item_my_personal_trainer">My Personal Trainer</string>
     <string name="item_invite_client">Invite Client</string>
     <string name="item_create_public_exercise">Create public exercise</string>

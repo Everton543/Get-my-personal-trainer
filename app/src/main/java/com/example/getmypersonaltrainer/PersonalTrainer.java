@@ -229,7 +229,7 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
       this.voteQuantity = voteQuantity;
    }
 
-   public int getAverageScore(){
+   public int takeAverageScore(){
       return  score / voteQuantity;
    }
 
@@ -238,7 +238,7 @@ public class PersonalTrainer implements UserInterface, PersonalTrainerInterface{
          this.score += score;
          this.voteQuantity += 1;
       }else{
-         this.score = getAverageScore();
+         this.score = takeAverageScore();
          this.score += score;
 
          //Setting vote Quantity to 2 because 1 is the vote from the Average score

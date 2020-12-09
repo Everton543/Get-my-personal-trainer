@@ -26,6 +26,7 @@ public class PersonalTrainerMainActivity extends AppCompatActivity implements Fa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_trainer_main);
+
         MainActivity.presenter.setActualActivity(this);
         Log.i(TAG, "Started Personal Trainer main Activity");
         MainActivity.presenter.setChangingClient(null);
@@ -122,6 +123,11 @@ public class PersonalTrainerMainActivity extends AppCompatActivity implements Fa
                 intent = new Intent(this, ReadInvitationMessageActivity.class);
                 startActivity(intent);
                 return true;
+            }
+
+            case R.id.item_change_personal_trainer_info:{
+                intent = new Intent(this, ChangePersonalTrainerInfoActivity.class);
+                startActivity(intent);
             }
             default:
                 return super.onOptionsItemSelected(item);
