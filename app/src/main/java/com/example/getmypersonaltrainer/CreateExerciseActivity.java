@@ -169,13 +169,19 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
 
         fillGivenExerciseInfo();
     }
-
+    
     @Override
     public void fillExerciseInfo(Exercise exercise) {
         //Get exercise info and put it in VideoLink and Emphasis EditTexts and observations
         Log.i(TAG, "Fill exercise info");
         EditText textEmphasis = findViewById(R.id.edit_text_emphasis_create_exercise);
         textEmphasis.setText(exercise.getEmphasis());
+
+        EditText videoLink = findViewById(R.id.edit_text_video_link_create_exercise);
+        videoLink.setText(exercise.getVideoLink());
+
+        EditText observation = findViewById(R.id.edit_text_observations_exercise_create_exercise);
+        observation.setText(exercise.getObservations());
     }
 
     @Override
