@@ -11,7 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-   public class MainActivity extends AppCompatActivity implements LoginInterface{
+   public class MainActivity extends AppCompatActivity implements LoginInterface, FastError{
       final static String PREFERENCES = "SharedPreference";
       final static String USER_ID = "userId";
       final static String NOT_FOUND = "notFound";
@@ -120,6 +120,18 @@ import android.widget.EditText;
          super.onStop();
          eraseText(R.id.edit_text_password_login_activity);
 
+      }
+
+      @Override
+      public void finishedCharge(){
+         Intent intent = new Intent(this, MainActivity.presenter.getGoingTo());
+         startActivity(intent);
+      }
+
+      @Override
+      public void loadingError(){
+         Intent intent = new Intent(this, MainActivity.presenter.getGoBack());
+         startActivity(intent);
       }
 
    }
