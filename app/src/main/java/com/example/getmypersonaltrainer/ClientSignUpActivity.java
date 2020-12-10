@@ -16,7 +16,7 @@ import java.util.GregorianCalendar;
 
 public class ClientSignUpActivity extends AppCompatActivity{
     public static String TAG = "ClientSignUpActivity";
-
+    private User client = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,9 +67,14 @@ public class ClientSignUpActivity extends AppCompatActivity{
         spinnerDay.setSelection(gc.get(GregorianCalendar.DAY_OF_MONTH)-1);
     }
 
-    public void ClientSignUp(View view){
+    private int setClientInfo(){
         EditText editText = (EditText) findViewById(R.id.edit_text_id_client_sign_up_activity);
         String id = editText.getText().toString();
+
+        boolean emptyText = !MainActivity.presenter.getModel().getValidateInfo().checkId(id);
+        if(emptyText){
+            return MainActivity.invalidID;
+        }
 
         editText = (EditText) findViewById(R.id.edit_text_password_client_sign_up_activity);
         String password = editText.getText().toString();
@@ -79,10 +84,17 @@ public class ClientSignUpActivity extends AppCompatActivity{
 
         editText = (EditText) findViewById(R.id.edit_text_name_client_sign_up_activity);
         String name = editText.getText().toString();
+        emptyText = MainActivity.presenter.getModel().getValidateInfo().isEmptyString(name);
+        if(emptyText){
+            return MainActivity.emptyInfo;
+        }
 
         editText = (EditText) findViewById(R.id.edit_text_phone_client_sign_up_activity);
         String phone = editText.getText().toString();
-
+        emptyText = MainActivity.presenter.getModel().getValidateInfo().isEmptyString(phone);
+        if(emptyText){
+            return MainActivity.emptyInfo;
+        }
 
         // Setup CalendarView object...
         Spinner spinnerYear = (Spinner) findViewById(R.id.spinnerYear);
@@ -131,40 +143,75 @@ public class ClientSignUpActivity extends AppCompatActivity{
 
         editText = (EditText) findViewById(R.id.edit_text_weight_client_sign_up_activity);
         String textBodyMass = editText.getText().toString();
-        float bodyMass = 0;
-        if(!textBodyMass.equals("") && textBodyMass != null) {
-            bodyMass = Float.parseFloat(textBodyMass);
+        emptyText = MainActivity.presenter.getModel().getValidateInfo().isEmptyString(textBodyMass);
+        if(emptyText){
+            return MainActivity.emptyInfo;
         }
+
+        float bodyMass = Float.parseFloat(textBodyMass);
+
 
         editText = (EditText) findViewById(R.id.edit_text_size_client_sign_up_activity);
         String textSize = editText.getText().toString();
-        float size = 0;
-        if(!textSize.equals("") && textSize != null) {
-            size = Float.parseFloat(textSize);
+        emptyText = MainActivity.presenter.getModel().getValidateInfo().isEmptyString(textSize);
+        if(emptyText){
+            return MainActivity.emptyInfo;
         }
+        float size = Float.parseFloat(textSize);
 
-        boolean passwordsAreEqual = MainActivity.presenter
+        boolean passwordsNotEqual = !MainActivity.presenter
                 .getModel()
                 .getValidateInfo()
                 .checkIfPasswordAreEqual(password, confirmPassword);
+        if(passwordsNotEqual){
+            return MainActivity.passwordNotEqual;
+        }
 
         boolean validPassword = MainActivity.presenter
                 .getModel()
                 .getValidateInfo()
                 .password(password);
-
-        if (passwordsAreEqual && validPassword) {
-            User client = new User(UserTypes.CLIENT, password, name, id, phone, birthDate, bodyMass, size);
-            MainActivity.presenter.setGetInfoFromDatabase(true);
-            MainActivity.presenter.getModel().saveUser(client);
-            MainActivity.presenter.setGoingTo(MainActivity.class);
-            MainActivity.presenter.setGoBack(ClientSignUpActivity.class);
-            Intent intent = new Intent(this, LoadingActivity.class);
-            startActivity(intent);
-        } else if (validPassword == false) {
-            MainActivity.presenter.getModel().getWarnings().invalidPassword();
-        } else {
-            MainActivity.presenter.getModel().getWarnings().passwordNotEqualError();
+        if(validPassword) {
+            client = new User(UserTypes.CLIENT, password, name, id, phone, birthDate, bodyMass, size);
+            return MainActivity.allGood;
         }
+
+        return MainActivity.invalidPassword;
+    }
+
+    public void ClientSignUp(View view){
+        int situationCase = setClientInfo();
+        switch (situationCase){
+            case MainActivity.allGood: {
+                MainActivity.presenter.setGetInfoFromDatabase(true);
+                MainActivity.presenter.getModel().saveUser(client);
+                MainActivity.presenter.setGoingTo(MainActivity.class);
+                MainActivity.presenter.setGoBack(ClientSignUpActivity.class);
+                Intent intent = new Intent(this, LoadingActivity.class);
+                startActivity(intent);
+                break;
+            }
+
+            case MainActivity.invalidPassword: {
+                MainActivity.presenter.getModel().getWarnings().invalidPassword();
+                break;
+            }
+
+            case MainActivity.passwordNotEqual: {
+                MainActivity.presenter.getModel().getWarnings().passwordNotEqualError();
+                break;
+            }
+
+            case MainActivity.emptyInfo: {
+                MainActivity.presenter.getModel().getWarnings().emptyInfo();
+                break;
+            }
+
+            case MainActivity.invalidID: {
+                MainActivity.presenter.getModel().getWarnings().invalidId();
+                break;
+            }
+        }
+
     }
 }

@@ -52,7 +52,6 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
             exerciseNames = exerciseNameList.toArray(new String[0]);
         }
 
-        //AutoCompleteTextView editTextWeekDays = findViewById(R.id.edit_text_day_of_week_create_exercise);
         Spinner spinnerWeekDay = (Spinner) findViewById(R.id.spinner_day_of_week_create_exercise);
         ArrayAdapter<String> weekDaysAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, weekDays);
@@ -211,7 +210,13 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
         AutoCompleteTextView textExerciseName = findViewById(R.id.edit_text_exercise_name_create_exercise);
         String exerciseName = String.valueOf(textExerciseName.getText());
         Log.i(TAG, "Exercise name: " + exerciseName);
-        //AutoCompleteTextView editTextDayOfWeek = findViewById(R.id.edit_text_day_of_week_create_exercise);
+        boolean invalidName = !MainActivity.presenter.getModel().getValidateInfo().exerciseId(exerciseName);
+
+        if(invalidName){
+            MainActivity.presenter.getModel().getWarnings().invalidId();
+            return false;
+        }
+
         Spinner spinnerWeekDay = (Spinner) findViewById(R.id.spinner_day_of_week_create_exercise);
         String textDayOfWeek = String.valueOf(spinnerWeekDay.getSelectedItem());
         Log.i(TAG, "Week day string : " + textDayOfWeek);
@@ -222,20 +227,35 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
             EditText editTextEmphasis = findViewById(R.id.edit_text_emphasis_create_exercise);
             String emphasis = String.valueOf(editTextEmphasis.getText());
 
+            boolean emptyText = MainActivity.presenter.getModel().getValidateInfo().isEmptyString(emphasis);
+            if(emptyText){
+                return false;
+            }
+
             Log.i(TAG, "emphasis: " + emphasis);
 
             EditText editTextRepetition = findViewById(R.id.edit_text_repetition_create_exercise);
             String repetition = String.valueOf(editTextRepetition.getText());
 
+            emptyText = MainActivity.presenter.getModel().getValidateInfo().isEmptyString(repetition);
+            if(emptyText){
+                return false;
+            }
+
             Log.i(TAG, "Repetition :" + repetition);
 
             EditText editTextSeries = findViewById(R.id.edit_text_series_create_exercise);
             String seriesText = String.valueOf(editTextSeries.getText());
-            Log.i(TAG, "Series text: " + seriesText);
-            int series = 0;
-            if(!seriesText.equals("") || seriesText != null) {
-                series = Integer.parseInt(seriesText);
+            emptyText = MainActivity.presenter.getModel().getValidateInfo().isEmptyString(seriesText);
+            if(emptyText){
+                return false;
             }
+
+            Log.i(TAG, "Series text: " + seriesText);
+
+            int series = 0;
+            series = Integer.parseInt(seriesText);
+
 
             Log.i(TAG, "Series number: " + series);
 
@@ -243,18 +263,35 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
             String seriesInterval = String.valueOf(editTextIntervalSeries.getText());
             Log.i(TAG, "Series interval: " + seriesInterval);
 
+            emptyText = MainActivity.presenter.getModel().getValidateInfo().isEmptyString(seriesInterval);
+            if(emptyText){
+                return false;
+            }
+
             EditText editTextIntervalExercise = findViewById(R.id.edit_text_interval_exercise_create_exercise);
             String exerciseInterval = String.valueOf(editTextIntervalExercise.getText());
-
             Log.i(TAG, "Exercise interval: " + exerciseInterval);
+
+            emptyText = MainActivity.presenter.getModel().getValidateInfo().isEmptyString(exerciseInterval);
+            if(emptyText){
+                return false;
+            }
 
             EditText editTextObservations = findViewById(R.id.edit_text_observations_exercise_create_exercise);
             String observations = String.valueOf(editTextObservations.getText());
+            emptyText = MainActivity.presenter.getModel().getValidateInfo().isEmptyString(observations);
+            if(emptyText){
+                return false;
+            }
 
             EditText editTextVideoLink = findViewById(R.id.edit_text_video_link_create_exercise);
             String videoLink = String.valueOf(editTextVideoLink.getText());
-
             Log.i(TAG, "Video link : " + videoLink);
+
+            emptyText = MainActivity.presenter.getModel().getValidateInfo().isEmptyString(videoLink);
+            if(emptyText){
+                return false;
+            }
 
             if(changingExercise){
                 sendingExercise = new Exercise(exerciseName, dayOfWeek, emphasis, repetition,
@@ -277,7 +314,6 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
         Log.i(TAG, "Send Exercise Called");
         boolean successfullySetExerciseInfo = setExerciseInfo();
         if(successfullySetExerciseInfo){
-
             if (MainActivity.presenter.getChangingClient() != null) {
                 MainActivity.presenter.setGetInfoFromDatabase(true);
                 MainActivity.presenter.getModel().addClientExercise(
@@ -287,7 +323,7 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
             }
 
         }else {
-            MainActivity.presenter.getModel().getWarnings().invalidDayOfWeek();
+            MainActivity.presenter.getModel().getWarnings().emptyInfo();
         }
     }
 
@@ -304,7 +340,7 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
             MainActivity.presenter.setChangingClient(null);
             finishedCharge();
         }else {
-            MainActivity.presenter.getModel().getWarnings().invalidDayOfWeek();
+            MainActivity.presenter.getModel().getWarnings().emptyInfo();
         }
     }
 
@@ -326,7 +362,8 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
 
     @Override
     public void loadingError() {
-
+        Intent intent = new Intent(this, PersonalTrainerMainActivity.class);
+        startActivity(intent);
     }
 
     @Override

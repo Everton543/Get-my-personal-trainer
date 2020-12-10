@@ -17,12 +17,11 @@ public class SendInvitationActivity extends AppCompatActivity{
         MainActivity.presenter.setActualActivity(this);
         MainActivity.presenter.setGoingTo(SendInvitationActivity.class);
         MainActivity.presenter.setGoBack(SendInvitationActivity.class);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setTitle(R.string.send_invitation_title);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void sendInvitation(View view){

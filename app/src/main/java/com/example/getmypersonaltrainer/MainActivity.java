@@ -15,6 +15,11 @@ import android.widget.EditText;
       final static String PREFERENCES = "SharedPreference";
       final static String USER_ID = "userId";
       final static String NOT_FOUND = "notFound";
+      static final int allGood = 0;
+      static final int emptyInfo = 1;
+      static final int passwordNotEqual = 2;
+      static final int invalidPassword = 3;
+      static final int invalidID = 4;
       private static final String TAG = "MyActivity";
 
       private String logId = null;

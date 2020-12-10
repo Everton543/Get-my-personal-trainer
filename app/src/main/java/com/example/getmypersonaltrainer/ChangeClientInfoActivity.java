@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -65,10 +66,25 @@ public class ChangeClientInfoActivity extends AppCompatActivity {
         spinnerMonth.setSelection(gc.get(GregorianCalendar.MONTH));
         spinnerDay.setSelection(gc.get(GregorianCalendar.DAY_OF_MONTH)-1);
 
-        putClientInfo();
+        putClientInfoToView();
     }
 
-    public void changeClientInfo(View view){
+    private int setClientInfo(){
+        EditText editText = (EditText) findViewById(R.id.edit_text_name_change_client_info);
+        String name = editText.getText().toString();
+        boolean emptyText = MainActivity.presenter.getModel().getValidateInfo().isEmptyString(name);
+        if(emptyText){
+            return MainActivity.emptyInfo;
+        }
+
+        editText = (EditText) findViewById(R.id.edit_text_phone_change_client_info);
+        String phone = editText.getText().toString();
+        emptyText = MainActivity.presenter.getModel().getValidateInfo().isEmptyString(phone);
+        if(emptyText){
+            return MainActivity.emptyInfo;
+        }
+
+        // Setup CalendarView object...
         Spinner spinnerYear = (Spinner) findViewById(R.id.spinner_year_change_client_info);
         Spinner spinnerMonth = (Spinner) findViewById(R.id.spinner_month_change_client_info);
         Spinner spinnerDay = (Spinner) findViewById(R.id.spinner_day_change_client_info);
@@ -112,39 +128,60 @@ public class ChangeClientInfoActivity extends AppCompatActivity {
         // Set our global birthDate field...
         String birthDate = YYYY + "/" + MM + "/" + DD;
 
-        EditText editTextName = findViewById(R.id.edit_text_name_change_client_info);
-        String name = String.valueOf(editTextName.getText());
+        editText = (EditText) findViewById(R.id.edit_text_weight_change_client_info);
+        String textBodyMass = editText.getText().toString();
+        emptyText = MainActivity.presenter.getModel().getValidateInfo().isEmptyString(textBodyMass);
+        if(emptyText){
+            return MainActivity.emptyInfo;
+        }
 
-        EditText editTextPhone = findViewById(R.id.edit_text_phone_change_client_info);
-        String phone = String.valueOf(editTextPhone.getText());
+        float bodyMass = Float.parseFloat(textBodyMass);
 
-        EditText editTextHeight = findViewById(R.id.edit_text_size_change_client_info);
-        String height = String.valueOf(editTextHeight.getText());
 
-        EditText editTextBodyMass = findViewById(R.id.edit_text_weight_change_client_info);
-        String bodyMass = String.valueOf(editTextBodyMass.getText());
+        editText = (EditText) findViewById(R.id.edit_text_size_change_client_info);
+        String textSize = editText.getText().toString();
+        emptyText = MainActivity.presenter.getModel().getValidateInfo().isEmptyString(textSize);
+        if(emptyText){
+            return MainActivity.emptyInfo;
+        }
+        float height = Float.parseFloat(textSize);
 
         if(MainActivity.presenter.getUser() instanceof Client){
             ((Client) MainActivity.presenter.getUser()).
-                    setBodyMass(Float.parseFloat(bodyMass));
+                    setBodyMass(bodyMass);
 
             ((Client) MainActivity.presenter.getUser()).setPhone(phone);
 
-            ((Client) MainActivity.presenter.getUser()).setSize(Float.parseFloat(height));
+            ((Client) MainActivity.presenter.getUser()).setSize(height);
 
             ((Client) MainActivity.presenter.getUser()).setName(name);
 
             ((Client) MainActivity.presenter.getUser()).setBirthDate(birthDate);
-
-            MainActivity.presenter.getModel().updateClient(((Client) MainActivity.presenter.getUser()));
         }
 
-        Intent intent = new Intent(this, ClientMainActivity.class);
-        startActivity(intent);
+        return MainActivity.allGood;
+    }
+
+
+    public void changeClientInfo(View view){
+        int situationCase = setClientInfo();
+        switch (situationCase) {
+            case MainActivity.allGood: {
+                MainActivity.presenter.getModel().updateClient(((Client) MainActivity.presenter.getUser()));
+                Intent intent = new Intent(this, ClientMainActivity.class);
+                startActivity(intent);
+                break;
+            }
+
+            case MainActivity.emptyInfo: {
+                MainActivity.presenter.getModel().getWarnings().emptyInfo();
+                break;
+            }
+        }
 
     }
 
-    public void putClientInfo(){
+    public void putClientInfoToView(){
         if(MainActivity.presenter.getUser() instanceof Client) {
             EditText editTextName = findViewById(R.id.edit_text_name_change_client_info);
             editTextName.setText(

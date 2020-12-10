@@ -55,6 +55,18 @@ public class ValidateInfo {
       return personalTrainer.getExerciseList().containsKey(exercise.getName());
    }
 
+   public boolean isEmptyString(String value){
+      if(value == null){
+         return true;
+      }
+
+      if (value.length() < 1) {
+         return true;
+      }
+
+      return false;
+   }
+
    public boolean checkId(String id){
       if(id == null){
          return false;

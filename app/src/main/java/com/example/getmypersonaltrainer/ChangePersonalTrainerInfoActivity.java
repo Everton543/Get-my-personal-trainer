@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.EditText;
 
 public class ChangePersonalTrainerInfoActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,10 +19,10 @@ public class ChangePersonalTrainerInfoActivity extends AppCompatActivity {
         actionBar.setTitle(R.string.change_personal_trainer_info_title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        setPersonalInfo();
+        setPersonalInfoToTheView();
     }
 
-    private void setPersonalInfo(){
+    private void setPersonalInfoToTheView(){
         if(MainActivity.presenter.getUser() instanceof PersonalTrainer) {
             String textAboutMyself = ((PersonalTrainer) MainActivity.presenter.getUser())
                     .getAboutMyselfText();
@@ -40,27 +39,57 @@ public class ChangePersonalTrainerInfoActivity extends AppCompatActivity {
         }
     }
 
-    public void changeInfo(View view){
-        if(MainActivity.presenter.getUser() instanceof PersonalTrainer){
+    private int setPersonalTrainerInfo() {
+        EditText editText = (EditText) findViewById(
+                R.id.edit_text_name_change_personal_trainer_activity
+        );
+        String name = editText.getText().toString();
 
-            EditText aboutMyself =
-                    findViewById(R.id.edit_text_about_myself_change_personal_trainer_activity);
+        boolean emptyText = MainActivity.presenter.getModel().getValidateInfo()
+                .isEmptyString(name);
+        if(emptyText){
+            return MainActivity.emptyInfo;
+        }
 
-            String textAboutMyself = String.valueOf(aboutMyself.getText());
+        editText = findViewById(R.id.edit_text_about_myself_change_personal_trainer_activity);
+        String textAboutMyself = String.valueOf(editText.getText());
 
-            EditText name = findViewById(R.id.edit_text_name_change_personal_trainer_activity);
-            String textName = String.valueOf(name.getText());
+        emptyText = MainActivity.presenter.getModel().getValidateInfo()
+                .isEmptyString(textAboutMyself);
+        if(emptyText){
+            return MainActivity.emptyInfo;
+        }
 
-            MainActivity.presenter.getUser().setName(textName);
+        if(MainActivity.presenter.getUser() instanceof PersonalTrainer) {
+            MainActivity.presenter.getUser().setName(name);
 
             ((PersonalTrainer) MainActivity.presenter.getUser())
                     .setAboutMyselfText(textAboutMyself);
+        }
 
-            MainActivity.presenter.getModel().updatePersonalTrainer((PersonalTrainer) MainActivity.presenter.getUser());
+        return MainActivity.allGood;
+    }
 
-            Intent intent = new Intent(this, PersonalTrainerMainActivity.class);
-            startActivity(intent);
 
+    public void changeInfo(View view){
+        int situationCase = setPersonalTrainerInfo();
+        switch (situationCase) {
+            case MainActivity.allGood: {
+                if (MainActivity.presenter.getUser() instanceof PersonalTrainer) {
+                    MainActivity.presenter.getModel().updatePersonalTrainer(
+                            (PersonalTrainer) MainActivity.presenter.getUser()
+                    );
+                    Intent intent = new Intent(this,
+                            PersonalTrainerMainActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            }
+
+            case MainActivity.emptyInfo: {
+                MainActivity.presenter.getModel().getWarnings().emptyInfo();
+                break;
+            }
         }
     }
 }

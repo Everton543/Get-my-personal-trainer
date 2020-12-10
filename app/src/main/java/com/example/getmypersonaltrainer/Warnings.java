@@ -25,9 +25,13 @@ public class Warnings {
       sendWarning(Toast.LENGTH_SHORT, text);
    }
 
+   public void emptyInfo(){
+      CharSequence text = "Empty information";
+      sendWarning(Toast.LENGTH_SHORT, text);
+   }
 
-   public void invalidDayOfWeek(){
-      CharSequence text = "Invalid day of week";
+   public void acceptedInvitation(){
+      CharSequence text = "You accepted the invitation";
       sendWarning(Toast.LENGTH_SHORT, text);
    }
 
@@ -42,6 +46,10 @@ public class Warnings {
       sendWarning(Toast.LENGTH_SHORT, text);
    }
 
+   public void invalidId(){
+      CharSequence text = "Invalid ID value. Please write only letters and numbers";
+      sendWarning(Toast.LENGTH_LONG, text);
+   }
 
    public void signUpSuccessfully(){
       CharSequence text = "Sign Up Successfully";

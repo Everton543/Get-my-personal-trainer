@@ -170,6 +170,8 @@ public class Model {
          ((Client) presenter.getUser()).setPersonalTrainerId(trainerId);
       }
 
+      warnings.acceptedInvitation();
+
       eraseInvitation(invitationMessage);
    }
 
@@ -314,6 +316,8 @@ public class Model {
       if(clientHasPersonalTrainer){
          client.setPersonalTrainerId(null);
          updateClient(client);
+
+         deleteClientExercises(client);
       }
    }
 
@@ -388,7 +392,7 @@ public class Model {
                      }
 
                      if (personalTrainers.get(0) != null &&
-                             personalTrainers.get(0) instanceof PersonalTrainer) {
+                             personalTrainers.get(0).getUserType() == UserTypes.PERSONAL_TRAINER) {
                         personalTrainers.get(0).setReceivedInvitation(true);
                         personalTrainers.get(0).addNewInvitationMessage(invitationMessage);
 
@@ -488,8 +492,6 @@ public class Model {
    }
 
    public void getClientList(final PersonalTrainer personalTrainer){
-      //GetClientList getClientList = new GetClientList(personalTrainer);
-      //getClientList.run();
       Log.i(TAG, "getClientList function called");
       Query query = presenter.getModel().getDatabase().getReference("Users")
               .orderByChild("personalTrainerId")
@@ -535,8 +537,6 @@ public class Model {
    }
 
    public void getExerciseNameList(final PersonalTrainer personalTrainer){
-    //  GetExerciseNameList getExerciseNameList = new GetExerciseNameList(personalTrainer);
-      //getExerciseNameList.run();
       Query query = presenter.getModel().getDatabase().getReference("Exercise")
               .orderByChild("free")
               .equalTo(true);
