@@ -17,9 +17,6 @@ public class AllPersonalTrainerListResultActivity extends AppCompatActivity {
       assert actionBar != null;
       actionBar.setTitle(R.string.personal_trainer_list_title);
 
-      if(MainActivity.presenter.getAllPersonalTrainers() == null) {
-         MainActivity.presenter.setGetInfoFromDatabase(true);
-         MainActivity.presenter.getModel().getAllPersonalTrainers();
-      }
+      //todo create the PersonalTrainerListViewAdapter
    }
 }

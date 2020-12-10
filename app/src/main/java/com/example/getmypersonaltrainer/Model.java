@@ -111,6 +111,17 @@ public class Model {
       .build();
    }
 
+   public FirebaseRecyclerOptions<PersonalTrainer> getAllPersonalTrainers(){
+      Query query = database.getReference("Users")
+              .orderByChild("userType")
+              .equalTo(String.valueOf(UserTypes.PERSONAL_TRAINER));
+
+      return new FirebaseRecyclerOptions.Builder<PersonalTrainer>()
+              .setQuery(query, PersonalTrainer.class)
+              .build();
+   }
+
+
    public void savePublicExercise(final Exercise exercise){
       Log.i(TAG, "Call savePublicExercise with the id = " + exercise.getExerciseId());
       if(validateInfo.checkId(exercise.getExerciseId())) {
@@ -261,50 +272,6 @@ public class Model {
 
          }
       });
-   }
-
-   public void getAllPersonalTrainers(){
-      if(presenter.getUser() instanceof Client) {
-         Query query = database.getReference("Users")
-               .orderByChild("userType")
-               .equalTo(String.valueOf(UserTypes.PERSONAL_TRAINER));
-
-         query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-               presenter.getAllPersonalTrainers().clear();
-               if (snapshot.exists() && presenter.isGetInfoFromDatabase()) {
-                  if(presenter.getAllPersonalTrainers() == null) {
-                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        PersonalTrainer personalTrainer = dataSnapshot.getValue(PersonalTrainer.class);
-                        presenter.getAllPersonalTrainers().add(personalTrainer);
-                     }
-
-                     if (presenter.getActualActivity() instanceof FastError) {
-                        ((FastError) presenter.getActualActivity()).finishedCharge();
-                     }
-                  }
-               }
-               else if (presenter.isGetInfoFromDatabase()){
-                  warnings.noPersonalTrainerAvailable();
-                  if(presenter.getActualActivity() instanceof FastError){
-                     ((FastError) presenter.getActualActivity()).loadingError();
-                  }
-               }
-               else if(presenter.getActualActivity() instanceof LoadingActivity){
-                  ((LoadingActivity) presenter.getActualActivity()).stuckAtLoadingActivity();
-               }
-               presenter.setGetInfoFromDatabase(false);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-         });
-      }
-
-
    }
 
    /**
