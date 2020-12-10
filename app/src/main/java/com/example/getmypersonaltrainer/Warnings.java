@@ -62,22 +62,22 @@ public class Warnings {
    }
 
    public void errorUserIdAlreadyExists(){
-      CharSequence text = "User Id Already exists";
+      CharSequence text = "This ID Already exists";
       sendWarning(Toast.LENGTH_SHORT, text);
    }
 
    public void errorClientDoesNotExists(){
-      CharSequence text = "Client does not exists";
+      CharSequence text = "This member does not exists";
       sendWarning(Toast.LENGTH_SHORT, text);
    }
 
    public void errorUserDoesNotExists(){
-      CharSequence text = "User does not exists";
+      CharSequence text = "This member does not exists";
       sendWarning(Toast.LENGTH_SHORT, text);
    }
 
    public void invitationGotSend(){
-      CharSequence text = "Client received yours invitation";
+      CharSequence text = "The member received yours invitation";
       sendWarning(Toast.LENGTH_SHORT, text);
    }
 

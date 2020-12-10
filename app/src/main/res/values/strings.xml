@@ -2,10 +2,10 @@
     <string name="app_name">Get My Personal Trainer</string>
 
     //Titles
-    <string name="client_info_activity_title">Client Information</string>
+    <string name="client_info_activity_title">Member\'s Information</string>
     <string name="client_exercise_list_title">Client\'s Exercise</string>
     <string name="change_client_info_activity_title">Change Your Information</string>
-    <string name="personal_trainer_list_title">Personal Trainers: </string>
+    <string name="personal_trainer_list_title">Personal Trainers</string>
     <string name="login_activity_title">Login</string>
     <string name="exercise_information_title">Exercise Information</string>
     <string name="personal_trainer_info_title">Personal Trainer</string>
@@ -13,7 +13,7 @@
     <string name="create_exercise_title">Create New Exercise</string>
     <string name="client_sign_up_activity_title">Client Sign Up</string>
     <string name="client_sign_up_activity_birthdate">Select Your Birth Date</string>
-    <string name="personal_trainer_main_title">Clients List</string>
+    <string name="personal_trainer_main_title">Members List</string>
     <string name="choose_sign_in_type_title">Choose Your Account Type</string>
     <string name="personal_trainer_sign_up_title">Personal Trainer Sign Up</string>
     <string name="send_invitation_title">Send Invitation</string>
@@ -23,7 +23,7 @@
     <string name="read_invitation_message_title">Invitations</string>
 
     //Hints
-    <string name="hint_invitation_id">Client ID</string>
+    <string name="hint_invitation_id">Member ID</string>
     <string name="hint_name">Name</string>
     <string name="hint_id">Login ID</string>
     <string name="hint_phone">Phone</string>
@@ -76,7 +76,7 @@
     <string name="item_change_client_info">Change My Info</string>
     <string name="item_change_personal_info">Change My Info</string>
     <string name="item_my_personal_trainer">My Personal Trainer</string>
-    <string name="item_invite_client">Invite Client</string>
+    <string name="item_invite_client">Invite Member</string>
     <string name="item_create_public_exercise">Create public exercise</string>
     <string name="item_read_invitation">Invitations</string>
     <string name="item_find_all_personal_trainer">Search New Personal Trainer</string>
@@ -90,13 +90,13 @@
     <string name="button_sign_in">Sign Up</string>
     <string name="button_unsubscribe">Unsubscribe</string>
     <string name="button_personal_trainer_sign_in">Sign Up as a Personal Trainer</string>
-    <string name="button_client_sign_in">Sign Up as a Client</string>
+    <string name="button_client_sign_in">Sign Up as a Member</string>
     <string name="button_evaluate">Evaluate</string>
     <string name="button_change_exercise">Change Exercise</string>
     <string name="button_remove_exercise">Remove Exercise</string>
     <string name="button_add_exercise">Add New Exercise</string>
-    <string name="button_remove_client">Remove Client</string>
-    <string name="button_see_client_info">See Client Info</string>
+    <string name="button_remove_client">Remove Member</string>
+    <string name="button_see_client_info">See Member\'s Info</string>
 
     //Text
     <string name="unknown_info">Unknown</string>
@@ -107,11 +107,11 @@
         The personal trainer did not wrote about himself/herself yet.
     </string>
     <string name="client_received_invitation">
-        A personal trainer wants you as a student.
+        A personal trainer wants you to be part in his/her group.
         Go to your menu and click in
     </string>
     <string name="personal_trainer_received_invitation">
-        A client wants you as his/her personal trainer.
+        A person wants you as his/her personal trainer.
         Go to your menu and click in
     </string>
     <string name="monday">Monday</string>
@@ -120,7 +120,7 @@
     <string name="thursday">Thursday</string>
     <string name="friday">Friday</string>
     <string name="saturday">Saturday</string>
-    <string name="loading">Loading...</string>
+    <string name="loading">Loading…</string>
     <string name="loading_image_description">Loading Animation</string>
 
     //String Array
