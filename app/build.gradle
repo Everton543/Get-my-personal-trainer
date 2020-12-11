@@ -36,6 +36,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation fileTree(dir: 'C:\\Users\\evany\\AndroidStudioProjects\\Get-my-personal-trainer\\jBCrypt-0.4', include: ['*.aar', '*.jar'], exclude: [])
+    implementation files('C:\\Users\\evany\\AndroidStudioProjects\\Get-my-personal-trainer\\jBCrypt-0.4\\src\\org\\mindrot\\jbcrypt\\BCrypt.java')
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.7.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
