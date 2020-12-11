@@ -44,12 +44,12 @@ public class ClientExerciseListActivity extends AppCompatActivity {
          RecyclerView saturdayView = findViewById(R.id.recycler_view_saturday);
 
 
-         setRecyclerViewAdapter(mondayView, DayOfWeek.MONDAY);
-         setRecyclerViewAdapter(tuesdayView, DayOfWeek.TUESDAY);
-         setRecyclerViewAdapter(wednesdayView, DayOfWeek.WEDNESDAY);
-         setRecyclerViewAdapter(thursdayView, DayOfWeek.THURSDAY);
-         setRecyclerViewAdapter(fridayView, DayOfWeek.FRIDAY);
-         setRecyclerViewAdapter(saturdayView, DayOfWeek.SATURDAY);
+         setRecyclerViewAdapter(mondayView, DaysOfWeek.MONDAY);
+         setRecyclerViewAdapter(tuesdayView, DaysOfWeek.TUESDAY);
+         setRecyclerViewAdapter(wednesdayView, DaysOfWeek.WEDNESDAY);
+         setRecyclerViewAdapter(thursdayView, DaysOfWeek.THURSDAY);
+         setRecyclerViewAdapter(fridayView, DaysOfWeek.FRIDAY);
+         setRecyclerViewAdapter(saturdayView, DaysOfWeek.SATURDAY);
 
          exerciseListRecyclerView.add(mondayView);
          exerciseListRecyclerView.add(tuesdayView);
@@ -62,7 +62,7 @@ public class ClientExerciseListActivity extends AppCompatActivity {
    }
 
    @RequiresApi(api = Build.VERSION_CODES.O)
-   private void setRecyclerViewAdapter(RecyclerView recyclerView, DayOfWeek dayOfWeek){
+   private void setRecyclerViewAdapter(RecyclerView recyclerView, DaysOfWeek dayOfWeek){
       ExerciseListViewAdapter exerciseListViewAdapter =
             new ExerciseListViewAdapter(
                     MainActivity.presenter.getModel().getClientExerciseList(client, dayOfWeek),

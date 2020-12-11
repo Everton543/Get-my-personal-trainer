@@ -99,7 +99,7 @@ public class Model {
    }
 
    public FirebaseRecyclerOptions<Exercise>
-      getClientExerciseList(Client client, DayOfWeek dayOfWeek)
+      getClientExerciseList(Client client, DaysOfWeek dayOfWeek)
    {
       Query query = database.getReference("Users").child(client.getUserId())
               .child("exerciseList")
@@ -130,7 +130,6 @@ public class Model {
                .equalTo(exercise.getExerciseId());
 
          query.addValueEventListener(new ValueEventListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                userList.clear();

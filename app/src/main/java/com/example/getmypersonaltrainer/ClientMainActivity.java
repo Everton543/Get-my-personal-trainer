@@ -27,7 +27,6 @@ public class ClientMainActivity extends AppCompatActivity implements FastError{
     private final List<ExerciseListViewAdapter> exerciseListViewAdapters = new ArrayList<>();
     private final List<RecyclerView> exerciseListRecyclerView = new ArrayList<>();
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,12 +57,12 @@ public class ClientMainActivity extends AppCompatActivity implements FastError{
             RecyclerView saturdayView = findViewById(R.id.recycler_view_client_main_saturday);
 
 
-            setRecyclerViewAdapter(mondayView, DayOfWeek.MONDAY);
-            setRecyclerViewAdapter(tuesdayView, DayOfWeek.TUESDAY);
-            setRecyclerViewAdapter(wednesdayView, DayOfWeek.WEDNESDAY);
-            setRecyclerViewAdapter(thursdayView, DayOfWeek.THURSDAY);
-            setRecyclerViewAdapter(fridayView, DayOfWeek.FRIDAY);
-            setRecyclerViewAdapter(saturdayView, DayOfWeek.SATURDAY);
+            setRecyclerViewAdapter(mondayView, DaysOfWeek.MONDAY);
+            setRecyclerViewAdapter(tuesdayView, DaysOfWeek.TUESDAY);
+            setRecyclerViewAdapter(wednesdayView, DaysOfWeek.WEDNESDAY);
+            setRecyclerViewAdapter(thursdayView, DaysOfWeek.THURSDAY);
+            setRecyclerViewAdapter(fridayView, DaysOfWeek.FRIDAY);
+            setRecyclerViewAdapter(saturdayView, DaysOfWeek.SATURDAY);
 
             exerciseListRecyclerView.add(mondayView);
             exerciseListRecyclerView.add(tuesdayView);
@@ -74,7 +73,7 @@ public class ClientMainActivity extends AppCompatActivity implements FastError{
         }
     }
 
-    private void setRecyclerViewAdapter(RecyclerView recyclerView, DayOfWeek dayOfWeek){
+    private void setRecyclerViewAdapter(RecyclerView recyclerView, DaysOfWeek dayOfWeek){
         if(MainActivity.presenter.getUser() instanceof Client) {
             ExerciseListViewAdapter exerciseListViewAdapter =
                   new ExerciseListViewAdapter(

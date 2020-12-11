@@ -23,7 +23,7 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
 
     private static final String TAG = "CreateExercise";
     private String[] weekDays;
-    private DayOfWeek dayOfWeek = null;
+    private DaysOfWeek dayOfWeek = null;
     private boolean changingExercise = false;
     private Exercise sendingExercise = null;
     private List<String> exerciseNameList;
@@ -116,15 +116,10 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
             //AutoCompleteTextView editTextDayOfWeek = findViewById(R.id.edit_text_day_of_week_create_exercise);
             Spinner spinnerWeekDay = (Spinner) findViewById(R.id.spinner_day_of_week_create_exercise);
 
-            int indexDayOfWeek = -1;
-
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                indexDayOfWeek = exercise.getDaysOfWeek().getValue();
-            }
+            int indexDayOfWeek = exercise.getDaysOfWeek().getValue();
 
             if(indexDayOfWeek > 0) {
-                //editTextDayOfWeek.setText(weekDays[indexDayOfWeek - 1]);
-                spinnerWeekDay.setSelection(indexDayOfWeek - 1);
+                spinnerWeekDay.setSelection(indexDayOfWeek);
             }
 
             EditText editTextEmphasis = findViewById(R.id.edit_text_emphasis_create_exercise);
@@ -191,12 +186,11 @@ public class CreateExerciseActivity extends AppCompatActivity implements AutoFil
         editTextExerciseName.setAdapter(exerciseNameAdapter);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private boolean getDayOfWeek(String week){
         Log.i(TAG, "Called getDayOfWeek");
         for(int i = 0; i < weekDays.length; i++){
             if(week.equals(weekDays[i])){
-                dayOfWeek = DayOfWeek.of(i + 1);
+                dayOfWeek = DaysOfWeek.of(i);
                 Log.i(TAG, "DayOfWeek : " + dayOfWeek);
                 return true;
             }

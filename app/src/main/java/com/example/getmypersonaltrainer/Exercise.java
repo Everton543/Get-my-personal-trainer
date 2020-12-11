@@ -8,7 +8,7 @@ import java.time.DayOfWeek;
 
 public class Exercise {
    private String name;
-   private DayOfWeek daysOfWeek;
+   private DaysOfWeek daysOfWeek;
    private String emphasis;
    private String repetitionTime;
    private int series;
@@ -30,7 +30,7 @@ public class Exercise {
       this.observations = observations;
    }
 
-   public Exercise(String name, DayOfWeek dayOfWeek, String emphasis, String repetitionTime,
+   public Exercise(String name, DaysOfWeek dayOfWeek, String emphasis, String repetitionTime,
                    int series, String intervalBetweenSeries,
                    String intervalBetweenExercises, String videoLink, String observations) {
       this.name = name;
@@ -71,11 +71,11 @@ public class Exercise {
 
    public void setFree(boolean free) { this.free = free;}
 
-   public DayOfWeek getDaysOfWeek() {
+   public DaysOfWeek getDaysOfWeek() {
       return daysOfWeek;
    }
 
-   public void setDaysOfWeek(DayOfWeek dayOfWeek) {
+   public void setDaysOfWeek(DaysOfWeek dayOfWeek) {
       this.daysOfWeek = dayOfWeek;
    }
 
