@@ -14,6 +14,13 @@ public class Warnings {
       toast.show();
    }
 
+
+   public void sendingInvitationToClientSinceTheyHaveAPersonalTrainer(){
+      CharSequence text = "The client already has a personal trainer." +
+              " He/she will receive one invitation asking if " +
+              "he/she wants to change it.";
+      sendWarning(Toast.LENGTH_LONG, text);
+   }
    public void passwordNotEqualError(){
       Log.e(TAG, "Password not equal");
       CharSequence text = "Password not equal";

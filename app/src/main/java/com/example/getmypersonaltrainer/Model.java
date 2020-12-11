@@ -1,6 +1,7 @@
 package com.example.getmypersonaltrainer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
@@ -170,10 +171,13 @@ public class Model {
                .setValue(trainerId);
       }
       else if (invitationMessage.getSenderUserType() == UserTypes.CLIENT){
-         trainerId = invitationMessage.getReceiverId();
-         databaseReference.child(invitationMessage.getSenderId())
-               .child("personalTrainerId")
-               .setValue(trainerId);
+         presenter.setGetInfoFromDatabase(true);
+         presenter.setGoingTo(ReadInvitationMessageActivity.class);
+         presenter.setGoBack(ReadInvitationMessageActivity.class);
+         acceptInvitationFromClient(invitationMessage);
+         presenter.getActualActivity().startActivity(
+                 new Intent(presenter.getActualActivity(), LoadingActivity.class)
+         );
       }
 
       if(presenter.getUser() instanceof Client && trainerId != null){
@@ -184,6 +188,70 @@ public class Model {
 
       eraseInvitation(invitationMessage);
    }
+
+   public void acceptInvitationFromClient(final InvitationMessage invitationMessage){
+      Query query = database.getReference("Users")
+              .orderByChild("userId")
+              .equalTo(invitationMessage.getSenderId());
+
+      query.addValueEventListener(new ValueEventListener() {
+         @Override
+         public void onDataChange(@NonNull DataSnapshot snapshot) {
+            clients.clear();
+            boolean invitationAccepted = false;
+            if(snapshot.exists() && presenter.isGetInfoFromDatabase()) {
+               for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                  Client client = dataSnapshot.getValue(Client.class);
+                  clients.add(client);
+               }
+               //check if the client that send the invitation already has a personal trainer
+               //if the client has an personal trainer, then the personal trainer will be sending
+               //an invitation for the client, so that he/she can chose to remain with the
+               //same personal trainer or change.
+               if(clients.get(0).getPersonalTrainerId() != null){
+                  warnings.sendingInvitationToClientSinceTheyHaveAPersonalTrainer();
+
+                  InvitationMessage newInvitationMessage = new InvitationMessage(
+                    invitationMessage.getReceiverId(),
+                    invitationMessage.getSenderId(),
+                    UserTypes.PERSONAL_TRAINER
+                  );
+
+                  sendInvitationMessage(newInvitationMessage);
+               } else{
+                  //if the client doesn't have an personal trainer just
+                  //put the personal trainer ID in it
+                  databaseReference = database.getReference("Users");
+                  String trainerId = invitationMessage.getReceiverId();
+                  databaseReference.child(invitationMessage.getSenderId())
+                          .child("personalTrainerId")
+                          .setValue(trainerId);
+
+                  invitationAccepted = true;
+               }
+
+               if(invitationAccepted){
+                  if(presenter.getActualActivity() instanceof FastError){
+                     ((FastError) presenter.getActualActivity()).finishedCharge();
+                  }
+               }
+
+            }
+
+            if(invitationAccepted) {
+               presenter.setGetInfoFromDatabase(false);
+            }
+         }
+
+         @Override
+         public void onCancelled(@NonNull DatabaseError error) {
+
+         }
+      });
+
+   }
+
+
 
    public void eraseInvitation(final InvitationMessage invitationMessage){
       presenter.getUser().getInvitationMessage().remove(invitationMessage.getSenderId());

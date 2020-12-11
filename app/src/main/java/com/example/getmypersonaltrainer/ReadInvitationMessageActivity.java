@@ -26,10 +26,10 @@ public class ReadInvitationMessageActivity extends AppCompatActivity {
       setContentView(R.layout.activity_read_invitation_message);
       MainActivity.presenter.setActualActivity(this);
 
-      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
       ActionBar actionBar = getSupportActionBar();
       assert actionBar != null;
       actionBar.setTitle(R.string.read_invitation_message_title);
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
       MainActivity.presenter.getUser().setReceivedInvitation(false);
 
@@ -86,7 +86,6 @@ public class ReadInvitationMessageActivity extends AppCompatActivity {
             new DialogInterface.OnClickListener() {
                public void onClick(DialogInterface dialog,
                                    int which) {
-                  Log.i(TAG, "Yes pressed");
                   MainActivity.presenter.getModel().acceptInvitation(invitationMessage);
                }
             });

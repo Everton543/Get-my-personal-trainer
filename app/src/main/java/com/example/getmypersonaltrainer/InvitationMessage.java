@@ -20,6 +20,23 @@ public class InvitationMessage {
       createInvitationMessage();
    }
 
+   public InvitationMessage(String senderId,
+                            String receiverId,UserTypes senderUserType){
+      this.senderId = senderId;
+      this.receiverId = receiverId;
+      this.senderUserType = senderUserType;
+
+      createMessageReply();
+   }
+
+   private void createMessageReply(){
+      invitationMessage = "The personal trainer";
+      invitationMessage += " that has the ID: " + senderId;
+      invitationMessage += " accepted your invitation for be a member of his group.";
+      invitationMessage += " Do you want to change from your personal trainer to this one?";
+   }
+
+
    public InvitationMessage() { }
 
    public InvitationMessage(String senderId, String receiverId, String senderName, UserTypes senderUserType, String phone) {
