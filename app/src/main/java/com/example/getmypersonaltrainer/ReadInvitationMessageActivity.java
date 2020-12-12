@@ -86,6 +86,10 @@ public class ReadInvitationMessageActivity extends AppCompatActivity {
             new DialogInterface.OnClickListener() {
                public void onClick(DialogInterface dialog,
                                    int which) {
+                  if(MainActivity.presenter.getUser() instanceof Client)
+                  MainActivity.presenter.getModel().deleteClientExercises((Client)
+                          MainActivity.presenter.getUser()
+                  );
                   MainActivity.presenter.getModel().acceptInvitation(invitationMessage);
                }
             });
