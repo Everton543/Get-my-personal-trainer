@@ -34,7 +34,7 @@ public class ExerciseInfoActivity extends AppCompatActivity {
             String videoLink = exercise.getVideoLink();
             String observations = exercise.getObservations();
 
-    
+
             TextView textView;
 
             //name
@@ -46,7 +46,7 @@ public class ExerciseInfoActivity extends AppCompatActivity {
             //objective
             textView = findViewById(R.id.text_exercise_emphasis_exercise_info_activity);
             textView.setText(emphasis);
-            //repitions
+            //repetitions
             textView = findViewById(R.id.text_exercise_repetition_exercise_info_activity);
             textView.setText(repetitionTime);
             //series
@@ -55,7 +55,7 @@ public class ExerciseInfoActivity extends AppCompatActivity {
             //interval
             textView = findViewById(R.id.text_series_interval_exercise_info_activity);
             textView.setText(intervalBetweenSeries);
-            //intervalforex
+            //interval for exercise
             textView = findViewById(R.id.text_exercise_interval_exercise_info_activity);
             textView.setText(intervalBetweenExercises);
             //videolink
