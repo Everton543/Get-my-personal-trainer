@@ -30,11 +30,11 @@ public class ExerciseInfoActivity extends AppCompatActivity {
             int numSeries = exercise.getSeries();
             String series = String.valueOf(numSeries);
             String intervalBetweenSeries = exercise.getIntervalBetweenSeries();
-            String intervalBetweenExercises = exercise.getIntervalBetweenSeries();
+            String intervalBetweenExercises = exercise.getIntervalBetweenExercises();
             String videoLink = exercise.getVideoLink();
             String observations = exercise.getObservations();
 
-
+    
             TextView textView;
 
             //name
