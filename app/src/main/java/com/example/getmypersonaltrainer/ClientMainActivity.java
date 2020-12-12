@@ -46,6 +46,11 @@ public class ClientMainActivity extends AppCompatActivity implements FastError{
                 textView.setText(invitationText);
                 textView.setVisibility(View.VISIBLE);
             }
+
+            if(((Client) MainActivity.presenter.getUser()).getPersonalTrainerId() == null
+            || ((Client) MainActivity.presenter.getUser()).getPersonalTrainerId().equals("")){
+                noPersonalTrainer();
+            }
         }
 
         if(exerciseListRecyclerView.size() < 1) {
@@ -71,6 +76,16 @@ public class ClientMainActivity extends AppCompatActivity implements FastError{
             exerciseListRecyclerView.add(fridayView);
             exerciseListRecyclerView.add(saturdayView);
         }
+    }
+
+
+    private void noPersonalTrainer(){
+        TextView textView = findViewById(R.id.text_no_personal_trainer);
+        String noTrainerText = getString(R.string.no_personal_trainer);
+        noTrainerText += " " + getString(R.string.item_find_all_personal_trainer);
+
+        textView.setText(noTrainerText);
+        textView.setVisibility(View.VISIBLE);
     }
 
     private void setRecyclerViewAdapter(RecyclerView recyclerView, DaysOfWeek dayOfWeek){

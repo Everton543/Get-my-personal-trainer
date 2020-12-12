@@ -113,6 +113,10 @@ public class Presenter {
          personalTrainer.setReceivedInvitation(
                  getUser().getReceivedInvitation()
          );
+
+         personalTrainer.setInvitationMessage(
+                 getUser().getInvitationMessage()
+         );
       }
       setUser(personalTrainer);
    }

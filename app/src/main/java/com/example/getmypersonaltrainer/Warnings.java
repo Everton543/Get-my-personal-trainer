@@ -84,7 +84,7 @@ public class Warnings {
    }
 
    public void invitationGotSend(){
-      CharSequence text = "The member received yours invitation";
+      CharSequence text = "He/she received yours invitation";
       sendWarning(Toast.LENGTH_SHORT, text);
    }
 
