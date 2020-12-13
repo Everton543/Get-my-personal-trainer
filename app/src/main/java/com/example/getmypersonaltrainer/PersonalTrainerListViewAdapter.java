@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -35,6 +34,30 @@ class PersonalTrainerListViewAdapter extends FirebaseRecyclerAdapter <PersonalTr
             holder.score.setText(model.takeAverageScore());
         }
 
+        holder.send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.presenter.setGoBack(AllPersonalTrainerListResultActivity.class);
+                MainActivity.presenter.setGoingTo(AllPersonalTrainerListResultActivity.class);
+                MainActivity.presenter.setGetInfoFromDatabase(true);
+
+                if(MainActivity.presenter.getUser() instanceof Client) {
+                    InvitationMessage invitationMessage = new InvitationMessage(
+                            MainActivity.presenter.getUser().getUserId(),
+                            model.getUserId(),
+                            MainActivity.presenter.getUser().getName(),
+                            UserTypes.CLIENT,
+                            ((Client) MainActivity.presenter.getUser()).getPhone()
+                    );
+
+                    MainActivity.presenter.getModel().sendInvitationMessage(
+                            invitationMessage
+                    );
+                }
+                Intent intent = new Intent(MainActivity.presenter.getActualActivity(), LoadingActivity.class);
+                MainActivity.presenter.getActualActivity().startActivity(intent);
+            }
+        });
     }
 
     @NonNull
@@ -52,11 +75,6 @@ class PersonalTrainerListViewAdapter extends FirebaseRecyclerAdapter <PersonalTr
         Button send;
 
         public PersonalTrainerListViewHolder(@NonNull View itemView) {
-//            text_name_personal_trainer
-//                    text_id_personal_trainer
-//            text_score_personal_trainer
-//                    button_send_invitation
-
             super(itemView);
             id = itemView.findViewById(R.id.text_id_personal_trainer);
             name = itemView.findViewById(R.id.text_name_personal_trainer);
