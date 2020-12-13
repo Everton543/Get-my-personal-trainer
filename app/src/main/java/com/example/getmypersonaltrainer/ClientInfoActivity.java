@@ -28,8 +28,8 @@ public class ClientInfoActivity extends AppCompatActivity {
     private void putClientInfo(Client client){
         String name = client.getName();
         String age = String.valueOf(client.takeAge());
-        String bodyMass = String.valueOf(client.getBodyMass());
-        String height = String.valueOf(client.getSize());
+        String bodyMass = MainActivity.decimalFormat.format(client.getBodyMass());
+        String height = MainActivity.decimalFormat.format(client.getSize());
         String phone = client.getPhone();
 
         TextView textViewName = findViewById(R.id.text_client_name_client_info_activity);

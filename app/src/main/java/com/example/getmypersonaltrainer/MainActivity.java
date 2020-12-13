@@ -11,6 +11,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
    public class MainActivity extends AppCompatActivity implements LoginInterface, FastError{
       final static String PREFERENCES = "SharedPreference";
       final static String USER_ID = "userId";
@@ -21,6 +24,7 @@ import android.widget.EditText;
       static final int invalidPassword = 3;
       static final int invalidID = 4;
       private static final String TAG = "MyActivity";
+      static final DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
       private String logId = null;
 
@@ -38,6 +42,7 @@ import android.widget.EditText;
          presenter.resetValues();
          presenter.setActualActivity(this);
 
+         decimalFormat.setRoundingMode(RoundingMode.UP);
          SharedPreferences sharedPreferences;
          sharedPreferences = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
 

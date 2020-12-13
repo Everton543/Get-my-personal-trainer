@@ -194,11 +194,16 @@ public class ChangeClientInfoActivity extends AppCompatActivity {
             );
 
             EditText editTextHeight = findViewById(R.id.edit_text_size_change_client_info);
-            String height = String.valueOf(((Client) MainActivity.presenter.getUser()).getSize());
+            String height = MainActivity.decimalFormat.format(
+                    ((Client) MainActivity.presenter.getUser()).getSize()
+            );
             editTextHeight.setText(height);
 
             EditText editTextBodyMass = findViewById(R.id.edit_text_weight_change_client_info);
-            String bodyMass = String.valueOf(((Client) MainActivity.presenter.getUser()).getBodyMass());
+            String bodyMass = MainActivity.decimalFormat.format(
+                    ((Client) MainActivity.presenter.getUser())
+                            .getBodyMass()
+            );
             editTextBodyMass.setText(bodyMass);
 
             String birthDateText = ((Client) MainActivity.presenter.getUser()).getBirthDate();
