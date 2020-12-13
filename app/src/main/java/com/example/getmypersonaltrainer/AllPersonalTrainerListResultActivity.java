@@ -9,7 +9,7 @@ import android.os.Bundle;
 public class AllPersonalTrainerListResultActivity extends AppCompatActivity {
 
    private PersonalTrainerListViewAdapter personalTrainerListViewAdapter = null;
-   private RecyclerView personalTrainerRecyclerView= null;
+   private RecyclerView personalTrainerRecyclerView = null;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -21,9 +21,27 @@ public class AllPersonalTrainerListResultActivity extends AppCompatActivity {
       actionBar.setTitle(R.string.personal_trainer_list_title);
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-      personalTrainerListViewAdapter = new PersonalTrainerListViewAdapter(MainActivity.presenter.getModel().getAllPersonalTrainers());
+      personalTrainerRecyclerView = findViewById(R.id.recycler_view_personal_trainer_list);
+      adapter = new PersonalTrainerListViewAdapter(
+        MainActivity.presenter.getModel().getAllPersonalTrainers()
+      );
+      personalTrainerRecyclerView.setAdapter(adapter);
+      personalTrainerRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+   }
+   
+   @Override
+   protected void onStart() {
+      super.onStart();
+      if(personalTrainerListViewAdapter != null) {
+         personalTrainerListViewAdapter.startListening();
+      }
+   }
 
-
-      //todo create the PersonalTrainerListViewAdapter
+   @Override
+   protected void onStop() {
+      super.onStop();
+      if(personalTrainerListViewAdapter != null) {
+         personalTrainerListViewAdapter.stopListening();
+      }
    }
 }
