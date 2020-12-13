@@ -84,6 +84,7 @@
     <string name="item_my_home">My Home Screen</string>
 
     //Buttons
+    <string name="button_ask_to_be_part_of_the_group">Ask for he/she train you</string>
     <string name="button_confirm">Confirm</string>
     <string name="button_declaim">Declaim</string>
     <string name="button_login">Login</string>
