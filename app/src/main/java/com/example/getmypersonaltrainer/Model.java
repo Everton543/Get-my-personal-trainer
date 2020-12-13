@@ -217,6 +217,7 @@ public class Model {
                     UserTypes.PERSONAL_TRAINER
                   );
 
+                  presenter.setGetInfoFromDatabase(true);
                   sendInvitationMessage(newInvitationMessage);
                } else{
                   //if the client doesn't have an personal trainer just
@@ -240,6 +241,10 @@ public class Model {
 
             if(invitationAccepted) {
                presenter.setGetInfoFromDatabase(false);
+
+               if(presenter.getActualActivity() instanceof LoadingActivity){
+                  ((LoadingActivity) presenter.getActualActivity()).stuckAtLoadingActivity();
+               }
             }
          }
 
@@ -374,13 +379,13 @@ public class Model {
       return false;
    }
 
-   public void sendInvitationMessage(final InvitationMessage invitationMessage){
+   public void sendInvitationMessage(final InvitationMessage invitationMessage) {
       Log.i(TAG, "Call sendInvitationMessage with the id = " + invitationMessage.getReceiverId());
 
-      if(validateInfo.checkId(invitationMessage.getReceiverId())) {
+      if (validateInfo.checkId(invitationMessage.getReceiverId())) {
          Query query = database.getReference("Users")
-               .orderByChild("userId")
-               .equalTo(invitationMessage.getReceiverId());
+                 .orderByChild("userId")
+                 .equalTo(invitationMessage.getReceiverId());
 
          query.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -388,36 +393,34 @@ public class Model {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                Log.i(TAG, "onDataChange from sendInvitationToClient");
                if (snapshot.exists() && presenter.isGetInfoFromDatabase()) {
-                  if(invitationMessage.getSenderUserType() == UserTypes.PERSONAL_TRAINER) {
+                  if (invitationMessage.getSenderUserType() == UserTypes.PERSONAL_TRAINER) {
                      clients.clear();
                      for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         Client client = dataSnapshot.getValue(Client.class);
                         clients.add(client);
                      }
 
-                     if(clients.get(0).getUserType() == UserTypes.CLIENT){
+                     if (clients.get(0).getUserType() == UserTypes.CLIENT) {
                         clients.get(0).setReceivedInvitation(true);
                         clients.get(0).addNewInvitationMessage(invitationMessage);
 
                         updateClient(clients.get(0));
 
-                        if(presenter.getActualActivity() instanceof FastError){
+                        if (presenter.getActualActivity() instanceof FastError) {
                            ((FastError) presenter.getActualActivity()).finishedCharge();
                         }
-                           
+
                         warnings.invitationGotSend();
-                     }else{
-                        if(presenter.getActualActivity() instanceof FastError){
+                     } else {
+                        if (presenter.getActualActivity() instanceof FastError) {
                            ((FastError) presenter.getActualActivity()).finishedCharge();
-                        }                        
-                        
+                        }
+
                         warnings.errorUserDoesNotExists();
                      }
 
-                  }
-                  else if (invitationMessage.getSenderUserType() == UserTypes.CLIENT &&
-                          presenter.isGetInfoFromDatabase())
-                  {
+                  } else if (invitationMessage.getSenderUserType() == UserTypes.CLIENT &&
+                          presenter.isGetInfoFromDatabase()) {
 
                      personalTrainers.clear();
                      for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
@@ -439,16 +442,12 @@ public class Model {
                      }
                   }
 
-               }
-
-               else if (presenter.isGetInfoFromDatabase()){
-                  if(presenter.getActualActivity() instanceof FastError){
+               } else if (presenter.isGetInfoFromDatabase()) {
+                  if (presenter.getActualActivity() instanceof FastError) {
                      ((FastError) presenter.getActualActivity()).loadingError();
                   }
                   warnings.errorUserDoesNotExists();
-               }
-
-               else if(presenter.getActualActivity() instanceof LoadingActivity){
+               } else if (presenter.getActualActivity() instanceof LoadingActivity) {
                   ((LoadingActivity) presenter.getActualActivity()).stuckAtLoadingActivity();
                }
                presenter.setGetInfoFromDatabase(false);
@@ -459,9 +458,8 @@ public class Model {
 
             }
          });
-      }
-      else {
-         if(presenter.getActualActivity() instanceof FastError){
+      } else {
+         if (presenter.getActualActivity() instanceof FastError) {
             ((FastError) presenter.getActualActivity()).loadingError();
          }
          warnings.errorUserDoesNotExists();

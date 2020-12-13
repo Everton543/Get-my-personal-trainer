@@ -1,5 +1,6 @@
 package com.example.getmypersonaltrainer;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
-class PersonalTrainerListViewAdapter extends FirebaseRecyclerAdapter <PersonalTrainer, PersonalTrainerListViewAdapter.PersonalTrainerListViewHolder> {
+class PersonalTrainerListViewAdapter extends FirebaseRecyclerAdapter<
+        PersonalTrainer,
+        PersonalTrainerListViewAdapter.PersonalTrainerListViewHolder> {
 
 
 
@@ -27,11 +30,13 @@ class PersonalTrainerListViewAdapter extends FirebaseRecyclerAdapter <PersonalTr
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull PersonalTrainerListViewAdapter.PersonalTrainerListViewHolder holder, int position, @NonNull PersonalTrainer model) {
+    protected void onBindViewHolder(@NonNull PersonalTrainerListViewAdapter.PersonalTrainerListViewHolder holder,
+                                    int position, @NonNull final PersonalTrainer model) {
         holder.id.setText(model.getUserId());
         holder.name.setText(model.getName());
         if (model.getVoteQuantity() > 0){
-            holder.score.setText(model.takeAverageScore());
+            String score = String.valueOf(model.takeAverageScore());
+            holder.score.setText(score);
         }
 
         holder.send.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +73,7 @@ class PersonalTrainerListViewAdapter extends FirebaseRecyclerAdapter <PersonalTr
         return new PersonalTrainerListViewHolder(view);
     }
 
-    public class PersonalTrainerListViewHolder extends RecyclerView.ViewHolder {
+    public static class PersonalTrainerListViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         TextView id;
         TextView score;

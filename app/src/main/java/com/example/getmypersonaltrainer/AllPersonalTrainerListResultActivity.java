@@ -2,6 +2,7 @@ package com.example.getmypersonaltrainer;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -15,6 +16,7 @@ public class AllPersonalTrainerListResultActivity extends AppCompatActivity {
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_all_personal_trainer_list_result);
+      MainActivity.presenter.setActualActivity(this);
 
       ActionBar actionBar = getSupportActionBar();
       assert actionBar != null;
@@ -22,10 +24,10 @@ public class AllPersonalTrainerListResultActivity extends AppCompatActivity {
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
       personalTrainerRecyclerView = findViewById(R.id.recycler_view_personal_trainer_list);
-      adapter = new PersonalTrainerListViewAdapter(
+      personalTrainerListViewAdapter = new PersonalTrainerListViewAdapter(
         MainActivity.presenter.getModel().getAllPersonalTrainers()
       );
-      personalTrainerRecyclerView.setAdapter(adapter);
+      personalTrainerRecyclerView.setAdapter(personalTrainerListViewAdapter);
       personalTrainerRecyclerView.setLayoutManager(new LinearLayoutManager(this));
    }
    
